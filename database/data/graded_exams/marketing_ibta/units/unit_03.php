@@ -454,7 +454,7 @@ return [
             'level' => 'easy',
             'question_type' => 'mcq',
             'text_ar' => 'أي من الخيارات التالية يتضمن العناصر الأربعة الرئيسية لخطة التسويق؟',
-            'explanation_ar' => 'تعتبر عناصر المزيج التسويقي الأربعة (4Ps) هي: المنتج (Product)، السعر (Price)، المكان/التوزيع (Place)، الترويج (Promotion). ولا يوجد أي خيار من الثلاثة الأولى يذكر هذه العناصر الأربعة بالصيغة الصحيحة والكاملة؛ لذلك تكون الإجابة الصحيحة هي: لا شيء مما سبق ذكره. راجع الوحدة الثالثة: تطوير خطة التسويق – المزيج التسويقي (4Ps)، ص: 45.',
+            'explanation_ar' => 'تعتبر عناصر المزيج التسويقي الأربعة (4Ps) هي: المنتج (Product)، السعر (Price)، المكان/التوزيع (Place)، الترويج (Promotion). لذلك تكون الإجابة الصحيحة هي: ج. راجع الوحدة الثالثة: تطوير خطة التسويق – المزيج التسويقي (4Ps)، ص: 45.',
             'is_multi_correct' => false,
             'order_index' => 15,
             'options' => [
@@ -469,18 +469,18 @@ return [
                     'is_correct' => false,
                 ],
                 [
-                    'option_text_ar' => 'ج) المنتج، مكان التسويق، السعر، والترويج للخطة.',
+                    'option_text_ar' => 'ج) المنتج، مكان التسويق، السعر، والترويج.',
                     'order_index' => 3,
-                    'is_correct' => false,
+                    'is_correct' => true,
                 ],
                 [
                     'option_text_ar' => 'د) لا شيء مما سبق ذكره.',
                     'order_index' => 4,
-                    'is_correct' => true,
+                    'is_correct' => false,
                 ],
             ],
         ],
-        [
+       [
             'original_number' => 83,
             'level' => 'hard',
             'question_type' => 'mcq',
@@ -508,6 +508,11 @@ return [
                     'option_text_ar' => 'د) كيفية إيجاد العملاء أو الحفاظ عليهم.',
                     'order_index' => 4,
                     'is_correct' => true,
+                ],
+                [
+                    'option_text_ar' => 'هـ) كيفية إعداد رواتب الموظفين؟',
+                    'order_index' => 5,
+                    'is_correct' => false,
                 ],
             ],
         ],

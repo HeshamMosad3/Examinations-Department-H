@@ -971,22 +971,22 @@ return [
             'order_index' => 35,
             'options' => [
                 [
-                    'option_text_ar' => 'Excel وWord وAccess',
+                    'option_text_ar' => 'Excel & Word & Access',
                     'order_index' => 1,
                     'is_correct' => false,
                 ],
                 [
-                    'option_text_ar' => 'Facebook وTwitter وLinkedIn',
+                    'option_text_ar' => 'Facebook & Twitter & LinkedIn',
                     'order_index' => 2,
                     'is_correct' => true,
                 ],
                 [
-                    'option_text_ar' => 'HTML وCSS وXML',
+                    'option_text_ar' => 'HTML & CSS & XML',
                     'order_index' => 3,
                     'is_correct' => false,
                 ],
                 [
-                    'option_text_ar' => 'Google وAmazon وIBM',
+                    'option_text_ar' => 'Google & Amazon & IBM',
                     'order_index' => 4,
                     'is_correct' => false,
                 ],

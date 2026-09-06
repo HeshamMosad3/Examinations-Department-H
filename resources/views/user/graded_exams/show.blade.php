@@ -1200,6 +1200,28 @@ main {
     </div>
   </div>
 
+  <!-- Flag Confirmation Modal (Review Flagged Queue) -->
+  <div class="modal-overlay" id="confirm-flag-modal">
+    <div class="modal-card">
+      <div class="modal-icon-wrap" style="background-color: var(--orangeTint);">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+          <rect height="4" rx="1" ry="1" width="8" x="8" y="2" />
+          <path d="M9.5 10.5C9.5 9 10.5 8 12 8s2.5 1 2.5 2.5c0 1.5-1.5 2-1.5 3" />
+          <circle cx="12" cy="17" fill="currentColor" r=".5" stroke="none" />
+        </svg>
+      </div>
+      <div class="modal-title">تأكيد الإجابة</div>
+      <div class="modal-body">
+        هل تود تأكيد هذه الإجابة؟ لو أكدت، هيتم إلغاء تعليم المراجعة عن السؤال.
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="modal-cancel-btn" id="btn-confirm-flag-no">لا</button>
+        <button type="button" class="modal-confirm-btn" id="btn-confirm-flag-yes">نعم</button>
+      </div>
+    </div>
+  </div>
+
 </div>
 @endsection
 
@@ -1214,6 +1236,9 @@ $(document).ready(function() {
     let flags = {};
     let reviewQueueIds = null;
     let reviewQueuePos = 0;
+    let reviewQueueType = null; // 'flagged' | 'unanswered' | null
+    let flagReviewSnapshots = {}; // idx -> answer snapshot captured when a flagged question is opened in review mode
+    let pendingFlagIdx = null; // question idx awaiting the "confirm answer" modal decision
 
     // View States
     // view: 'question' | 'review'
@@ -1229,6 +1254,13 @@ $(document).ready(function() {
         return checkedCount > 0;
     }
 
+    function getAnswerSnapshot(idx) {
+        let card = $(`.question-card[data-index="${idx}"]`);
+        let vals = card.find('.option-input:checked').map(function() { return $(this).val(); }).get();
+        vals.sort();
+        return vals.join(',');
+    }
+
     function syncState() {
         answers = {};
         for(let i=0; i<totalQuestions; i++) {
@@ -1236,6 +1268,22 @@ $(document).ready(function() {
                 answers[i] = true;
             }
         }
+    }
+
+    // بيحدث حالة العلامة (flag) لسؤال معيّن، وبيزامن شكل زرار "علّم للمراجعة"
+    // لو السؤال ده هو الظاهر دلوقتي على الشاشة
+    function setFlag(idx, value) {
+        flags[idx] = value;
+        let starBtn = $(`.btn-mark-star[data-index="${idx}"]`);
+        let starLabel = starBtn.find('.mark-label');
+        if (value) {
+            starBtn.addClass('flagged');
+            starLabel.text('معلّم للمراجعة');
+        } else {
+            starBtn.removeClass('flagged');
+            starLabel.text('علّم السؤال للمراجعة');
+        }
+        updateQuestionMap();
     }
 
     function updateQuestionMap() {
@@ -1351,6 +1399,12 @@ $(document).ready(function() {
             starLabel.text('علّم السؤال للمراجعة');
         }
 
+        // لو داخلين في جولة مراجعة "الأسئلة المعلّمة"، نسجّل حالة الإجابة الحالية
+        // عشان نقدر نعرف بعدين لما يدوس "التالي" هل غيّرها ولا لأ
+        if (reviewQueueIds && reviewQueueType === 'flagged') {
+            flagReviewSnapshots[idx] = getAnswerSnapshot(idx);
+        }
+
         updateQuestionMap();
         window.scrollTo({top: 0});
     }
@@ -1359,19 +1413,7 @@ $(document).ready(function() {
     // وعشان الأرقام تتحدث فورًا لحظة بلحظة مع كل تعليم/إلغاء تعليم)
     $(document).on('click', '.btn-mark-star', function() {
         let idx = $(this).data('index');
-        flags[idx] = !flags[idx];
-        
-        let link = $(this);
-        let label = link.find('.mark-label');
-
-        if (flags[idx]) {
-            link.addClass('flagged');
-            label.text('معلّم للمراجعة');
-        } else {
-            link.removeClass('flagged');
-            label.text('علّم السؤال للمراجعة');
-        }
-        updateQuestionMap();
+        setFlag(idx, !flags[idx]);
     });
 
     // Options Selection Visuals (event delegation لنفس السبب: تحديث فوري
@@ -1396,7 +1438,8 @@ $(document).ready(function() {
     });
 
     // Navigation
-    $('#btn-next').on('click', function() {
+    // بيكمّل فعليًا لخطوة "التالي" (بعد ما أي تحقق خاص بوضع مراجعة الأسئلة المعلّمة يخلص)
+    function proceedNext() {
         if (reviewQueueIds) {
             if (reviewQueuePos < reviewQueueIds.length - 1) {
                 reviewQueuePos++;
@@ -1404,6 +1447,7 @@ $(document).ready(function() {
             } else {
                 // Exit queue
                 reviewQueueIds = null;
+                reviewQueueType = null;
                 showReviewScreen();
             }
         } else {
@@ -1413,6 +1457,45 @@ $(document).ready(function() {
                 showReviewScreen();
             }
         }
+    }
+
+    $('#btn-next').on('click', function() {
+        // السلوك الخاص بيشتغل بس جوه جولة مراجعة "الأسئلة المعلّمة"
+        if (reviewQueueIds && reviewQueueType === 'flagged') {
+            let idx = currentIndex;
+            if (flags[idx]) {
+                let currentSnapshot = getAnswerSnapshot(idx);
+                let initialSnapshot = flagReviewSnapshots[idx];
+
+                if (currentSnapshot !== initialSnapshot) {
+                    // غيّر الإجابة -> تتشال العلامة تلقائي وينتقل عادي
+                    setFlag(idx, false);
+                    proceedNext();
+                } else {
+                    // مغيرش الإجابة -> اسأله تأكيد قبل ما يكمل
+                    pendingFlagIdx = idx;
+                    $('#confirm-flag-modal').css('display', 'flex');
+                }
+                return;
+            }
+        }
+        proceedNext();
+    });
+
+    $('#btn-confirm-flag-yes').on('click', function() {
+        $('#confirm-flag-modal').css('display', 'none');
+        if (pendingFlagIdx !== null) {
+            setFlag(pendingFlagIdx, false);
+            pendingFlagIdx = null;
+        }
+        proceedNext();
+    });
+
+    $('#btn-confirm-flag-no').on('click', function() {
+        $('#confirm-flag-modal').css('display', 'none');
+        // العلامة تفضل زي ما هي، ويكمل للسؤال اللي بعده عادي
+        pendingFlagIdx = null;
+        proceedNext();
     });
 
     $('#btn-prev').on('click', function() {
@@ -1430,11 +1513,13 @@ $(document).ready(function() {
 
     $('#btn-finish-exam').on('click', function() {
         reviewQueueIds = null;
+        reviewQueueType = null;
         showReviewScreen();
     });
 
     $('#btn-exit-queue').on('click', function() {
         reviewQueueIds = null;
+        reviewQueueType = null;
         showReviewScreen();
     });
 
@@ -1450,6 +1535,7 @@ $(document).ready(function() {
         let idx = $(this).data('map-index');
         $('#nav-sheet').css('display', 'none');
         reviewQueueIds = null; // drop out of queue if map used
+        reviewQueueType = null;
         $('#view-review').addClass('hidden');
         $('#view-question').removeClass('hidden');
         showQuestion(idx);
@@ -1479,6 +1565,7 @@ $(document).ready(function() {
         if (q.length) {
             reviewQueueIds = q;
             reviewQueuePos = 0;
+            reviewQueueType = 'unanswered';
             $('#view-review').addClass('hidden');
             $('#view-question').removeClass('hidden');
             showQuestion(reviewQueueIds[0]);
@@ -1490,6 +1577,7 @@ $(document).ready(function() {
         if (q.length) {
             reviewQueueIds = q;
             reviewQueuePos = 0;
+            reviewQueueType = 'flagged';
             $('#view-review').addClass('hidden');
             $('#view-question').removeClass('hidden');
             showQuestion(reviewQueueIds[0]);
@@ -1498,6 +1586,7 @@ $(document).ready(function() {
 
     $('#row-review-all').on('click', function() {
         reviewQueueIds = null;
+        reviewQueueType = null;
         $('#view-review').addClass('hidden');
         $('#view-question').removeClass('hidden');
         showQuestion(0);
@@ -1505,6 +1594,7 @@ $(document).ready(function() {
 
     $('#btn-return-from-review').on('click', function() {
         reviewQueueIds = null;
+        reviewQueueType = null;
         $('#view-review').addClass('hidden');
         $('#view-question').removeClass('hidden');
         showQuestion(currentIndex);
