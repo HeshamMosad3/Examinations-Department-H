@@ -762,40 +762,56 @@ main {
 .v-hidden { visibility: hidden !important; }
 
 /* ---------------------------------------------------------------------
- * Custom thin scrollbars
- * (dir="rtl" على app-shell بيخلي أي سكرول بار يظهر على شمال الشاشة
- *  بالشكل الافتراضي السميك/الغامق. هنا بنستبدله بشريط رفيع فاتح
- *  يناسب تصميم الشاشة بدل الخط البني اللي كان بيظهر) 
+ * Hide scrollbars completely
+ * إخفاء شريط التمرير وأي خط جانبي/بني نهائياً مع الحفاظ على إمكانية التمرير بسلاسة
  * --------------------------------------------------------------------- */
+*,
 .scroll-area,
 .page-centered,
 .review-main,
 .q-grid,
 .sheet-content {
-  scrollbar-width: thin;
-  scrollbar-color: #D7DEEA transparent;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
 }
+*::-webkit-scrollbar,
 .scroll-area::-webkit-scrollbar,
 .page-centered::-webkit-scrollbar,
 .review-main::-webkit-scrollbar,
 .q-grid::-webkit-scrollbar,
 .sheet-content::-webkit-scrollbar {
-  width: 4px;
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
 }
+*::-webkit-scrollbar-track,
 .scroll-area::-webkit-scrollbar-track,
 .page-centered::-webkit-scrollbar-track,
 .review-main::-webkit-scrollbar-track,
 .q-grid::-webkit-scrollbar-track,
 .sheet-content::-webkit-scrollbar-track {
-  background: transparent;
+  display: none !important;
+  background: transparent !important;
 }
+*::-webkit-scrollbar-thumb,
 .scroll-area::-webkit-scrollbar-thumb,
 .page-centered::-webkit-scrollbar-thumb,
 .review-main::-webkit-scrollbar-thumb,
 .q-grid::-webkit-scrollbar-thumb,
 .sheet-content::-webkit-scrollbar-thumb {
-  background-color: #D7DEEA;
-  border-radius: 10px;
+  display: none !important;
+  background: transparent !important;
+}
+*::-webkit-scrollbar-button,
+.scroll-area::-webkit-scrollbar-button,
+.page-centered::-webkit-scrollbar-button,
+.review-main::-webkit-scrollbar-button,
+.q-grid::-webkit-scrollbar-button,
+.sheet-content::-webkit-scrollbar-button {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 
 /* Status cell styles */
