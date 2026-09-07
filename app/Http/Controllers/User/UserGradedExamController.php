@@ -92,6 +92,18 @@ class UserGradedExamController extends Controller
                 ->first();
 
             if ($activeSession) {
+                // Check if this session's time has already expired
+                if ($exam->time_limit_min > 0) {
+                    $elapsed = now()->diffInSeconds($activeSession->started_at);
+                    if ($elapsed > ($exam->time_limit_min * 60) + 60) {
+                        // Expired! Close it silently.
+                        $activeSession->update(['status' => 'completed', 'score' => 0]);
+                        $activeSession = null; // Proceed to create a new session
+                    }
+                }
+            }
+            
+            if ($activeSession) {
                 return redirect()->route('user.graded_exams.show', $activeSession->id);
             }
         }
@@ -121,6 +133,17 @@ class UserGradedExamController extends Controller
 
         if ($session->status !== 'in_progress') {
             return redirect()->route('user.graded_exams.result', $session->id);
+        }
+
+        $exam = $session->gradedExam;
+        if ($exam && $exam->time_limit_min > 0) {
+            $elapsed = now()->diffInSeconds($session->started_at);
+            if ($elapsed > ($exam->time_limit_min * 60) + 60) {
+                // Expired!
+                $session->update(['status' => 'completed', 'score' => 0]);
+                return redirect()->route('user.graded_exams.result', $session->id)
+                    ->with('error', 'لقد تجاوزت الوقت المحدد للامتحان وتم إلغاء الإجابات.');
+            }
         }
 
         $session->load(['sessionQuestions.question.options' => function ($q) {
