@@ -40,7 +40,9 @@ class UserGradedExamController extends Controller
             $timeText = implode(' و', $parts);
         }
 
-        return view('user.graded_exams.intro', compact('exam', 'timeText'));
+        $questionCount = $exam->constraintSettings ? $exam->constraintSettings->total_questions : $exam->total_questions;
+
+        return view('user.graded_exams.intro', compact('exam', 'timeText', 'questionCount'));
     }
 
     public function progress()
