@@ -21,6 +21,16 @@ class UserGradedExamController extends Controller
         return view('user.graded_exams.index', compact('exams'));
     }
 
+    /**
+     * صفحة تأكيد بدء الاختبار (بيانات الاختبار + التعليمات + الموافقة).
+     */
+    public function intro(GradedExam $exam)
+    {
+        $exam->loadMissing('constraintSettings');
+
+        return view('user.graded_exams.intro', compact('exam'));
+    }
+
     public function progress()
     {
         $userId = Auth::id();

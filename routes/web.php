@@ -41,6 +41,7 @@ Route::middleware(['auth', 'user'])->group(function () {
 Route::middleware(['auth'])->prefix('certificates')->name('user.graded_exams.')->group(function () {
     Route::get('/', [User\UserGradedExamController::class, 'index'])->name('index');
     Route::get('/progress', [User\UserGradedExamController::class, 'progress'])->name('progress');
+    Route::get('/{exam}/intro', [User\UserGradedExamController::class, 'intro'])->name('intro');
     Route::post('/{exam}/start', [User\UserGradedExamController::class, 'start'])->name('start');
     Route::get('/session/{session}', [User\UserGradedExamController::class, 'show'])->name('show');
     Route::post('/session/{session}/answer', [User\UserGradedExamController::class, 'answer'])->name('answer');
