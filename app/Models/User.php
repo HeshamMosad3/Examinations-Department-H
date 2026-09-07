@@ -30,9 +30,19 @@ class User extends Authenticatable
     {
         $pattern = '/_deleted_\d+$/';
         $originalEmail = preg_replace($pattern, '', $this->email);
+        $originalNationalId = $this->national_id ? preg_replace($pattern, '', $this->national_id) : null;
+        $originalPhone = $this->phone ? preg_replace($pattern, '', $this->phone) : null;
 
         if (static::where('email', $originalEmail)->whereNull('deleted_at')->where('id', '!=', $this->id)->exists()) {
-            throw new \Exception('لا يمكن استرجاع الحساب لوجود حساب نشط آخر بنفس البريد الإلكتروني.');
+            throw new \Exception('لا يمكن استرجاع هذا المستخدم لوجود مستخدم نشط آخر بنفس البريد الإلكتروني.');
+        }
+
+        if ($originalNationalId && static::where('national_id', $originalNationalId)->whereNull('deleted_at')->where('id', '!=', $this->id)->exists()) {
+            throw new \Exception('لا يمكن استرجاع هذا المستخدم لوجود مستخدم نشط آخر بنفس الرقم القومي.');
+        }
+
+        if ($originalPhone && static::where('phone', $originalPhone)->whereNull('deleted_at')->where('id', '!=', $this->id)->exists()) {
+            throw new \Exception('لا يمكن استرجاع هذا المستخدم لوجود مستخدم نشط آخر بنفس رقم الهاتف.');
         }
 
         return DB::transaction(fn () => parent::restore());

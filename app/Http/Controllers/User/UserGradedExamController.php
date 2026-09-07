@@ -140,6 +140,34 @@ class UserGradedExamController extends Controller
         if ($session->user_id !== Auth::id()) abort(403);
         if ($session->status !== 'in_progress') return redirect()->route('user.graded_exams.result', $session->id);
 
+        $exam = $session->gradedExam;
+        if ($exam && $exam->time_limit_min) {
+            $timeLimitSeconds = $exam->time_limit_min * 60;
+            $elapsedSeconds = $session->started_at->diffInSeconds(now());
+            // Add a grace period of 60 seconds for network latency/processing
+            if ($elapsedSeconds > ($timeLimitSeconds + 60)) {
+                $session->update([
+                    'status' => 'completed',
+                    'completed_at' => now(),
+                    'total_points_earned' => 0,
+                    'total_points_available' => $session->sessionQuestions->sum('points_available'),
+                    'score_percentage' => 0,
+                    'is_passed' => false,
+                ]);
+                
+                \Illuminate\Support\Facades\DB::table('graded_exam_session_questions')
+                    ->where('session_id', $session->id)
+                    ->update([
+                        'is_correct' => false,
+                        'points_earned' => 0,
+                        'selected_option_ids' => json_encode([])
+                    ]);
+
+                return redirect()->route('user.graded_exams.result', $session->id)
+                    ->with('error', 'لقد تجاوزت الوقت المحدد للامتحان وتم إلغاء الإجابات بسبب انتهاء الوقت.');
+            }
+        }
+
         $submittedAnswers = $request->input('answers', []);
 
         $session->load(['sessionQuestions.question.options']);

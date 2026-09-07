@@ -186,8 +186,9 @@ class CouponService
             }
         })->pluck('id');
 
-        return ExamSession::whereIn('user_id', $linkedUserIds)
+        return \Illuminate\Support\Facades\DB::table('coupon_user')
             ->where('coupon_id', $coupon->id)
-            ->count();
+            ->whereIn('user_id', $linkedUserIds)
+            ->sum('used_count');
     }
 }
