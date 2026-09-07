@@ -86,26 +86,15 @@ class UserGradedExamController extends Controller
         $userId = Auth::id();
 
         if ($userId) {
-            $activeSession = GradedExamSession::where('user_id', $userId)
+            // إغلاق أي جلسة سابقة غير مكتملة لتعتبر مهجورة، والبدء بمحاولة جديدة تماماً
+            // بحيث يبدأ توقيت الاختبار بالكامل من البداية عند الدخول مجدداً
+            GradedExamSession::where('user_id', $userId)
                 ->where('graded_exam_id', $exam->id)
                 ->where('status', 'in_progress')
-                ->first();
-
-            if ($activeSession) {
-                // Check if this session's time has already expired
-                if ($exam->time_limit_min > 0) {
-                    $elapsed = now()->diffInSeconds($activeSession->started_at);
-                    if ($elapsed > ($exam->time_limit_min * 60) + 60) {
-                        // Expired! Close it silently.
-                        $activeSession->update(['status' => 'completed', 'score' => 0]);
-                        $activeSession = null; // Proceed to create a new session
-                    }
-                }
-            }
-            
-            if ($activeSession) {
-                return redirect()->route('user.graded_exams.show', $activeSession->id);
-            }
+                ->update([
+                    'status' => 'abandoned',
+                    'completed_at' => now(),
+                ]);
         }
 
         try {
