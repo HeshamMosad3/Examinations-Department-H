@@ -211,7 +211,7 @@
 @media print {
     @page {
         size: A4 portrait;
-        margin: 5mm 8mm;
+        margin: 6mm 10mm;
     }
     html, body {
         background-color: #fff !important;
@@ -231,7 +231,7 @@
         max-width: 100% !important;
         width: 100% !important;
         margin: 0 auto !important;
-        zoom: 0.75 !important;
+        zoom: 0.96 !important;
     }
     * {
         -webkit-print-color-adjust: exact !important;
@@ -240,60 +240,61 @@
 
     /* Hero */
     .result-hero {
-        margin-bottom: 8px !important;
+        margin-bottom: 16px !important;
     }
     .result-hero h1 {
-        font-size: 1.25rem !important;
-        margin-bottom: 2px !important;
+        font-size: 1.55rem !important;
+        margin-bottom: 4px !important;
     }
     .result-hero p {
-        font-size: 0.8rem !important;
+        font-size: 0.9rem !important;
     }
 
     /* Summary card */
     .summary-card {
-        margin-bottom: 10px !important;
+        margin-bottom: 16px !important;
         box-shadow: none !important;
         border: 1px solid #cbd5e1 !important;
-        border-radius: 12px !important;
+        border-radius: 14px !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
     }
     .summary-cell {
-        padding: 8px 14px !important;
+        padding: 16px 20px !important;
     }
     .summary-cell h5 {
-        font-size: 0.8rem !important;
-        margin-bottom: 2px !important;
+        font-size: 0.95rem !important;
+        margin-bottom: 6px !important;
     }
     .readiness-label {
-        font-size: 1.35rem !important;
+        font-size: 1.85rem !important;
     }
     .score-big {
-        font-size: 2rem !important;
+        font-size: 3rem !important;
+        line-height: 1 !important;
     }
     .score-fraction {
-        font-size: 0.8rem !important;
-        margin-top: 2px !important;
+        font-size: 0.95rem !important;
+        margin-top: 4px !important;
     }
     .score-perf {
-        font-size: 0.85rem !important;
-        margin-top: 2px !important;
+        font-size: 1.05rem !important;
+        margin-top: 4px !important;
     }
 
     /* Units card & table */
     .units-card {
-        margin-bottom: 10px !important;
+        margin-bottom: 16px !important;
         box-shadow: none !important;
         border: 1px solid #cbd5e1 !important;
-        border-radius: 12px !important;
+        border-radius: 14px !important;
         page-break-inside: auto !important;
         break-inside: auto !important;
     }
     .units-card-header {
         display: block !important;
-        padding: 6px 14px !important;
-        font-size: 0.85rem !important;
+        padding: 10px 18px !important;
+        font-size: 0.95rem !important;
         background: #14213d !important;
         color: #fff !important;
     }
@@ -306,16 +307,21 @@
     }
     .table {
         margin-bottom: 0 !important;
-        font-size: 0.74rem !important;
+        font-size: 0.82rem !important;
     }
     .table th, .table td, .table th.py-3, .table td.py-3 {
-        padding: 2.5px 8px !important;
+        padding: 5px 12px !important;
     }
-    .table td.fs-5 {
+    .table th {
+        padding-top: 8px !important;
+        padding-bottom: 8px !important;
         font-size: 0.85rem !important;
     }
+    .table td.fs-5 {
+        font-size: 1rem !important;
+    }
     .progress {
-        height: 6px !important;
+        height: 8px !important;
         border: 1px solid #dee2e6;
         background-color: #f1f5f9 !important;
     }
@@ -324,36 +330,36 @@
     .highlight-grid {
         display: grid !important;
         grid-template-columns: 1fr 1fr !important;
-        gap: 8px !important;
-        margin-bottom: 8px !important;
+        gap: 14px !important;
+        margin-bottom: 16px !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
     }
     .highlight-box {
-        padding: 6px 12px !important;
-        border-radius: 10px !important;
+        padding: 12px 18px !important;
+        border-radius: 12px !important;
     }
     .highlight-icon {
-        width: 34px !important;
-        height: 34px !important;
-        font-size: 0.95rem !important;
+        width: 44px !important;
+        height: 44px !important;
+        font-size: 1.15rem !important;
     }
     .highlight-box h6 {
-        font-size: 0.75rem !important;
-        margin-bottom: 1px !important;
+        font-size: 0.88rem !important;
+        margin-bottom: 2px !important;
     }
     .highlight-box small {
-        font-size: 0.65rem !important;
-        margin-bottom: 1px !important;
+        font-size: 0.72rem !important;
+        margin-bottom: 4px !important;
     }
     .highlight-box .value {
-        font-size: 0.88rem !important;
+        font-size: 1.05rem !important;
     }
 
     /* Legend card */
     .legend-card {
-        padding: 6px 10px !important;
-        border-radius: 10px !important;
+        padding: 12px 18px !important;
+        border-radius: 12px !important;
         margin-bottom: 0 !important;
         box-shadow: none !important;
         border: 1px solid #cbd5e1 !important;
@@ -363,18 +369,18 @@
     .legend-grid {
         display: grid !important;
         grid-template-columns: repeat(4, 1fr) !important;
-        gap: 6px !important;
+        gap: 10px !important;
         text-align: center !important;
     }
     .legend-grid div {
-        font-size: 0.72rem !important;
+        font-size: 0.85rem !important;
     }
     .legend-grid small {
-        font-size: 0.65rem !important;
+        font-size: 0.78rem !important;
     }
     .legend-dot {
-        width: 8px !important;
-        height: 8px !important;
+        width: 10px !important;
+        height: 10px !important;
     }
 }
 </style>
