@@ -209,23 +209,173 @@
 }
 
 @media print {
-    .no-print, #reviewAnswers, #answersAccordion, .btn, .top-navbar, footer { display: none !important; }
-    body { background-color: #fff !important; }
-    .result-page{ padding: 0; background: #fff; }
-    .container { max-width: 100% !important; width: 100% !important; margin: 0 !important; padding: 0 !important; }
-    h1.display-3 { font-size: 2.5rem !important; }
-    .py-5, .mb-5, .my-5 { padding-top: 1rem !important; padding-bottom: 1rem !important; margin-bottom: 1.5rem !important; }
-    .row { display: flex !important; flex-wrap: wrap !important; margin-right: -10px !important; margin-left: -10px !important; }
-    .col-md-8 { width: 100% !important; max-width: 100% !important; flex: 0 0 100% !important; margin: 0 auto !important; }
-    .col-md-6 { width: 50% !important; flex: 0 0 50% !important; max-width: 50% !important; padding: 0 10px !important; }
-    .row.g-4, .card, .units-card, .summary-card { page-break-inside: avoid !important; break-inside: avoid !important; }
-    .table-responsive { overflow: visible !important; }
-    .card { box-shadow: none !important; }
-    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-    .progress { border: 1px solid #dee2e6; background-color: #f8f9fa !important; }
-    .table { break-inside: avoid; font-size: 0.9rem !important; }
-    .table th, .table td { padding: 6px !important; }
-    .units-card-header{ display: block !important; }
+    @page {
+        size: A4 portrait;
+        margin: 5mm 8mm;
+    }
+    html, body {
+        background-color: #fff !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        height: auto !important;
+    }
+    .no-print, #reviewAnswers, #answersAccordion, .btn, .top-navbar, footer, .result-actions {
+        display: none !important;
+    }
+    .result-page {
+        padding: 0 !important;
+        background: #fff !important;
+        min-height: auto !important;
+    }
+    .result-container {
+        max-width: 100% !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+        zoom: 0.75 !important;
+    }
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    /* Hero */
+    .result-hero {
+        margin-bottom: 8px !important;
+    }
+    .result-hero h1 {
+        font-size: 1.25rem !important;
+        margin-bottom: 2px !important;
+    }
+    .result-hero p {
+        font-size: 0.8rem !important;
+    }
+
+    /* Summary card */
+    .summary-card {
+        margin-bottom: 10px !important;
+        box-shadow: none !important;
+        border: 1px solid #cbd5e1 !important;
+        border-radius: 12px !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+    }
+    .summary-cell {
+        padding: 8px 14px !important;
+    }
+    .summary-cell h5 {
+        font-size: 0.8rem !important;
+        margin-bottom: 2px !important;
+    }
+    .readiness-label {
+        font-size: 1.35rem !important;
+    }
+    .score-big {
+        font-size: 2rem !important;
+    }
+    .score-fraction {
+        font-size: 0.8rem !important;
+        margin-top: 2px !important;
+    }
+    .score-perf {
+        font-size: 0.85rem !important;
+        margin-top: 2px !important;
+    }
+
+    /* Units card & table */
+    .units-card {
+        margin-bottom: 10px !important;
+        box-shadow: none !important;
+        border: 1px solid #cbd5e1 !important;
+        border-radius: 12px !important;
+        page-break-inside: auto !important;
+        break-inside: auto !important;
+    }
+    .units-card-header {
+        display: block !important;
+        padding: 6px 14px !important;
+        font-size: 0.85rem !important;
+        background: #14213d !important;
+        color: #fff !important;
+    }
+    .units-card .d-block.d-md-none {
+        display: none !important;
+    }
+    .units-card .table-responsive.d-none.d-md-block {
+        display: block !important;
+        overflow: visible !important;
+    }
+    .table {
+        margin-bottom: 0 !important;
+        font-size: 0.74rem !important;
+    }
+    .table th, .table td, .table th.py-3, .table td.py-3 {
+        padding: 2.5px 8px !important;
+    }
+    .table td.fs-5 {
+        font-size: 0.85rem !important;
+    }
+    .progress {
+        height: 6px !important;
+        border: 1px solid #dee2e6;
+        background-color: #f1f5f9 !important;
+    }
+
+    /* Highlight boxes */
+    .highlight-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 8px !important;
+        margin-bottom: 8px !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+    }
+    .highlight-box {
+        padding: 6px 12px !important;
+        border-radius: 10px !important;
+    }
+    .highlight-icon {
+        width: 34px !important;
+        height: 34px !important;
+        font-size: 0.95rem !important;
+    }
+    .highlight-box h6 {
+        font-size: 0.75rem !important;
+        margin-bottom: 1px !important;
+    }
+    .highlight-box small {
+        font-size: 0.65rem !important;
+        margin-bottom: 1px !important;
+    }
+    .highlight-box .value {
+        font-size: 0.88rem !important;
+    }
+
+    /* Legend card */
+    .legend-card {
+        padding: 6px 10px !important;
+        border-radius: 10px !important;
+        margin-bottom: 0 !important;
+        box-shadow: none !important;
+        border: 1px solid #cbd5e1 !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+    }
+    .legend-grid {
+        display: grid !important;
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 6px !important;
+        text-align: center !important;
+    }
+    .legend-grid div {
+        font-size: 0.72rem !important;
+    }
+    .legend-grid small {
+        font-size: 0.65rem !important;
+    }
+    .legend-dot {
+        width: 8px !important;
+        height: 8px !important;
+    }
 }
 </style>
 @endpush
