@@ -1,272 +1,227 @@
-@extends('layouts.user')
-@section('title', 'الشهادات الاحترافية')
-
-@push('styles')
-<style>
-/* ===== Design tokens (shared visual language for the exams module) ===== */
-:root{
-    --navy: #14213d;
-    --navy-soft: #1e3a5f;
-    --accent: #0ea472;
-    --accent-dark: #0b8a5f;
-    --warning: #f5a623;
-    --danger: #e5484d;
-    --bg: #f6f7fb;
-    --surface: #ffffff;
-    --border: #e6e9f0;
-    --text: #1e293b;
-    --text-muted: #64748b;
-    --radius-lg: 18px;
-    --radius-md: 14px;
-    --radius-sm: 10px;
-    --shadow-sm: 0 2px 10px rgba(15, 23, 42, .05);
-    --shadow-md: 0 10px 30px rgba(15, 23, 42, .09);
-}
-
-.exams-page{
-    background: var(--bg);
-    min-height: 100%;
-    padding: 24px 16px 48px;
-}
-@media (min-width: 768px){
-    .exams-page{ padding: 40px 24px 64px; }
-}
-
-.exams-container{
-    max-width: 880px;
-    margin: 0 auto;
-}
-
-/* Header */
-.exams-header{
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin-bottom: 28px;
-}
-@media (min-width: 768px){
-    .exams-header{
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 36px;
+﻿<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <title>الشهادات الاحترافية</title>
+  
+  <!-- Google Fonts: Cairo -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            cairo: ['Cairo', 'sans-serif'],
+          }
+        }
+      }
     }
-}
-.exams-header h1{
-    color: var(--navy);
-    font-weight: 800;
-    font-size: 1.5rem;
-    margin: 0 0 6px;
-}
-@media (min-width: 768px){
-    .exams-header h1{ font-size: 2rem; }
-}
-.exams-header p{
-    color: var(--text-muted);
-    margin: 0;
-    font-size: .95rem;
-}
-.btn-progress{
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    background: var(--navy);
-    color: #fff;
-    border: none;
-    border-radius: 999px;
-    padding: 12px 22px;
-    font-weight: 700;
-    font-size: .92rem;
-    text-decoration: none;
-    white-space: nowrap;
-    transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
-}
-.btn-progress:hover, .btn-progress:focus-visible{
-    background: var(--navy-soft);
-    color: #fff;
-    box-shadow: var(--shadow-md);
-}
-.btn-progress:active{ transform: scale(.97); }
-
-/* Alert */
-.exams-alert{
-    background: #fef2f2;
-    border: 1px solid #fecaca;
-    color: #991b1b;
-    border-radius: var(--radius-sm);
-    padding: 14px 16px;
-    margin-bottom: 20px;
-    font-size: .9rem;
-}
-
-/* Exam card */
-.exams-list{
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-.exam-card{
-    background: var(--surface);
-    border-radius: var(--radius-lg);
-    padding: 18px;
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow-sm);
-    transition: box-shadow .2s ease, border-color .2s ease;
-}
-@media (min-width: 768px){
-    .exam-card{
-        padding: 26px 28px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 24px;
+  </script>
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background-color: #f8fafc; /* Very light slate/blue */
+      -webkit-tap-highlight-color: transparent;
     }
-}
-.exam-card:hover{
-    box-shadow: var(--shadow-md);
-    border-color: #d6dbe6;
-}
+    
+    /* Background decorative blobs */
+    .bg-blobs {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: -1;
+      overflow: hidden;
+      background: #f8fafc;
+    }
+    .blob-1 {
+      position: absolute;
+      top: -10%; left: -10%;
+      width: 50vw; height: 50vw;
+      background: radial-gradient(circle, rgba(219,234,254,0.7) 0%, rgba(219,234,254,0) 70%);
+      border-radius: 50%;
+    }
+    .blob-2 {
+      position: absolute;
+      top: 20%; right: -20%;
+      width: 60vw; height: 60vw;
+      background: radial-gradient(circle, rgba(224,242,254,0.6) 0%, rgba(224,242,254,0) 70%);
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body class="text-slate-800 antialiased relative">
+  <div class="bg-blobs">
+    <div class="blob-1"></div>
+    <div class="blob-2"></div>
+  </div>
 
-.exam-info h3{
-    color: var(--navy);
-    font-weight: 700;
-    font-size: 1.08rem;
-    line-height: 1.4;
-    margin: 0 0 6px;
-}
-@media (min-width: 768px){
-    .exam-info h3{ font-size: 1.25rem; }
-}
-.exam-info p{
-    color: var(--text-muted);
-    font-size: .9rem;
-    line-height: 1.6;
-    margin: 0 0 14px;
-}
-@media (min-width: 768px){
-    .exam-info p{ max-width: 520px; }
-}
-
-.exam-meta{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 4px;
-}
-@media (min-width: 768px){
-    .exam-meta{ margin-bottom: 0; }
-}
-.exam-meta span{
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--bg);
-    color: var(--text-muted);
-    padding: 6px 12px;
-    border-radius: 999px;
-    border: 1px solid var(--border);
-    font-size: .82rem;
-    font-weight: 600;
-}
-.exam-meta span i{ color: var(--accent); }
-
-.exam-action{ margin-top: 16px; }
-@media (min-width: 768px){
-    .exam-action{ margin-top: 0; flex-shrink: 0; }
-}
-
-.btn-start-exam{
-    background: var(--accent);
-    color: #fff;
-    border: none;
-    padding: 15px 24px;
-    border-radius: var(--radius-sm);
-    font-weight: 700;
-    font-size: 1rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    width: 100%;
-    min-height: 50px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background .2s ease, transform .15s ease, box-shadow .15s ease;
-}
-@media (min-width: 768px){
-    .btn-start-exam{ width: auto; padding: 13px 28px; }
-}
-.btn-start-exam:hover, .btn-start-exam:focus-visible{
-    background: var(--accent-dark);
-    color: #fff;
-    box-shadow: 0 8px 18px rgba(14, 164, 114, .25);
-}
-.btn-start-exam:active{ transform: scale(.98); }
-
-/* Empty state */
-.exams-empty{
-    text-align: center;
-    padding: 64px 20px;
-    background: var(--surface);
-    border-radius: var(--radius-lg);
-    border: 1px dashed var(--border);
-}
-.exams-empty .icon-wrap{
-    width: 72px; height: 72px;
-    display: inline-flex; align-items: center; justify-content: center;
-    background: var(--bg);
-    border-radius: 50%;
-    margin-bottom: 16px;
-}
-.exams-empty .icon-wrap i{ font-size: 2rem; color: var(--text-muted); }
-.exams-empty h5{ color: var(--text-muted); font-weight: 700; margin: 0; }
-</style>
-@endpush
-
-@section('content')
-<div class="exams-page">
-<div class="exams-container">
-    <div class="exams-header text-center text-md-end">
-        <div>
-            <h1>الشهادات الاحترافية</h1>
-            <p>اختر الشهادة التي ترغب في أداء اختبارها</p>
+  <div class="max-w-[480px] mx-auto px-4 py-4 flex flex-col gap-5 pb-8 min-h-dvh">
+    
+    <!-- Top Navbar Pill -->
+    <header class="bg-white rounded-[20px] p-3 flex items-center justify-between shadow-sm border border-slate-100/50">
+      <div class="flex items-center gap-3">
+        <!-- Menu Icon -->
+        <button class="text-blue-900 focus:outline-none px-1">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
+          </svg>
+        </button>
+        <!-- User Info -->
+        <div class="flex items-center gap-2">
+          <span class="text-sm font-bold text-slate-700">{{ auth()->user()->name ?? 'محمد أحمد' }}</span>
+          <div class="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-slate-500">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
+            </svg>
+          </div>
         </div>
-        <a href="{{ route('user.graded_exams.progress') }}" class="btn-progress">
-            <i class="bi bi-graph-up-arrow"></i> تتبع تقدمي وسجل الاختبارات
-        </a>
+      </div>
+      <!-- Logo -->
+      <div>
+        <img src="{{ asset('images/logo.png') }}" alt="معهد التطوير" class="h-8 object-contain">
+      </div>
+    </header>
+
+    <!-- Hero Title -->
+    <div class="flex flex-col items-center justify-center mt-2 mb-2 text-center">
+      <div class="w-14 h-14 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-3">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+        </svg>
+      </div>
+      <h1 class="text-2xl font-black text-slate-900 mb-1">الشهادات الاحترافية</h1>
+      <p class="text-sm font-medium text-slate-500">اختر الشهادة التي ترغب في أداء اختبارها</p>
     </div>
 
     @if(session('error'))
-        <div class="exams-alert">{{ session('error') }}</div>
+    <div class="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm font-bold flex items-center gap-2">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+      {{ session('error') }}
+    </div>
     @endif
 
-    <div class="exams-list">
-        @forelse($exams as $exam)
-            <div class="exam-card">
-                <div class="exam-info">
-                    <h3>{{ $exam->title_ar }}</h3>
-                    <p>{{ $exam->description_ar ?: 'لا يوجد وصف متوفر.' }}</p>
-                    <div class="exam-meta">
-                        <span><i class="bi bi-file-earmark-text"></i> {{ $exam->constraintSettings ? $exam->constraintSettings->total_questions : 50 }} سؤال</span>
-                        @if($exam->time_limit_min)
-                            <span><i class="bi bi-stopwatch"></i> {{ $exam->time_limit_min }} دقيقة</span>
-                        @endif
-                    </div>
-                </div>
-                <div class="exam-action">
-                    <a href="{{ route('user.graded_exams.intro', $exam->id) }}" class="btn-start-exam">
-                        بدء الاختبار <i class="bi bi-arrow-left"></i>
-                    </a>
-                </div>
+
+    <!-- Progress Track Button -->
+    <a href="{{ route('user.graded_exams.progress') }}" class="bg-blue-500 rounded-[22px] p-4 flex items-center justify-between shadow-lg shadow-blue-500/30 text-white relative overflow-hidden hover:scale-[0.99] transition-transform active:scale-95">
+      <!-- Decorative circles -->
+      <div class="absolute -left-6 -top-6 w-24 h-24 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
+      
+      <div class="w-9 h-9 rounded-full bg-white/20 flex flex-shrink-0 items-center justify-center backdrop-blur-sm">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path>
+        </svg>
+      </div>
+      
+      <div class="flex-1 text-right px-4">
+        <h3 class="font-bold text-base mb-0.5">تتبع تقدمي وسجل الاختبارات</h3>
+        <p class="text-[10px] font-medium text-blue-100">يمكنك متابعة اختباراتك السابقة ونتائجك بسهولة</p>
+      </div>
+
+      <div class="w-11 h-11 rounded-xl bg-white/20 flex flex-shrink-0 items-center justify-center backdrop-blur-sm">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+        </svg>
+      </div>
+    </a>
+
+    <!-- Exams List -->
+    <div class="flex flex-col gap-4 mt-2">
+      @forelse($exams as $exam)
+      <div class="bg-white rounded-[24px] p-5 shadow-sm border border-slate-100 flex flex-col gap-4 relative">
+        
+        <div class="flex gap-4 items-start">
+          <div class="flex-1 text-right">
+            <h2 class="text-[17px] font-black text-slate-900 leading-tight mb-2">{{ $exam->title_ar }}</h2>
+            <p class="text-xs font-medium text-slate-500 leading-relaxed mb-3">
+              {{ $exam->description_ar ?: 'بنك أسئلة شامل مكون من وحدات دراسية، لإعداد الطالب للشهادة الاحترافية.' }}
+            </p>
+            
+            <div class="inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 px-3 py-1.5 rounded-lg text-xs font-bold">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+              </svg>
+              <span>{{ $exam->constraintSettings ? $exam->constraintSettings->total_questions : 50 }} سؤال</span>
             </div>
-        @empty
-            <div class="exams-empty">
-                <div class="icon-wrap"><i class="bi bi-journal-x"></i></div>
-                <h5>لا توجد شهادات متوفرة حالياً</h5>
-            </div>
-        @endforelse
+          </div>
+          
+          <div class="w-14 h-14 bg-blue-50 text-blue-500 rounded-[14px] flex flex-shrink-0 items-center justify-center">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 3v5h5"></path>
+              <circle cx="12" cy="12" r="3" stroke-width="2" fill="#eff6ff"></circle>
+            </svg>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 mt-1">
+          <a href="{{ route('user.graded_exams.intro', $exam->id) }}" class="flex-1 bg-[#0ea472] hover:bg-[#0b8a5f] text-white rounded-xl py-3 text-sm font-bold flex items-center justify-center gap-2 shadow-sm transition-colors active:scale-95">
+            <span>بدء الاختبار</span>
+            <svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+            </svg>
+          </a>
+          <a href="{{ asset('marketing-book.pdf') }}" target="_blank" class="flex-1 bg-white border border-blue-200 text-blue-600 hover:bg-blue-50 rounded-xl py-3 text-sm font-bold flex items-center justify-center gap-2 transition-colors active:scale-95">
+            <span>تحميل كتاب الشهادة</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+      @empty
+      <div class="bg-white rounded-[24px] p-8 text-center shadow-sm border border-slate-100">
+        <p class="text-slate-500 font-bold">لا توجد شهادات متوفرة حالياً</p>
+      </div>
+      @endforelse
     </div>
-</div>
-</div>
-@endsection
+
+    <!-- Promo Banner -->
+    <div class="bg-gradient-to-l from-[#e0f2fe] to-[#f0f9ff] rounded-[24px] p-4 flex items-center justify-between shadow-sm relative overflow-hidden mt-2 border border-blue-100">
+      <div class="absolute -right-4 -bottom-4 text-blue-200 opacity-50">
+        <svg class="w-24 h-24" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+        </svg>
+      </div>
+      
+      <div class="w-12 h-12 bg-white rounded-full flex flex-shrink-0 items-center justify-center shadow-sm z-10 text-blue-500">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+      </div>
+      
+      <div class="flex-1 text-center z-10 px-2 flex flex-col items-center">
+        <p class="text-[13px] font-bold text-slate-800 mb-0.5">سعر الاختبار التجريبي</p>
+        <div class="flex items-center justify-center gap-2">
+          <span class="text-2xl font-black text-slate-900">99 <span class="text-lg">ريال</span></span>
+          <div class="w-px h-5 bg-slate-300 mx-1"></div>
+          <span class="text-slate-400 font-bold line-through text-base">199</span>
+        </div>
+      </div>
+      
+      <div class="bg-[#10b981] text-white px-3 py-2 rounded-xl text-xs font-bold flex flex-col items-center justify-center shadow-sm z-10 whitespace-nowrap">
+        <div class="flex items-center gap-1">
+          <span>مجاني</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path>
+          </svg>
+        </div>
+        <span class="text-[9px] font-medium opacity-90 mt-0.5">لفترة محدودة</span>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-auto pt-6 pb-2 text-center">
+      <p class="text-[10px] font-bold text-slate-400">
+        &copy; {{ date('Y') }} دار الرؤى — نظام مقاييس التميز الشخصي والاحترافي المهني
+      </p>
+    </footer>
+
+  </div>
+</body>
+</html>
