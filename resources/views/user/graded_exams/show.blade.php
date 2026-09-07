@@ -74,6 +74,42 @@ main {
   overflow: hidden;
 }
 
+@media (min-width: 768px) {
+  .app-shell {
+    max-width: 760px;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.06);
+  }
+  .top-fixed {
+    padding: 18px 24px 12px;
+  }
+  .scroll-area {
+    padding: 0 24px 16px;
+  }
+  .bottom-fixed {
+    padding: 14px 24px 18px;
+  }
+  .question-text {
+    font-size: 19px;
+  }
+  .option-button {
+    padding: 14px 18px;
+    font-size: 15.5px;
+  }
+  .review-main {
+    max-width: 760px;
+    padding: 24px 30px;
+    gap: 16px;
+  }
+  .sheet-content {
+    max-width: 760px;
+    padding: 20px 24px 24px;
+    border-radius: 28px 28px 0 0;
+  }
+  .q-grid {
+    grid-template-columns: repeat(10, 1fr);
+  }
+}
+
 /* ---------------------------------------------------------------------
  * Utility
  * --------------------------------------------------------------------- */

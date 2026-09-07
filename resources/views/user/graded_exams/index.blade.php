@@ -1,4 +1,4 @@
-﻿@extends('layouts.user')
+@extends('layouts.user')
 @section('title', 'الشهادات الاحترافية')
 
 @push('styles')
@@ -81,7 +81,7 @@
 
 @section('content')
 <div class="bg-canvas page-scroll-wrapper w-full" id="pageScrollWrapper">
-<div class="page-inner w-full max-w-[440px] mx-auto px-4 pt-2 pb-3" style="font-family: 'Cairo', 'Tajawal', sans-serif;">
+<div class="page-inner w-full max-w-[440px] md:max-w-[760px] mx-auto px-4 pt-2 pb-6" style="font-family: 'Cairo', 'Tajawal', sans-serif;">
 
   <div class="page-content gap-2">
 
