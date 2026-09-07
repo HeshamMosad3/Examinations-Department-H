@@ -175,7 +175,7 @@
               <polyline points="12 19 5 12 12 5"></polyline>
             </svg>
           </a>
-          <a href="{{ asset('marketing-book.pdf') }}" target="_blank" class="w-full bg-white hover:bg-blue-50 border border-solid border-[#2b72f5] text-[#1e60db] font-bold py-2 px-2 rounded-2xl flex items-center justify-center gap-2 text-[14px] transition no-underline-hover text-decoration-none">
+          <a href="{{ asset('marketing-book.pdf') }}" target="_blank" download="كتاب التسويق - عربي.pdf" class="w-full bg-white hover:bg-blue-50 border border-solid border-[#2b72f5] text-[#1e60db] font-bold py-2 px-2 rounded-2xl flex items-center justify-center gap-2 text-[14px] transition no-underline-hover text-decoration-none">
             <span class="text-[#1e60db]">تحميل كتاب الشهادة</span>
             <svg class="w-4 h-4 text-[#1e60db]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
