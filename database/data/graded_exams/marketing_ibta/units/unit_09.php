@@ -289,7 +289,7 @@ return [
                     'is_correct' => true,
                 ],
                 [
-                    'option_text_ar' => 'ب و ج',
+                    'option_text_ar' => 'ه - تصدير المنتج',
                     'order_index' => 5,
                     'is_correct' => false,
                 ],
