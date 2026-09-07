@@ -57,14 +57,45 @@
     svg { display: block; }
     /* Reset some anchor tags inside our container so they don't get bootstrap underline on hover */
     .no-underline-hover:hover { text-decoration: none; }
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+      overscroll-behavior: none;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+    body > main {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      /* Hide scrollbar for this main container */
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    body > main::-webkit-scrollbar {
+      display: none;
+    }
+    body > footer {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+      padding-top: 10px !important;
+      padding-bottom: 10px !important;
+    }
+
   </style>
 @endpush
 
 @section('content')
-<div class="bg-canvas min-h-[calc(100vh-140px)] w-full">
-<main class="w-full max-w-[440px] mx-auto flex flex-col justify-between px-4 pt-3 pb-8 relative overflow-hidden" style="font-family: 'Cairo', 'Tajawal', sans-serif;">
+<div class="bg-canvas flex-1 flex flex-col min-h-0 w-full">
+<div class="w-full max-w-[440px] mx-auto flex flex-col flex-1 px-4 pt-2 pb-2 relative overflow-hidden" style="font-family: 'Cairo', 'Tajawal', sans-serif;">
   
-  <div class="flex-1 flex flex-col gap-4 mt-2">
+  <div class="flex-1 flex flex-col gap-2 mt-1">
 
     @if(session('error'))
     <div class="bg-red-50 border border-solid border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm font-bold flex items-center gap-2 mb-2">
@@ -91,7 +122,7 @@
     </section>
 
     <!-- Banner: Track Progress & Exam History -->
-    <a href="{{ route('user.graded_exams.progress') }}" class="w-full bg-[#1877F2] rounded-[22px] px-4 py-3.5 shadow-md flex items-center justify-between text-white relative overflow-hidden no-underline-hover hover:scale-[0.99] transition-transform active:scale-95 text-decoration-none mt-2" data-purpose="banner-tracker">
+    <a href="{{ route('user.graded_exams.progress') }}" class="w-full bg-[#1877F2] rounded-[22px] px-4 py-2.5 shadow-md flex items-center justify-between text-white relative overflow-hidden no-underline-hover hover:scale-[0.99] transition-transform active:scale-95 text-decoration-none mt-2" data-purpose="banner-tracker">
       <div class="flex items-center gap-3.5 z-10 flex-row-reverse">
         <div class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0">
           <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 36 36">
@@ -115,7 +146,7 @@
 
     <!-- Main Course Card -->
     @forelse($exams as $exam)
-    <article class="w-full bg-white rounded-[26px] p-5 shadow-[0_4px_22px_-2px_rgba(0,40,100,0.07)] border border-solid border-slate-100 flex flex-col gap-4 mt-2" data-purpose="course-details-card">
+    <article class="w-full bg-white rounded-[26px] p-3.5 shadow-[0_4px_22px_-2px_rgba(0,40,100,0.07)] border border-solid border-slate-100 flex flex-col gap-2 mt-1" data-purpose="course-details-card">
       <div class="flex items-start justify-between gap-3 flex-row-reverse">
         <div class="flex-1 text-right">
           <h3 class="text-[20px] font-black text-[#0b2447] leading-snug mb-0">
@@ -148,14 +179,14 @@
         </div>
       </div>
       <div class="grid grid-cols-2 gap-3 pt-2" style="direction: rtl;">
-        <a href="{{ route('user.graded_exams.intro', $exam->id) }}" class="w-full bg-[#0fa362] hover:bg-[#0c8a52] active:scale-[0.98] transition text-white font-bold py-3 px-3 rounded-2xl flex items-center justify-center gap-2 text-[15.5px] shadow-sm no-underline-hover text-decoration-none">
+        <a href="{{ route('user.graded_exams.intro', $exam->id) }}" class="w-full bg-[#0fa362] hover:bg-[#0c8a52] active:scale-[0.98] transition text-white font-bold py-2 px-3 rounded-2xl flex items-center justify-center gap-2 text-[15.5px] shadow-sm no-underline-hover text-decoration-none">
           <span class="text-white">بدء الاختبار</span>
           <svg class="w-4 h-4 text-white rotate-180" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24">
             <line x1="19" x2="5" y1="12" y2="12"></line>
             <polyline points="12 19 5 12 12 5"></polyline>
           </svg>
         </a>
-        <a href="{{ asset('marketing-book.pdf') }}" target="_blank" class="w-full bg-white hover:bg-blue-50 border border-solid border-[#2b72f5] text-[#1e60db] font-bold py-3 px-2 rounded-2xl flex items-center justify-center gap-2 text-[14.5px] transition no-underline-hover text-decoration-none">
+        <a href="{{ asset('marketing-book.pdf') }}" target="_blank" class="w-full bg-white hover:bg-blue-50 border border-solid border-[#2b72f5] text-[#1e60db] font-bold py-2 px-2 rounded-2xl flex items-center justify-center gap-2 text-[14.5px] transition no-underline-hover text-decoration-none">
           <span class="text-[#1e60db]">تحميل كتاب الشهادة</span>
           <svg class="w-4 h-4 text-[#1e60db]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -166,13 +197,13 @@
       </div>
     </article>
     @empty
-    <div class="bg-white rounded-[26px] p-8 text-center shadow-sm border border-solid border-slate-100 mt-4">
+    <div class="bg-white rounded-[26px] p-8 text-center shadow-sm border border-solid border-slate-100 mt-2">
       <p class="text-slate-500 font-bold mb-0">لا توجد شهادات متوفرة حالياً</p>
     </div>
     @endforelse
 
     <!-- Bottom Card: Pricing & Limited Time Free Offer -->
-    <section class="w-full bg-gradient-to-l from-[#dcf0ff]/60 via-[#eaf5ff]/70 to-[#f1f8ff] rounded-[24px] border border-solid border-[#bee3fd] p-3.5 flex items-center justify-between shadow-sm relative overflow-hidden mt-4" data-purpose="pricing-promo-card">
+    <section class="w-full bg-gradient-to-l from-[#dcf0ff]/60 via-[#eaf5ff]/70 to-[#f1f8ff] rounded-[24px] border border-solid border-[#bee3fd] p-3.5 flex items-center justify-between shadow-sm relative overflow-hidden mt-2" data-purpose="pricing-promo-card">
       <div class="relative flex items-center">
         <div class="absolute -top-3 -right-2 flex gap-1 pointer-events-none">
           <span class="w-1 h-2.5 bg-[#10b981] rounded-full rotate-45 transform"></span>
@@ -225,6 +256,6 @@
     </section>
 
   </div>
-</main>
+</div>
 </div>
 @endsection
