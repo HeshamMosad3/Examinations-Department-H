@@ -1,11 +1,7 @@
-﻿<!DOCTYPE html>
-<html dir="rtl" lang="ar">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>الشهادات الاحترافية</title>
-  
+﻿@extends('layouts.user')
+@section('title', 'الشهادات الاحترافية')
+
+@push('styles')
   <!-- Google Fonts: Cairo -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,6 +11,9 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
+      corePlugins: {
+        preflight: false, // Prevent Tailwind from overriding Bootstrap's Navbar!
+      },
       theme: {
         extend: {
           fontFamily: {
@@ -26,9 +25,7 @@
   </script>
   <style>
     body {
-      font-family: 'Cairo', sans-serif;
       background-color: #f8fafc; /* Very light slate/blue */
-      -webkit-tap-highlight-color: transparent;
     }
     
     /* Background decorative blobs */
@@ -53,40 +50,31 @@
       background: radial-gradient(circle, rgba(224,242,254,0.6) 0%, rgba(224,242,254,0) 70%);
       border-radius: 50%;
     }
+    /* Fix Tailwind SVG rendering without preflight */
+    svg {
+      display: block;
+    }
+    /* Fix Bootstrap's anchor tag underline */
+    a:hover {
+      text-decoration: none;
+    }
   </style>
-</head>
-<body class="text-slate-800 antialiased relative">
+@endpush
+
+@section('content')
   <div class="bg-blobs">
     <div class="blob-1"></div>
     <div class="blob-2"></div>
   </div>
 
-  <div class="max-w-[480px] mx-auto px-4 py-4 flex flex-col gap-5 pb-8 min-h-dvh">
+  <div class="max-w-[480px] mx-auto px-4 py-4 flex flex-col gap-5 pb-8 min-h-[70vh]" style="font-family: 'Cairo', sans-serif;">
     
-    <!-- Top Navbar Pill -->
-    <header class="bg-white rounded-[20px] p-3 flex items-center justify-between shadow-sm border border-slate-100/50">
-      <div class="flex items-center gap-3">
-        <!-- Menu Icon -->
-        <button class="text-blue-900 focus:outline-none px-1">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
-          </svg>
-        </button>
-        <!-- User Info -->
-        <div class="flex items-center gap-2">
-          <span class="text-sm font-bold text-slate-700">{{ auth()->user()->name ?? 'محمد أحمد' }}</span>
-          <div class="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-slate-500">
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
-            </svg>
-          </div>
-        </div>
-      </div>
-      <!-- Logo -->
-      <div>
-        <img src="{{ asset('images/logo.png') }}" alt="معهد التطوير" class="h-8 object-contain">
-      </div>
-    </header>
+    @if(session('error'))
+    <div class="bg-red-50 border border-solid border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm font-bold flex items-center gap-2">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+      {{ session('error') }}
+    </div>
+    @endif
 
     <!-- Hero Title -->
     <div class="flex flex-col items-center justify-center mt-2 mb-2 text-center">
@@ -96,19 +84,11 @@
         </svg>
       </div>
       <h1 class="text-2xl font-black text-slate-900 mb-1">الشهادات الاحترافية</h1>
-      <p class="text-sm font-medium text-slate-500">اختر الشهادة التي ترغب في أداء اختبارها</p>
+      <p class="text-sm font-medium text-slate-500 mb-0">اختر الشهادة التي ترغب في أداء اختبارها</p>
     </div>
-
-    @if(session('error'))
-    <div class="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm font-bold flex items-center gap-2">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-      {{ session('error') }}
-    </div>
-    @endif
-
 
     <!-- Progress Track Button -->
-    <a href="{{ route('user.graded_exams.progress') }}" class="bg-blue-500 rounded-[22px] p-4 flex items-center justify-between shadow-lg shadow-blue-500/30 text-white relative overflow-hidden hover:scale-[0.99] transition-transform active:scale-95">
+    <a href="{{ route('user.graded_exams.progress') }}" class="bg-blue-500 rounded-[22px] p-4 flex items-center justify-between shadow-lg shadow-blue-500/30 text-white relative overflow-hidden hover:scale-[0.99] transition-transform active:scale-95 !text-white text-decoration-none">
       <!-- Decorative circles -->
       <div class="absolute -left-6 -top-6 w-24 h-24 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
       
@@ -120,7 +100,7 @@
       
       <div class="flex-1 text-right px-4">
         <h3 class="font-bold text-base mb-0.5">تتبع تقدمي وسجل الاختبارات</h3>
-        <p class="text-[10px] font-medium text-blue-100">يمكنك متابعة اختباراتك السابقة ونتائجك بسهولة</p>
+        <p class="text-[10px] font-medium text-blue-100 mb-0">يمكنك متابعة اختباراتك السابقة ونتائجك بسهولة</p>
       </div>
 
       <div class="w-11 h-11 rounded-xl bg-white/20 flex flex-shrink-0 items-center justify-center backdrop-blur-sm">
@@ -133,7 +113,7 @@
     <!-- Exams List -->
     <div class="flex flex-col gap-4 mt-2">
       @forelse($exams as $exam)
-      <div class="bg-white rounded-[24px] p-5 shadow-sm border border-slate-100 flex flex-col gap-4 relative">
+      <div class="bg-white rounded-[24px] p-5 shadow-sm border border-solid border-slate-100 flex flex-col gap-4 relative">
         
         <div class="flex gap-4 items-start">
           <div class="flex-1 text-right">
@@ -159,14 +139,14 @@
           </div>
         </div>
 
-        <div class="flex items-center gap-3 mt-1">
-          <a href="{{ route('user.graded_exams.intro', $exam->id) }}" class="flex-1 bg-[#0ea472] hover:bg-[#0b8a5f] text-white rounded-xl py-3 text-sm font-bold flex items-center justify-center gap-2 shadow-sm transition-colors active:scale-95">
+        <div class="flex flex-col sm:flex-row items-center gap-3 mt-1">
+          <a href="{{ route('user.graded_exams.intro', $exam->id) }}" class="w-full sm:flex-1 bg-[#0ea472] hover:bg-[#0b8a5f] !text-white rounded-xl py-3 text-sm font-bold flex items-center justify-center gap-2 shadow-sm transition-colors active:scale-95 text-decoration-none">
             <span>بدء الاختبار</span>
             <svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
             </svg>
           </a>
-          <a href="{{ asset('marketing-book.pdf') }}" target="_blank" class="flex-1 bg-white border border-blue-200 text-blue-600 hover:bg-blue-50 rounded-xl py-3 text-sm font-bold flex items-center justify-center gap-2 transition-colors active:scale-95">
+          <a href="{{ asset('marketing-book.pdf') }}" target="_blank" class="w-full sm:flex-1 bg-white border border-solid border-blue-200 !text-blue-600 hover:bg-blue-50 rounded-xl py-3 text-sm font-bold flex items-center justify-center gap-2 transition-colors active:scale-95 text-decoration-none">
             <span>تحميل كتاب الشهادة</span>
             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
@@ -175,14 +155,14 @@
         </div>
       </div>
       @empty
-      <div class="bg-white rounded-[24px] p-8 text-center shadow-sm border border-slate-100">
-        <p class="text-slate-500 font-bold">لا توجد شهادات متوفرة حالياً</p>
+      <div class="bg-white rounded-[24px] p-8 text-center shadow-sm border border-solid border-slate-100">
+        <p class="text-slate-500 font-bold mb-0">لا توجد شهادات متوفرة حالياً</p>
       </div>
       @endforelse
     </div>
 
     <!-- Promo Banner -->
-    <div class="bg-gradient-to-l from-[#e0f2fe] to-[#f0f9ff] rounded-[24px] p-4 flex items-center justify-between shadow-sm relative overflow-hidden mt-2 border border-blue-100">
+    <div class="bg-gradient-to-l from-[#e0f2fe] to-[#f0f9ff] rounded-[24px] p-4 flex items-center justify-between shadow-sm relative overflow-hidden mt-2 border border-solid border-blue-100">
       <div class="absolute -right-4 -bottom-4 text-blue-200 opacity-50">
         <svg class="w-24 h-24" fill="currentColor" viewBox="0 0 20 20">
           <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
@@ -215,13 +195,5 @@
       </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="mt-auto pt-6 pb-2 text-center">
-      <p class="text-[10px] font-bold text-slate-400">
-        &copy; {{ date('Y') }} دار الرؤى — نظام مقاييس التميز الشخصي والاحترافي المهني
-      </p>
-    </footer>
-
   </div>
-</body>
-</html>
+@endsection
