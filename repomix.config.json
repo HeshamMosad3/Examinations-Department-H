@@ -1,0 +1,25 @@
+{
+  "output": {
+    "filePath": "repomix-output.md",
+    "style": "markdown"
+  },
+  "ignore": {
+    "customPatterns": [
+      "repomix-output.xml",
+      "repomix-output.md",
+      "repomix-migrations.md",
+      "database/data/**",
+      "database/seeders/**",
+      "database/database.sqlite",
+      "storage/**",
+      "composer.lock",
+      "package-lock.json",
+      "public/css/report-pdf.css",
+      "_ide_helper.php",
+      ".phpstorm.meta.php",
+      "_ide_helper_models.php",
+      "*backup*",
+      "*.txt"
+    ]
+  }
+}
