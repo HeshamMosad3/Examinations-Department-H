@@ -1,0 +1,21 @@
+﻿{
+  "output": {
+    "filePath": "repomix-frontend.md",
+    "style": "markdown"
+  },
+  "include": [
+    "resources/views/**",
+    "resources/js/**",
+    "resources/css/**",
+    "public/css/**",
+    "public/js/**"
+  ],
+  "ignore": {
+    "customPatterns": [
+      "*backup*",
+      "*.txt",
+      "public/css/report-pdf.css"
+    ]
+  }
+}
+//repomix -c repomix.frontend.json
