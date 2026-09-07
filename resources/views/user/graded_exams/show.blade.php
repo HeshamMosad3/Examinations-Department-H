@@ -74,42 +74,6 @@ main {
   overflow: hidden;
 }
 
-@media (min-width: 768px) {
-  .app-shell {
-    max-width: 760px;
-    box-shadow: 0 0 50px rgba(0, 0, 0, 0.06);
-  }
-  .top-fixed {
-    padding: 18px 24px 12px;
-  }
-  .scroll-area {
-    padding: 0 24px 16px;
-  }
-  .bottom-fixed {
-    padding: 14px 24px 18px;
-  }
-  .question-text {
-    font-size: 19px;
-  }
-  .option-button {
-    padding: 14px 18px;
-    font-size: 15.5px;
-  }
-  .review-main {
-    max-width: 760px;
-    padding: 24px 30px;
-    gap: 16px;
-  }
-  .sheet-content {
-    max-width: 760px;
-    padding: 20px 24px 24px;
-    border-radius: 28px 28px 0 0;
-  }
-  .q-grid {
-    grid-template-columns: repeat(10, 1fr);
-  }
-}
-
 /* ---------------------------------------------------------------------
  * Utility
  * --------------------------------------------------------------------- */
@@ -855,6 +819,129 @@ main {
 .status-answered { background: var(--greenTint); border-color: var(--green); color: #146C48; }
 .status-flagged { background: var(--orangeTint); border-color: var(--orange); color: #8A5A14; }
 .status-answered-flagged { background: var(--greenTint); border-color: var(--orange); color: #146C48; }
+
+/* ---------------------------------------------------------------------
+ * Desktop Responsive Enhancements (min-width: 768px)
+ * شاشات الكمبيوتر: تصميم متناسق ومريح وواسع بدلاً من ضغط الشاشة كأنها هاتف
+ * مع الحفاظ الكامل بنسبة 100% على مظهر الهاتف بدون أي تغيير
+ * --------------------------------------------------------------------- */
+@media (min-width: 768px) {
+  /* 1. Main Exam Shell */
+  .app-shell {
+    max-width: 820px !important;
+    box-shadow: 0 0 50px rgba(15, 23, 42, 0.08) !important;
+    border-inline: 1px solid var(--border);
+  }
+  .top-fixed {
+    padding: 20px 28px 14px !important;
+  }
+  .scroll-area {
+    padding: 0 28px 18px !important;
+  }
+  .bottom-fixed {
+    padding: 16px 28px 22px !important;
+  }
+  .question-text {
+    font-size: 20px !important;
+    line-height: 1.7 !important;
+    margin-bottom: 20px !important;
+  }
+  .option-button {
+    padding: 15px 20px !important;
+    font-size: 16px !important;
+    border-radius: 16px !important;
+  }
+
+  /* 2. Review Screen (Dashboard) */
+  .page-centered {
+    padding: 24px 20px !important;
+  }
+  .review-main {
+    max-width: 820px !important;
+    padding: 32px 36px !important;
+    gap: 18px !important;
+    border-radius: 28px !important;
+    box-shadow: 0 20px 50px -10px rgba(15, 23, 42, 0.1), 0 0 0 1px rgba(15, 23, 42, 0.05) !important;
+  }
+  .review-header-row {
+    padding-bottom: 6px !important;
+  }
+  .review-title {
+    font-size: 25px !important;
+  }
+  .review-subtitle {
+    font-size: 14.5px !important;
+  }
+  #btn-return-from-review {
+    padding: 8px 16px !important;
+    font-size: 13.5px !important;
+    border-radius: 10px !important;
+    margin-bottom: 14px !important;
+  }
+  .summary-grid {
+    gap: 14px !important;
+  }
+  .summary-card {
+    padding: 16px 14px !important;
+    border-radius: 18px !important;
+    gap: 8px !important;
+  }
+  .summary-icon-wrap {
+    width: 44px !important;
+    height: 44px !important;
+  }
+  .summary-label {
+    font-size: 13.5px !important;
+  }
+  .summary-value {
+    font-size: 18px !important;
+  }
+  .notice-banner {
+    padding: 14px 18px !important;
+    border-radius: 18px !important;
+  }
+  .notice-line-text {
+    font-size: 14px !important;
+  }
+  .review-actions {
+    gap: 12px !important;
+  }
+  .review-row {
+    padding: 13px 18px !important;
+    border-radius: 16px !important;
+  }
+  .review-row-title {
+    font-size: 15.5px !important;
+  }
+  .review-row-subtitle {
+    font-size: 13px !important;
+  }
+  .review-row-icon-box {
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 14px !important;
+  }
+  .review-row-chevron {
+    width: 32px !important;
+    height: 32px !important;
+  }
+  .submit-button {
+    height: 54px !important;
+    font-size: 19px !important;
+    border-radius: 18px !important;
+  }
+
+  /* 3. Question Map Bottom Sheet */
+  .sheet-content {
+    max-width: 820px !important;
+    padding: 24px 28px 28px !important;
+    border-radius: 32px 32px 0 0 !important;
+  }
+  .q-grid {
+    grid-template-columns: repeat(10, 1fr) !important;
+    gap: 12px !important;
+  }
+}
 </style>
 @endpush
 
