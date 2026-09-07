@@ -1,379 +1,336 @@
-@extends('layouts.user')
-@section('title', $exam->title_ar . ' - بدء الاختبار')
-
-@php
-    // Build the human-readable duration text (kept in PHP so it renders correctly
-    // even before any JS runs, and works the same on server-rendered exports).
-    $timeMin = $exam->time_limit_min;
-    $timeText = 'غير محدد';
-    if ($timeMin) {
-        $hours = intdiv($timeMin, 60);
-        $mins = $timeMin % 60;
-        if ($hours > 0 && $mins === 0) {
-            $timeText = $hours == 1 ? 'ساعة واحدة' : ($hours == 2 ? 'ساعتان' : $hours . ' ساعات');
-        } elseif ($hours > 0) {
-            $timeText = $hours . ' ساعة و ' . $mins . ' دقيقة';
-        } else {
-            $timeText = $mins . ' دقيقة';
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<title>{{ $exam->title_ar }}</title>
+<!-- Google Fonts: Cairo -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 CDN with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration Script -->
+<script data-purpose="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            cairo: ['Cairo', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f7ff',
+              100: '#e0effe',
+              500: '#2563eb',
+              600: '#1d4ed8',
+              700: '#1e40af',
+              900: '#0f172a',
+            }
+          },
+          boxShadow: {
+            'card': '0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.02)',
+            'card-subtle': '0 2px 10px rgba(0, 0, 0, 0.03)',
+            'btn-blue': '0 8px 20px -4px rgba(37, 99, 235, 0.4)',
+          }
         }
+      }
     }
-    $questionCount = $exam->constraintSettings ? $exam->constraintSettings->total_questions : 50;
-@endphp
-
-@push('styles')
-<style>
-/* ===== Design tokens (shared with the exams list page) ===== */
-:root{
-    --navy: #14213d;
-    --navy-soft: #1e3a5f;
-    --accent: #0ea472;
-    --accent-dark: #0b8a5f;
-    --warning: #f5a623;
-    --danger: #e5484d;
-    --bg: #f6f7fb;
-    --surface: #ffffff;
-    --border: #e6e9f0;
-    --text: #1e293b;
-    --text-muted: #64748b;
-    --radius-lg: 18px;
-    --radius-md: 14px;
-    --radius-sm: 10px;
-    --shadow-sm: 0 2px 10px rgba(15, 23, 42, .05);
-    --shadow-md: 0 10px 30px rgba(15, 23, 42, .09);
-}
-
-.intro-page{
-    background: var(--bg);
-    min-height: 100dvh;
-    padding: 20px 16px 32px;
-    display: flex;
-    flex-direction: column;
-}
-@media (min-width: 768px){
-    .intro-page{ padding: 40px 24px 48px; }
-}
-
-.intro-container{
-    max-width: 560px;
-    margin: 0 auto;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    flex: 1;
-}
-
-/* Back link */
-.intro-back{
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    color: var(--text-muted);
-    font-weight: 700;
-    font-size: .85rem;
-    text-decoration: none;
-    margin-bottom: 4px;
-    width: fit-content;
-}
-.intro-back:hover{ color: var(--navy); }
-
-/* Cards */
-.intro-card{
-    background: var(--surface);
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow-sm);
-    padding: 20px;
-}
-
-.intro-badge{
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: #eafbf3;
-    color: var(--accent-dark);
-    padding: 5px 14px;
-    border-radius: 999px;
-    font-size: .78rem;
-    font-weight: 700;
-    margin-bottom: 12px;
-}
-.intro-title{
-    color: var(--navy);
-    font-weight: 800;
-    font-size: 1.25rem;
-    line-height: 1.4;
-    margin: 0 0 16px;
-}
-.intro-section-head{
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 10px;
-}
-.intro-section-head .icon-box{
-    width: 22px; height: 22px;
-    border-radius: 7px;
-    background: var(--navy);
-    color: #fff;
-    display: flex; align-items: center; justify-content: center;
-    font-size: .75rem;
-    flex-shrink: 0;
-}
-.intro-section-head span{
-    font-weight: 800;
-    color: var(--navy);
-    font-size: .9rem;
-}
-.intro-desc{
-    color: var(--text-muted);
-    font-size: .85rem;
-    line-height: 1.7;
-    margin: 0;
-    text-align: justify;
-}
-
-/* Data grid */
-.intro-grid{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-}
-.intro-stat{
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    padding: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-}
-.intro-stat .val{
-    font-weight: 800;
-    color: var(--navy);
-    font-size: .92rem;
-}
-.intro-stat .lbl{
-    color: var(--text-muted);
-    font-size: .72rem;
-    font-weight: 600;
-    margin-top: 2px;
-}
-.intro-stat .ico{
-    width: 36px; height: 36px;
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    color: #fff;
-    font-size: .95rem;
-    flex-shrink: 0;
-}
-.intro-stat .ico.navy{ background: var(--navy); }
-.intro-stat .ico.accent{ background: var(--accent); }
-.intro-stat .ico.warning{ background: var(--warning); }
-.intro-stat .ico.muted{ background: #7c6ff0; }
-
-/* Instructions */
-.intro-steps{
-    list-style: none;
-    padding: 0;
-    margin: 0 0 14px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-.intro-steps li{
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: .85rem;
-    font-weight: 600;
-    color: var(--text);
-}
-.intro-steps li .num{
-    width: 20px; height: 20px;
-    border-radius: 50%;
-    background: #e8ecf7;
-    color: var(--navy);
-    font-size: .72rem;
-    font-weight: 800;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-}
-
-.intro-warn{
-    background: #fffbeb;
-    border: 1px solid #fde68a;
-    border-radius: var(--radius-md);
-    padding: 14px;
-}
-.intro-warn strong{
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    color: var(--text);
-    font-size: .85rem;
-    margin-bottom: 4px;
-}
-.intro-warn strong i{ color: var(--warning); }
-.intro-warn p{
-    margin: 0;
-    color: var(--text-muted);
-    font-size: .8rem;
-    line-height: 1.6;
-}
-
-/* Actions */
-.intro-actions{
-    background: var(--surface);
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow-sm);
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    margin-top: auto;
-}
-.intro-agree{
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    font-weight: 700;
-    font-size: .85rem;
-    color: var(--text);
-}
-.intro-agree input{
-    width: 20px; height: 20px;
-    accent-color: var(--accent);
-    cursor: pointer;
-    flex-shrink: 0;
-}
-.intro-btn-row{
-    display: flex;
-    gap: 10px;
-}
-.intro-btn-row .btn{
-    flex: 1;
-    border-radius: var(--radius-sm);
-    font-weight: 700;
-    padding: 13px;
-    font-size: .92rem;
-}
-.btn-cancel-outline{
-    background: var(--surface);
-    border: 1px solid var(--border);
-    color: var(--text);
-}
-.btn-cancel-outline:hover{ background: var(--bg); }
-.btn-confirm-start{
-    background: var(--accent);
-    border: none;
-    color: #fff;
-    display: flex; align-items: center; justify-content: center; gap: 6px;
-}
-.btn-confirm-start:hover:not(:disabled){ background: var(--accent-dark); }
-.btn-confirm-start:disabled{ opacity: .55; cursor: not-allowed; }
-</style>
-@endpush
-
-@section('content')
-<div class="intro-page">
-<div class="intro-container">
-
-    <a href="{{ route('user.graded_exams.index') }}" class="intro-back">
-        <i class="bi bi-arrow-right"></i> الرجوع لقائمة الشهادات
-    </a>
-
-    <!-- Hero: title + description -->
-    <div class="intro-card">
-        <span class="intro-badge"><i class="bi bi-mortarboard-fill"></i> اختبار تدريبي</span>
-        <h1 class="intro-title">{{ $exam->title_ar }}</h1>
-
-        <div class="intro-section-head">
-            <span class="icon-box"><i class="bi bi-list-ul"></i></span>
-            <span>وصف الاختبار</span>
-        </div>
-        <p class="intro-desc">{{ $exam->description_ar ?: 'يهدف هذا الاختبار إلى قياس مدى استيعابك للمفاهيم والمعارف الأساسية، ومساعدتك على تقييم جاهزيتك قبل التقدم إلى الاختبار النهائي للشهادة الاحترافية.' }}</p>
-    </div>
-
-    <!-- Exam data grid -->
-    <div class="intro-card">
-        <div class="intro-section-head">
-            <span class="icon-box"><i class="bi bi-info-circle-fill"></i></span>
-            <span>بيانات الاختبار</span>
-        </div>
-        <div class="intro-grid">
-            <div class="intro-stat">
-                <div>
-                    <div class="val">{{ $timeText }}</div>
-                    <div class="lbl">مدة الاختبار</div>
-                </div>
-                <div class="ico navy"><i class="bi bi-stopwatch"></i></div>
-            </div>
-            <div class="intro-stat">
-                <div>
-                    <div class="val">{{ $questionCount }} سؤال</div>
-                    <div class="lbl">عدد الأسئلة</div>
-                </div>
-                <div class="ico accent"><i class="bi bi-patch-question-fill"></i></div>
-            </div>
-            <div class="intro-stat">
-                <div>
-                    <div class="val">صح/خطأ واختياري</div>
-                    <div class="lbl">أنواع الأسئلة</div>
-                </div>
-                <div class="ico muted"><i class="bi bi-ui-checks-grid"></i></div>
-            </div>
-            <div class="intro-stat">
-                <div>
-                    <div class="val">محاولات مفتوحة</div>
-                    <div class="lbl">عدد المحاولات</div>
-                </div>
-                <div class="ico warning"><i class="bi bi-arrow-repeat"></i></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Instructions -->
-    <div class="intro-card">
-        <div class="intro-section-head">
-            <span class="icon-box"><i class="bi bi-list-check"></i></span>
-            <span>تعليمات هامة</span>
-        </div>
-        <ul class="intro-steps">
-            <li><span class="num">1</span> اقرأ السؤال والبدائل بعناية.</li>
-            <li><span class="num">2</span> يمكنك مراجعة وتعديل إجاباتك قبل التسليم.</li>
-        </ul>
-        <div class="intro-warn">
-            <strong><i class="bi bi-exclamation-triangle-fill"></i> تنبيه:</strong>
-            <p>حدد الإجابة أو الإجابات الصحيحة بناءً على المطلوب في كل سؤال، حيث قد يتطلب سؤال واحد اختيار أكثر من خيار.</p>
-        </div>
-    </div>
-
-    <!-- Agreement + actions -->
-    <form action="{{ route('user.graded_exams.start', $exam->id) }}" method="POST" id="form-start-exam" class="m-0">
-        @csrf
-        <div class="intro-actions">
-            <label class="intro-agree" for="agreeCheckbox">
-                <input type="checkbox" id="agreeCheckbox">
-                قرأت التعليمات وأوافق على البدء.
-            </label>
-            <div class="intro-btn-row">
-                <button type="submit" class="btn btn-confirm-start" id="btn-confirm-start" disabled>
-                    ابدأ الاختبار <i class="bi bi-play-circle-fill"></i>
-                </button>
-                <a href="{{ route('user.graded_exams.index') }}" class="btn btn-cancel-outline">إلغاء</a>
-            </div>
-        </div>
-    </form>
-
+  </script>
+<!-- Custom Typography & Layout Adjustments -->
+<style data-purpose="typography">
+    html, body {
+      height: 100%;
+    }
+    body {
+      font-family: 'Cairo', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      min-height: 100dvh;
+    }
+  </style>
+<style data-purpose="decorations">
+    /* Subtle background glow effect for hero illustration */
+    .hero-glow {
+      background: radial-gradient(circle, rgba(219, 234, 254, 0.8) 0%, rgba(239, 246, 255, 0.1) 70%);
+    }
+    /* Constrain the page to a phone-sized viewport and let content scroll within it */
+    .phone-shell {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+    }
+  </style>
+</head>
+<body class="bg-[#f4f7fb] text-slate-800 antialiased selection:bg-blue-100">
+<div class="phone-shell max-w-[480px] mx-auto px-4 py-3 flex flex-col gap-4 pb-8">
+<!-- BEGIN: MainHeader -->
+<header class="flex items-center justify-between py-2" data-purpose="page-header">
+<!-- Right: Development Institute Logo -->
+<div class="flex items-center gap-2" data-purpose="brand-logo">
+<div class="flex flex-col items-end">
+<div class="flex items-center gap-1">
+<svg class="w-8 h-8 text-blue-600" fill="none" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 8C12 8 16 12 18 16C20 20 18 26 14 28" stroke="#0ea5e9" stroke-linecap="round" stroke-width="3.5"></path>
+<path d="M22 6L28 20L22 34" stroke="#1d4ed8" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5"></path>
+<circle cx="10" cy="14" fill="#0ea5e9" r="3"></circle>
+<circle cx="20" cy="9" fill="#3b82f6" r="2.5"></circle>
+</svg>
+<div class="text-right">
+<span class="block text-sm font-black tracking-tight text-blue-900 leading-tight">معهد التطوير</span>
+<span class="block text-[8px] font-bold tracking-widest text-slate-400 uppercase leading-none">DEVELOPMENT INSTITUTE</span>
 </div>
 </div>
-@endsection
+</div>
+</div>
+<!-- Left: User Profile Pill and Options Icon -->
+<div class="flex items-center gap-2.5" data-purpose="user-navigation">
+<a href="{{ route('user.graded_exams.index') }}" aria-label="الرجوع لقائمة الشهادات" class="text-blue-600 hover:text-blue-800 transition-colors p-1">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+<path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</a>
+<div class="flex items-center gap-2 bg-white/90 border border-slate-200/80 rounded-full py-1 px-3 shadow-sm">
+<span class="text-xs font-bold text-slate-800">{{ auth()->user()->name ?? '' }}</span>
+<div class="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+<path clip-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" fill-rule="evenodd"></path>
+</svg>
+</div>
+</div>
+</div>
+</header>
+<!-- END: MainHeader -->
+<!-- BEGIN: HeroCard -->
+<section class="bg-white rounded-[26px] p-5 shadow-card border border-slate-100 relative overflow-hidden" data-purpose="hero-section">
+<div class="relative z-10">
+<!-- Badge & Illustration Row -->
+<div class="flex items-start justify-between">
+<!-- Text and Badge Content Column -->
+<div class="flex-1 pl-2">
+<!-- Training Exam Badge -->
+<div class="inline-flex items-center gap-1.5 bg-blue-50/90 text-blue-600 px-3.5 py-1 rounded-full text-xs font-bold mb-3 border border-blue-100/60">
+<svg class="w-3.5 h-3.5 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+<path d="M12 3L1 9L12 15L21 10.09V17H23V9M5 13.18V17.18L12 21L19 17.18V13.18L12 17L5 13.18Z"></path>
+</svg>
+<span>اختبار تدريبي</span>
+</div>
+<!-- Title -->
+<h1 class="text-xl sm:text-2xl font-black text-slate-900 leading-[1.35] tracking-tight">
+              {{ $exam->title_ar }}
+            </h1>
+</div>
+<!-- Illustration: Clipboard & Target -->
+<div class="w-28 sm:w-32 h-28 sm:h-32 flex-shrink-0 relative flex items-center justify-center">
+<!-- Glow background circle -->
+<div class="absolute inset-0 hero-glow rounded-full scale-110 -top-1 pointer-events-none"></div>
+<svg class="w-full h-full relative z-10 drop-shadow-sm" fill="none" viewBox="0 0 130 130" xmlns="http://www.w3.org/2000/svg">
+<!-- Clip board back shadow -->
+<rect fill="#E2E8F0" height="90" rx="14" width="70" x="25" y="24"></rect>
+<!-- Clip board board -->
+<rect fill="#FFFFFF" height="90" rx="14" stroke="#93C5FD" stroke-width="2.5" width="70" x="24" y="20"></rect>
+<!-- Clip top tab -->
+<path d="M44 14C44 11.7909 45.7909 10 48 10H70C72.2091 10 74 11.7909 74 14V22H44V14Z" fill="#1D4ED8"></path>
+<circle cx="59" cy="16" fill="#FFFFFF" r="2.5"></circle>
+<!-- Task rows -->
+<!-- Row 1 (Checked) -->
+<rect fill="#2563EB" height="14" rx="4" width="14" x="33" y="34"></rect>
+<path d="M36 41L39 44L44 38" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<rect fill="#BFDBFE" height="4.5" rx="2.25" width="28" x="52" y="37"></rect>
+<!-- Row 2 -->
+<rect fill="#F8FAFC" height="14" rx="4" stroke="#93C5FD" stroke-width="1.8" width="14" x="33" y="54"></rect>
+<rect fill="#E2E8F0" height="4.5" rx="2.25" width="22" x="52" y="58"></rect>
+<!-- Row 3 -->
+<rect fill="#F8FAFC" height="14" rx="4" stroke="#93C5FD" stroke-width="1.8" width="14" x="33" y="74"></rect>
+<rect fill="#E2E8F0" height="4.5" rx="2.25" width="30" x="52" y="79"></rect>
+<!-- Target & Dart (Overlapping bottom right of clip) -->
+<!-- Outer ring -->
+<circle cx="95" cy="85" fill="white" r="23" stroke="#2563EB" stroke-width="5"></circle>
+<!-- Middle ring -->
+<circle cx="95" cy="85" fill="none" r="14" stroke="#60A5FA" stroke-width="4.5"></circle>
+<!-- Center bullseye -->
+<circle cx="95" cy="85" fill="#1D4ED8" r="6"></circle>
+<!-- Dart -->
+<path d="M102 78L116 64" stroke="#1D4ED8" stroke-linecap="round" stroke-width="4"></path>
+<!-- Dart fins -->
+<path d="M112 60L120 62L118 70L112 66Z" fill="#2563EB"></path>
+<!-- Sparkles -->
+<path d="M110 32L116 26M103 24V16M92 20L97 27" stroke="#38BDF8" stroke-linecap="round" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+<!-- Description Header -->
+<div class="mt-4 flex items-center gap-2 text-slate-800">
+<div class="w-5 h-5 rounded-md bg-blue-600 flex items-center justify-center text-white">
+<svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+<path d="M4 6h16M4 12h16M4 18h10" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<span class="text-sm font-black text-slate-900">وصف الاختبار</span>
+</div>
+<!-- Description Body Text -->
+<p class="mt-2 text-xs leading-relaxed text-slate-500 font-medium text-justify">
+          {{ $exam->description_ar ?: 'يهدف هذا الاختبار إلى قياس مدى استيعابك للمفاهيم والمعارف الأساسية، ومساعدتك على تقييم جاهزيتك قبل التقدم إلى الاختبار النهائي للشهادة الاحترافية.' }}
+        </p>
+</div>
+</section>
+<!-- END: HeroCard -->
+<!-- BEGIN: ExamDataCard -->
+<section class="bg-white rounded-[26px] p-5 shadow-card border border-slate-100" data-purpose="exam-parameters">
+<!-- Section Header -->
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs shadow-sm">
+            i
+          </div>
+<h2 class="text-sm font-black text-slate-900">بيانات الاختبار</h2>
+</div>
+<div class="h-[1px] flex-1 max-w-[170px] bg-slate-200/80 mr-2"></div>
+</div>
+<!-- 2x2 Grid of Exam Details -->
+<div class="grid grid-cols-2 gap-3">
+<!-- Item 1: Duration (Top Right, matches RTL reading order) -->
+<div class="bg-[#fbfcfe] border border-slate-100 rounded-2xl p-3 flex items-center justify-between shadow-card-subtle">
+<div class="text-right">
+<div class="text-sm font-black text-slate-900">{{ $timeText }}</div>
+<div class="text-[11px] text-slate-400 font-medium mt-0.5">مدة الاختبار</div>
+</div>
+<div class="w-9 h-9 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 flex-shrink-0">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+<path d="M12 6v6l4 2" stroke-linecap="round" stroke-linejoin="round"></path>
+<circle cx="12" cy="12" r="9"></circle>
+</svg>
+</div>
+</div>
+<!-- Item 2: Number of questions (Top Left) -->
+<div class="bg-[#fbfcfe] border border-slate-100 rounded-2xl p-3 flex items-center justify-between shadow-card-subtle">
+<div class="text-right">
+<div class="text-sm font-black text-slate-900">{{ $questionCount }} سؤال</div>
+<div class="text-[11px] text-slate-400 font-medium mt-0.5">عدد الأسئلة</div>
+</div>
+<div class="w-9 h-9 rounded-full bg-teal-500 text-white flex items-center justify-center font-bold text-sm shadow-sm flex-shrink-0">
+            ?
+          </div>
+</div>
+<!-- Item 3: Question types (Bottom Right) -->
+<div class="bg-[#fbfcfe] border border-slate-100 rounded-2xl p-3 flex items-center justify-between shadow-card-subtle">
+<div class="text-right">
+<div class="text-sm font-black text-slate-900">صح/خطأ واختياري</div>
+<div class="text-[11px] text-slate-400 font-medium mt-0.5">أنواع الأسئلة</div>
+</div>
+<div class="w-9 h-9 rounded-xl bg-purple-500 text-white flex items-center justify-center flex-shrink-0">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<rect height="18" rx="3" stroke-width="1.5" width="18" x="3" y="3"></rect>
+<path d="M7 7l10 10M17 7l-2 2M7 17l2-2" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+</div>
+<!-- Item 4: Attempts (Bottom Left) -->
+<div class="bg-[#fbfcfe] border border-slate-100 rounded-2xl p-3 flex items-center justify-between shadow-card-subtle">
+<div class="text-right">
+<div class="text-sm font-black text-slate-900">محاولات مفتوحة</div>
+<div class="text-[11px] text-slate-400 font-medium mt-0.5">عدد المحاولات</div>
+</div>
+<div class="w-9 h-9 rounded-full bg-orange-50 flex items-center justify-center text-orange-500 flex-shrink-0">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+<path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+</div>
+</div>
+</section>
+<!-- END: ExamDataCard -->
+<!-- BEGIN: InstructionsCard -->
+<section class="bg-white rounded-[26px] p-5 shadow-card border border-slate-100" data-purpose="exam-instructions">
+<!-- Section Header -->
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-lg bg-blue-600 text-white flex items-center justify-center shadow-sm">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+<path d="M4 6h16M4 12h16M4 18h7" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<h2 class="text-sm font-black text-slate-900">تعليمات هامة</h2>
+</div>
+<div class="h-[1px] flex-1 max-w-[170px] bg-slate-200/80 mr-2"></div>
+</div>
+<!-- Numbered Instructions List -->
+<div class="space-y-3 mb-4">
+<div class="flex items-center gap-3">
+<div class="w-5 h-5 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-xs font-bold flex-shrink-0">
+            1
+          </div>
+<p class="text-xs text-slate-700 font-semibold">اقرأ السؤال والبدائل بعناية.</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-5 h-5 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-xs font-bold flex-shrink-0">
+            2
+          </div>
+<p class="text-xs text-slate-700 font-semibold">يمكنك مراجعة وتعديل إجاباتك قبل التسليم.</p>
+</div>
+</div>
+<!-- Alert / Warning Container -->
+<div class="bg-[#f0f7ff] border border-blue-100 rounded-2xl p-3.5 flex items-center justify-between gap-3 relative overflow-hidden" data-purpose="warning-alert-box">
+<!-- Text details -->
+<div class="flex-1 text-right">
+<div class="flex items-center gap-1 text-blue-600 mb-1">
+<svg class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+<path clip-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" fill-rule="evenodd"></path>
+</svg>
+<span class="text-xs font-black">تنبيه:</span>
+</div>
+<p class="text-[11px] text-slate-600 font-medium leading-relaxed">
+            حدد الإجابة أو الإجابات الصحيحة بناءً على المطلوب في كل سؤال، حيث قد يتطلب سؤال واحد اختيار أكثر من خيار.
+          </p>
+</div>
+<!-- Lightbulb illustration -->
+<div class="w-16 h-16 flex-shrink-0 relative flex items-center justify-center">
+<div class="absolute inset-0 bg-blue-200/50 rounded-full blur-md"></div>
+<svg class="w-14 h-14 relative z-10" fill="none" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+<!-- Glow rays -->
+<path d="M32 6V12M14 18L18 22M50 18L46 22M8 34H14M50 34H56" stroke="#60A5FA" stroke-linecap="round" stroke-width="2"></path>
+<!-- Bulb glass -->
+<path d="M32 16C24.268 16 18 22.268 18 30C18 34.5 20.5 38.5 24 41V46C24 47.1 24.9 48 26 48H38C39.1 48 40 47.1 40 46V41C43.5 38.5 46 34.5 46 30C46 22.268 39.732 16 32 16Z" fill="#3B82F6"></path>
+<!-- Filament lines -->
+<path d="M28 32C28 29.7909 29.7909 28 32 28C34.2091 28 36 29.7909 36 32V38H28V32Z" fill="none" stroke="#FFFFFF" stroke-width="1.8"></path>
+<!-- Bulb base -->
+<rect fill="#1D4ED8" height="3" rx="1" width="8" x="28" y="49"></rect>
+<rect fill="#1E40AF" height="2.5" rx="1" width="6" x="29" y="53"></rect>
+</svg>
+</div>
+</div>
+</section>
+<!-- END: InstructionsCard -->
+<!-- BEGIN: ActionControls -->
+<form action="{{ route('user.graded_exams.start', $exam->id) }}" method="POST" id="form-start-exam" class="m-0">
+@csrf
+<section class="bg-white rounded-[26px] p-4 shadow-card border border-slate-100 flex flex-col gap-3.5 mt-auto" data-purpose="actions-panel">
+<!-- Terms and Agreement Checkbox -->
+<label class="flex items-center gap-2.5 cursor-pointer select-none px-1">
+<input id="agreeCheckbox" class="w-5 h-5 rounded border-slate-300 text-blue-600 focus:ring-0 focus:ring-offset-0 cursor-pointer" type="checkbox"/>
+<span class="text-xs font-bold text-slate-800">قرأت التعليمات وأوافق على البدء.</span>
+</label>
+<!-- Action Buttons Row -->
+<div class="flex items-center gap-3">
+<!-- Start Exam Primary Button -->
+<button class="flex-1 py-3.5 px-6 rounded-2xl bg-blue-600 hover:bg-blue-700 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed transition-all text-white font-bold text-sm flex items-center justify-center gap-2 shadow-btn-blue" data-purpose="start-exam-button" id="btn-confirm-start" type="submit" disabled>
+<span class="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center">
+<svg class="w-3.5 h-3.5 fill-current rotate-180" viewBox="0 0 20 20">
+<path clip-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" fill-rule="evenodd"></path>
+</svg>
+</span>
+<span>ابدأ الاختبار</span>
+</button>
+<!-- Cancel Secondary Button -->
+<a href="{{ route('user.graded_exams.index') }}" class="flex-1 py-3.5 px-6 rounded-2xl bg-white border border-slate-200 hover:bg-slate-50 active:scale-[0.99] transition-all text-slate-700 font-bold text-sm flex items-center justify-center shadow-sm" data-purpose="cancel-button">
+          إلغاء
+        </a>
+</div>
+</section>
+</form>
+<!-- END: ActionControls -->
+</div>
 
-@push('scripts')
 <script>
     document.getElementById('agreeCheckbox').addEventListener('change', function () {
         document.getElementById('btn-confirm-start').disabled = !this.checked;
@@ -382,7 +339,8 @@
     document.getElementById('form-start-exam').addEventListener('submit', function () {
         var btn = document.getElementById('btn-confirm-start');
         btn.disabled = true;
-        btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> جاري البدء...';
+        btn.innerHTML = '<span class="w-5 h-5 flex items-center justify-center"><svg class="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path></svg></span><span>جاري البدء...</span>';
     });
 </script>
-@endpush
+</body>
+</html>
