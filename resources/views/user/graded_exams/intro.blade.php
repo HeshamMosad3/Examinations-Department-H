@@ -138,9 +138,9 @@
 <span class="text-sm font-black text-slate-900">وصف الاختبار</span>
 </div>
 <!-- Description Body Text -->
-<p class="mt-1.5 text-xs leading-relaxed text-slate-500 font-medium text-justify line-clamp-2">
-          {{ $exam->description_ar ?: 'يهدف هذا الاختبار التجريبي إلى قياس مدى استيعابك للمفاهيم والمعارف الأساسية في التسويق، ومساعدتك على تقييم جاهزيتك قبل التقدم إلى الاختبار النهائي للشهادة الاحترافية.' }}
-        </p>
+<p class="mt-1.5 text-xs sm:text-[13px] leading-relaxed text-slate-500 font-medium text-justify">
+  يهدف هذا الاختبار التجريبي إلى قياس مدى استيعابك للمفاهيم والمعارف الأساسية في التسويق، ومساعدتك على تقييم جاهزيتك قبل التقدم إلى الاختبار النهائي للشهادة الاحترافية.
+</p>
 </div>
 </section>
 <!-- END: HeroCard -->
