@@ -1529,3 +1529,34 @@ body {
         line-height: 1.3 !important;
     }
 }
+
+@media print {
+    /* Hide the navbar and footer */
+    .top-navbar, footer, .site-footer {
+        display: none !important;
+    }
+
+    /* Force the page to scale down to fit on one page */
+    body {
+        zoom: 0.8 !important; /* Works in Chrome */
+    }
+
+    /* Remove excessive margins */
+    .page-padding {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
+    
+    .main-score-card, .plan-card, .program-card, .quote-footer-card {
+        margin-bottom: 10px !important;
+        page-break-inside: avoid !important;
+    }
+    
+    /* Ensure no empty container pushes it to page 2 */
+    main {
+        min-height: auto !important;
+        padding-bottom: 0 !important;
+        margin-bottom: 0 !important;
+    }
+}
