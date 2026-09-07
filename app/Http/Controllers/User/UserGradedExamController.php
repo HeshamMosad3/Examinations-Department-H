@@ -28,7 +28,19 @@ class UserGradedExamController extends Controller
     {
         $exam->loadMissing('constraintSettings');
 
-        return view('user.graded_exams.intro', compact('exam'));
+        $minutes = $exam->time_limit_min;
+        if (!$minutes) {
+            $timeText = 'غير محدد';
+        } else {
+            $hours = floor($minutes / 60);
+            $mins = $minutes % 60;
+            $parts = [];
+            if ($hours > 0) $parts[] = $hours . ' ساعة';
+            if ($mins > 0) $parts[] = $mins . ' دقيقة';
+            $timeText = implode(' و', $parts);
+        }
+
+        return view('user.graded_exams.intro', compact('exam', 'timeText'));
     }
 
     public function progress()
