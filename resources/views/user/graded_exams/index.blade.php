@@ -1,5 +1,5 @@
 @extends('layouts.user')
-@section('title', 'الشهادات الاحترافية')
+@section('title', 'الشهادات والمقاييس')
 
 @push('styles')
   <!-- Tailwind CSS -->
@@ -104,8 +104,8 @@
         </svg>
       </div>
       <div class="flex flex-col text-right">
-        <h1 class="text-[23px] font-extrabold text-[#0d2a4a] leading-tight tracking-tight mb-0">الشهادات الاحترافية</h1>
-        <p class="text-[13.5px] font-semibold text-slate-500 mt-1 mb-0">اختر الشهادة التي ترغب في أداء اختبارها</p>
+        <h1 class="text-[23px] font-extrabold text-[#0d2a4a] leading-tight tracking-tight mb-0">الشهادات والمقاييس</h1>
+        <p class="text-[13.5px] font-semibold text-slate-500 mt-1 mb-0">اختر الشهادة أو المقياس الذي ترغب في أدائه</p>
       </div>
     </section>
 
@@ -188,6 +188,49 @@
       @empty
       <div class="bg-white rounded-[26px] p-8 text-center shadow-sm border border-solid border-slate-100">
         <p class="text-slate-500 font-bold mb-0">لا توجد شهادات متوفرة حالياً</p>
+      </div>
+      @endforelse
+    </div>
+
+    <!-- Assessments Section -->
+    <section class="flex items-start justify-end gap-3 mt-6 px-1 flex-row-reverse" data-purpose="section-title">
+      <div class="flex flex-col text-right">
+        <h2 class="text-[21px] font-extrabold text-[#0d2a4a] leading-tight tracking-tight mb-0">المقاييس السلوكية والمهنية</h2>
+        <p class="text-[13.5px] font-semibold text-slate-500 mt-1 mb-0">اكتشف قدراتك وطوّر مهاراتك</p>
+      </div>
+    </section>
+
+    <div class="flex flex-col gap-2 mt-2">
+      @forelse($assessments as $assessment)
+      <article class="w-full bg-white rounded-[22px] p-3 shadow-[0_4px_22px_-2px_rgba(0,40,100,0.07)] border border-solid border-slate-100 flex flex-col gap-1.5">
+        <div class="flex items-start justify-between gap-3 flex-row-reverse">
+          <div class="flex-1 text-right">
+            <h3 class="text-[18px] font-black text-[#0b2447] leading-snug mb-0">
+              {{ $assessment->title_ar }}
+            </h3>
+          </div>
+          <div class="w-11 h-11 p-2 rounded-2xl bg-[#e3fdf3] text-[#0fa362] flex items-center justify-center shrink-0">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewBox="0 0 24 24">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+          </div>
+        </div>
+        <p class="text-[13.5px] leading-relaxed text-slate-500 font-medium text-justify mb-0" style="direction: rtl;">
+          {{ Str::limit($assessment->description_ar, 120) }}
+        </p>
+        <div class="grid grid-cols-1 gap-3 pt-1" style="direction: rtl;">
+          <a href="{{ route('dashboard.assessments') }}" class="w-full bg-[#1a2b56] hover:bg-[#0f172a] active:scale-[0.98] transition text-white font-bold py-2 px-3 rounded-2xl flex items-center justify-center gap-2 text-[15px] shadow-sm no-underline-hover text-decoration-none">
+            <span class="text-white">تفاصيل المقياس</span>
+            <svg class="w-4 h-4 text-white rotate-180" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24">
+              <line x1="19" x2="5" y1="12" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+          </a>
+        </div>
+      </article>
+      @empty
+      <div class="bg-white rounded-[26px] p-8 text-center shadow-sm border border-solid border-slate-100">
+        <p class="text-slate-500 font-bold mb-0">لا توجد مقاييس متوفرة حالياً</p>
       </div>
       @endforelse
     </div>
