@@ -83,6 +83,7 @@ class DatabaseSeeder extends Seeder
         // Include all finalized comprehensive assessments
         $this->call(AssessmentsDatabaseSeeder::class);
         $this->call(PerceptualStylesSeeder::class);
+        $this->call(WheelOfLifeSeeder::class);
         $this->call(GradedExamsDatabaseSeeder::class);
 
         // Seed some demo coupons
