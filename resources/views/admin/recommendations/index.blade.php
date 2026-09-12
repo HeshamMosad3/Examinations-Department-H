@@ -95,9 +95,17 @@
                         <label class="form-label small fw-medium">المستوى *</label>
                         <select class="form-select" id="r-level">
                             <option value="">اختر المستوى</option>
-                            <option value="high">مرتفع</option>
-                            <option value="medium">متوسط</option>
-                            <option value="low">منخفض</option>
+                            <option value="متميز">متميز</option>
+                            <option value="جيد جدًا">جيد جدًا</option>
+                            <option value="جيد">جيد</option>
+                            <option value="مرتفع">مرتفع</option>
+                            <option value="متوسط">متوسط</option>
+                            <option value="منخفض">منخفض</option>
+                            <option value="منخفض جدًا">منخفض جدًا</option>
+                            <!-- Keep English for backwards compatibility if needed -->
+                            <option value="high">مرتفع (High)</option>
+                            <option value="medium">متوسط (Medium)</option>
+                            <option value="low">منخفض (Low)</option>
                         </select>
                     </div>
                     <div class="col-md-6">
