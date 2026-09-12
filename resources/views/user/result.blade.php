@@ -639,7 +639,7 @@
                                     <div id="collapse{{ $index }}" class="accordion-collapse collapse" aria-labelledby="heading{{ $index }}" data-bs-parent="#dimensionsAccordion">
                                         <div class="accordion-body px-4 pb-4 pt-1">
                                             <p class="text-muted mb-0" style="line-height: 1.8; font-size: 0.95rem; text-align: justify;">
-                                                {{ $dim['interpretation'] }}
+                                                {!! nl2br(e($dim['interpretation'])) !!}
                                             </p>
                                         </div>
                                     </div>
