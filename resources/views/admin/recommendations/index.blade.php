@@ -26,8 +26,21 @@
                 <div class="row g-3">
                     @foreach($recs as $rec)
                         @php
-                            $lc = match($rec->level) { 'high'=>'success', 'medium'=>'warning', default=>'danger' };
-                            $ll = match($rec->level) { 'high'=>'مرتفع', 'medium'=>'متوسط', default=>'منخفض' };
+                            $lc = match($rec->level) { 
+                                'high', 'excellent', 'very_good', 'متميز', 'جيد جدًا', 'مرتفع' => 'success', 
+                                'medium', 'good', 'متوسط', 'جيد' => 'warning', 
+                                default => 'danger' 
+                            };
+                            $ll = match($rec->level) { 
+                                'high' => 'مرتفع', 
+                                'medium' => 'متوسط', 
+                                'low' => 'منخفض',
+                                'very_low' => 'منخفض جدًا',
+                                'excellent' => 'متميز',
+                                'very_good' => 'جيد جدًا',
+                                'good' => 'جيد',
+                                default => $rec->level 
+                            };
                         @endphp
                         <div class="col-md-4">
                             <div class="border border-{{ $lc }} rounded-3 p-3 h-100">
