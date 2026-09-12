@@ -18,8 +18,7 @@ class UserGradedExamController extends Controller
     public function index()
     {
         $exams = GradedExam::where('is_active', true)->get();
-        $assessments = \App\Models\Assessment::where('is_active', true)->get();
-        return view('user.graded_exams.index', compact('exams', 'assessments'));
+        return view('user.graded_exams.index', compact('exams'));
     }
 
     /**

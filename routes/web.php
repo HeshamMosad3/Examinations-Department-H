@@ -18,7 +18,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // User routes
 Route::middleware(['auth', 'user'])->group(function () {
     Route::get('/selection', function () {
-        return redirect()->route('user.graded_exams.index');
+        return view('user.selection');
     })->name('selection');
     
     // Keep old dashboard route for backward compatibility, redirect to selection
