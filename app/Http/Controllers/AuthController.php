@@ -36,7 +36,7 @@ class AuthController extends Controller
                 return redirect()->route('admin.dashboard');
             }
 
-            return redirect()->route('user.graded_exams.index');
+            return redirect()->route('selection');
         }
 
         return back()->withErrors(['email' => 'البريد الإلكتروني أو كلمة المرور غير صحيحة.']);
@@ -57,7 +57,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('user.graded_exams.index');
+        return redirect()->route('selection');
     }
 
     public function logout(Request $request): RedirectResponse
