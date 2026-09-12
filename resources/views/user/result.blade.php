@@ -157,6 +157,10 @@
             $lc = 'warning';
         }
     }
+
+    $practicalTips = is_array($recObj?->practical_tips_ar) && !empty($recObj->practical_tips_ar) 
+        ? $recObj->practical_tips_ar 
+        : (!empty($practical_tips) && is_array($practical_tips) ? $practical_tips : []);
 @endphp
 
 
@@ -273,10 +277,6 @@
                 $devAreasData = is_array($recObj?->development_areas_ar) && !empty($recObj->development_areas_ar) 
                     ? $recObj->development_areas_ar 
                     : (!empty($development_areas) && is_array($development_areas) ? $development_areas : []);
-
-                $practicalTips = is_array($recObj?->practical_tips_ar) && !empty($recObj->practical_tips_ar) 
-                    ? $recObj->practical_tips_ar 
-                    : (!empty($practical_tips) && is_array($practical_tips) ? $practical_tips : []);
 
                 $progsData = is_array($recObj?->programs_ar) && !empty($recObj->programs_ar) 
                     ? $recObj->programs_ar 
@@ -667,6 +667,25 @@
     <div class="a4-page">
         <div class="page-padding pt-5 mt-4">
             
+            <!-- Practical Tips Section -->
+            @if(!empty($practicalTips))
+            <div class="card border-0 shadow-sm rounded-4 p-4 mb-4" style="background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%); border: 1px solid #dbeafe !important;">
+                <h5 class="fw-bold text-darkblue mb-3">
+                    <i class="bi bi-gear-wide-connected text-primary me-2"></i> التوجيهات والنصائح العملية
+                </h5>
+                <div class="row g-3">
+                    @foreach($practicalTips as $tip)
+                    <div class="col-md-12 col-12">
+                        <div class="d-flex align-items-start p-3 bg-white rounded-3 border shadow-sm">
+                            <i class="bi bi-shield-check text-primary fs-5 me-2 mt-0"></i>
+                            <span class="fw-semibold text-dark small" style="line-height: 1.6; font-size: 0.95rem;">{{ is_object($tip) ? ($tip->title ?? $tip->name ?? $tip->desc ?? '') : (is_array($tip) ? ($tip['title'] ?? $tip['name'] ?? $tip['desc'] ?? '') : (string) $tip) }}</span>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+            @endif
+
             <!-- Training Programs Section -->
             @if(!empty($progs))
             <div class="mb-4">
