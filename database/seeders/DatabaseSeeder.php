@@ -90,6 +90,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SelfDisciplineAssessmentSeeder::class);
         $this->call(BigFivePersonalityAssessmentSeeder::class);
         $this->call(CriticalThinkingAssessmentSeeder::class);
+        $this->call(CuriosityAssessmentSeeder::class);
         $this->call(GradedExamsDatabaseSeeder::class);
 
         // Seed some demo coupons
