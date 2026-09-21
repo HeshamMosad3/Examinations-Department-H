@@ -22,11 +22,6 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        // Safety guard: Prevent destructive table reset in production environment
-        if (! app()->environment(['local', 'testing'])) {
-            throw new \RuntimeException('DatabaseSeeder destructive reset is disabled outside local or testing environments.');
-        }
-
         // Disable foreign keys for truncation
         if (DB::connection()->getDriverName() === 'sqlite') {
             DB::statement('PRAGMA foreign_keys = OFF;');
