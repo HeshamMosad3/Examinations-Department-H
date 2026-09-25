@@ -428,4 +428,10 @@ class UserGradedExamController extends Controller
             'session', 'result', 'readinessLevel', 'overallPerformance', 'unitsStats', 'highestUnit', 'lowestUnit', 'reviewData'
         ));
     }
+
+    public function finalRegistration(\App\Models\GradedExam $exam)
+    {
+        $user = \Illuminate\Support\Facades\Auth::user();
+        return view('user.graded_exams.final_registration', compact('exam', 'user'));
+    }
 }

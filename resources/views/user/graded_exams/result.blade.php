@@ -516,6 +516,35 @@
             </div>
         </div>
 
+        <!-- Final Registration Card -->
+        <div class="card border-0 shadow-sm rounded-4 p-4 mb-4 no-print" style="background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%); border: 1px solid #dbeafe !important;">
+            <div class="d-flex flex-column align-items-center text-center">
+                @if($result->percentage >= 80)
+                    <div class="mb-3 text-success">
+                        <i class="bi bi-check-circle-fill" style="font-size: 3rem;"></i>
+                    </div>
+                    <h5 class="fw-bold text-darkblue mb-3">أحسنت!</h5>
+                    <p class="text-muted mb-4" style="font-size: 1.05rem; max-width: 700px;">نتيجتك التجريبية تشير إلى جاهزية عالية لاختبار شهادة {{ $session->gradedExam->title_ar }}. يمكنك الآن التسجيل في الاختبار النهائي.</p>
+                @elseif($result->percentage >= 70)
+                    <div class="mb-3 text-warning">
+                        <i class="bi bi-exclamation-circle-fill" style="font-size: 3rem;"></i>
+                    </div>
+                    <h5 class="fw-bold text-darkblue mb-3">نتيجة جيدة!</h5>
+                    <p class="text-muted mb-4" style="font-size: 1.05rem; max-width: 700px;">أنت قريب من مستوى الجاهزية المستهدف. راجع الموضوعات التي تحتاج إلى تحسين، ثم أعد الاختبار التجريبي بهدف الوصول إلى 80% فأعلى لتضمن اجتياز الاختبار النهائي. ويمكنك الاطلاع على تفاصيل التسجيل في الاختبار النهائي.</p>
+                @else
+                    <div class="mb-3 text-danger">
+                        <i class="bi bi-x-circle-fill" style="font-size: 3rem;"></i>
+                    </div>
+                    <h5 class="fw-bold text-darkblue mb-3">تحتاج إلى المزيد من المراجعة</h5>
+                    <p class="text-muted mb-4" style="font-size: 1.05rem; max-width: 700px;">نتيجتك تشير إلى الحاجة لمزيد من المراجعة والتحضير قبل دخول الاختبار النهائي. نوصي بمراجعة الوحدات الضعيفة وإعادة الاختبار التجريبي. يمكنك الاطلاع على تفاصيل التسجيل في الاختبار النهائي في أي وقت.</p>
+                @endif
+
+                <a href="{{ route('user.graded_exams.final_registration', $session->gradedExam->id) }}" class="btn btn-primary rounded-pill px-4 py-2 fw-bold" style="font-size: 1.1rem;">
+                    التسجيل في الاختبار النهائي <i class="bi bi-arrow-left ms-2"></i>
+                </a>
+            </div>
+        </div>
+
         <!-- Actions -->
         <div class="result-actions no-print">
             <button onclick="window.print()" class="btn btn-primary">

@@ -46,6 +46,7 @@ Route::middleware(['auth'])->prefix('certificates')->name('user.graded_exams.')-
     Route::get('/session/{session}', [User\UserGradedExamController::class, 'show'])->name('show');
     Route::post('/session/{session}/answer', [User\UserGradedExamController::class, 'answer'])->name('answer');
     Route::get('/session/{session}/result', [User\UserGradedExamController::class, 'result'])->name('result');
+    Route::get('/{exam}/final-registration', [User\UserGradedExamController::class, 'finalRegistration'])->name('final_registration');
 });
 
 // Public Admin Preview Route (No Login Required)
