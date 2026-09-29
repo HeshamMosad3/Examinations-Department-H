@@ -62,20 +62,6 @@
                 </a>
             </li>
 
-            <!-- قسم الشهادات الاحترافية -->
-            <li class="nav-item mt-3 mb-1 px-3">
-                <span class="text-secondary small fw-bold" style="font-size: 0.75rem;">الشهادات الاحترافية</span>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('admin.graded_exams.index') ? 'active' : '' }}" href="{{ route('admin.graded_exams.index') }}">
-                    <i class="bi bi-award me-2"></i>إدارة الشهادات والوحدات
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('admin.graded_exams.questions.*') ? 'active' : '' }}" href="{{ route('admin.graded_exams.questions.index') }}">
-                    <i class="bi bi-question-circle me-2"></i>بنك أسئلة الشهادات
-                </a>
-            </li>
 
             <!-- قسم الإدارة العامة -->
             <li class="nav-item mt-3 mb-1 px-3">
