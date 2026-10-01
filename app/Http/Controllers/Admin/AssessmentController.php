@@ -226,6 +226,10 @@ class AssessmentController extends Controller
         ]))->setRelation('result', $result)
            ->setRelation('assessment', $assessment);
 
-        return view('user.result', array_merge(['session' => $session], $formattedData));
+        if (view()->exists('user.result')) {
+            return view('user.result', array_merge(['session' => $session], $formattedData));
+        }
+
+        return response()->json(array_merge(['session' => $session], $formattedData));
     }
 }

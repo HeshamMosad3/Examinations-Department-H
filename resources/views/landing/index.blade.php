@@ -115,16 +115,7 @@
     <!-- 2. Hero Section & Life Wheel -->
     @include('landing.partials.hero')
 
-    <!-- 3. Perceptual Patterns Section -->
-    @include('landing.partials.perceptual-patterns')
-
-    <!-- 4. Seven Personality Keys Section -->
-    @include('landing.partials.personality-keys')
-
-    <!-- 5. Quick Challenge Section -->
-    @include('landing.partials.quick-challenge')
-
-    <!-- 6. Courses Section -->
+    <!-- 3. Courses Section -->
     @include('landing.partials.courses')
 
     <!-- 7. Certifications Section -->

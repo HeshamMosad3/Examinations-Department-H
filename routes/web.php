@@ -3,8 +3,6 @@
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\User;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ExamController;
 use App\Http\Controllers\LifeWheelController;
 use Illuminate\Support\Facades\Route;
 
@@ -82,15 +80,12 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // User routes
 Route::middleware(['auth', 'user'])->group(function () {
     Route::get('/dashboard', function () {
-        return redirect()->route('dashboard.assessments');
+        return redirect()->route('home');
     })->name('dashboard');
-    
-    Route::get('/assessments', [DashboardController::class, 'index'])->name('dashboard.assessments');
-    Route::post('/exam/{assessment}/start', [ExamController::class, 'start'])->name('exam.start');
-    Route::get('/exam/{session}', [ExamController::class, 'show'])->name('exam.show');
-    Route::post('/exam/{session}/answer', [ExamController::class, 'answer'])->name('exam.answer');
-    Route::post('/exam/{session}/previous', [ExamController::class, 'previous'])->name('exam.previous');
-    Route::get('/exam/{session}/result', [ExamController::class, 'result'])->name('exam.result');
+
+    Route::get('/assessments', function () {
+        return redirect()->route('home');
+    })->name('dashboard.assessments');
 });
 
 // Admin routes

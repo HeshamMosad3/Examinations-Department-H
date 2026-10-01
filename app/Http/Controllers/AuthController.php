@@ -51,7 +51,7 @@ class AuthController extends Controller
                 return redirect()->route('admin.dashboard');
             }
 
-            return redirect()->intended(route('dashboard.assessments'));
+            return redirect()->intended(route('home'));
         }
 
         return back()->withErrors(['email' => 'البريد الإلكتروني أو كلمة المرور غير صحيحة.'])->onlyInput('email');
@@ -74,7 +74,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect()->intended(route('dashboard.assessments'));
+        return redirect()->intended(route('home'));
     }
 
     public function logout(Request $request): RedirectResponse

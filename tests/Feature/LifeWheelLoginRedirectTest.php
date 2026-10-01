@@ -24,7 +24,7 @@ class LifeWheelLoginRedirectTest extends TestCase
     {
         $this->makeUser();
 
-        $this->post(route('login.post'), $this->credentials())->assertRedirect(route('dashboard.assessments'));
+        $this->post(route('login.post'), $this->credentials())->assertRedirect(route('home'));
     }
 
     public function test_login_from_the_report_button_modal_continues_to_the_details_page(): void
@@ -65,7 +65,7 @@ class LifeWheelLoginRedirectTest extends TestCase
     {
         $this->makeUser();
 
-        $this->post(route('login.post'), $this->credentials() + ['next' => 'https://evil.example/steal'])->assertRedirect(route('dashboard.assessments'));
+        $this->post(route('login.post'), $this->credentials() + ['next' => 'https://evil.example/steal'])->assertRedirect(route('home'));
     }
 
     public function test_admins_still_land_on_the_admin_dashboard(): void
