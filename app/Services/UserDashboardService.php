@@ -3,8 +3,6 @@
 namespace App\Services;
 
 use App\Models\Assessment;
-use App\Models\Coupon;
-use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -30,19 +28,7 @@ class UserDashboardService
                 ->get();
         });
 
-        // 2. Cache Active Coupons (Global)
-        $couponsMax = Coupon::max('updated_at') ?? 'none';
-        $couponsCount = Coupon::count();
-        $couponsKey = "active_coupons_{$couponsMax}_{$couponsCount}";
-        $activeCoupons = Cache::remember($couponsKey, 3600, function () {
-            return Coupon::where('is_active', true)
-                ->where(function ($query) {
-                    $query->whereNull('expires_at')
-                        ->orWhere('expires_at', '>=', now()->toDateString());
-                })->get();
-        });
-
-        // 3. Cache User Sessions & Progress Map (User-specific)
+        // 2. Cache User Sessions & Progress Map (User-specific)
         $sessionsMax = $user->examSessions()->max('updated_at') ?? 'none';
         $sessionsCount = $user->examSessions()->count();
         $sessionsKey = "user_sessions_{$user->id}_{$sessionsMax}_{$sessionsCount}";
@@ -77,23 +63,6 @@ class UserDashboardService
             return $map;
         });
 
-        // 4. Load My Coupons (No need to cache as it's a very light query and pivot updates are tricky to track globally)
-        $myCoupons = $user->coupons()->get();
-
-        // 5. Site Settings (stats)
-        $siteSettings = Cache::remember('site_settings', 3600, function () {
-            $settings = Setting::pluck('value', 'key')->toArray();
-            
-            if (isset($settings['stats_mode']) && $settings['stats_mode'] === 'auto') {
-                $settings['stat_users'] = '+' . \App\Models\User::count();
-                $settings['stat_exams'] = '+' . \App\Models\Result::count();
-                $settings['stat_assessments'] = '+' . \App\Models\Assessment::count();
-                $settings['stat_fields'] = '+' . \App\Models\Dimension::count();
-            }
-            
-            return $settings;
-        });
-
-        return compact('assessments', 'userSessions', 'progressMap', 'activeCoupons', 'myCoupons', 'siteSettings');
+        return compact('assessments', 'userSessions', 'progressMap');
     }
 }

@@ -113,14 +113,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(Assessment::class, 'created_by');
     }
-
-    public function coupons()
-    {
-        return $this->belongsToMany(Coupon::class)->withPivot('used_count')->withTimestamps();
-    }
-
-    public function permittedCoupons()
-    {
-        return $this->belongsToMany(Coupon::class, 'coupon_permitted_user');
-    }
 }

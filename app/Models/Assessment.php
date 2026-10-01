@@ -26,24 +26,17 @@ class Assessment extends Model
         'price',
         'rating',
         'rating_count',
-        'hide_coupon_field',
         'icon',
         'report_code',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
-        'hide_coupon_field' => 'boolean',
     ];
 
     public function creator()
     {
         return $this->belongsTo(User::class, 'created_by');
-    }
-
-    public function coupons()
-    {
-        return $this->belongsToMany(Coupon::class, 'coupon_assessment');
     }
 
     public function dimensions(): \Illuminate\Database\Eloquent\Relations\HasMany

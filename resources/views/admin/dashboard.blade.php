@@ -61,11 +61,8 @@
 </div>
 
 <div class="card border-0 shadow-sm">
-    <div class="card-header bg-transparent border-0 py-3 d-flex justify-content-between align-items-center">
+    <div class="card-header bg-transparent border-0 py-3">
         <h6 class="mb-0 fw-semibold"><i class="bi bi-clock-history me-2 text-muted"></i>آخر الجلسات المكتملة</h6>
-        <a href="{{ route('admin.statistics.exportCsv') }}" class="btn btn-sm btn-outline-success shadow-sm">
-            <i class="bi bi-file-earmark-excel me-1"></i>تصدير جميع النتائج (CSV)
-        </a>
     </div>
     <div class="table-responsive">
         <table class="table table-hover align-middle mb-0">

@@ -11,7 +11,7 @@ class ExamSession extends Model
     use HasUuids, SoftDeletes;
 
     protected $fillable = [
-        'user_id', 'assessment_id', 'status', 'started_at', 'completed_at', 'coupon_id', 'discount_applied',
+        'user_id', 'assessment_id', 'status', 'started_at', 'completed_at',
     ];
 
     protected $casts = [
@@ -22,11 +22,6 @@ class ExamSession extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function coupon()
-    {
-        return $this->belongsTo(Coupon::class);
     }
 
     public function assessment()

@@ -68,23 +68,8 @@
                 <span class="text-secondary small fw-bold" style="font-size: 0.75rem;">الإدارة العامة</span>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('admin.coupons*') ? 'active' : '' }}" href="{{ route('admin.coupons.index') }}">
-                    <i class="bi bi-ticket-perforated me-2"></i>إدارة الكوبونات
-                </a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('admin.icons*') ? 'active' : '' }}" href="{{ route('admin.icons.index') }}">
                     <i class="bi bi-images me-2"></i>إدارة الأيقونات
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('admin.statistics*') ? 'active' : '' }}" href="{{ route('admin.statistics.index') }}">
-                    <i class="bi bi-bar-chart-line me-2"></i>الإحصائيات
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('admin.settings*') ? 'active' : '' }}" href="{{ route('admin.settings.index') }}">
-                    <i class="bi bi-gear me-2"></i>إعدادات الموقع
                 </a>
             </li>
             <li class="nav-item">

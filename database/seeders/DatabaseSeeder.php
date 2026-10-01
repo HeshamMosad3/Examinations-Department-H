@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\AnswerOption;
 use App\Models\Assessment;
-use App\Models\Coupon;
 use App\Models\Dimension;
 use App\Models\DimensionInterpretation;
 use App\Models\DimensionScore;
@@ -30,9 +29,6 @@ class DatabaseSeeder extends Seeder
         }
 
         // Truncate all tables in proper order
-        DB::table('coupon_user')->delete();
-        DB::table('coupon_assessment')->delete();
-        Coupon::query()->forceDelete();
         DimensionScore::query()->forceDelete();
         Result::query()->forceDelete();
         UserAnswer::query()->forceDelete();
@@ -75,8 +71,7 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        // Include all finalized comprehensive assessments
-        $this->call(AssessmentsDatabaseSeeder::class);
+        // Include only the 9 allowed comprehensive assessments
         $this->call(PerceptualStylesSeeder::class);
         $this->call(WheelOfLifeSeeder::class);
         $this->call(InitiativeAssessmentSeeder::class);
@@ -87,49 +82,5 @@ class DatabaseSeeder extends Seeder
         $this->call(CriticalThinkingAssessmentSeeder::class);
         $this->call(CuriosityAssessmentSeeder::class);
 
-
-        // Seed some demo coupons
-        $assessment = Assessment::first();
-
-        // 1. FREE100: 100% discount, single use
-        Coupon::firstOrCreate(
-            ['code' => 'FREE100'],
-            [
-                'title' => 'كوبون خصم كامل 100%',
-                'discount_percentage' => 100,
-                'assessments_limit' => 1,
-                'is_active' => true,
-                'applies_to_all_assessments' => true,
-            ]
-        );
-
-        // 2. TIERED: 1st 100%, 2nd 50%, 3rd 10%
-        Coupon::firstOrCreate(
-            ['code' => 'TIERED'],
-            [
-                'title' => 'كوبون الخصم المتدرج للمبادرة',
-                'discount_percentage' => 100,
-                'discount_percentage_2nd' => 50,
-                'discount_percentage_3rd' => 10,
-                'assessments_limit' => 3,
-                'is_active' => true,
-                'applies_to_all_assessments' => true,
-            ]
-        );
-
-        // 3. SPECIFIC: Only for the first assessment
-        if ($assessment) {
-            $specificCoupon = Coupon::firstOrCreate(
-                ['code' => 'SPECIFIC'],
-                [
-                    'title' => 'كوبون مقياس محدد',
-                    'discount_percentage' => 100,
-                    'assessments_limit' => 1,
-                    'is_active' => true,
-                    'applies_to_all_assessments' => false,
-                ]
-            );
-            $specificCoupon->assessments()->syncWithoutDetaching([$assessment->id]);
-        }
     }
 }

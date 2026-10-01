@@ -86,8 +86,6 @@ Route::middleware(['auth', 'user'])->group(function () {
     })->name('dashboard');
     
     Route::get('/assessments', [DashboardController::class, 'index'])->name('dashboard.assessments');
-    Route::post('/coupon/validate', [ExamController::class, 'validateCoupon'])->name('coupon.validate');
-    Route::get('/coupon/for-assessment/{assessment}', [ExamController::class, 'getCouponForAssessment'])->name('coupon.for-assessment');
     Route::post('/exam/{assessment}/start', [ExamController::class, 'start'])->name('exam.start');
     Route::get('/exam/{session}', [ExamController::class, 'show'])->name('exam.show');
     Route::post('/exam/{session}/answer', [ExamController::class, 'answer'])->name('exam.answer');
@@ -98,8 +96,6 @@ Route::middleware(['auth', 'user'])->group(function () {
 // Admin routes
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [Admin\DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/settings', [Admin\SettingController::class, 'index'])->name('settings.index');
-    Route::put('/settings', [Admin\SettingController::class, 'update'])->name('settings.update');
 
     Route::get('/assessments', [Admin\AssessmentController::class, 'index'])->name('assessments.index');
     Route::post('/assessments', [Admin\AssessmentController::class, 'store'])->name('assessments.store');
@@ -146,11 +142,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::post('/recommendations', [Admin\RecommendationController::class, 'store'])->name('recommendations.store');
     Route::delete('/recommendations/{recommendation}', [Admin\RecommendationController::class, 'destroy'])->name('recommendations.destroy');
 
-    Route::get('/statistics', [Admin\StatisticsController::class, 'index'])->name('statistics.index');
-    Route::get('/statistics/data', [Admin\StatisticsController::class, 'data'])->name('statistics.data');
-    Route::get('/statistics/export-csv', [Admin\StatisticsController::class, 'exportCsv'])->name('statistics.exportCsv');
-
-    Route::resource('coupons', Admin\CouponController::class)->except(['show']);
     Route::resource('icons', Admin\IconController::class)->only(['index', 'store', 'destroy']);
 
     Route::get('/users', [Admin\UserController::class, 'index'])->name('users.index');

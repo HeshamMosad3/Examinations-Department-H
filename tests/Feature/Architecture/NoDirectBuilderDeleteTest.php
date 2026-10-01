@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 class NoDirectBuilderDeleteTest extends TestCase
 {
     /**
-     * Test that User and Coupon models are not deleted via direct Builder::delete() calls across app/ and database/seeders/.
+     * Test that User models are not deleted via direct Builder::delete() calls across app/ and database/seeders/.
      */
     public function test_no_direct_builder_delete_on_models_with_unique_columns(): void
     {
@@ -19,9 +19,9 @@ class NoDirectBuilderDeleteTest extends TestCase
 
         $violatingFiles = [];
 
-        // Matches User::where...->delete(), Coupon::whereIn...->delete(), etc., across single or multiple lines
+        // Matches User::where...->delete(), etc., across single or multiple lines
         $patterns = [
-            '/(?:User|Coupon)::(?:query|where|orWhere|whereIn|whereNotIn|withTrashed|onlyTrashed)[\s\S]{1,200}?->delete\s*\(/i',
+            '/(?:User)::(?:query|where|orWhere|whereIn|whereNotIn|withTrashed|onlyTrashed)[\s\S]{1,200}?->delete\s*\(/i',
         ];
 
         foreach ($directories as $dir) {
@@ -45,7 +45,7 @@ class NoDirectBuilderDeleteTest extends TestCase
 
         $this->assertEmpty(
             $violatingFiles,
-            'Direct Builder delete found on User/Coupon models in: ' . implode(', ', $violatingFiles) . '. Use Model::bulkSoftDelete() or $collection->each->delete() instead.'
+            'Direct Builder delete found on User models in: ' . implode(', ', $violatingFiles) . '. Use Model::bulkSoftDelete() or $collection->each->delete() instead.'
         );
     }
 }
