@@ -3,15 +3,22 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "build": "vite build",
-        "dev": "vite"
+        "build": "vite build && npm run build:landing",
+        "build:landing": "vite build --config vite.landing.config.js",
+        "dev": "vite",
+        "dev:landing": "vite --config vite.landing.config.js"
     },
     "devDependencies": {
         "@tailwindcss/vite": "^4.0.0",
+        "autoprefixer": "10.6.0",
         "axios": "^1.11.0",
+        "canvas-confetti": "1.9.4",
+        "chart.js": "4.5.1",
         "concurrently": "^9.0.1",
         "laravel-vite-plugin": "^2.0.0",
+        "postcss": "8.5.28",
         "tailwindcss": "^4.0.0",
+        "tailwindcss-v3": "npm:tailwindcss@3.4.19",
         "vite": "^7.0.7"
     }
 }

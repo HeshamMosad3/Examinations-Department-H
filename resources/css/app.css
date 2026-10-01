@@ -4,6 +4,9 @@
 @source '../../storage/framework/views/*.php';
 @source '../**/*.blade.php';
 @source '../**/*.js';
+/* Landing page has its own Tailwind v3 build (vite.landing.config.js) */
+@source not '../views/landing';
+@source not '../landing';
 
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',

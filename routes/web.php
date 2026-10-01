@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\User;
@@ -7,8 +7,64 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExamController;
 use Illuminate\Support\Facades\Route;
 
+// Landing pages
+Route::view('/', 'landing.index')->name('home');
+Route::redirect('/index.html', '/', 301);
+
+$getLifeWheelCategories = function () {
+    $assessment = \App\Models\Assessment::with('dimensions.questions')->where('category', 'عجلة الحياة')->first();
+    $categories = [];
+    if ($assessment) {
+        $keys = [
+            'الروحي' => 'spiritual',
+            'الصحي' => 'health',
+            'الشخصي' => 'personal',
+            'العائلي' => 'family',
+            'الاجتماعي' => 'social',
+            'المهني' => 'professional',
+            'المالي' => 'financial',
+            'الترفيهي' => 'leisure'
+        ];
+        
+        $icons = [
+            'spiritual' => '/landing/icons/wheel_of_life_line/mosque.svg',
+            'health' => '/landing/icons/wheel_of_life_line/heart-pulse.svg',
+            'personal' => '/landing/icons/wheel_of_life_line/user.svg',
+            'family' => '/landing/icons/wheel_of_life_line/family.svg',
+            'social' => '/landing/icons/wheel_of_life_line/users.svg',
+            'professional' => '/landing/icons/wheel_of_life_line/work.svg',
+            'financial' => '/landing/icons/wheel_of_life_line/coins.svg',
+            'leisure' => '/landing/icons/wheel_of_life_line/gamepad.svg'
+        ];
+
+        foreach ($assessment->dimensions as $dim) {
+            $key = $keys[$dim->name_ar] ?? 'unknown';
+            $icon = $icons[$key] ?? '';
+            $questions = $dim->questions->sortBy('order_index')->pluck('text_ar')->toArray();
+            
+            $categories[] = [
+                'key' => $key,
+                'label' => $dim->name_ar,
+                'iconUrl' => $icon,
+                'description' => $dim->description_ar ?? '',
+                'questions' => $questions
+            ];
+        }
+    }
+    return $categories;
+};
+
+Route::get('/life-wheel-assessment.html', function () use ($getLifeWheelCategories) {
+    $categories = $getLifeWheelCategories();
+    return view('landing.life-wheel-assessment', compact('categories'));
+})->name('life-wheel.assessment');
+
+Route::get('/result.html', function () use ($getLifeWheelCategories) {
+    $categories = $getLifeWheelCategories();
+    return view('landing.result', compact('categories'));
+})->name('life-wheel.result');
+
 // Auth
-Route::get('/', fn () => redirect()->route('login'));
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
@@ -17,7 +73,6 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // User routes
 Route::middleware(['auth', 'user'])->group(function () {
-    // Keep old dashboard route for backward compatibility, redirect to assessments
     Route::get('/dashboard', function () {
         return redirect()->route('dashboard.assessments');
     })->name('dashboard');
@@ -30,9 +85,7 @@ Route::middleware(['auth', 'user'])->group(function () {
     Route::post('/exam/{session}/answer', [ExamController::class, 'answer'])->name('exam.answer');
     Route::post('/exam/{session}/previous', [ExamController::class, 'previous'])->name('exam.previous');
     Route::get('/exam/{session}/result', [ExamController::class, 'result'])->name('exam.result');
-    
 });
-
 
 // Admin routes
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
@@ -94,6 +147,4 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     Route::get('/users', [Admin\UserController::class, 'index'])->name('users.index');
     Route::get('/users/{user}/results', [Admin\UserController::class, 'userResults'])->name('users.results');
-
-
 });
