@@ -2,7 +2,6 @@
     <div class="absolute top-[40px] sm:top-[64px] left-1/2 -translate-x-1/2 w-[90%] max-w-[720px] h-[320px] sm:h-[371px] rounded-full bg-gradient-to-b from-[#D6DFEA]/50 to-[#D6DFEA]/20 blur-[60px] sm:blur-[72px] pointer-events-none -z-10"></div>
 
     <!-- ==================== 2. HERO SECTION: اختبار عجلة الحياة (#937:4162) ==================== -->
-    <div id="assessments" class="absolute -top-16 pointer-events-none"></div>
     <section id="hero-section" aria-labelledby="hero-title" class="pt-8 sm:pt-12 md:pt-16 pb-[25px] md:pb-[64px] px-0 sm:px-6 md:px-12 relative flex flex-col items-center">
 
       <!-- Main Section Header (Figma Mobile: 312x32 Title, 240x44 Subtitle, Gap 10-12px) -->
