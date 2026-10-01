@@ -14,8 +14,22 @@ class AuthController extends Controller
         private readonly UserService $userService,
     ) {}
 
-    public function showLogin()
+    /**
+     * "عرض جوانب التقرير" sends guests here with ?next=life-wheel (or a hidden `next` field in the login modal):
+     * after signing in / registering they continue to the details page instead of the dashboard.
+     * Only this known destination is accepted (no arbitrary redirect targets).
+     */
+    private function rememberIntendedDestination(Request $request): void
     {
+        if ($request->input('next', $request->query('next')) === 'life-wheel') {
+            $request->session()->put('url.intended', route('life-wheel.details'));
+        }
+    }
+
+    public function showLogin(Request $request)
+    {
+        $this->rememberIntendedDestination($request);
+
         return response()
             ->view('auth.login')
             ->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
@@ -29,6 +43,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
+            $this->rememberIntendedDestination($request);
 
             /** @var \App\Models\User $user */
             $user = Auth::user();
@@ -36,14 +51,16 @@ class AuthController extends Controller
                 return redirect()->route('admin.dashboard');
             }
 
-            return redirect()->route('dashboard.assessments');
+            return redirect()->intended(route('dashboard.assessments'));
         }
 
-        return back()->withErrors(['email' => 'البريد الإلكتروني أو كلمة المرور غير صحيحة.']);
+        return back()->withErrors(['email' => 'البريد الإلكتروني أو كلمة المرور غير صحيحة.'])->onlyInput('email');
     }
 
-    public function showRegister()
+    public function showRegister(Request $request)
     {
+        $this->rememberIntendedDestination($request);
+
         return response()
             ->view('auth.register')
             ->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
@@ -57,7 +74,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('dashboard.assessments');
+        return redirect()->intended(route('dashboard.assessments'));
     }
 
     public function logout(Request $request): RedirectResponse

@@ -1,10 +1,11 @@
-﻿<?php
+<?php
 
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\User;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExamController;
+use App\Http\Controllers\LifeWheelController;
 use Illuminate\Support\Facades\Route;
 
 // Landing pages
@@ -63,6 +64,11 @@ Route::get('/result.html', function () use ($getLifeWheelCategories) {
     $categories = $getLifeWheelCategories();
     return view('landing.result', compact('categories'));
 })->name('life-wheel.result');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/life-wheel-details.html', [LifeWheelController::class, 'details'])->name('life-wheel.details');
+    Route::post('/life-wheel/results', [LifeWheelController::class, 'store'])->middleware('throttle:20,1')->name('life-wheel.results.store');
+});
 
 // Auth
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');

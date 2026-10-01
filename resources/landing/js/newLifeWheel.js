@@ -1131,7 +1131,7 @@ if (isResultPage) {
     const answers = JSON.parse(answersJson);
     const categoryScores = answers.map((catAnswers) => {
       const sum = catAnswers.reduce((a, b) => a + (b || 0), 0);
-      return Math.round((sum / 40) * 100);
+      return Math.round((sum * 100) / 40); // integer math first: (23 / 40) * 100 is 57.49999999999999
     });
     // Mapping: Personal(2), Spiritual(0), Health(1), Social(4), Family(3), Recreational(7), Financial(6), Professional(5)
     const visualOrderIndices = [2, 0, 1, 4, 3, 7, 6, 5];

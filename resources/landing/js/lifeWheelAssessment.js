@@ -2,6 +2,7 @@
 import confetti from 'canvas-confetti';
 import { CATEGORIES, ANSWER_SCALE } from './lifeWheelAssessmentData.js';
 import { initNavigation } from './navigation.js';
+import { saveLifeWheelAnswers } from './lifeWheelSave.js';
 
 initNavigation();
 
@@ -282,8 +283,10 @@ function showMilestone() {
   }, 2200);
 }
 
-function showCompletionScreen() {
+async function showCompletionScreen() {
   localStorage.setItem('lwAnswers', JSON.stringify(answers));
+  // Signed-in users (the page sets window.LW_SAVE_URL) also get the result saved in the database.
+  if (window.LW_SAVE_URL) await saveLifeWheelAnswers(window.LW_SAVE_URL, answers);
   window.location.href = '/result.html';
 }
 

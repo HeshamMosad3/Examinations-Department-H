@@ -171,9 +171,7 @@ export function initNavigation() {
     const loginLinks = document.querySelectorAll('a[href="#login"]');
     const loginModal = document.getElementById('login-modal');
     const closeLoginBtn = document.getElementById('close-login');
-    const loginForm = document.getElementById('login-form');
     const loginError = document.getElementById('login-error');
-    const adminControls = document.getElementById('admin-wheel-controls');
     let lastFocusedElement = null;
 
     const openLoginModal = (triggerEl) => {
@@ -219,21 +217,6 @@ export function initNavigation() {
         }
       });
 
-      loginForm?.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const user = document.getElementById('login-username')?.value;
-        const pass = document.getElementById('login-password')?.value;
-        
-        if (user === 'admin' && pass === '12345678') {
-          closeLoginModal();
-          if (adminControls) {
-            adminControls.classList.remove('hidden');
-            adminControls.classList.add('flex');
-          }
-        } else {
-          if (loginError) loginError.classList.remove('hidden');
-        }
-      });
     }
 
     // ScrollSpy: auto-highlight section as user scrolls (ordered from bottom to top)

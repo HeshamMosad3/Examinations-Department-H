@@ -9,6 +9,9 @@
       </div>
       <form id="login-form" method="POST" action="{{ route('login.post') }}" class="flex flex-col gap-4">
         @csrf
+        @isset($loginNext)
+          <input type="hidden" name="next" value="{{ $loginNext }}">
+        @endisset
         <div>
           <label for="login-username" class="block text-sm font-medium text-gray-700 mb-1">اسم المستخدم</label>
           <input type="text" id="login-username" name="email" value="{{ old('email') }}" autocomplete="username" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-brand-primary focus:border-brand-primary focus-visible:outline-none" required />

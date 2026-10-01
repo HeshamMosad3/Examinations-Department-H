@@ -9,6 +9,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export default {
   content: [
     path.resolve(__dirname, '../views/landing/**/*.blade.php'),
+    path.resolve(__dirname, '../data/**/*.php'),
     path.resolve(__dirname, './js/**/*.js'),
   ],
   theme: {

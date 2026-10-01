@@ -319,3 +319,15 @@
   -webkit-mask-position: center;
   mask-position: center;
 }
+
+/* "تفاصيل الجوانب" expanded aspect cards: below xl they become fluid (desktop keeps the exact Figma sizes) */
+@media (max-width: 1279px) {
+  .aspect-x { width: 100% !important; height: auto !important; }
+  .aspect-x-inner { position: relative !important; inset: auto !important; width: 100% !important; height: auto !important; padding: 16px !important; }
+  .aspect-x-content { width: 100% !important; height: auto !important; }
+  .aspect-x-fill { width: 100% !important; max-width: 100% !important; }
+  .aspect-x-text { width: auto !important; flex: 1 1 0% !important; min-width: 0 !important; }
+  .aspect-x-list { width: 100% !important; height: auto !important; }
+  .aspect-x-wrap { width: auto !important; flex: 1 1 0% !important; min-width: 0 !important; }
+  .aspect-x-col { width: auto !important; flex: 1 1 0% !important; min-width: 0 !important; }
+}

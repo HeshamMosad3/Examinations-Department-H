@@ -1,0 +1,869 @@
+NAME: "??? ????? ??????? (Redesign) (Copy)"
+
+GLOBAL_VARS:
+Foundation/Accent Colors/Light:
+  - '#F6F6F6'
+fill_97d170e1: []
+Foundation/Primary Colors/Normal:
+  - '#204A7A'
+'Subtitles/Subtitle2: Medium':
+  fontFamily: El Messiri
+  fontStyle: Medium
+  fontWeight: 500
+  fontSize: 21
+  textAlignHorizontal: CENTER
+  textAlignVertical: TOP
+Foundation/Neutral Colors/Dark:
+  - '#1D1D1D'
+'Subtitles/Subtitle2: Bold':
+  fontFamily: El Messiri
+  fontStyle: Bold
+  fontWeight: 700
+  fontSize: 21
+  textAlignHorizontal: CENTER
+  textAlignVertical: TOP
+layout_177c5efc:
+  mode: none
+  sizing:
+    horizontal: hug
+    vertical: hug
+'Subtitles/Subtitle2: Regular':
+  fontFamily: El Messiri
+  fontStyle: Regular
+  fontWeight: 400
+  fontSize: 21
+  lineHeight: 1.5em
+  textAlignHorizontal: RIGHT
+  textAlignVertical: TOP
+Foundation /Accent Colors/Dark :active:
+  - '#6F6F6F'
+layout_88db7946:
+  mode: none
+  sizing:
+    horizontal: fill
+    vertical: fixed
+  dimensions:
+    height: 161
+fill_658ab2fa:
+  - '#FFFFFF'
+fill_f61f0ad0:
+  - '#5C3E9B'
+effect_3d734d0d:
+  boxShadow: 0px 4px 6.199999809265137px 0px rgba(0, 0, 0, 0.18)
+layout_91298862:
+  mode: column
+  padding: 16px 16px 8px
+  alignItems: center
+  gap: 19px
+  sizing:
+    horizontal: fixed
+    vertical: hug
+  locationRelativeToParent:
+    x: 0
+    y: -1
+  dimensions:
+    width: 401
+layout_58549452:
+  mode: column
+  padding: 2px 10px
+  justifyContent: center
+  alignItems: center
+  sizing:
+    horizontal: fixed
+    vertical: fixed
+  dimensions:
+    width: 57
+    height: 24
+fill_21767b29:
+  - '#F1EAFF'
+style_3fc383ca:
+  fontFamily: El Messiri
+  fontStyle: Bold
+  fontWeight: 700
+  fontSize: 14
+  lineHeight: 16px
+  textAlignHorizontal: RIGHT
+  textAlignVertical: TOP
+'Subtitles/Subtitle2: Bold (6:3492)':
+  fontFamily: El Messiri
+  fontStyle: Bold
+  fontWeight: 700
+  fontSize: 21
+  textAlignHorizontal: RIGHT
+  textAlignVertical: TOP
+'Body/Body2: Medium':
+  fontFamily: El Messiri
+  fontStyle: Medium
+  fontWeight: 500
+  fontSize: 14
+  textAlignHorizontal: RIGHT
+  textAlignVertical: TOP
+Foundation /Accent Colors/Darker:
+  - '#565656'
+layout_e039a57f:
+  mode: row
+  justifyContent: center
+  alignItems: center
+  sizing:
+    horizontal: fixed
+    vertical: fixed
+  dimensions:
+    width: 50
+    height: 50
+fill_d4c3061d:
+  - '#21487B'
+Foundation /Primary Colors/Light:
+  - '#E9EDF2'
+Foundation /Primary Colors/Light :active:
+  - '#BAC7D6'
+layout_904350dd:
+  mode: none
+  sizing:
+    horizontal: fixed
+    vertical: fixed
+  dimensions:
+    width: 27
+    height: 13
+layout_56d3c81c:
+  mode: none
+  sizing:
+    horizontal: fill
+    vertical: hug
+layout_f80141eb:
+  mode: none
+  sizing:
+    horizontal: fixed
+    vertical: fixed
+  dimensions:
+    width: 26
+    height: 24
+fill_20ba549e:
+  - '#488C70'
+layout_b84fcea6:
+  mode: column
+  padding: 16px 16px 8px
+  alignItems: center
+  gap: 19px
+  sizing:
+    horizontal: fixed
+    vertical: hug
+  locationRelativeToParent:
+    x: 0
+    y: -1
+  dimensions:
+    width: 402
+fill_c5cbdabc:
+  - '#E6F9EF'
+layout_9855ec98:
+  mode: none
+  sizing:
+    horizontal: fixed
+    vertical: fixed
+  dimensions:
+    width: 25
+    height: 13
+fill_379f09c2:
+  - '#963056'
+fill_f1eac4f8:
+  - '#FFE4EE'
+fill_7cd6c8a7:
+  - '#B8AA44'
+fill_17ece599:
+  - '#F7F4D9'
+fill_6b86fcb9:
+  - '#5963D9'
+fill_c672b70d:
+  - '#E6E9FF'
+fill_8796d91c:
+  - '#D87F3C'
+fill_e5a887a2:
+  - '#FFF0E5'
+layout_274da599:
+  mode: none
+  sizing:
+    horizontal: fixed
+    vertical: hug
+  dimensions:
+    width: 250
+fill_ab5a6241:
+  - '#27797E'
+fill_963ddc4a:
+  - '#E2FDFF'
+layout_d1d41cbd:
+  mode: row
+  padding: 12px 24px
+  justifyContent: center
+  alignItems: center
+  gap: 8px
+  sizing:
+    horizontal: fixed
+    vertical: fixed
+  dimensions:
+    width: 312
+    height: 60
+'Subtitles/Subtitle2: SemiBold':
+  fontFamily: El Messiri
+  fontStyle: SemiBold
+  fontWeight: 600
+  fontSize: 21
+  lineHeight: 1.5em
+  textAlignHorizontal: LEFT
+  textAlignVertical: TOP
+layout_a111c4b6:
+  mode: none
+  sizing:
+    horizontal: fixed
+    vertical: fixed
+  dimensions:
+    width: 24
+    height: 24
+Foundation /Primary Colors/Normal :active:
+  - '#1A3B62'
+'Body/Body2: Regular':
+  fontFamily: El Messiri
+  fontStyle: Regular
+  fontWeight: 400
+  fontSize: 14
+  lineHeight: 1.5em
+  textAlignHorizontal: RIGHT
+  textAlignVertical: TOP
+Foundation /Accent Colors/Normal:
+  - '#F6F6F6'
+'Button/Button2: Medium':
+  fontFamily: El Messiri
+  fontStyle: Medium
+  fontWeight: 500
+  fontSize: 14
+  textAlignHorizontal: RIGHT
+  textAlignVertical: TOP
+Foundation /Accent Colors/Normal :active:
+  - '#C5C5C5'
+Foundation / secondary Colors/Normal:
+  - '#E6B844'
+Foundation / secondary Colors/Normal :hover:
+  - '#CFA63D'
+'Subtitles/Subtitle2: SemiBold (6:3491)':
+  fontFamily: El Messiri
+  fontStyle: SemiBold
+  fontWeight: 600
+  fontSize: 21
+  lineHeight: 1.5em
+  textAlignHorizontal: RIGHT
+  textAlignVertical: TOP
+'Body/Body1: Regular':
+  fontFamily: El Messiri
+  fontStyle: Regular
+  fontWeight: 400
+  fontSize: 17
+  lineHeight: 1.5em
+  textAlignHorizontal: RIGHT
+  textAlignVertical: TOP
+Foundation /Accent Colors/Normal :hover:
+  - '#DDDDDD'
+'Body/Body1: Regular (6:3498)':
+  fontFamily: El Messiri
+  fontStyle: Regular
+  fontWeight: 400
+  fontSize: 17
+  lineHeight: 1.5em
+  textAlignHorizontal: LEFT
+  textAlignVertical: TOP
+layout_f710b3a5:
+  mode: none
+  sizing: {}
+  locationRelativeToParent:
+    x: 0
+    y: 0
+  dimensions:
+    width: 108
+    height: 26
+ts1:
+  fontFamily: El Messiri
+'Body2: Medium':
+  fontFamily: Cairo
+  fontStyle: Medium
+  fontWeight: 500
+  fontSize: 14
+  textAlignHorizontal: RIGHT
+  textAlignVertical: TOP
+Foundation /Accent Colors/Light:
+  - '#FEFEFE'
+
+ELEMENTS:
+EL-27311205:
+  type: FRAME
+  layout:
+    mode: row
+    padding: 0px 0px 0px 4px
+    justifyContent: flex-end
+    alignItems: center
+    gap: 4px
+    sizing:
+      horizontal: hug
+      vertical: hug
+EL-4ffc3e49:
+  type: FRAME
+  layout:
+    mode: row
+    justifyContent: flex-end
+    alignItems: center
+    gap: 4px
+    sizing:
+      horizontal: hug
+      vertical: hug
+EL-f652840d:
+  type: IMAGE-SVG
+  layout:
+    mode: none
+    sizing:
+      horizontal: fixed
+      vertical: fixed
+    dimensions:
+      width: 18
+      height: 18
+EL-d14f2b13:
+  type: FRAME
+  layout:
+    mode: column
+    alignItems: stretch
+    gap: 32px
+    sizing:
+      horizontal: fixed
+      vertical: hug
+    dimensions:
+      width: 401
+EL-a4c1ba21:
+  type: FRAME
+  layout:
+    mode: column
+    alignItems: stretch
+    gap: 19px
+    sizing:
+      horizontal: fixed
+      vertical: hug
+    dimensions:
+      width: 369
+EL-5629d726:
+  type: FRAME
+  layout:
+    mode: row
+    alignSelf: stretch
+    justifyContent: flex-end
+    gap: 17px
+    sizing:
+      horizontal: fill
+      vertical: fixed
+    dimensions:
+      height: 89
+EL-8c76c247:
+  type: FRAME
+  layout:
+    mode: column
+    alignItems: flex-end
+    gap: 8px
+    sizing:
+      horizontal: fixed
+      vertical: fixed
+    dimensions:
+      width: 302
+      height: 89
+EL-bb582553:
+  type: FRAME
+  layout:
+    mode: row
+    alignSelf: stretch
+    justifyContent: space-between
+    alignItems: center
+    sizing:
+      horizontal: fill
+      vertical: hug
+EL-32e9018d:
+  type: FRAME
+  layout:
+    mode: row
+    alignSelf: stretch
+    justifyContent: center
+    alignItems: center
+    gap: 7px
+    sizing:
+      horizontal: fill
+      vertical: fixed
+    dimensions:
+      height: 29
+EL-3dab1a08:
+  type: IMAGE-SVG
+  layout:
+    mode: none
+    sizing:
+      horizontal: fixed
+      vertical: fixed
+    dimensions:
+      width: 14
+      height: 7
+  strokes: Foundation/Primary Colors/Normal
+  strokeWeight: 1.5px
+  strokeAlign: CENTER
+EL-83bc679e:
+  type: FRAME
+  layout:
+    mode: column
+    alignItems: center
+    sizing:
+      horizontal: hug
+      vertical: hug
+EL-45c364f6:
+  type: TEXT
+  layout: layout_177c5efc
+  text: ??? ????????
+  textStyle:
+    fontFamily: El Messiri
+    fontStyle: SemiBold
+    fontWeight: 600
+    fontSize: 17
+    lineHeight: 16px
+    textAlignHorizontal: CENTER
+    textAlignVertical: CENTER
+  fills: Foundation/Primary Colors/Normal
+EL-f61a19f6:
+  type: FRAME
+  layout:
+    mode: column
+    alignItems: stretch
+    gap: 8px
+    sizing:
+      horizontal: fixed
+      vertical: fixed
+    dimensions:
+      width: 302
+      height: 89
+EL-e487a1a2:
+  type: FRAME
+  layout:
+    mode: row
+    alignItems: center
+    gap: 4px
+    sizing:
+      horizontal: hug
+      vertical: hug
+EL-235879b0:
+  type: FRAME
+  layout:
+    mode: row
+    alignItems: center
+    gap: 8px
+    sizing:
+      horizontal: hug
+      vertical: hug
+EL-762d5cce:
+  type: IMAGE-SVG
+  layout: layout_a111c4b6
+  fills: fill_97d170e1
+EL-106d1890:
+  type: FRAME
+  layout:
+    mode: none
+    sizing:
+      horizontal: fill
+      vertical: fixed
+    dimensions:
+      height: 21
+  fills: fill_97d170e1
+EL-d8424b07:
+  type: FRAME
+  layout:
+    mode: column
+    padding: 9px 7px
+    justifyContent: center
+    alignItems: center
+    gap: 10px
+    sizing:
+      horizontal: fixed
+      vertical: fixed
+    dimensions:
+      width: 31
+      height: 31
+  strokes: Foundation /Accent Colors/Normal :hover
+  strokeWeight: 1px
+  borderRadius: 5px
+EL-eade9af0:
+  type: IMAGE-SVG
+  layout:
+    mode: none
+    sizing:
+      horizontal: fixed
+      vertical: fixed
+    dimensions:
+      width: 20
+      height: 20
+  fills: fill_97d170e1
+
+COMPONENTS:
+3083:6489:
+  id: 3083:6489
+  key: 9d31a9183b50edc6680318600a61818900e7a0da
+  name: Property 1=Default
+  componentSetId: 3083:6488
+973:7170:
+  id: 973:7170
+  key: c01029e58c9ce0cd76499bea19b1a7fa4056b39a
+  name: Style=Stroke, Type=Rounded
+  componentSetId: 973:7169
+3083:14453:
+  id: 3083:14453
+  key: ce9576f79113e479d35e3ba908e7a7b87e2d95eb
+  name: Property 1=Default
+  componentSetId: 3083:14452
+3083:14650:
+  id: 3083:14650
+  key: d847aadbeb7cb4c6ecfa7a43bab36fa4f9009e4d
+  name: Property 1=Default
+  componentSetId: 3083:14649
+3083:14257:
+  id: 3083:14257
+  key: ceae71b9246bca9671c018049e98d1e5f2d48e9c
+  name: Property 1=Default
+  componentSetId: 3083:14256
+3083:14553:
+  id: 3083:14553
+  key: a9d710179a4b5c074d7b6f4c52c0ff8319ceacc1
+  name: Property 1=Default
+  componentSetId: 3083:14552
+3083:14847:
+  id: 3083:14847
+  key: a745ca35c4a3967b9457558cbe9ec78e809f35b7
+  name: Property 1=Default
+  componentSetId: 3083:14846
+3083:14159:
+  id: 3083:14159
+  key: db922b8d084a9850279483492c935a6562a659be
+  name: Property 1=Default
+  componentSetId: 3083:14158
+3083:14354:
+  id: 3083:14354
+  key: eff0cdba00378b10baacb14f37f8587ef529f551
+  name: Property 1=Default
+  componentSetId: 3083:14353
+3083:14747:
+  id: 3083:14747
+  key: e9078ccc59423487506b0c9f56c133dc54dbd97c
+  name: Property 1=Default
+  componentSetId: 3083:14746
+3083:6690:
+  id: 3083:6690
+  key: b2b45530906a6715dfdd9b106f781d22d96c136e
+  name: Vector
+3083:6693:
+  id: 3083:6693
+  key: 7689db904718e32da2654747160b452578b9a395
+  name: Property 1=Default
+  componentSetId: 3083:6692
+3080:5297:
+  id: 3080:5297
+  key: 321fb3442b4da61b0ca79a5413b1b0303b75609b
+  name: Vector
+
+COMPONENT_SETS:
+3083:6488:
+  id: 3083:6488
+  key: 65a5804cd799c96632e767303a282f49c139809b
+  name: Button
+  description: ''
+973:7169:
+  id: 973:7169
+  key: 37cffb86d68d2e5114ea629594ae031dc5402736
+  name: link-04
+  description: link-icon, connection, web, hyperlink, chain, join, URL, anchor, tie, bridge, attach
+3083:14452:
+  id: 3083:14452
+  key: ef31f66b3194487f0de4f4e2df7cd0e11d456566
+  name: Service (Desktop)
+  description: ''
+3083:14649:
+  id: 3083:14649
+  key: 9b8f1924bb9550dd5530a4a4e932aaf0311da74a
+  name: Service (Desktop)
+  description: ''
+3083:14256:
+  id: 3083:14256
+  key: d4b44851c18f1361dfdce308794e1c7aac4258f4
+  name: Service (Desktop)
+  description: ''
+3083:14552:
+  id: 3083:14552
+  key: e66d4e08a487348c8fe393ed29dc6111f2741c6a
+  name: Service (Desktop)
+  description: ''
+3083:14846:
+  id: 3083:14846
+  key: 8eb2b9df819fcf3984480e34685438150a27fe53
+  name: Service (Desktop)
+  description: ''
+3083:14158:
+  id: 3083:14158
+  key: 3aee5484efd86fbc917881e0f43aafeb0e916720
+  name: Service (Desktop)
+  description: ''
+3083:14353:
+  id: 3083:14353
+  key: c9dea18526480a6754af1d3831a52685f82ee095
+  name: Service (Desktop)
+  description: ''
+3083:14746:
+  id: 3083:14746
+  key: 5093bf439cd87f682d18e576ec5addfa0bcd18d7
+  name: Service (Desktop)
+  description: ''
+3083:6692:
+  id: 3083:6692
+  key: dbef73304dade3f4576151ca50ff6173aaa5fa13
+  name: Outline Button
+  description: ''
+
+NODES:
+[FRAME] "?????? ???????" #3083:12404 layout={"mode":"row","padding":"20px 0px 0px","alignItems":"center","gap":"10px","sizing":{"horizontal":"hug","vertical":"hug"}} fills="Foundation/Accent Colors/Light"
+  [FRAME] #3083:12405 layout={"mode":"column","alignItems":"center","gap":"128px","sizing":{"horizontal":"fixed","vertical":"hug"},"dimensions":{"width":1440}}
+    [FRAME] #3083:12406 layout={"mode":"column","alignItems":"center","gap":"48px","sizing":{"horizontal":"fixed","vertical":"hug"},"dimensions":{"width":1242}}
+      [FRAME] "Vav-Bar" #3083:12407 layout={"mode":"none","sizing":{"horizontal":"fixed","vertical":"fixed"},"dimensions":{"width":1242,"height":100}} fills=["rgba(255, 255, 255, 0.66)"] borderRadius=48px
+        [FRAME] #3083:12408 layout={"mode":"row","padding":"0px 2px","justifyContent":"center","alignItems":"center","gap":"83px","sizing":{"horizontal":"fixed","vertical":"hug"},"locationRelativeToParent":{"x":21,"y":10},"dimensions":{"width":1200}}
+          [IMAGE-SVG] "boxicons:user-circle-filled" #3083:12409 layout={"mode":"none","sizing":{"horizontal":"fixed","vertical":"fixed"},"dimensions":{"width":65,"height":65}} fills=fill_97d170e1
+          [FRAME] #3083:12412 layout={"mode":"row","justifyContent":"center","alignItems":"center","gap":"32px","sizing":{"horizontal":"fixed","vertical":"hug"},"dimensions":{"width":752}}
+            [FRAME] #3083:12413 layout={"mode":"none","sizing":{"horizontal":"fixed","vertical":"fixed"},"dimensions":{"width":100,"height":38}}
+              [TEXT] #3083:12414 layout={"mode":"none","sizing":{},"locationRelativeToParent":{"x":0.5,"y":0},"dimensions":{"width":99,"height":33}} fills="Foundation/Neutral Colors/Dark" textStyle="Subtitles/Subtitle2: Medium" text="????? ????"
+            [FRAME] #3083:12416 layout={"mode":"none","sizing":{"horizontal":"fixed","vertical":"fixed"},"dimensions":{"width":105,"height":38}}
+              [TEXT] #3083:12417 layout={"mode":"none","sizing":{},"locationRelativeToParent":{"x":-0.5,"y":0},"dimensions":{"width":106,"height":33}} fills="Foundation/Neutral Colors/Dark" textStyle="Subtitles/Subtitle2: Medium" text="?? ??? ?????"
+            [FRAME] #3083:12419 layout={"mode":"none","sizing":{"horizontal":"fixed","vertical":"fixed"},"dimensions":{"width":84,"height":38}}
+              [TEXT] #3083:12420 layout={"mode":"none","sizing":{},"locationRelativeToParent":{"x":-1,"y":0},"dimensions":{"width":86,"height":33}} fills="Foundation/Neutral Colors/Dark" textStyle="Subtitles/Subtitle2: Medium" text="????????"
+            [FRAME] #3083:12422 layout={"mode":"none","sizing":{"horizontal":"fixed","vertical":"fixed"},"dimensions":{"width":168,"height":38}}
+              [TEXT] #3083:12423 layout={"mode":"none","sizing":{},"locationRelativeToParent":{"x":-0.5,"y":0},"dimensions":{"width":169,"height":33}} fills="Foundation/Neutral Colors/Dark" textStyle="Subtitles/Subtitle2: Medium" text="???????? ??????????"
+            [FRAME] #3083:12425 layout={"mode":"none","sizing":{"horizontal":"fixed","vertical":"fixed"},"dimensions":{"width":61,"height":38}}
+              [TEXT] #3083:12426 layout={"mode":"none","sizing":{},"locationRelativeToParent":{"x":0,"y":0},"dimensions":{"width":61,"height":33}} fills="Foundation/Neutral Colors/Dark" textStyle="Subtitles/Subtitle2: Medium" text="???????"
+            [FRAME] #3083:12428 layout={"mode":"none","sizing":{"horizontal":"fixed","vertical":"fixed"},"dimensions":{"width":74,"height":38}}
+              [TEXT] #3083:12429 layout={"mode":"none","sizing":{},"locationRelativeToParent":{"x":-0.5,"y":0},"dimensions":{"width":75,"height":33}} fills="Foundation/Primary Colors/Normal" textStyle="Subtitles/Subtitle2: Bold" text="????????"
+              [LINE] #3083:12430 layout={"mode":"none","sizing":{},"locationRelativeToParent":{"x":0,"y":38},"dimensions":{"width":74,"height":0}} strokes="Foundation/Primary Colors/Normal" strokeWeight=2.5px
+          [RECTANGLE] "WhatsApp Image 2026-08-28 at 12.50.28 AM 1" #3083:12431 layout={"mode":"none","sizing":{"horizontal":"fixed","vertical":"fixed"},"dimensions":{"width":86,"height":79}} fills=[{"type":"IMAGE","imageRef":"7939f3569a300778106dcbde36d6cc09854587fa","scaleMode":"STRETCH","objectFit":"fill","isBackground":false,"imageDownloadArguments":{"needsCropping":true,"requiresImageDimensions":false,"cropTransform":[[0.7846482992172241,0,0.11300641298294067],[0,0.8017058372497559,0.10234542191028595]],"filenameSuffix":"45f60d"}}]
+      [FRAME] "?????? ???????" #3083:12432 layout={"mode":"column","alignSelf":"stretch","alignItems":"flex-end","gap":"64px","sizing":{"horizontal":"fill","vertical":"hug"}}
+        [FRAME] "Breadcrumb" #3083:12433 layout={"mode":"row","justifyContent":"flex-end","alignItems":"center","sizing":{"horizontal":"hug","vertical":"hug"}}
+          [FRAME] "_Breadcrumb Item" #3083:12434 template=EL-27311205
+            [FRAME] "Link" #3083:12435 template=EL-4ffc3e49
+              [TEXT] #3083:12437 layout=layout_177c5efc fills="Foundation/Primary Colors/Normal" textStyle="Subtitles/Subtitle2: Regular" text="?????? ???????"
+            [IMAGE-SVG] "arrow-left-01" #3083:12438 template=EL-f652840d
+          [FRAME] "_Breadcrumb Item" #3083:12441 template=EL-27311205
+            [FRAME] "Link" #3083:12442 template=EL-4ffc3e49
+              [TEXT] #3083:12444 layout=layout_177c5efc fills="Foundation /Accent Colors/Dark :active" textStyle="Subtitles/Subtitle2: Regular" text="????? ???????"
+            [IMAGE-SVG] "arrow-left-01" #3083:12445 template=EL-f652840d
+          [FRAME] "_Breadcrumb Item" #3083:12448 template=EL-27311205
+            [FRAME] "Link" #3083:12449 template=EL-4ffc3e49
+              [TEXT] #3083:12451 layout=layout_177c5efc fills="Foundation /Accent Colors/Dark :active" textStyle="Subtitles/Subtitle2: Regular" text="?????? ???? ??????"
+            [IMAGE-SVG] "arrow-left-01" #3083:12452 template=EL-f652840d
+          [FRAME] "_Breadcrumb Item" #3083:12455 template=EL-27311205
+            [FRAME] "Link" #3083:12456 template=EL-4ffc3e49
+              [TEXT] #3083:12458 layout=layout_177c5efc fills="Foundation /Accent Colors/Dark :active" textStyle="Subtitles/Subtitle2: Regular" text="????????"
+        [FRAME] "?????? ???????" #3083:12459 layout={"mode":"column","alignSelf":"stretch","alignItems":"center","gap":"128px","sizing":{"horizontal":"fill","vertical":"hug"}}
+          [FRAME] "?????? ???????" #3083:12460 layout={"mode":"row","alignSelf":"stretch","gap":"19px","sizing":{"horizontal":"fill","vertical":"hug"}}
+            [FRAME] "?????? ???????" #3083:12461 template=EL-d14f2b13
+              [INSTANCE] "Service (Desktop)" #3083:12462 layout=layout_88db7946 fills=fill_658ab2fa strokes=fill_f61f0ad0 strokeWeight="0px 3px 0px 0px" effects=effect_3d734d0d borderRadius=17px componentId=3083:14453
+                [FRAME] #I3083:12462;3083:14454 layout=layout_91298862 strokes=fill_f61f0ad0 strokeWeight=1px borderRadius=17px
+                  [FRAME] #I3083:12462;3083:14455 template=EL-a4c1ba21
+                    [FRAME] #I3083:12462;3083:14456 template=EL-5629d726
+                      [FRAME] #I3083:12462;3083:14457 template=EL-8c76c247
+                        [FRAME] #I3083:12462;3083:14458 template=EL-bb582553
+                          [FRAME] "Background+Border" #I3083:12462;3083:14459 layout=layout_58549452 fills=fill_21767b29 strokes=["rgba(207, 186, 255, 0.87)"] strokeWeight=1px borderRadius=9999px
+                            [TEXT] #I3083:12462;3083:14460 layout={"mode":"none","sizing":{"horizontal":"fixed","vertical":"fixed"},"dimensions":{"width":26,"height":13}} fills=fill_f61f0ad0 textStyle=style_3fc383ca text="92%"
+                          [TEXT] #I3083:12462;3083:14461 layout=layout_177c5efc fills=fill_f61f0ad0 textStyle="Subtitles/Subtitle2: Bold (6:3492)" text="?????? ??????"
+                        [TEXT] #I3083:12462;3083:14462 layout={"mode":"none","sizing":{"horizontal":"fixed","vertical":"hug"},"dimensions":{"width":244}} fills="Foundation /Accent Colors/Darker" textStyle="Body/Body2: Medium" text="???? ?????? ?????? ?????? ?????? ?????? ?????? ???????."
+                      [FRAME] "Container" #I3083:12462;3083:14463 layout=layout_e039a57f fills=fill_21767b29 borderRadius=16px
+                        [IMAGE-SVG] "Vector" #I3083:12462;3083:14464 layout={"mode":"none","sizing":{"horizontal":"fixed","vertical":"fixed"},"dimensions":{"width":22,"height":24}} fills=fill_f61f0ad0
+                    [FRAME] #I3083:12462;3083:14465 template=EL-32e9018d
+                      [IMAGE-SVG] "Vector" #I3083:12462;3083:14466 template=EL-3dab1a08
+                      [FRAME] "Container" #I3083:12462;3083:14467 template=EL-83bc679e
+                        [TEXT] #I3083:12462;3083:14468 template=EL-45c364f6
+              [INSTANCE] "Service (Desktop)" #3083:12463 layout=layout_88db7946 fills=fill_658ab2fa strokes=fill_d4c3061d strokeWeight="0px 3px 0px 0px" effects=effect_3d734d0d borderRadius=17px componentId=3083:14650
+                [FRAME] #I3083:12463;3083:14651 layout=layout_91298862 strokes=fill_d4c3061d strokeWeight=1px borderRadius=17px
+                  [FRAME] #I3083:12463;3083:14652 template=EL-a4c1ba21
+                    [FRAME] #I3083:12463;3083:14653 template=EL-5629d726
+                      [FRAME] #I3083:12463;3083:14654 template=EL-f61a19f6
+                        [FRAME] #I3083:12463;3083:14655 template=EL-bb582553
+                          [FRAME] "Background+Border" #I3083:12463;3083:14656 layout=layout_58549452 fills="Foundation /Primary Colors/Light" strokes="Foundation /Primary Colors/Light :active" strokeWeight=1px borderRadius=9999px
+                            [TEXT] #I3083:12463;3083:14657 layout=layout_904350dd fills=fill_d4c3061d textStyle=style_3fc383ca text="85%"
+                          [TEXT] #I3083:12463;3083:14658 layout=layout_177c5efc fills=fill_d4c3061d textStyle="Subtitles/Subtitle2: Bold (6:3492)" text="?????? ??????"
+                        [TEXT] #I3083:12463;3083:14659 layout=layout_56d3c81c fills="Foundation /Accent Colors/Darker" textStyle="Body/Body2: Medium" text="???? ?????? ????? ???????? ?????? ?????? ????? ????? ??????? ????? ?????? ???????"
+                      [FRAME] "Container" #I3083:12463;3083:14660 layout=layout_e039a57f fills="Foundation /Primary Colors/Light" borderRadius=16px
+                        [IMAGE-SVG] "Vector" #I3083:12463;3083:14661 layout=layout_f80141eb fills=fill_d4c3061d
+                    [FRAME] #I3083:12463;3083:14662 template=EL-32e9018d
+                      [IMAGE-SVG] "Vector" #I3083:12463;3083:14663 template=EL-3dab1a08
+                      [FRAME] "Container" #I3083:12463;3083:14664 template=EL-83bc679e
+                        [TEXT] #I3083:12463;3083:14665 template=EL-45c364f6
+            [FRAME] "?????? ???????" #3083:12464 layout={"mode":"column","alignItems":"stretch","gap":"32px","sizing":{"horizontal":"fixed","vertical":"hug"},"dimensions":{"width":402}}
+              [INSTANCE] "Service (Desktop)" #3083:12465 layout=layout_88db7946 fills=fill_658ab2fa strokes=fill_20ba549e strokeWeight="0px 3px 0px 0px" effects=effect_3d734d0d borderRadius=17px componentId=3083:14257
+                [FRAME] #I3083:12465;3083:14258 layout=layout_b84fcea6 strokes=fill_20ba549e strokeWeight=1px borderRadius=17px
+                  [FRAME] #I3083:12465;3083:14259 template=EL-a4c1ba21
+                    [FRAME] #I3083:12465;3083:14260 template=EL-5629d726
+                      [FRAME] #I3083:12465;3083:14261 template=EL-8c76c247
+                        [FRAME] #I3083:12465;3083:14262 template=EL-bb582553
+                          [FRAME] "Background+Border" #I3083:12465;3083:14263 layout=layout_58549452 fills=fill_c5cbdabc strokes=["#A7F3D0"] strokeWeight=1px borderRadius=9999px
+                            [TEXT] #I3083:12465;3083:14264 layout=layout_9855ec98 fills=fill_20ba549e textStyle=style_3fc383ca text="73%"
+                          [TEXT] #I3083:12465;3083:14265 layout=layout_177c5efc fills=fill_20ba549e textStyle="Subtitles/Subtitle2: Bold (6:3492)" text="?????? ?????"
+                        [TEXT] #I3083:12465;3083:14266 layout={"mode":"none","sizing":{"horizontal":"fixed","vertical":"hug"},"dimensions":{"width":288}} fills="Foundation /Accent Colors/Darker" textStyle="Body/Body2: Medium" text="???? ??? ???? ????? ?????? ???? ??????? ???? ???????? ?????? ??????? ????? ??????"
+                      [FRAME] "Container" #I3083:12465;3083:14267 layout=layout_e039a57f fills=fill_c5cbdabc borderRadius=16px
+                        [IMAGE-SVG] "Vector" #I3083:12465;3083:14268 layout=layout_f80141eb fills=fill_20ba549e
+                    [FRAME] #I3083:12465;3083:14269 template=EL-32e9018d
+                      [IMAGE-SVG] "Vector" #I3083:12465;3083:14270 template=EL-3dab1a08
+                      [FRAME] "Container" #I3083:12465;3083:14271 template=EL-83bc679e
+                        [TEXT] #I3083:12465;3083:14272 template=EL-45c364f6
+              [INSTANCE] "Service (Desktop)" #3083:12466 layout=layout_88db7946 fills=fill_658ab2fa strokes=fill_379f09c2 strokeWeight="0px 3px 0px 0px" effects=effect_3d734d0d borderRadius=17px componentId=3083:14553
+                [FRAME] #I3083:12466;3083:14554 layout=layout_b84fcea6 strokes=fill_379f09c2 strokeWeight=1px borderRadius=17px
+                  [FRAME] #I3083:12466;3083:14555 template=EL-a4c1ba21
+                    [FRAME] #I3083:12466;3083:14556 template=EL-5629d726
+                      [FRAME] #I3083:12466;3083:14557 template=EL-8c76c247
+                        [FRAME] #I3083:12466;3083:14558 template=EL-bb582553
+                          [FRAME] "Background+Border" #I3083:12466;3083:14559 layout=layout_58549452 fills=fill_f1eac4f8 strokes=["#976A7B"] strokeWeight=1px borderRadius=9999px
+                            [TEXT] #I3083:12466;3083:14560 layout=layout_904350dd fills=fill_379f09c2 textStyle=style_3fc383ca text="69%"
+                          [TEXT] #I3083:12466;3083:14561 layout=layout_177c5efc fills=fill_379f09c2 textStyle="Subtitles/Subtitle2: Bold (6:3492)" text="?????? ?????????"
+                        [TEXT] #I3083:12466;3083:14562 layout={"mode":"none","sizing":{"horizontal":"fixed","vertical":"hug"},"dimensions":{"width":265}} fills="Foundation /Accent Colors/Darker" textStyle="Body/Body2: Medium" text="???? ??? ?????? ????? ???? ??????? ????? ?????? ??????? ?? ??????."
+                      [FRAME] "Container" #I3083:12466;3083:14563 layout=layout_e039a57f fills=fill_f1eac4f8 borderRadius=16px
+                        [IMAGE-SVG] "Vector" #I3083:12466;3083:14564 layout={"mode":"none","sizing":{"horizontal":"fixed","vertical":"fixed"},"dimensions":{"width":30,"height":24}} fills=fill_379f09c2
+                    [FRAME] #I3083:12466;3083:14565 template=EL-32e9018d
+                      [IMAGE-SVG] "Vector" #I3083:12466;3083:14566 template=EL-3dab1a08
+                      [FRAME] "Container" #I3083:12466;3083:14567 template=EL-83bc679e
+                        [TEXT] #I3083:12466;3083:14568 template=EL-45c364f6
+              [INSTANCE] "Service (Desktop)" #3083:12467 layout=layout_88db7946 fills=fill_658ab2fa strokes=fill_7cd6c8a7 strokeWeight="0px 3px 0px 0px" effects=effect_3d734d0d borderRadius=17px componentId=3083:14847
+                [FRAME] #I3083:12467;3083:14848 layout=layout_b84fcea6 strokes=fill_7cd6c8a7 strokeWeight=1px borderRadius=17px
+                  [FRAME] #I3083:12467;3083:14849 template=EL-a4c1ba21
+                    [FRAME] #I3083:12467;3083:14850 template=EL-5629d726
+                      [FRAME] #I3083:12467;3083:14851 template=EL-f61a19f6
+                        [FRAME] #I3083:12467;3083:14852 template=EL-bb582553
+                          [FRAME] "Background+Border" #I3083:12467;3083:14853 layout=layout_58549452 fills=fill_17ece599 strokes=["#DBCF9D"] strokeWeight=1px borderRadius=9999px
+                            [TEXT] #I3083:12467;3083:14854 layout=layout_9855ec98 fills=fill_7cd6c8a7 textStyle=style_3fc383ca text="74%"
+                          [TEXT] #I3083:12467;3083:14855 layout=layout_177c5efc fills=fill_7cd6c8a7 textStyle="Subtitles/Subtitle2: Bold (6:3492)" text="?????? ????????"
+                        [TEXT] #I3083:12467;3083:14856 layout=layout_56d3c81c fills="Foundation /Accent Colors/Darker" textStyle="Body/Body2: Medium" text="???? ???? ????? ??? ??????? ??? ????? ???????? ??????? ???????? ???????? ????????? ."
+                      [FRAME] "Container" #I3083:12467;3083:14857 layout=layout_e039a57f fills=fill_17ece599 borderRadius=16px
+                        [IMAGE-SVG] "Vector" #I3083:12467;3083:14858 layout={"mode":"none","sizing":{"horizontal":"fixed","vertical":"fixed"},"dimensions":{"width":34,"height":24}} fills=fill_7cd6c8a7
+                    [FRAME] #I3083:12467;3083:14859 template=EL-32e9018d
+                      [IMAGE-SVG] "Vector" #I3083:12467;3083:14860 template=EL-3dab1a08
+                      [FRAME] "Container" #I3083:12467;3083:14861 template=EL-83bc679e
+                        [TEXT] #I3083:12467;3083:14862 template=EL-45c364f6
+            [FRAME] "?????? ???????" #3083:12468 template=EL-d14f2b13
+              [INSTANCE] "Service (Desktop)" #3083:12469 layout=layout_88db7946 fills=fill_658ab2fa strokes=fill_6b86fcb9 strokeWeight="0px 3px 0px 0px" effects=effect_3d734d0d borderRadius=17px componentId=3083:14159
+                [FRAME] #I3083:12469;3083:14160 layout=layout_91298862 strokes=fill_6b86fcb9 strokeWeight=1px borderRadius=17px
+                  [FRAME] #I3083:12469;3083:14161 template=EL-a4c1ba21
+                    [FRAME] #I3083:12469;3083:14162 template=EL-5629d726
+                      [FRAME] #I3083:12469;3083:14163 template=EL-f61a19f6
+                        [FRAME] #I3083:12469;3083:14164 template=EL-bb582553
+                          [FRAME] "Background+Border" #I3083:12469;3083:14165 layout=layout_58549452 fills=fill_c672b70d strokes=["rgba(169, 176, 255, 0.87)"] strokeWeight=1px borderRadius=9999px
+                            [TEXT] #I3083:12469;3083:14166 layout=layout_904350dd fills=fill_6b86fcb9 textStyle=style_3fc383ca text="89%"
+                          [TEXT] #I3083:12469;3083:14167 layout=layout_177c5efc fills=fill_6b86fcb9 textStyle="Subtitles/Subtitle2: Bold (6:3492)" text="?????? ????????"
+                        [TEXT] #I3083:12469;3083:14168 layout=layout_56d3c81c fills="Foundation /Accent Colors/Darker" textStyle="Body/Body2: Medium" text=" ???? ??? ?????? ????? ?????????  ?????????? ?????????? ??????? ????? ??????? ??? ?????"
+                      [FRAME] "Container" #I3083:12469;3083:14169 layout=layout_e039a57f fills=fill_c672b70d borderRadius=16px
+                        [IMAGE-SVG] "Vector" #I3083:12469;3083:14170 layout={"mode":"none","sizing":{"horizontal":"fixed","vertical":"fixed"},"dimensions":{"width":31,"height":23}} fills=fill_6b86fcb9
+                    [FRAME] #I3083:12469;3083:14171 template=EL-32e9018d
+                      [IMAGE-SVG] "Vector" #I3083:12469;3083:14172 template=EL-3dab1a08
+                      [FRAME] "Container" #I3083:12469;3083:14173 template=EL-83bc679e
+                        [TEXT] #I3083:12469;3083:14174 template=EL-45c364f6
+              [INSTANCE] "Service (Desktop)" #3083:12470 layout=layout_88db7946 fills=fill_658ab2fa strokes=fill_8796d91c strokeWeight="0px 3px 0px 0px" effects=effect_3d734d0d borderRadius=17px componentId=3083:14354
+                [FRAME] #I3083:12470;3083:14355 layout=layout_91298862 strokes=fill_8796d91c strokeWeight=1px borderRadius=17px
+                  [FRAME] #I3083:12470;3083:14356 template=EL-a4c1ba21
+                    [FRAME] #I3083:12470;3083:14357 template=EL-5629d726
+                      [FRAME] #I3083:12470;3083:14358 template=EL-8c76c247
+                        [FRAME] #I3083:12470;3083:14359 template=EL-bb582553
+                          [FRAME] "Background+Border" #I3083:12470;3083:14360 layout=layout_58549452 fills=fill_e5a887a2 strokes=["#F5B695"] strokeWeight=1px borderRadius=9999px
+                            [TEXT] #I3083:12470;3083:14361 layout={"mode":"none","sizing":{"horizontal":"fixed","vertical":"fixed"},"dimensions":{"width":23,"height":13}} fills=fill_8796d91c textStyle=style_3fc383ca text="61%"
+                          [TEXT] #I3083:12470;3083:14362 layout=layout_177c5efc fills=fill_8796d91c textStyle="Subtitles/Subtitle2: Bold (6:3492)" text="?????? ???????"
+                        [TEXT] #I3083:12470;3083:14363 layout=layout_274da599 fills="Foundation /Accent Colors/Darker" textStyle="Body/Body2: Medium" text="???? ???? ??????? ??????? ?????? ???? ???????????"
+                      [FRAME] "Container" #I3083:12470;3083:14364 layout=layout_e039a57f fills=fill_e5a887a2 borderRadius=16px
+                        [IMAGE-SVG] "material-symbols-light:family-restroom-rounded" #I3083:12470;3083:14365 layout={"mode":"none","sizing":{"horizontal":"fixed","vertical":"fixed"},"dimensions":{"width":26,"height":26}} fills=fill_97d170e1
+                    [FRAME] #I3083:12470;3083:14367 template=EL-32e9018d
+                      [IMAGE-SVG] "Vector" #I3083:12470;3083:14368 template=EL-3dab1a08
+                      [FRAME] "Container" #I3083:12470;3083:14369 template=EL-83bc679e
+                        [TEXT] #I3083:12470;3083:14370 template=EL-45c364f6
+              [INSTANCE] "Service (Desktop)" #3083:12471 layout=layout_88db7946 fills=fill_658ab2fa strokes=fill_ab5a6241 strokeWeight="0px 3px 0px 0px" effects=effect_3d734d0d borderRadius=17px componentId=3083:14747
+                [FRAME] #I3083:12471;3083:14748 layout=layout_91298862 strokes=fill_ab5a6241 strokeWeight=1px borderRadius=17px
+                  [FRAME] #I3083:12471;3083:14749 template=EL-a4c1ba21
+                    [FRAME] #I3083:12471;3083:14750 template=EL-5629d726
+                      [FRAME] #I3083:12471;3083:14751 template=EL-8c76c247
+                        [FRAME] #I3083:12471;3083:14752 template=EL-bb582553
+                          [FRAME] "Background+Border" #I3083:12471;3083:14753 layout=layout_58549452 fills=fill_963ddc4a strokes=["#87AAAC"] strokeWeight=1px borderRadius=9999px
+                            [TEXT] #I3083:12471;3083:14754 layout={"mode":"none","sizing":{"horizontal":"fixed","vertical":"fixed"},"dimensions":{"width":27,"height":14}} fills=fill_ab5a6241 textStyle=style_3fc383ca text="63%"
+                          [TEXT] #I3083:12471;3083:14755 layout=layout_177c5efc fills=fill_ab5a6241 textStyle="Subtitles/Subtitle2: Bold (6:3492)" text="?????? ??????"
+                        [TEXT] #I3083:12471;3083:14756 layout=layout_274da599 fills="Foundation /Accent Colors/Darker" textStyle="Body/Body2: Medium" text="???? ??? ????? ????? ?? ??????? ??????? ?????? ????? ??????????."
+                      [FRAME] "Container" #I3083:12471;3083:14757 layout=layout_e039a57f fills=fill_963ddc4a borderRadius=16px
+                        [IMAGE-SVG] "Vector" #I3083:12471;3083:14758 layout={"mode":"none","sizing":{"horizontal":"fixed","vertical":"fixed"},"dimensions":{"width":23,"height":24}} fills=fill_ab5a6241
+                    [FRAME] #I3083:12471;3083:14759 template=EL-32e9018d
+                      [IMAGE-SVG] "Vector" #I3083:12471;3083:14760 template=EL-3dab1a08
+                      [FRAME] "Container" #I3083:12471;3083:14761 template=EL-83bc679e
+                        [TEXT] #I3083:12471;3083:14762 template=EL-45c364f6
+          [FRAME] "Group Button" #3083:12472 layout={"mode":"row","alignItems":"center","gap":"20px","sizing":{"horizontal":"hug","vertical":"hug"}}
+            [FRAME] "Primary Button" #3083:12473 layout=layout_d1d41cbd fills="Foundation/Primary Colors/Normal" borderRadius=15px
+              [FRAME] "Body" #3083:12474 template=EL-e487a1a2
+                [FRAME] #3083:12475 template=EL-235879b0
+                  [TEXT] #3083:12476 layout=layout_177c5efc fills="Foundation/Accent Colors/Light" textStyle="Subtitles/Subtitle2: SemiBold" text=" ????? ???????"
+              [IMAGE-SVG] "Vector" #3083:12477 layout=layout_a111c4b6 fills=fill_97d170e1 componentId=3083:6690
+            [INSTANCE] "Outline Button" #3083:12478 layout=layout_d1d41cbd strokes="Foundation/Primary Colors/Normal" strokeWeight=1px borderRadius=15px componentId=3083:6693
+              [FRAME] #I3083:12478;1509:47478 template=EL-235879b0
+                [FRAME] "Body" #I3083:12478;1509:47479 template=EL-e487a1a2
+                  [FRAME] #I3083:12478;1509:47480 template=EL-235879b0
+                    [TEXT] #I3083:12478;1509:47481 layout=layout_177c5efc fills="Foundation/Primary Colors/Normal" textStyle="Subtitles/Subtitle2: SemiBold" text="????? ???????"
+                [IMAGE-SVG] "Vector" #I3083:12478;1509:47482 layout={"mode":"none","sizing":{"horizontal":"fixed","vertical":"fixed"},"dimensions":{"width":22,"height":20}} fills=fill_97d170e1 componentId=3080:5297
+    [FRAME] "Footer" #3083:12479 layout={"mode":"none","sizing":{"horizontal":"fill","vertical":"fixed"},"dimensions":{"height":433}} fills="Foundation /Primary Colors/Normal :active"
+      [FRAME] "Rights" #3083:12480 layout={"mode":"row","justifyContent":"space-between","alignItems":"center","sizing":{"horizontal":"fixed","vertical":"hug"},"locationRelativeToParent":{"x":99,"y":379},"dimensions":{"width":1238}}
+        [FRAME] #3083:12481 layout={"mode":"row","alignItems":"center","gap":"27px","sizing":{"horizontal":"hug","vertical":"hug"}}
+          [TEXT] #3083:12482 layout=layout_177c5efc fills="Foundation /Accent Colors/Normal" textStyle="Body/Body2: Regular" text="?????? ????????"
+          [TEXT] #3083:12483 layout=layout_177c5efc fills="Foundation /Accent Colors/Normal" textStyle="Body/Body2: Regular" text="????? ????????"
+        [TEXT] #3083:12484 layout={"mode":"none","sizing":{"horizontal":"fixed","vertical":"fixed"},"dimensions":{"width":332,"height":26}} fills="Foundation /Accent Colors/Normal" textStyle="Button/Button2: Medium" text="???? ?????? ?????? ?? ???? ??? ????? ??????? � 2026\\n"
+      [LINE] "Driver" #3083:12485 layout={"mode":"none","sizing":{},"locationRelativeToParent":{"x":93,"y":336},"dimensions":{"width":1238,"height":0}} strokes="Foundation /Accent Colors/Normal :active" strokeWeight=0.20000000298023224px
+      [FRAME] "Quick Links" #3083:12486 layout={"mode":"row","justifyContent":"space-between","sizing":{"horizontal":"fixed","vertical":"hug"},"locationRelativeToParent":{"x":104,"y":47},"dimensions":{"width":1236}}
+        [FRAME] "Quick Links" #3083:12487 layout={"mode":"row","justifyContent":"space-between","sizing":{"horizontal":"fixed","vertical":"hug"},"dimensions":{"width":898}}
+          [FRAME] "????? ????" #3083:12488 layout={"mode":"column","alignItems":"flex-end","gap":"25px","sizing":{"horizontal":"fixed","vertical":"hug"},"dimensions":{"width":270}}
+            [GROUP] "Main Title" #3083:12489 layout={"mode":"none","sizing":{"horizontal":"fixed","vertical":"fixed"},"dimensions":{"width":168,"height":32}}
+              [IMAGE-SVG] #3083:12490 layout={"mode":"none","sizing":{},"locationRelativeToParent":{"x":0,"y":15.76},"dimensions":{"width":59.41,"height":6.48}}
+              [TEXT] #3083:12494 layout={"mode":"none","sizing":{},"locationRelativeToParent":{"x":50.17,"y":0},"dimensions":{"width":117.83,"height":32}} fills=fill_658ab2fa textStyle="Subtitles/Subtitle2: SemiBold (6:3491)" text="????? ????"
+            [FRAME] "Body" #3083:12495 layout={"mode":"column","alignItems":"flex-end","gap":"18px","sizing":{"horizontal":"fixed","vertical":"hug"},"dimensions":{"width":270}}
+              [FRAME] "??????" #3083:12496 layout={"mode":"row","alignSelf":"stretch","gap":"14px","sizing":{"horizontal":"fill","vertical":"hug"}}
+                [TEXT] #3083:12497 layout=layout_177c5efc fills="Foundation /Accent Colors/Normal :hover" textStyle="Body/Body1: Regular" text="?????? - ??????? ??????? ????????"
+                [IMAGE-SVG] "akar-icons:location" #3083:12498 template=EL-762d5cce
+              [FRAME] "??? ???????" #3083:12502 layout={"mode":"row","justifyContent":"center","gap":"14px","sizing":{"horizontal":"fixed","vertical":"hug"},"dimensions":{"width":168}}
+                [TEXT] #3083:12503 layout=layout_177c5efc fills="Foundation /Accent Colors/Normal :hover" textStyle="Body/Body1: Regular (6:3498)" text="+966 55 759 5769"
+                [IMAGE-SVG] "Contact" #3083:12504 layout={"mode":"none","sizing":{"horizontal":"fixed","vertical":"fixed"},"dimensions":{"width":26,"height":25}} fills=fill_97d170e1
+              [FRAME] "???????" #3083:12507 layout={"mode":"row","alignItems":"center","gap":"14px","sizing":{"horizontal":"fixed","vertical":"hug"},"dimensions":{"width":159}}
+                [TEXT] #3083:12508 layout=layout_177c5efc fills="Foundation /Accent Colors/Normal :hover" textStyle="Body/Body1: Regular (6:3498)" text="info@alruaa.com"
+                [IMAGE-SVG] "carbon:email-new" #3083:12509 template=EL-762d5cce
+              [FRAME] "??????? ???????" #3083:12512 layout={"mode":"row","alignItems":"center","gap":"14px","sizing":{"horizontal":"fixed","vertical":"hug"},"dimensions":{"width":207}}
+                [FRAME] "?????�??????: 9?�6?" #3083:12513 layout={"mode":"column","sizing":{"horizontal":"hug","vertical":"hug"}}
+                  [TEXT] #3083:12514 layout=layout_177c5efc fills="Foundation /Accent Colors/Normal :hover" textStyle="Body/Body1: Regular (6:3498)" text="?????�??????: 9?�6?"
+                [IMAGE-SVG] "akar-icons:clock" #3083:12515 template=EL-762d5cce
+          [FRAME] "????? ?????" #3083:12519 layout={"mode":"column","alignItems":"flex-end","gap":"25px","sizing":{"horizontal":"fixed","vertical":"hug"},"dimensions":{"width":175}}
+            [GROUP] "Title" #3083:12520 layout={"mode":"none","sizing":{"horizontal":"fixed","vertical":"fixed"},"dimensions":{"width":175,"height":32}}
+              [IMAGE-SVG] #3083:12521 layout={"mode":"none","sizing":{},"locationRelativeToParent":{"x":0,"y":15.74},"dimensions":{"width":57.63,"height":6.52}}
+              [TEXT] #3083:12524 layout={"mode":"none","sizing":{},"locationRelativeToParent":{"x":42.57,"y":0},"dimensions":{"width":132.43,"height":32}} fills=fill_658ab2fa textStyle="Subtitles/Subtitle2: SemiBold (6:3491)" text="????? ?????"
+            [FRAME] "Body" #3083:12525 layout={"mode":"column","alignItems":"stretch","gap":"18px","sizing":{"horizontal":"fixed","vertical":"hug"},"dimensions":{"width":108}}
+              [FRAME] "????????" #3083:12526 template=EL-106d1890
+                [TEXT] #3083:12527 layout=layout_f710b3a5 fills="Foundation /Accent Colors/Normal :hover" textStyle="Body/Body1: Regular" text="????????"
+              [FRAME] "???????" #3083:12528 template=EL-106d1890
+                [TEXT] #3083:12529 layout=layout_f710b3a5 fills="Foundation /Accent Colors/Normal :hover" textStyle="Body/Body1: Regular" text="???????"
+              [FRAME] "????????" #3083:12530 template=EL-106d1890
+                [TEXT] #3083:12531 layout=layout_f710b3a5 fills="Foundation /Accent Colors/Normal :hover" textStyle="Body/Body1: Regular" text="????????"
+              [FRAME] "????????" #3083:12532 template=EL-106d1890
+                [TEXT] #3083:12533 layout=layout_f710b3a5 fills="Foundation /Accent Colors/Normal :hover" textStyle="Body/Body1: Regular" text="????????"
+              [FRAME] "?? ??? ?????" #3083:12534 template=EL-106d1890
+                [TEXT] #3083:12535 layout=layout_f710b3a5 fills="Foundation /Accent Colors/Normal :hover" textStyle="Body/Body1: Regular" text="?? ??? ?????"
+          [FRAME] "???????" #3083:12536 layout={"mode":"column","gap":"25px","sizing":{"horizontal":"fixed","vertical":"hug"},"dimensions":{"width":131}}
+            [GROUP] "Title" #3083:12537 layout={"mode":"none","sizing":{"horizontal":"fixed","vertical":"fixed"},"dimensions":{"width":130.99,"height":32}}
+              [LINE] #3083:12538 layout={"mode":"none","sizing":{},"locationRelativeToParent":{"x":0,"y":18},"dimensions":{"width":61.21,"height":0}} strokes="Foundation / secondary Colors/Normal" strokeWeight=2px
+              [ELLIPSE] #3083:12539 layout={"mode":"none","sizing":{},"locationRelativeToParent":{"x":0.43,"y":15.68},"dimensions":{"width":6.64,"height":6.64}} fills="Foundation / secondary Colors/Normal :hover"
+              [TEXT] #3083:12540 layout={"mode":"none","sizing":{},"locationRelativeToParent":{"x":53.87,"y":0},"dimensions":{"width":77.13,"height":32}} fills=fill_658ab2fa textStyle="Subtitles/Subtitle2: SemiBold (6:3491)" text="???????"
+            [FRAME] "Body" #3083:12541 layout={"mode":"column","alignSelf":"stretch","alignItems":"flex-end","gap":"18px","sizing":{"horizontal":"fill","vertical":"hug"}}
+              [TEXT] #3083:12542 layout=layout_177c5efc fills="Foundation /Accent Colors/Normal :hover" textStyle="Body/Body1: Regular" text="??????? ??????"
+              [TEXT] #3083:12543 layout=layout_177c5efc fills="Foundation /Accent Colors/Normal :hover" textStyle="Body/Body1: Regular" text="??????? ???????"
+              [TEXT] #3083:12544 layout=layout_177c5efc fills="Foundation /Accent Colors/Normal :hover" textStyle="Body/Body1: Regular" text="?????? ??????????"
+              [TEXT] #3083:12545 layout=layout_177c5efc fills="Foundation /Accent Colors/Normal :hover" textStyle="Body/Body1: Regular" text="???????? ???????"
+              [TEXT] #3083:12546 layout=layout_177c5efc fills="Foundation /Accent Colors/Normal :hover" textStyle="Body/Body1: Regular" text="???????? ????????"
+        [FRAME] "Logo+ Sub" #3083:12547 layout={"mode":"column","alignItems":"flex-end","gap":"28px","sizing":{"horizontal":"fixed","vertical":"hug"},"dimensions":{"width":247}}
+          [FRAME] "Logo+Discription" #3083:12548 layout={"mode":"column","alignSelf":"stretch","alignItems":"flex-end","gap":"21px","sizing":{"horizontal":"fill","vertical":"hug"}}
+            [RECTANGLE] "WhatsApp Image 2026-08-28 at 12.50.28 AM 1" #3083:12549 layout={"mode":"none","sizing":{"horizontal":"fixed","vertical":"fixed"},"dimensions":{"width":81,"height":82}} fills=[{"type":"IMAGE","imageRef":"7939f3569a300778106dcbde36d6cc09854587fa","scaleMode":"STRETCH","objectFit":"fill","isBackground":false,"imageDownloadArguments":{"needsCropping":true,"requiresImageDimensions":false,"cropTransform":[[0.7141181230545044,0,0.11300641298294067],[0,0.8017057776451111,0.10234542191028595]],"filenameSuffix":"7a4db5"}}]
+            [TEXT] #3083:12550 layout={"mode":"none","sizing":{"horizontal":"fill","vertical":"fixed"},"dimensions":{"height":49}} fills="Foundation /Accent Colors/Light" textStyle="Body2: Medium" text="{ts1}?? ??? ????? ???????... ???? ??????? ?????? ????? ??????? ?????.{/ts1}\\n\\n"
+          [FRAME] "Social Media Icons" #3083:12551 layout={"mode":"row","alignItems":"center","gap":"14px","sizing":{"horizontal":"hug","vertical":"hug"}}
+            [FRAME] #3083:12552 template=EL-d8424b07
+              [IMAGE-SVG] "cbi:youtube" #3083:12553 template=EL-eade9af0
+            [FRAME] #3083:12555 template=EL-d8424b07
+              [IMAGE-SVG] "carbon:logo-instagram" #3083:12556 template=EL-eade9af0
+            [FRAME] #3083:12560 layout={"mode":"column","padding":"9px 7px","justifyContent":"center","alignItems":"center","gap":"10px","sizing":{"horizontal":"fixed","vertical":"hug"},"dimensions":{"width":31}} strokes="Foundation /Accent Colors/Normal :hover" strokeWeight=1px borderRadius=5px
+              [IMAGE-SVG] "Vector" #3083:12561 layout={"mode":"none","sizing":{"horizontal":"fixed","vertical":"fixed"},"dimensions":{"width":15,"height":11}} fills="Foundation /Accent Colors/Normal :hover"

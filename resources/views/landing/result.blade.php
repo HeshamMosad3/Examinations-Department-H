@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>نتيجة التقييم | دار الرؤى للتدريب</title>
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
 
   <meta name="description" content="تقرير نتيجة تقييم عجلة الحياة من دار الرؤى للتدريب. استعرض مؤشر التوازن العام وتحليل أداء كل جانب مع التوصيات التطويرية المخصصة." />
   <meta name="robots" content="noindex, follow" />
@@ -191,7 +192,8 @@
       
       <!-- Action Button -->
       <div class="flex justify-center mt-8 lg:mt-[128px]">
-        <button id="viewReportBtn" class="bg-[#1a3b62] text-white font-messiri font-bold text-[16px] md:text-[20px] w-full max-w-[467px] h-[60px] md:h-[70px] rounded-[15px] hover:bg-[#112948] transition-colors flex items-center justify-center gap-[8px] shadow-md cursor-pointer" aria-haspopup="dialog" aria-controls="authModal">
+        <button id="viewReportBtn" class="bg-[#1a3b62] text-white font-messiri font-bold text-[16px] md:text-[20px] w-full max-w-[467px] h-[60px] md:h-[70px] rounded-[15px] hover:bg-[#112948] transition-colors flex items-center justify-center gap-[8px] shadow-md cursor-pointer"
+          @auth data-details-url="{{ route('life-wheel.details') }}" data-save-url="{{ route('life-wheel.results.store') }}" @else aria-haspopup="dialog" aria-controls="authModal" @endauth>
           <span>عرض جوانب التقرير</span>
           <i class="fa-solid fa-arrow-left text-[14px]" aria-hidden="true"></i>
         </button>
@@ -201,7 +203,7 @@
   </main>
 
   @include('landing.partials.footer')
-  @include('landing.partials.login-modal')
+  @include('landing.partials.login-modal', ['loginNext' => 'life-wheel'])
   
 
   <!-- Auth Modal -->
@@ -230,11 +232,11 @@
 
       <!-- Buttons -->
       <div class="flex flex-col w-full max-w-[682px] gap-4">
-        <a href="{{ route('login') }}" class="w-full h-[60px] bg-[#1a3b62] text-white rounded-[15px] flex items-center justify-center gap-3 hover:bg-[#112948] transition-colors font-messiri font-bold text-[18px]">
+        <a href="{{ route('login', ['next' => 'life-wheel']) }}" class="w-full h-[60px] bg-[#1a3b62] text-white rounded-[15px] flex items-center justify-center gap-3 hover:bg-[#112948] transition-colors font-messiri font-bold text-[18px]">
           <span>تسجيل دخول</span>
           <i class="fa-solid fa-arrow-right-to-bracket text-[18px]" aria-hidden="true"></i>
         </a>
-        <a href="{{ route('register') }}" class="w-full h-[60px] bg-transparent border-2 border-[#1a3b62] text-[#1a3b62] rounded-[15px] flex items-center justify-center gap-3 hover:bg-[#f4f7fb] transition-colors font-messiri font-bold text-[18px]">
+        <a href="{{ route('register', ['next' => 'life-wheel']) }}" class="w-full h-[60px] bg-transparent border-2 border-[#1a3b62] text-[#1a3b62] rounded-[15px] flex items-center justify-center gap-3 hover:bg-[#f4f7fb] transition-colors font-messiri font-bold text-[18px]">
           <span>إنشاء حساب جديد</span>
           <i class="fa-regular fa-user text-[18px]" aria-hidden="true"></i>
         </a>
@@ -271,7 +273,9 @@
         }
       }
 
+      @guest
       if (openBtn) openBtn.addEventListener('click', openModal);
+      @endguest
       if (closeBtn) closeBtn.addEventListener('click', closeModal);
       if (backdrop) backdrop.addEventListener('click', closeModal);
 

@@ -19,9 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const loginLinks = document.querySelectorAll('a[href="#login"]');
   const loginModal = document.getElementById('login-modal');
   const closeLoginBtn = document.getElementById('close-login');
-  const loginForm = document.getElementById('login-form');
   const loginError = document.getElementById('login-error');
-  const adminControls = document.getElementById('admin-wheel-controls');
   let lastFocusedElement = null;
 
   const openLoginModal = (triggerEl) => {

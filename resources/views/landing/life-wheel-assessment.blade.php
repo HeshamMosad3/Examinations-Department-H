@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>اختبار عجلة الحياة | دار الرؤى للتدريب</title>
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
 
   <meta name="description" content="اختبار عجلة الحياة التفاعلي المجاني من دار الرؤى للتدريب. قيّم توازنك عبر 8 جوانب أساسية في حياتك واكتشف مؤشرات تطورك الشخصي والمهني." />
   <meta name="robots" content="index, follow" />
@@ -124,6 +125,9 @@
 
 <script>
     window.WHEEL_OF_LIFE_DB = {!! json_encode($categories ?? []) !!};
+    @auth
+    window.LW_SAVE_URL = @json(route('life-wheel.results.store'));
+    @endauth
 </script>
 
 </body>

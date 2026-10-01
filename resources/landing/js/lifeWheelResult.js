@@ -1,8 +1,33 @@
 import Chart from 'chart.js/auto';
 import { CATEGORIES } from './lifeWheelAssessmentData.js';
 import { initNavigation } from './navigation.js';
+import { readStoredAnswers, saveLifeWheelAnswers } from './lifeWheelSave.js';
 
 initNavigation();
+
+// "عرض جوانب التقرير": a signed-in user (button carries data-details-url) goes straight to the details page, after
+// saving the test they just finished. For guests the button has no data-details-url and opens the login modal instead.
+function initViewReportButton() {
+  const button = document.getElementById('viewReportBtn');
+  if (!button || !button.dataset.detailsUrl) return;
+
+  button.addEventListener('click', async () => {
+    if (button.disabled) return;
+    button.disabled = true;
+    button.setAttribute('aria-busy', 'true');
+
+    let target = button.dataset.detailsUrl;
+    const answers = readStoredAnswers();
+    if (answers && button.dataset.saveUrl) {
+      const saved = await saveLifeWheelAnswers(button.dataset.saveUrl, answers);
+      if (saved?.redirect) target = saved.redirect;
+    }
+
+    window.location.href = target;
+  });
+}
+
+initViewReportButton();
 
 function initResult() {
   const answersJson = typeof window !== "undefined" ? localStorage.getItem('lwAnswers') : null;
@@ -12,7 +37,7 @@ function initResult() {
     const answers = JSON.parse(answersJson);
     categoryScores = answers.map((catAnswers) => {
       const sum = catAnswers.reduce((a, b) => a + (b || 0), 0);
-      return Math.round((sum / 40) * 100);
+      return Math.round((sum * 100) / 40); // integer math first: (23 / 40) * 100 is 57.49999999999999
     });
     overallScore = Math.round(categoryScores.reduce((a, b) => a + b, 0) / categoryScores.length);
   } else {
