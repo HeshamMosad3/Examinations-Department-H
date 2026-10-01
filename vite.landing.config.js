@@ -11,6 +11,7 @@ export default defineConfig({
             input: [
                 'resources/landing/style.css',
                 'resources/landing/js/main.js',
+                'resources/landing/js/lifeWheelExplore.js',
                 'resources/landing/js/lifeWheelAssessment.js',
                 'resources/landing/js/lifeWheelResult.js',
                 'resources/landing/js/resultWheel.js',

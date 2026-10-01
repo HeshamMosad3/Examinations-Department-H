@@ -55,6 +55,8 @@ $getLifeWheelCategories = function () {
     return $categories;
 };
 
+Route::view('/life-wheel.html', 'landing.life-wheel')->name('life-wheel.explore');
+
 Route::get('/life-wheel-assessment.html', function () use ($getLifeWheelCategories) {
     $categories = $getLifeWheelCategories();
     return view('landing.life-wheel-assessment', compact('categories'));
