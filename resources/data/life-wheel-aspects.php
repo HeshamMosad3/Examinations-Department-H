@@ -201,7 +201,7 @@ return [
     [
         'key' => 'leisure', 'dimension' => 'الترفيهي', 'name' => 'الجانب الترفيهي', 'icon' => 'leisure.svg',
         'text' => 'text-[#b8aa44]', 'border' => 'border-[#b8aa44]', 'badge' => 'bg-[#f7f4d9] border-[#dbcf9d]',
-        'descWidth' => 'w-full', 'desc' => 'يقيس قدرة الفرد على التوازن بين العمل والحياة، وممارسة الهوايات والأنشطة الترفيهية .',
+        'descWidth' => 'w-full', 'desc' => 'يقيس قدرة الفرد على التوازن بين العمل والحياة، وممارسة الهوايات والأنشطة الترفيهية.',
         'order' => 'order-8',
         'expand' => [
             'border' => 'border-[#b8aa44]', 'outer' => 'h-[610px]', 'width' => 'w-full xl:w-[401px]',

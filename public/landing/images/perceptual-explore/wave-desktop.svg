@@ -1,0 +1,24 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="906" height="30" viewBox="0 0 906 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Wavy Connecting Line (Desktop/Tablet) &#226;&#134;&#146; SVG">
+<path id="Vector" opacity="0.35" d="M6 14.2376C50.5833 -17.7624 50.5833 46.2376 95.1667 14.2376C139.75 -17.7624 139.75 46.2376 184.333 14.2376C228.917 -17.7624 228.917 46.2376 273.5 14.2376C318.083 -17.7624 318.083 46.2376 362.667 14.2376C407.25 -17.7624 407.25 46.2376 451.833 14.2376C496.417 -17.7624 496.417 46.2376 541 14.2376C585.583 -17.7624 585.583 46.2376 630.167 14.2376C674.75 -17.7624 674.75 46.2376 719.333 14.2376C763.917 -17.7624 763.917 46.2376 808.5 14.2376C853.083 -17.7624 853.083 46.2376 897.667 14.2376" stroke="url(#paint0_linear_0_10)" stroke-width="9.79167" stroke-linecap="round"/>
+<path id="Vector_2" d="M6 14.2376C50.5833 -17.7624 50.5833 46.2376 95.1667 14.2376C139.75 -17.7624 139.75 46.2376 184.333 14.2376C228.917 -17.7624 228.917 46.2376 273.5 14.2376C318.083 -17.7624 318.083 46.2376 362.667 14.2376C407.25 -17.7624 407.25 46.2376 451.833 14.2376C496.417 -17.7624 496.417 46.2376 541 14.2376C585.583 -17.7624 585.583 46.2376 630.167 14.2376C674.75 -17.7624 674.75 46.2376 719.333 14.2376C763.917 -17.7624 763.917 46.2376 808.5 14.2376C853.083 -17.7624 853.083 46.2376 897.667 14.2376" stroke="url(#paint1_linear_0_10)" stroke-width="4.40625" stroke-linecap="round"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_0_10" x1="6" y1="5" x2="903" y2="5" gradientUnits="userSpaceOnUse">
+<stop stop-color="#F59E0B"/>
+<stop offset="0.2" stop-color="#10B981"/>
+<stop offset="0.4" stop-color="#0284C7"/>
+<stop offset="0.6" stop-color="#7C3AED"/>
+<stop offset="0.8" stop-color="#06B6D4"/>
+<stop offset="1" stop-color="#3B82F6"/>
+</linearGradient>
+<linearGradient id="paint1_linear_0_10" x1="6" y1="5" x2="903" y2="5" gradientUnits="userSpaceOnUse">
+<stop stop-color="#F59E0B"/>
+<stop offset="0.2" stop-color="#10B981"/>
+<stop offset="0.4" stop-color="#0284C7"/>
+<stop offset="0.6" stop-color="#7C3AED"/>
+<stop offset="0.8" stop-color="#06B6D4"/>
+<stop offset="1" stop-color="#3B82F6"/>
+</linearGradient>
+</defs>
+</svg>

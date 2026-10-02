@@ -107,16 +107,26 @@ export function initTestimonialsSlider() {
       }
     }
 
-    function scrollToPage(pageIndex) {
+    function scrollToPage(pageIndex, smooth = true) {
       const maxPage = 3;
       if (pageIndex < 0) pageIndex = 0;
       if (pageIndex > maxPage) pageIndex = maxPage;
 
       let targetIndex = pageIndex * 3;
       if (targetIndex >= cards.length) targetIndex = cards.length - 1;
-      
-      if (cards[targetIndex]) {
-        cards[targetIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: window.innerWidth < 1024 ? 'center' : 'start' });
+
+      const targetCard = cards[targetIndex];
+      if (targetCard) {
+        // Scroll the slider horizontally only. scrollIntoView() also scrolled the whole page down to the
+        // testimonials (the home page opened in the middle on load and on every resize).
+        const sliderRect = slider.getBoundingClientRect();
+        const cardRect = targetCard.getBoundingClientRect();
+        const padRight = parseFloat(getComputedStyle(slider).paddingRight) || 0;
+        // RTL: the page's first card sits at the slider's right (start) edge
+        const diff = cardRect.right - (sliderRect.right - padRight);
+        if (Math.abs(diff) > 2) {
+          slider.scrollBy({ left: diff, behavior: smooth ? 'smooth' : 'auto' });
+        }
       }
       activeIndex = targetIndex;
       updateActiveState(targetIndex);
@@ -256,7 +266,7 @@ export function initTestimonialsSlider() {
       if (window.innerWidth < 1024) {
         scrollToCard(1, false);
       } else {
-        scrollToPage(0);
+        scrollToPage(0, false);
       }
       updateCardTransforms();
     };

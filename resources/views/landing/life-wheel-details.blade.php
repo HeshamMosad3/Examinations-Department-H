@@ -35,15 +35,15 @@
   {{-- Shared Unified Navbar matching all pages --}}
   @include('landing.partials.navbar')
 
-  <main id="main-content" data-save-url="{{ route('life-wheel.results.store') }}" data-user-id="{{ auth()->id() }}" class="w-full max-w-[1242px] mx-auto px-4 sm:px-6 xl:px-0 pt-6 sm:pt-8 xl:pt-[48px] pb-16 xl:pb-[128px] flex-1">
+  <main id="main-content" data-save-url="{{ route('life-wheel.results.store') }}" data-user-id="{{ auth()->id() }}" class="w-full max-w-[1242px] mx-auto px-[15px] sm:px-6 xl:px-0 pt-4 sm:pt-8 xl:pt-[48px] pb-[39px] sm:pb-16 xl:pb-[128px] flex-1">
     <h1 class="sr-only">تفاصيل جوانب عجلة الحياة</h1>
 
     <!-- Mobile header: back button + title -->
-    <div class="md:hidden relative h-[32px] flex items-center justify-center mb-5 font-messiri">
+    <div class="md:hidden relative h-[32px] flex items-center justify-center mb-[48px] font-messiri">
       <a href="{{ route('life-wheel.result') }}" class="absolute right-0 top-0 size-[32px] p-[8px] rounded-full bg-[#e9edf2] flex items-center justify-center text-brand-primary hover:bg-[#d8e0ea] transition-colors shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary" aria-label="العودة لنتيجة التقييم">
         <i class="fa-solid fa-arrow-right text-[14px]" aria-hidden="true"></i>
       </a>
-      <h1 class="text-[19px] font-bold text-[#204a7a] leading-[28px] tracking-[-0.5px] text-center">تفاصيل الجوانب</h1>
+      <h1 class="text-[21px] font-bold text-[#204a7a] leading-[28px] tracking-[-0.5px] text-center">تفاصيل الجوانب</h1>
     </div>
 
     {{-- Breadcrumb: Figma 3083:12433 (items 160/135/168/73 = pl 4 + link + gap 4 + 18px arrow; links have fixed widths, text right-aligned) --}}
@@ -81,7 +81,7 @@
         <a href="{{ route('life-wheel.assessment') }}" class="bg-[#204a7a] text-[#f6f6f6] font-messiri font-semibold text-[21px] rounded-[15px] h-[60px] px-8 inline-flex items-center justify-center">ابدأ الاختبار</a>
       </div>
     @else
-    <section aria-label="جوانب عجلة الحياة" dir="rtl" class="grid grid-cols-1 md:grid-cols-2 gap-x-[19px] gap-y-[32px] items-start xl:flex xl:flex-row xl:gap-[19px]">
+    <section aria-label="جوانب عجلة الحياة" dir="rtl" class="grid grid-cols-1 md:grid-cols-2 gap-x-[19px] gap-y-[25px] md:gap-y-[32px] items-start xl:flex xl:flex-row xl:gap-[19px]">
       @foreach ([['xl:w-[401px]', ['spiritual', 'family', 'financial']], ['xl:w-[402px]', ['health', 'social', 'leisure']], ['xl:w-[401px]', ['personal', 'career']]] as [$colWidth, $keys])
         <div class="contents xl:flex xl:flex-col xl:gap-[32px] xl:items-start xl:shrink-0 {{ $colWidth }}">
           @foreach ($keys as $key)
@@ -94,21 +94,21 @@
 
     @if ($hasResult)
     {{-- Buttons: Figma 3083:12472 --}}
-    <div dir="ltr" class="flex flex-col sm:flex-row gap-[20px] items-center justify-center mt-12 xl:mt-[128px]">
-      <a href="{{ route('life-wheel.assessment') }}" class="bg-[#204a7a] cursor-pointer flex gap-[8px] h-[60px] items-center justify-center px-[24px] py-[12px] relative rounded-[15px] shrink-0 w-full max-w-[312px] sm:w-[312px]">
-        <span class="flex items-center relative shrink-0 w-[116px]">
-          <span class="[word-break:break-word] block w-full relative top-px font-messiri font-semibold leading-[1.5] shrink-0 text-[#f6f6f6] text-[21px] text-left whitespace-nowrap" dir="auto">اعاده التقييم</span>
+    <div dir="ltr" class="flex flex-row gap-[20px] items-center justify-between md:justify-center mt-12 xl:mt-[128px]">
+      <a href="{{ route('life-wheel.assessment') }}" class="bg-[#204a7a] cursor-pointer flex gap-[8px] h-[45px] md:h-[60px] items-center justify-center px-[12px] md:px-[24px] py-[12px] relative rounded-[10px] md:rounded-[15px] shrink-0 flex-1 max-w-[170px] md:flex-none md:max-w-none md:w-[312px]">
+        <span class="flex items-center relative shrink-0 md:w-[116px]">
+          <span class="[word-break:break-word] block w-full relative top-px font-messiri font-semibold leading-[1.5] shrink-0 text-[#e9edf2] md:text-[#f6f6f6] text-[14px] md:text-[21px] text-left whitespace-nowrap" dir="auto">اعاده التقييم</span>
         </span>
-        <span class="relative shrink-0 size-[24px]" aria-hidden="true">
+        <span class="relative shrink-0 size-[12px] md:size-[24px]" aria-hidden="true">
           <img alt="" class="absolute block inset-0 max-w-none size-full" src="{{ $d }}/restart-icon.svg" />
         </span>
       </a>
-      <button type="button" class="border border-[#204a7a] border-solid cursor-pointer flex h-[60px] items-center justify-center px-[24px] py-[12px] relative rounded-[15px] shrink-0 w-full max-w-[312px] sm:w-[312px]">
+      <button type="button" class="border border-[#204a7a] border-solid cursor-pointer flex h-[45px] md:h-[60px] items-center justify-center px-[12px] md:px-[24px] py-[12px] relative rounded-[10px] md:rounded-[15px] shrink-0 flex-1 max-w-[170px] md:flex-none md:max-w-none md:w-[312px]">
         <span class="flex gap-[8px] items-center relative shrink-0">
           <span class="flex items-center relative shrink-0">
-            <span class="[word-break:break-word] font-messiri font-semibold leading-[1.5] relative top-px shrink-0 text-[#204a7a] text-[21px] whitespace-nowrap" dir="auto">تحميل التقرير</span>
+            <span class="[word-break:break-word] font-messiri font-semibold leading-[1.5] relative top-px shrink-0 text-[#204a7a] text-[14px] md:text-[21px] whitespace-nowrap" dir="auto">تحميل التقرير</span>
           </span>
-          <span class="h-[20px] relative shrink-0 w-[22px]" aria-hidden="true">
+          <span class="h-[16px] w-[18px] md:h-[20px] md:w-[22px] relative shrink-0" aria-hidden="true">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="{{ $d }}/download-icon.svg" />
           </span>
         </span>

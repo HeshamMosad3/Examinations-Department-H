@@ -105,6 +105,13 @@ $getPerceptualAssessment = function () {
     return $assessment;
 };
 
+// صفحة "اكتشف أنماط الإدراك" - عدد الأسئلة من قاعدة البيانات
+Route::get('/perceptual-explore.html', function () {
+    $questionsCount = \App\Models\Question::whereHas('assessment', fn ($q) => $q->where('scoring_type', 'perceptual_styles')->where('is_active', true))->count();
+
+    return view('landing.perceptual-explore', compact('questionsCount'));
+})->name('perceptual.explore');
+
 Route::get('/perceptual-test.html', function () use ($getPerceptualAssessment) {
     $questions = $getPerceptualAssessment()->questions->map(fn ($q) => [
         'text' => $q->text_ar,

@@ -20,6 +20,19 @@ const SETTINGS = {
   filledGridStrokeOpacity: 0.18
 };
 
+/* شرح كل محور اللي بيظهر في الـ Tooltip لما المستخدم يشاور على المحور (الصفحة الرئيسية وصفحة "اكتشف عجلة الحياة") */
+const AXIS_DESCRIPTIONS = {
+  "الروحاني": "يقيس مدى التزام الفرد بالعبادات والممارسات الإيمانية، وانعكاس القيم الروحية على سلوكه بما يمنحه السكينة والاستقرار النفسي.",
+  "الصحي": "يقيس مدى تبني الفرد لعادات صحية متكاملة تشمل التغذية، النشاط البدني، كفاية النوم، والتدابير الوقائية لدعم العافية الجسدية.",
+  "الشخصي": "يقيس مستوى سعي الفرد للتعلم المستمر، وفاعليته في تنظيم وقته، ووضع الأهداف الشخصية والعمل على تحقيقها.",
+  "العائلي": "يقيس جودة التواصل الأسري، ومستوى تحمل المسؤوليات، والدعم المتبادل، والقدرة على إدارة الخلافات العائلية بحوار وإيجابية.",
+  "الاجتماعي": "يقيس مدى اهتمام الفرد بصلة الأرحام وبناء علاقات إيجابية مع المحيط، والمشاركة الفاعلة في المناسبات والمبادرات المجتمعية.",
+  "المهني": "يقيس انضباط الفرد والتزامه بأنظمة العمل، وجودة أدائه المهني، وسعيه لتطوير مهاراته وبناء علاقات عمل إيجابية.",
+  "المالي": "يقيس مدى كفاءة الفرد في التخطيط المالي، وإدارة الدخل والمصروفات، والقدرة على الادخار والاستثمار والوفاء بالالتزامات المالية.",
+  "الترفيهي": "يقيس قدرة الفرد على التوازن بين العمل والحياة، وممارسة الهوايات والأنشطة الترفيهية لتجديد الطاقة وتخفيف ضغوط الحياة."
+};
+const tooltipsEnabled = !isResultPage;
+
 /* بيانات كل محور - الترتيب يبدأ من المحور الشخصي في أعلى العجلة مع عقارب الساعة تماماً كما في Figma */
 let axesState = [
   { label: "الشخصي", color: "#7844D0", percent: 30, direction: "dark-to-light", icon: "custom", customIconUrl: "/landing/icons/wheel_of_life/personal.png" },
@@ -376,7 +389,29 @@ function buildWheelDom() {
     svg.appendChild(labelsGroup);
   }
 
-  // 5. Center Hit Area for Spin
+  // 5. Tooltip hit areas: one invisible sector per axis covering its rings, label and icon (rotates with the wheel)
+  let hitGroup = null;
+  if (tooltipsEnabled) {
+    hitGroup = document.createElementNS(svgNS, "g");
+    hitGroup.setAttribute("class", "tooltip-hits");
+    hitGroup.setAttribute("transform", `rotate(${rotationAngle} ${cx} ${cy})`);
+    const sectorAngle = 360 / n;
+    axesState.forEach((axis, i) => {
+      const hit = document.createElementNS(svgNS, "path");
+      hit.setAttribute("d", ringSectorPath(cx, cy, innerRadius, outerRadius + 130, i * sectorAngle, (i + 1) * sectorAngle, 0));
+      hit.setAttribute("fill", "transparent");
+      hit.setAttribute("tabindex", "0");
+      hit.setAttribute("role", "button");
+      hit.setAttribute("aria-label", `${axis.label}: ${AXIS_DESCRIPTIONS[axis.label] || ""}`);
+      hit.style.cursor = "pointer";
+      hit.style.outline = "none";
+      hit.dataset.axis = i;
+      hitGroup.appendChild(hit);
+    });
+    svg.appendChild(hitGroup);
+  }
+
+  // 6. Center Hit Area for Spin
   const centerHit = document.createElementNS(svgNS, "circle");
   centerHit.setAttribute("cx", cx);
   centerHit.setAttribute("cy", cy);
@@ -399,8 +434,10 @@ function buildWheelDom() {
     centerCircle,
     centerImg,
     axisElements,
-    centerHit
+    centerHit,
+    hitGroup
   };
+  if (activeAxis !== null) setAxisHighlight(activeAxis);
 }
 
 function updateWheelGeometry() {
@@ -418,6 +455,7 @@ function updateWheelGeometry() {
 
   // Rotate group
   wheelDom.rotatableGroup.setAttribute("transform", `rotate(${rotationAngle} ${cx} ${cy})`);
+  if (wheelDom.hitGroup) wheelDom.hitGroup.setAttribute("transform", `rotate(${rotationAngle} ${cx} ${cy})`);
 
   axesState.forEach((axis, i) => {
     const el = wheelDom.axisElements[i];
@@ -510,6 +548,164 @@ function updateWheelGeometry() {
       }
     }
   });
+
+  // Labels move with the breathing/spin animation: keep the open tooltip attached to its axis
+  if (activeAxis !== null) positionTooltip();
+}
+
+/* ============================================================
+   Tooltip شرح المحاور: بيظهر بالـ hover على الكمبيوتر وباللمس على الموبايل، وبالـ Tab من الكيبورد
+   ============================================================ */
+let activeAxis = null;
+let lastPointerType = "mouse";
+let tooltipEl = null;
+
+function ensureTooltip() {
+  if (tooltipEl || !tooltipsEnabled) return tooltipEl;
+  tooltipEl = document.createElement("div");
+  tooltipEl.id = "wheel-tooltip";
+  tooltipEl.setAttribute("role", "tooltip");
+  tooltipEl.setAttribute("dir", "rtl");
+  // العنصر الخارجي للمكان (transform) والداخلي للظهور (opacity/scale)
+  tooltipEl.className = "fixed left-0 top-0 z-[60] w-[260px] sm:w-[300px] pointer-events-none font-messiri";
+  tooltipEl.innerHTML = `
+    <div data-tt-inner class="relative opacity-0 scale-95 transition-[opacity,transform] duration-150 ease-out">
+      <div class="bg-white rounded-[16px] border border-[#e9edf2] shadow-[0_14px_36px_rgba(32,74,122,0.18)] overflow-hidden">
+        <div data-tt-bar class="h-[4px] w-full"></div>
+        <div class="flex items-start gap-[12px] p-[14px] sm:p-[16px]">
+          <span data-tt-iconbox class="size-[40px] sm:size-[44px] rounded-[12px] flex items-center justify-center shrink-0">
+            <img data-tt-icon alt="" class="size-[26px] sm:size-[28px] object-contain" />
+          </span>
+          <div class="min-w-0">
+            <p data-tt-title class="font-bold text-[15px] sm:text-[17px] leading-tight mb-[6px]"></p>
+            <p data-tt-desc class="font-medium text-[12.5px] sm:text-[14px] leading-[1.65] text-[#565656]"></p>
+          </div>
+        </div>
+      </div>
+      <span data-tt-arrow class="absolute size-[12px] bg-white rotate-45 border-solid border-[#e9edf2]"></span>
+    </div>`;
+  document.body.appendChild(tooltipEl);
+  return tooltipEl;
+}
+
+// يبرز المحور النشط ويخفف الباقي
+function setAxisHighlight(index) {
+  if (!wheelDom) return;
+  wheelDom.axisElements.forEach((el, i) => {
+    const opacity = index === null || i === index ? "1" : "0.35";
+    [...el.fillPaths, el.text, el.icon].forEach((node) => {
+      if (!node) return;
+      node.style.transition = "opacity 150ms ease-out";
+      node.style.opacity = opacity;
+    });
+  });
+}
+
+function positionTooltip() {
+  if (!tooltipEl || activeAxis === null || !wheelDom) return;
+  const el = wheelDom.axisElements[activeAxis];
+  const hit = wheelDom.hitGroup?.children[activeAxis];
+  const rects = [el?.text, el?.icon].filter(Boolean).map((n) => n.getBoundingClientRect()).filter((r) => r.width);
+  const anchorRect = rects.length
+    ? rects.reduce((a, r) => ({ left: Math.min(a.left, r.left), right: Math.max(a.right, r.right), top: Math.min(a.top, r.top), bottom: Math.max(a.bottom, r.bottom) }))
+    : hit.getBoundingClientRect();
+
+  const vw = document.documentElement.clientWidth;
+  const vh = window.innerHeight;
+  const w = tooltipEl.offsetWidth;
+  const h = tooltipEl.offsetHeight;
+  const gap = 12;
+  const centerX = (anchorRect.left + anchorRect.right) / 2;
+
+  // فوق المحور لو فيه مكان (تحت الـ navbar)، وإلا تحته
+  const above = anchorRect.top - h - gap >= 80 || anchorRect.bottom + h + gap > vh;
+  const top = above ? anchorRect.top - h - gap : anchorRect.bottom + gap;
+  const left = Math.max(12, Math.min(vw - w - 12, centerX - w / 2));
+
+  tooltipEl.style.transform = `translate(${Math.round(left)}px, ${Math.round(top)}px)`;
+  tooltipEl.querySelector("[data-tt-inner]").style.transformOrigin = above ? "bottom center" : "top center";
+
+  const arrow = tooltipEl.querySelector("[data-tt-arrow]");
+  arrow.style.left = `${Math.max(18, Math.min(w - 30, centerX - left - 6))}px`;
+  arrow.style.top = above ? "auto" : "-6px";
+  arrow.style.bottom = above ? "-6px" : "auto";
+  arrow.style.borderWidth = above ? "0 1px 1px 0" : "1px 0 0 1px";
+}
+
+function showTooltip(index) {
+  const axis = axesState[index];
+  const desc = axis && AXIS_DESCRIPTIONS[axis.label];
+  if (!desc || !ensureTooltip()) return;
+
+  const accent = getAxisAccentColor(axis, 0.2);
+  tooltipEl.querySelector("[data-tt-bar]").style.background = axis.color;
+  tooltipEl.querySelector("[data-tt-iconbox]").style.background = lighten(axis.color, 0.86);
+  const icon = tooltipEl.querySelector("[data-tt-icon]");
+  icon.src = axis.customIconUrl || "";
+  icon.style.display = axis.customIconUrl ? "" : "none";
+  const title = tooltipEl.querySelector("[data-tt-title]");
+  title.textContent = `الجانب ${axis.label}`;
+  title.style.color = accent;
+  tooltipEl.querySelector("[data-tt-desc]").textContent = desc;
+
+  activeAxis = index;
+  setAxisHighlight(index);
+  positionTooltip();
+  tooltipEl.querySelector("[data-tt-inner]").classList.replace("opacity-0", "opacity-100");
+  tooltipEl.querySelector("[data-tt-inner]").classList.replace("scale-95", "scale-100");
+}
+
+function hideTooltip() {
+  if (activeAxis === null) return;
+  activeAxis = null;
+  setAxisHighlight(null);
+  const inner = tooltipEl?.querySelector("[data-tt-inner]");
+  if (inner) {
+    inner.classList.replace("opacity-100", "opacity-0");
+    inner.classList.replace("scale-100", "scale-95");
+  }
+}
+
+if (tooltipsEnabled && svg) {
+  const hitIndex = (target) => {
+    const hit = target.closest?.("[data-axis]");
+    return hit && svg.contains(hit) ? Number(hit.dataset.axis) : null;
+  };
+
+  document.addEventListener("pointerdown", (e) => {
+    lastPointerType = e.pointerType || "mouse";
+    // لمسة برا العجلة بتقفل الـ tooltip على الموبايل
+    if (activeAxis !== null && hitIndex(e.target) === null) hideTooltip();
+  }, { passive: true });
+
+  svg.addEventListener("pointerover", (e) => {
+    if (e.pointerType !== "mouse") return;
+    const i = hitIndex(e.target);
+    if (i !== null && i !== activeAxis) showTooltip(i);
+  });
+  svg.addEventListener("pointerout", (e) => {
+    if (e.pointerType !== "mouse") return;
+    if (hitIndex(e.target) !== null && hitIndex(e.relatedTarget || document.body) === null) hideTooltip();
+  });
+
+  // اللمس: ضغطة تفتح، وضغطة تانية على نفس المحور تقفل
+  svg.addEventListener("click", (e) => {
+    if (lastPointerType === "mouse") return;
+    const i = hitIndex(e.target);
+    if (i === null) return;
+    if (i === activeAxis) hideTooltip(); else showTooltip(i);
+  });
+
+  svg.addEventListener("focusin", (e) => {
+    const i = hitIndex(e.target);
+    if (i !== null) showTooltip(i);
+  });
+  svg.addEventListener("focusout", (e) => {
+    if (hitIndex(e.relatedTarget || document.body) === null) hideTooltip();
+  });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") hideTooltip(); });
+  window.addEventListener("scroll", () => { if (lastPointerType === "mouse") hideTooltip(); else positionTooltip(); }, { passive: true });
+  window.addEventListener("resize", hideTooltip);
 }
 
 function drawWheel(forceRebuild = false) {
