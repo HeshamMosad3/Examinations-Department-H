@@ -343,18 +343,46 @@ export function initQuiz(customQuestions = null) {
       if (totalNumEl) totalNumEl.textContent = questions.length;
 
       if (resultTitleEl) {
-        resultTitleEl.textContent = 'محاولة جيدة!';
+        if (score === questions.length) {
+          resultTitleEl.textContent = 'ممتاز! أداء رائع';
+        } else if (score > 0) {
+          resultTitleEl.textContent = 'محاولة جيدة!';
+        } else {
+          resultTitleEl.textContent = 'حظ أوفر!';
+        }
       }
 
-      // Trophy pop animation
+      // Trophy logic
       if (trophyImg) {
         trophyImg.classList.remove('animate-trophy-pop');
         void trophyImg.offsetWidth;
-        trophyImg.classList.add('animate-trophy-pop');
+        
+        if (score === questions.length) {
+          trophyImg.src = '/images/icons/trophy.webp';
+          trophyImg.classList.add('animate-trophy-pop');
+          trophyImg.style.display = 'block';
+          resultCard.querySelector('.absolute.inset-0').style.display = 'block'; // Show glow
+        } else if (score > 0) {
+          trophyImg.src = '/images/icons/trophy.webp';
+          trophyImg.classList.add('animate-trophy-pop');
+          trophyImg.style.display = 'block';
+          resultCard.querySelector('.absolute.inset-0').style.display = 'none'; // Hide glow for non-perfect
+        } else {
+          trophyImg.style.display = 'none'; // Hide trophy for 0
+          resultCard.querySelector('.absolute.inset-0').style.display = 'none';
+        }
       }
 
-      // Fire celebratory confetti!
-      fireCelebrationConfetti();
+      // Fire celebratory confetti only if score > 0
+      if (score === questions.length) {
+        fireCelebrationConfetti(); // Full confetti
+      } else if (score > 0) {
+        // Less confetti
+        const launch = typeof confetti === 'function' ? confetti : (window.confetti || null);
+        if (typeof launch === 'function') {
+           launch({ particleCount: 30, spread: 50, origin: { y: 0.6 } });
+        }
+      }
     }
   }
 

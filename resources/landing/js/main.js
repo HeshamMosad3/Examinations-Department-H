@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initNewLifeWheel();
 
   // Initialize Quiz
-  initQuiz();
+  initQuiz(window.challengeQuestions && window.challengeQuestions.length > 0 ? window.challengeQuestions : null);
 
   // Handle Login Modal
   const loginLinks = document.querySelectorAll('a[href="#login"]');

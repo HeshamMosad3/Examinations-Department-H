@@ -7,8 +7,20 @@ use App\Http\Controllers\LifeWheelController;
 use Illuminate\Support\Facades\Route;
 
 // Landing pages
-Route::view('/', 'landing.index')->name('home');
-Route::redirect('/index.html', '/', 301);
+Route::get('/', function () {
+    $challengeQuestions = \App\Models\ChallengeQuestion::where('is_active', true)->get()->map(function($q, $index) {
+        return [
+            'id' => $q->id,
+            'question' => $q->question,
+            'type' => $q->type,
+            'patternRow' => $q->pattern_row,
+            'options' => $q->options,
+            'correctIndex' => $q->correct_index,
+            'initialBtnText' => $index === 0 ? 'ابدأ التحدي' : null,
+        ];
+    });
+    return view('landing.index', compact('challengeQuestions'));
+})->name('home');
 
 $getLifeWheelCategories = function () {
     $assessment = \App\Models\Assessment::with('dimensions.questions')->where('category', 'عجلة الحياة')->first();
@@ -91,6 +103,7 @@ Route::middleware(['auth', 'user'])->group(function () {
 // Admin routes
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [Admin\DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('challenge-questions', Admin\ChallengeQuestionController::class);
 
     Route::get('/assessments', [Admin\AssessmentController::class, 'index'])->name('assessments.index');
     Route::post('/assessments', [Admin\AssessmentController::class, 'store'])->name('assessments.store');

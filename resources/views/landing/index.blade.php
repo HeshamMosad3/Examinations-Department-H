@@ -83,6 +83,10 @@
   <!-- FontAwesome Icons for crisp UI symbols -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
+  <script>
+    window.challengeQuestions = @json($challengeQuestions ?? null);
+  </script>
+
   <!-- Local compiled styles via Vite -->
   {{ (clone app(\Illuminate\Foundation\Vite::class))->useHotFile(public_path('landing.hot'))->useBuildDirectory('landing/build')->withEntryPoints(['resources/landing/style.css', 'resources/landing/js/main.js']) }}
 
