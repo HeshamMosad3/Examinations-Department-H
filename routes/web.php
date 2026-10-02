@@ -7,8 +7,20 @@ use App\Http\Controllers\LifeWheelController;
 use Illuminate\Support\Facades\Route;
 
 // Landing pages
-Route::view('/', 'landing.index')->name('home');
-Route::redirect('/index.html', '/', 301);
+Route::get('/', function () {
+    $challengeQuestions = \App\Models\ChallengeQuestion::where('is_active', true)->get()->map(function($q, $index) {
+        return [
+            'id' => $q->id,
+            'question' => $q->question,
+            'type' => $q->type,
+            'patternRow' => $q->pattern_row,
+            'options' => $q->options,
+            'correctIndex' => $q->correct_index,
+            'initialBtnText' => $index === 0 ? 'ابدأ التحدي' : null,
+        ];
+    });
+    return view('landing.index', compact('challengeQuestions'));
+})->name('home');
 
 $getLifeWheelCategories = function () {
     $assessment = \App\Models\Assessment::with('dimensions.questions')->where('category', 'عجلة الحياة')->first();
@@ -36,15 +48,28 @@ $getLifeWheelCategories = function () {
             'leisure' => '/landing/icons/wheel_of_life_line/gamepad.svg'
         ];
 
+        $solidIcons = [
+            'spiritual' => '/landing/icons/wheel_of_life/spiritual.png',
+            'health' => '/landing/icons/wheel_of_life/health.png',
+            'personal' => '/landing/icons/wheel_of_life/personal.png',
+            'family' => '/landing/icons/wheel_of_life/family.png',
+            'social' => '/landing/icons/wheel_of_life/social.png',
+            'professional' => '/landing/icons/wheel_of_life/career.png',
+            'financial' => '/landing/icons/wheel_of_life/financial.png',
+            'leisure' => '/landing/icons/wheel_of_life/leisure.png'
+        ];
+
         foreach ($assessment->dimensions as $dim) {
             $key = $keys[$dim->name_ar] ?? 'unknown';
             $icon = $icons[$key] ?? '';
+            $solidIcon = $solidIcons[$key] ?? '';
             $questions = $dim->questions->sortBy('order_index')->pluck('text_ar')->toArray();
             
             $categories[] = [
                 'key' => $key,
                 'label' => $dim->name_ar,
                 'iconUrl' => $icon,
+                'solidIconUrl' => $solidIcon,
                 'description' => $dim->description_ar ?? '',
                 'questions' => $questions
             ];
@@ -153,6 +178,7 @@ Route::middleware(['auth', 'user'])->group(function () {
 // Admin routes
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [Admin\DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('challenge-questions', Admin\ChallengeQuestionController::class);
 
     Route::get('/assessments', [Admin\AssessmentController::class, 'index'])->name('assessments.index');
     Route::post('/assessments', [Admin\AssessmentController::class, 'store'])->name('assessments.store');

@@ -44,17 +44,10 @@
 
     <!-- LEFT SIDE IN RTL: Outline Button (#954:5878 mobile / #656:3810 desktop) -->
     <div class="flex items-center justify-end">
-      @guest
       <a href="#login" role="button" aria-haspopup="dialog" aria-controls="login-modal" aria-label="فتح نافذة تسجيل الدخول" class="w-[80px] h-[28px] lg:w-[154px] lg:h-[45px] rounded-[5px] lg:rounded-[16px] border border-[#204A7A] text-[#204A7A] font-messiri lg:font-cairo font-semibold text-[10px] lg:text-[14px] hover:bg-[#204A7A] hover:text-white transition-all duration-200 shadow-sm flex items-center justify-center whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary">
         <span class="leading-none lg:hidden">تسجيل دخول</span>
         <span class="leading-none hidden lg:inline">تسجيل الدخول</span>
       </a>
-      @endguest
-      @auth
-      <a href="{{ route('dashboard') }}" aria-label="الذهاب إلى لوحة التحكم" class="w-[80px] h-[28px] lg:w-[154px] lg:h-[45px] rounded-[5px] lg:rounded-[16px] border border-[#204A7A] bg-[#204A7A] text-white font-messiri lg:font-cairo font-semibold text-[10px] lg:text-[14px] hover:bg-[#1D436E] transition-all duration-200 shadow-sm flex items-center justify-center whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary">
-        <span class="leading-none">لوحة التحكم</span>
-      </a>
-      @endauth
     </div>
   </header>
 

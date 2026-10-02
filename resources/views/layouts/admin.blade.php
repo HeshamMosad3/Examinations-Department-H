@@ -61,7 +61,11 @@
                     <i class="bi bi-lightbulb me-2"></i>إدارة التوصيات
                 </a>
             </li>
-
+            <li class="nav-item">
+                <a class="nav-link {{ request()->routeIs('admin.challenge-questions*') ? 'active' : '' }}" href="{{ route('admin.challenge-questions.index') }}">
+                    <i class="bi bi-puzzle me-2"></i>إدارة التحدي السريع
+                </a>
+            </li>
 
             <!-- قسم الإدارة العامة -->
             <li class="nav-item mt-3 mb-1 px-3">

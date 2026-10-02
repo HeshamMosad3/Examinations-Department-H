@@ -84,6 +84,32 @@ function renderDotContent(dotType, isOption = false) {
           <span class="${dotClass}"></span>
           <span class="${dotClass}"></span>
         </div>`;
+    case '1-center':
+      return `
+        <div class="flex items-center justify-center">
+          <span class="${dotClass}"></span>
+        </div>`;
+    case '3-vert':
+      return `
+        <div class="flex flex-col items-center justify-center ${gapClass}">
+          <span class="${dotClass}"></span>
+          <span class="${dotClass}"></span>
+          <span class="${dotClass}"></span>
+        </div>`;
+    case '3-horiz':
+      return `
+        <div class="flex items-center justify-center gap-[6px] md:gap-[12px]">
+          <span class="${dotClass}"></span>
+          <span class="${dotClass}"></span>
+          <span class="${dotClass}"></span>
+        </div>`;
+    case '5-dice':
+      return `
+        <div class="grid grid-cols-3 ${gapClass} place-items-center">
+          <span class="${dotClass}"></span> <span class="w-[10px] md:w-[17.67px]"></span> <span class="${dotClass}"></span>
+          <span class="w-[10px] md:w-[17.67px]"></span> <span class="${dotClass}"></span> <span class="w-[10px] md:w-[17.67px]"></span>
+          <span class="${dotClass}"></span> <span class="w-[10px] md:w-[17.67px]"></span> <span class="${dotClass}"></span>
+        </div>`;
     default:
       return '';
   }
@@ -343,18 +369,46 @@ export function initQuiz(customQuestions = null) {
       if (totalNumEl) totalNumEl.textContent = questions.length;
 
       if (resultTitleEl) {
-        resultTitleEl.textContent = 'محاولة جيدة!';
+        if (score === questions.length) {
+          resultTitleEl.textContent = 'ممتاز! أداء رائع';
+        } else if (score > 0) {
+          resultTitleEl.textContent = 'محاولة جيدة!';
+        } else {
+          resultTitleEl.textContent = 'حظ أوفر!';
+        }
       }
 
-      // Trophy pop animation
+      // Trophy logic
       if (trophyImg) {
         trophyImg.classList.remove('animate-trophy-pop');
         void trophyImg.offsetWidth;
-        trophyImg.classList.add('animate-trophy-pop');
+        
+        if (score === questions.length) {
+          trophyImg.src = '/images/icons/trophy.webp';
+          trophyImg.classList.add('animate-trophy-pop');
+          trophyImg.style.display = 'block';
+          resultCard.querySelector('.absolute.inset-0').style.display = 'block'; // Show glow
+        } else if (score > 0) {
+          trophyImg.src = '/images/icons/trophy.webp';
+          trophyImg.classList.add('animate-trophy-pop');
+          trophyImg.style.display = 'block';
+          resultCard.querySelector('.absolute.inset-0').style.display = 'none'; // Hide glow for non-perfect
+        } else {
+          trophyImg.style.display = 'none'; // Hide trophy for 0
+          resultCard.querySelector('.absolute.inset-0').style.display = 'none';
+        }
       }
 
-      // Fire celebratory confetti!
-      fireCelebrationConfetti();
+      // Fire celebratory confetti only if score > 0
+      if (score === questions.length) {
+        fireCelebrationConfetti(); // Full confetti
+      } else if (score > 0) {
+        // Less confetti
+        const launch = typeof confetti === 'function' ? confetti : (window.confetti || null);
+        if (typeof launch === 'function') {
+           launch({ particleCount: 30, spread: 50, origin: { y: 0.6 } });
+        }
+      }
     }
   }
 
