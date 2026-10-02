@@ -254,7 +254,7 @@ function buildWheelDom() {
   // 2. Rotatable Group (Colored sectors + center circle)
   const rotatableGroup = document.createElementNS(svgNS, "g");
   rotatableGroup.setAttribute("class", "rotatable-group");
-  rotatableGroup.setAttribute("transform", `rotate(${rotationAngle + idleWobbleDeg} ${cx} ${cy})`);
+  rotatableGroup.setAttribute("transform", `rotate(${rotationAngle} ${cx} ${cy})`);
 
   const centerCircle = document.createElementNS(svgNS, "circle");
   centerCircle.setAttribute("cx", cx);
@@ -417,7 +417,7 @@ function updateWheelGeometry() {
   const metrics = getMetrics();
 
   // Rotate group
-  wheelDom.rotatableGroup.setAttribute("transform", `rotate(${rotationAngle + idleWobbleDeg} ${cx} ${cy})`);
+  wheelDom.rotatableGroup.setAttribute("transform", `rotate(${rotationAngle} ${cx} ${cy})`);
 
   axesState.forEach((axis, i) => {
     const el = wheelDom.axisElements[i];
@@ -456,7 +456,7 @@ function updateWheelGeometry() {
     }
 
     // Update Text and Icon positions
-    const mid = i * sectorAngle + sectorAngle / 2 + rotationAngle + idleWobbleDeg;
+    const mid = i * sectorAngle + sectorAngle / 2 + rotationAngle;
     const fillFrac = Math.max(0, Math.min(100, axis.percent !== undefined ? axis.percent : 50)) / 100;
     const currentFillRadius = innerRadius + fillFrac * (outerRadius - innerRadius);
     
@@ -536,7 +536,7 @@ let isWheelVisible = true;
 let isTabVisible = true;
 let breathingLoopId = null;
 
-const JOURNEY_TOTAL_MS = 10000; // مدة الرحلة التقريبية من البداية لحد الاستقرار
+const JOURNEY_TOTAL_MS = 11000; // مدة الرحلة التقريبية من البداية لحد الاستقرار (5 سنوات كاملة)
 const SETTLE_JITTER_RANGE = 2.5;   // تذبذب صغير جداً حول القيمة النهائية بعد الاستقرار
 const SETTLE_DURATION_MIN = 1000;
 const SETTLE_DURATION_MAX = 2000;
@@ -550,34 +550,137 @@ const PAUSE_DURATION_MAX = 420;
 const SMOOTHING_TAU_MS = 480; // ثابت زمني للملاحقة الناعمة (أكبر = حركة أنعم وأبطأ في اللحاق بالهدف)
 const MAX_FRAME_DT_MS = 100;  // سقف لأي قفزة زمن كبيرة (تبديل تابات مثلاً) عشان الحركة تفضل ناعمة
 
-// إيقاع خفيف دايم على دوران العجلة نفسها (فوق rotationAngle) بيدي إحساس إن
-// "لسه حد بيمتحن" حتى بعد ما القيم تستقر - مش مرتبط بمرحلة الرحلة، بيفضل شغال دايمًا
-const WHEEL_WOBBLE_AMPLITUDE_1 = 2.2;
-const WHEEL_WOBBLE_SPEED_1 = 0.9;
-const WHEEL_WOBBLE_AMPLITUDE_2 = 1.1;
-const WHEEL_WOBBLE_SPEED_2 = 0.37;
+// ثوابت دوران العجلة الثابت (تم إلغاء الاهتزاز)
+const WHEEL_WOBBLE_AMPLITUDE_1 = 0;
+const WHEEL_WOBBLE_SPEED_1 = 0;
+const WHEEL_WOBBLE_AMPLITUDE_2 = 0;
+const WHEEL_WOBBLE_SPEED_2 = 0;
 
-// 12 نقطة لكل محور: القيمة الأولى + متوسط كل 6 شهور (10 فترات) + القيمة الفعلية النهائية
-// (بالترتيب نفسه لمحاور axesState: شخصي، روحي، صحي، اجتماعي، عائلي، ترفيهي، مالي، مهني)
-//
-// شخصية الرحلة: مهني هو التركيز الأساسي الواضح، والصحي بيتحسن معاه كجزء من نفس
-// انضباطه (مش بيضحي بيه) لكن برتبة أقل منه، والعائلي محمي/شبه مستقر لأنه بيعتبره
-// التزام مش اختياري. المالي والروحي بيتحسنوا بهدوء من غير ما يبقوا أولوية. الشخصي
-// (الوعي الذاتي/التأمل الداخلي) بيفضل متأخر لأنه غارق في الإنجاز الخارجي. الاجتماعي
-// والترفيهي هما أكتر حاجتين بيضحي بيهم (أضعف ارتباط بالتزام، أسهل حاجة تتلغي وقت
-// الانشغال) - ده متوافق مع أبحاث توازن الحياة/العمل. مفيش أي جانب بيتعدى 90،
-// ومهم كمان إن القيم العالية والواطية موزعة حوالين العجلة مش متجمعة في نص واحد بس.
-const AXIS_JOURNEY = [
-  [30, 33, 36, 39, 41, 43, 44, 45, 46, 47, 47, 48], // شخصي — وعي ذاتي متأخر، مش أولوية
-  [45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 54, 55], // الروحي — نمو هادئ ومستقل
-  [38, 42, 47, 52, 57, 61, 65, 69, 72, 74, 76, 78], // الصحي — بيتحسن مع الانضباط، رتبة تانية بعد المهني
-  [40, 36, 32, 29, 27, 26, 28, 31, 34, 37, 39, 40], // الاجتماعي — أول حاجة بتتلغي وقت الانشغال
-  [50, 51, 53, 52, 55, 57, 59, 62, 65, 68, 70, 72], // العائلي — محمي/التزام، تحسن تدريجي مستقر
-  [30, 26, 22, 19, 18, 19, 22, 25, 28, 31, 33, 34], // الترفيهي — أكتر جانب مُهمَل
-  [35, 37, 40, 43, 46, 49, 51, 53, 55, 56, 57, 58], // المالي — بينمو أبطأ من المهني (إدارة مالية أضعف من الأداء الوظيفي)
-  [45, 49, 54, 59, 64, 69, 73, 77, 80, 83, 85, 87]  // المهني — التركيز الأساسي الواضح
-];
-const JOURNEY_SEGMENTS = AXIS_JOURNEY[0].length - 1; // 11 قطعة
+/**
+ * ============================================================
+ * توليد رحلة واقعية لشخص حقيقي عبر 5 سنوات (12 محطة زمنية لكل 6 شهور)
+ * مع مراعاة الترابط المنطقي بين الجوانب:
+ * 1. نمو الجانبين المهني والمالي معاً يؤدي منطقياً لضغط وتراجع في الجانبين العائلي والاجتماعي والترفيهي.
+ * 2. ازدهار الجانبين الروحي والصحي ينعكس إيجابياً بنمو العائلي والاجتماعي، بينما يهدأ الاندفاع المهني والمالي الحاد.
+ * 3. في كل تحديث أو دخول جديد للصفحة، يتم اختيار شخصية إنسانية مختلفة (persona) بنسب ومسارات فريدة.
+ * ============================================================
+ */
+function generatePersonaJourney() {
+  // ترتيب المحاور: 0: الشخصي, 1: الروحاني, 2: الصحي, 3: الاجتماعي, 4: العائلي, 5: الترفيهي, 6: المالي, 7: المهني
+  const archetypes = [
+    {
+      id: "career_wealth_grind",
+      title: "التركيز على النمو المهني والاستقلال المالي",
+      // يبدأ بعلاقات أسرية جيدة وصحة متوسطة، لكن بوضع مهني ومالي متواضع
+      start: [32, 44, 52, 60, 65, 45, 30, 35],
+      // ينمو المهني والمالي بقوة (+45% إلى +50%)، بينما يتراجع الاجتماعي والعائلي والترفيهي بسبب ضغط العمل
+      end:   [46, 38, 44, 34, 40, 24, 82, 86],
+      midDip: { 3: -8, 4: -8, 5: -9 },
+      midSurge: { 6: 6, 7: 8 }
+    },
+    {
+      id: "spiritual_health_family_harmony",
+      title: "أولوية السلام الداخلي والنهوض الروحي والصحي والأسري",
+      // يبدأ بوظيفة مستهلكة ودخل مرتفع مع إرهاق صحي وروحي وتراجع أسري
+      start: [30, 26, 28, 38, 34, 25, 74, 78],
+      // ينمو الروحي والصحي والشخصي والعائلي والاجتماعي بقوة، مع تخفيف الاندفاع المهني والمالي المفرط
+      end:   [75, 84, 82, 72, 78, 64, 48, 52],
+      midDip: { 6: -6, 7: -8 },
+      midSurge: { 1: 7, 2: 7, 4: 5 }
+    },
+    {
+      id: "family_and_social_solidarity",
+      title: "الاستقرار الأسري والروابط الاجتماعية والروحية",
+      // يبدأ بتركيز مهني مع تباعد أسري واجتماعي
+      start: [35, 40, 44, 36, 40, 30, 68, 70],
+      // طفرة في الجانب العائلي والاجتماعي والروحي والترفيهي مع تراجع وتوازن المهني والمالي
+      end:   [68, 78, 70, 82, 85, 65, 44, 46],
+      midDip: { 6: -7, 7: -7 },
+      midSurge: { 3: 6, 4: 8 }
+    },
+    {
+      id: "burnout_recovery_balance",
+      title: "التعافي من الاحتراق الوظيفي وإعادة اكتشاف الحياة",
+      // يبدأ بمهني ومالي في القمة، بينما الصحة والروح والأسرة في أدنى مستوياتها
+      start: [24, 22, 20, 30, 28, 16, 76, 86],
+      // تعافي كبير للصحة والروح والأسرة بعد التخفف من أعباء العمل الزائدة
+      end:   [72, 76, 84, 66, 74, 60, 54, 56],
+      midDip: { 6: -8, 7: -12 },
+      midSurge: { 0: 6, 1: 6, 2: 9 }
+    },
+    {
+      id: "entrepreneurial_climb",
+      title: "رحلة رائد الأعمال: قفزة مالية تليها مرحلة استقرار",
+      // يبدأ بطموح عالي ويضحي بالوقت الاجتماعي والترفيهي والصحي في سنوات التأسيس ثم يعيد توازنه
+      start: [28, 35, 38, 48, 50, 35, 25, 32],
+      end:   [60, 50, 52, 42, 48, 38, 85, 88],
+      midDip: { 2: -6, 3: -12, 4: -10, 5: -10 },
+      midSurge: { 6: 9, 7: 10 }
+    },
+    {
+      id: "holistic_life_mastery",
+      title: "التحول الشامل والمتدرج عبر استخدام المنصة",
+      // يبدأ بمستوى متواضع ثم يرتفع مهنياً ومالياً متبوعاً بنمو صحي وأسري متزن
+      start: [30, 36, 36, 44, 46, 32, 34, 38],
+      end:   [70, 74, 76, 68, 76, 62, 74, 78],
+      midDip: { 3: -6, 5: -6 },
+      midSurge: { 6: 7, 7: 8 }
+    }
+  ];
+
+  // اختيار شخصية إنسانية عشوائية في كل تحميل للصفحة
+  const archetype = archetypes[Math.floor(Math.random() * archetypes.length)];
+  const steps = 11; // 11 خطوة تعطي 12 نقطة زمنية عبر 5 سنوات (كل 6 أشهر نقطة)
+  const journey = [];
+
+  for (let axisIdx = 0; axisIdx < 8; axisIdx++) {
+    // تباين عشوائي خاص بكل جلسة حتى لا تتكرر الأرقام إطلاقاً
+    const startVariance = (Math.random() * 8) - 4; // ±4%
+    const endVariance = (Math.random() * 8) - 4;   // ±4%
+
+    const s = Math.max(14, Math.min(88, Math.round(archetype.start[axisIdx] + startVariance)));
+    const e = Math.max(14, Math.min(88, Math.round(archetype.end[axisIdx] + endVariance)));
+
+    const points = [s];
+
+    for (let step = 1; step < steps; step++) {
+      const t = step / steps;
+      // منحنى S ناعم وتدريجي يعكس التغير الزمني البشري الحقيقي (Cubic Hermite)
+      const smoothT = t * t * (3 - 2 * t);
+      let val = s + (e - s) * smoothT;
+
+      // تأثير منتصف الطريق وفق ضغوطات الحياة والترابط المنطقي
+      const midFactor = Math.sin(t * Math.PI);
+      if (archetype.midDip && archetype.midDip[axisIdx]) {
+        val += archetype.midDip[axisIdx] * midFactor;
+      }
+      if (archetype.midSurge && archetype.midSurge[axisIdx]) {
+        val += archetype.midSurge[axisIdx] * midFactor;
+      }
+
+      // تذبذب بشري طفيف وغير منتظم (صعود وهبوط خفيف خلال السنوات)
+      const humanJitter = (Math.random() * 2 - 1) * 1.2;
+      val = Math.max(10, Math.min(90, Math.round(val + humanJitter)));
+      points.push(val);
+    }
+
+    points.push(e);
+    journey.push(points);
+  }
+
+  return journey;
+}
+
+const AXIS_JOURNEY = generatePersonaJourney();
+
+// مزامنة النسب الابتدائية للعجلة مع السنة صفر لهذه الشخصية
+if (!isResultPage) {
+  axesState.forEach((axis, i) => {
+    axis.percent = AXIS_JOURNEY[i][0];
+  });
+}
+
+const JOURNEY_SEGMENTS = AXIS_JOURNEY[0].length - 1; // 11 خطوة
 const JOURNEY_SEGMENT_MS = JOURNEY_TOTAL_MS / JOURNEY_SEGMENTS;
 const MAX_AUTO_PERCENT = 90; // سقف صارم: مفيش جانب بيوصل له تلقائيًا (مفيش بني آدم "كامل")
 
@@ -594,8 +697,9 @@ function jitteredTarget(value, range, maxCap = 100) {
 function settledStep(i, center) {
   const isManualOverride = center !== undefined;
   const base = isManualOverride ? center : settleValueFor(i);
-  const target = jitteredTarget(base, SETTLE_JITTER_RANGE, isManualOverride ? 100 : MAX_AUTO_PERCENT);
-  const duration = SETTLE_DURATION_MIN + Math.random() * (SETTLE_DURATION_MAX - SETTLE_DURATION_MIN);
+  // استقرار هادئ وثابت على النتيجة النهائية بعد انتهاء الـ 5 سنوات
+  const target = jitteredTarget(base, 0.6, isManualOverride ? 100 : MAX_AUTO_PERCENT);
+  const duration = 2500 + Math.random() * 1500;
   return { target, duration };
 }
 
@@ -635,20 +739,8 @@ function breathingStep(now) {
   if (dynamicBreathingOn && isWheelVisible && isTabVisible && !isSpinning) {
     let changed = false;
 
-    // إيقاع الدوران الخفيف الدايم - بيفضل شغال حتى بعد ما القيم تستقر
-    if (!dragging && !autoSpinOn) {
-      const t = now / 1000;
-      const nextWobble =
-        Math.sin(t * WHEEL_WOBBLE_SPEED_1) * WHEEL_WOBBLE_AMPLITUDE_1 +
-        Math.sin(t * WHEEL_WOBBLE_SPEED_2 + 1.7) * WHEEL_WOBBLE_AMPLITUDE_2;
-      if (Math.abs(nextWobble - idleWobbleDeg) > 0.01) {
-        idleWobbleDeg = nextWobble;
-        changed = true;
-      }
-    } else if (idleWobbleDeg !== 0) {
-      idleWobbleDeg = 0;
-      changed = true;
-    }
+    // تم إلغاء حركة الدوران رايح جاي تماماً بناءً على طلب التصميم (العجلة ثابتة الاتجاه)
+    idleWobbleDeg = 0;
 
     axisAnimState.forEach((anim, i) => {
       if (now < anim.segmentStartTime) return;
