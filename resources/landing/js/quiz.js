@@ -84,6 +84,32 @@ function renderDotContent(dotType, isOption = false) {
           <span class="${dotClass}"></span>
           <span class="${dotClass}"></span>
         </div>`;
+    case '1-center':
+      return `
+        <div class="flex items-center justify-center">
+          <span class="${dotClass}"></span>
+        </div>`;
+    case '3-vert':
+      return `
+        <div class="flex flex-col items-center justify-center ${gapClass}">
+          <span class="${dotClass}"></span>
+          <span class="${dotClass}"></span>
+          <span class="${dotClass}"></span>
+        </div>`;
+    case '3-horiz':
+      return `
+        <div class="flex items-center justify-center gap-[6px] md:gap-[12px]">
+          <span class="${dotClass}"></span>
+          <span class="${dotClass}"></span>
+          <span class="${dotClass}"></span>
+        </div>`;
+    case '5-dice':
+      return `
+        <div class="grid grid-cols-3 ${gapClass} place-items-center">
+          <span class="${dotClass}"></span> <span class="w-[10px] md:w-[17.67px]"></span> <span class="${dotClass}"></span>
+          <span class="w-[10px] md:w-[17.67px]"></span> <span class="${dotClass}"></span> <span class="w-[10px] md:w-[17.67px]"></span>
+          <span class="${dotClass}"></span> <span class="w-[10px] md:w-[17.67px]"></span> <span class="${dotClass}"></span>
+        </div>`;
     default:
       return '';
   }
