@@ -80,30 +80,35 @@
   <main id="main-content" data-save-url="{{ route('life-wheel.results.store') }}" data-user-id="{{ auth()->id() }}" class="w-full max-w-[1242px] mx-auto px-4 sm:px-6 xl:px-0 pt-6 sm:pt-8 xl:pt-[48px] pb-16 xl:pb-[128px] flex-1">
     <h1 class="sr-only">تفاصيل جوانب عجلة الحياة</h1>
 
-    {{-- Breadcrumb: Figma 3083:12433 (items 160/135/168/73 = pl 4 + link + gap 4 + 18px arrow; links have fixed widths, text right-aligned) --}}
-    <nav dir="ltr" aria-label="مسار التنقل" class="flex items-center justify-end h-[32px] mb-8 xl:mb-[64px]">
-      <a href="{{ route('life-wheel.result') }}" class="md:hidden w-[32px] h-[32px] rounded-full bg-[#E9EDF2] flex items-center justify-center text-brand-primary hover:bg-[#d8e0ea] transition-colors shadow-sm" aria-label="العودة لنتيجة التقييم">
+    <!-- Mobile header: back button + title -->
+    <div class="md:hidden relative h-[32px] flex items-center justify-center mb-5 font-messiri">
+      <a href="{{ route('life-wheel.result') }}" class="absolute right-0 top-0 size-[32px] p-[8px] rounded-full bg-[#e9edf2] flex items-center justify-center text-brand-primary hover:bg-[#d8e0ea] transition-colors shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary" aria-label="العودة لنتيجة التقييم">
         <i class="fa-solid fa-arrow-right text-[14px]" aria-hidden="true"></i>
       </a>
-      <div class="hidden md:flex items-center justify-end gap-[4px] pl-[4px] shrink-0">
+      <h1 class="text-[19px] font-bold text-[#204a7a] leading-[28px] tracking-[-0.5px] text-center">تفاصيل الجوانب</h1>
+    </div>
+
+    {{-- Breadcrumb: Figma 3083:12433 (items 160/135/168/73 = pl 4 + link + gap 4 + 18px arrow; links have fixed widths, text right-aligned) --}}
+    <nav dir="ltr" aria-label="مسار التنقل" class="hidden md:flex items-center justify-end h-[32px] mb-8 xl:mb-[64px]">
+      <div class="flex items-center justify-end gap-[4px] pl-[4px] shrink-0">
         <p class="relative top-px w-[134px] font-messiri font-normal leading-[1.5] text-[#204a7a] text-[15px] md:text-[21px] text-right whitespace-nowrap" dir="auto" aria-current="page">تفاصيل الجوانب</p>
         <div class="relative shrink-0 size-[18px]" aria-hidden="true">
           <div class="absolute inset-[21.88%_24.45%_4.01%_34.38%]"><img alt="" class="absolute block inset-0 max-w-none size-full" src="{{ $d }}/breadcrumb-arrow-active.svg" /></div>
         </div>
       </div>
-      <div class="hidden md:flex items-center justify-end gap-[4px] pl-[4px] shrink-0">
+      <div class="flex items-center justify-end gap-[4px] pl-[4px] shrink-0">
         <a href="{{ route('life-wheel.result') }}" class="relative top-px block w-[109px] font-messiri font-normal leading-[1.5] text-[#6f6f6f] text-[15px] md:text-[21px] text-right whitespace-nowrap" dir="auto">نتيجة التقييم</a>
         <div class="relative shrink-0 size-[18px]" aria-hidden="true">
           <div class="absolute inset-[21.88%_24.45%_4.01%_34.38%]"><img alt="" class="absolute block inset-0 max-w-none size-full" src="{{ $d }}/breadcrumb-arrow.svg" /></div>
         </div>
       </div>
-      <div class="hidden md:flex items-center justify-end gap-[4px] pl-[4px] shrink-0">
+      <div class="flex items-center justify-end gap-[4px] pl-[4px] shrink-0">
         <a href="{{ route('life-wheel.assessment') }}" class="relative top-px block w-[142px] font-messiri font-normal leading-[1.5] text-[#6f6f6f] text-[15px] md:text-[21px] text-right whitespace-nowrap" dir="auto">اختبار عجلة الحياة</a>
         <div class="relative shrink-0 size-[18px]" aria-hidden="true">
           <div class="absolute inset-[21.88%_24.45%_4.01%_34.38%]"><img alt="" class="absolute block inset-0 max-w-none size-full" src="{{ $d }}/breadcrumb-arrow.svg" /></div>
         </div>
       </div>
-      <div class="hidden md:block pl-[4px] shrink-0">
+      <div class="block pl-[4px] shrink-0">
         <a href="/" class="relative top-px block w-[69px] font-messiri font-normal leading-[1.5] text-[#6f6f6f] text-[15px] md:text-[21px] text-right whitespace-nowrap" dir="auto">الرئيسية</a>
       </div>
     </nav>

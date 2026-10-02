@@ -1,6 +1,6 @@
 <!-- ==================== 7. SECTION: الاعتمادات المحلية والدولية (#943:4134 / #942:4126) ==================== -->
     <section id="certifications" aria-labelledby="certifications-title" class="pt-[25px] md:pt-[64px] pb-[25px] md:pb-[64px] px-4 sm:px-6 md:px-12 relative overflow-hidden">
-      <div class="max-w-[992px] mx-auto text-center">
+      <div class="w-full max-w-[1240px] mx-auto text-center">
 
         <div class="text-center mb-[24px] md:mb-[60px] px-2 w-full flex flex-col items-center">
           <!-- Title and Marks Block -->
@@ -29,72 +29,72 @@
         </div>
 
         <!-- Official Accreditations Moving Marquee Track (#942:4126 mobile 108px gap 20px / #943:4134 desktop 250px gap 78px) -->
-        <div class="w-full overflow-hidden relative py-4 sm:py-8 md:py-10" dir="ltr">
+        <div class="w-full overflow-hidden relative py-8 sm:py-10 md:py-14" dir="ltr" style="-webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent); mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);">
           <!-- Marquee Track -->
-          <div class="flex items-center gap-[20px] md:gap-[62px] w-max animate-marquee-right hover:[animation-play-state:paused]">
+          <div class="flex items-center gap-[16px] sm:gap-[24px] md:gap-[62px] w-max animate-marquee-right hover:[animation-play-state:paused]">
 
             <!-- Set 1 -->
-            <div class="flex items-center gap-[20px] md:gap-[62px] shrink-0">
-              <div class="w-[108px] h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
+            <div class="flex items-center gap-[16px] sm:gap-[24px] md:gap-[62px] shrink-0">
+              <div class="w-[86px] h-[86px] sm:w-[108px] sm:h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
                 <img src="/landing/images/logos/accreditations/national-elearning-center.png" alt="المركز الوطني للتعليم الإلكتروني" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
               </div>
-              <div class="w-[108px] h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
+              <div class="w-[86px] h-[86px] sm:w-[108px] sm:h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
                 <img src="/landing/images/logos/accreditations/tvtc.png" alt="المؤسسة العامة للتدريب التقني والمهني" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
               </div>
-              <div class="w-[108px] h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
+              <div class="w-[86px] h-[86px] sm:w-[108px] sm:h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
                 <img src="/landing/images/logos/accreditations/paul-scheele-institute.png" alt="Paul Scheele Institute" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
               </div>
-              <div class="w-[108px] h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
+              <div class="w-[86px] h-[86px] sm:w-[108px] sm:h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
                 <img src="/landing/images/logos/accreditations/ibta.png" alt="IBTA" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
               </div>
-              <div class="w-[108px] h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
+              <div class="w-[86px] h-[86px] sm:w-[108px] sm:h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
                 <img src="/landing/images/logos/accreditations/pecb.png" alt="PECB" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
               </div>
-              <div class="w-[108px] h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
+              <div class="w-[86px] h-[86px] sm:w-[108px] sm:h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
                 <img src="/landing/images/logos/accreditations/certiport.png" alt="Certiport" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
               </div>
             </div>
 
             <!-- Set 2 (Decorative duplicate for marquee) -->
-            <div class="flex items-center gap-[20px] md:gap-[62px] shrink-0" aria-hidden="true">
-              <div class="w-[108px] h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
+            <div class="flex items-center gap-[16px] sm:gap-[24px] md:gap-[62px] shrink-0" aria-hidden="true">
+              <div class="w-[86px] h-[86px] sm:w-[108px] sm:h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
                 <img src="/landing/images/logos/accreditations/national-elearning-center.png" alt="" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
               </div>
-              <div class="w-[108px] h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
+              <div class="w-[86px] h-[86px] sm:w-[108px] sm:h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
                 <img src="/landing/images/logos/accreditations/tvtc.png" alt="" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
               </div>
-              <div class="w-[108px] h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
+              <div class="w-[86px] h-[86px] sm:w-[108px] sm:h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
                 <img src="/landing/images/logos/accreditations/paul-scheele-institute.png" alt="" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
               </div>
-              <div class="w-[108px] h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
+              <div class="w-[86px] h-[86px] sm:w-[108px] sm:h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
                 <img src="/landing/images/logos/accreditations/ibta.png" alt="" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
               </div>
-              <div class="w-[108px] h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
+              <div class="w-[86px] h-[86px] sm:w-[108px] sm:h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
                 <img src="/landing/images/logos/accreditations/pecb.png" alt="" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
               </div>
-              <div class="w-[108px] h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
+              <div class="w-[86px] h-[86px] sm:w-[108px] sm:h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
                 <img src="/landing/images/logos/accreditations/certiport.png" alt="" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
               </div>
             </div>
 
             <!-- Set 3 (Decorative duplicate for marquee) -->
-            <div class="flex items-center gap-[20px] md:gap-[62px] shrink-0" aria-hidden="true">
-              <div class="w-[108px] h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
+            <div class="flex items-center gap-[16px] sm:gap-[24px] md:gap-[62px] shrink-0" aria-hidden="true">
+              <div class="w-[86px] h-[86px] sm:w-[108px] sm:h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
                 <img src="/landing/images/logos/accreditations/national-elearning-center.png" alt="" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
               </div>
-              <div class="w-[108px] h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
+              <div class="w-[86px] h-[86px] sm:w-[108px] sm:h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
                 <img src="/landing/images/logos/accreditations/tvtc.png" alt="" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
               </div>
-              <div class="w-[108px] h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
+              <div class="w-[86px] h-[86px] sm:w-[108px] sm:h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
                 <img src="/landing/images/logos/accreditations/paul-scheele-institute.png" alt="" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
               </div>
-              <div class="w-[108px] h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
+              <div class="w-[86px] h-[86px] sm:w-[108px] sm:h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
                 <img src="/landing/images/logos/accreditations/ibta.png" alt="" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
               </div>
-              <div class="w-[108px] h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
+              <div class="w-[86px] h-[86px] sm:w-[108px] sm:h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
                 <img src="/landing/images/logos/accreditations/pecb.png" alt="" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
               </div>
-              <div class="w-[108px] h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
+              <div class="w-[86px] h-[86px] sm:w-[108px] sm:h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
                 <img src="/landing/images/logos/accreditations/certiport.png" alt="" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
               </div>
             </div>

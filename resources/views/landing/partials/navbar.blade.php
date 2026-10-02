@@ -1,4 +1,7 @@
 <!-- ==================== 1. FLOATING NAV-BAR (#875:7147 / #934:5750) ==================== -->
+@php
+    $isHome = request()->routeIs('home') || request()->is('/');
+@endphp
   <header id="main-header" class="sticky top-[6px] min-[390px]:top-[10px] mt-[6px] min-[390px]:mt-[10px] lg:mt-4 lg:top-4 z-40 w-[calc(100%-32px)] lg:max-w-[1024px] mx-auto h-[57px] lg:h-[80px] rounded-[109px] lg:rounded-[38px] bg-white/65 lg:bg-white/66 backdrop-blur-md lg:backdrop-blur-xl border border-[#E2E8F0]/80 shadow-[0_6px_25px_rgba(0,0,0,0.06)] px-[16px] lg:px-[24px] flex items-center justify-between transition-all duration-300">
 
     <!-- RIGHT SIDE IN RTL: Logo & Mobile Hamburger Menu (#934:5756 / #656:3820) -->
@@ -16,9 +19,11 @@
 
     <!-- Center Navigation Links (desktop) (#I875:7147;656:3882) -->
     <nav id="main-nav" aria-label="القائمة الرئيسية" class="hidden lg:flex items-center gap-[24px] xl:gap-[26px] text-[15px] xl:text-[17px] font-messiri leading-none h-[38px] whitespace-nowrap">
-      <a href="#home" data-nav="home" class="nav-item relative py-1 text-[#204A7A] font-bold transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary rounded">
+      <a href="/#home" data-nav="home" class="nav-item relative py-1 {{ $isHome ? 'text-[#204A7A] font-bold' : 'text-[#1D1D1D] font-medium hover:text-[#204A7A]' }} transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary rounded">
         <span class="nav-text">الرئيسية</span>
+        @if($isHome)
         <span class="nav-indicator absolute bottom-[-4px] left-0 right-0 h-[2.5px] bg-[#204A7A] rounded-full" aria-hidden="true"></span>
+        @endif
       </a>
       <a href="#courses" data-nav="courses" class="nav-item relative py-1 text-[#1D1D1D] font-medium hover:text-[#204A7A] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary rounded">
         <span class="nav-text">الدورات</span>
@@ -39,10 +44,17 @@
 
     <!-- LEFT SIDE IN RTL: Outline Button (#954:5878 mobile / #656:3810 desktop) -->
     <div class="flex items-center justify-end">
+      @guest
       <a href="#login" role="button" aria-haspopup="dialog" aria-controls="login-modal" aria-label="فتح نافذة تسجيل الدخول" class="w-[80px] h-[28px] lg:w-[154px] lg:h-[45px] rounded-[5px] lg:rounded-[16px] border border-[#204A7A] text-[#204A7A] font-messiri lg:font-cairo font-semibold text-[10px] lg:text-[14px] hover:bg-[#204A7A] hover:text-white transition-all duration-200 shadow-sm flex items-center justify-center whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary">
         <span class="leading-none lg:hidden">تسجيل دخول</span>
         <span class="leading-none hidden lg:inline">تسجيل الدخول</span>
       </a>
+      @endguest
+      @auth
+      <a href="{{ route('dashboard') }}" aria-label="الذهاب إلى لوحة التحكم" class="w-[80px] h-[28px] lg:w-[154px] lg:h-[45px] rounded-[5px] lg:rounded-[16px] border border-[#204A7A] bg-[#204A7A] text-white font-messiri lg:font-cairo font-semibold text-[10px] lg:text-[14px] hover:bg-[#1D436E] transition-all duration-200 shadow-sm flex items-center justify-center whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary">
+        <span class="leading-none">لوحة التحكم</span>
+      </a>
+      @endauth
     </div>
   </header>
 
@@ -62,7 +74,7 @@
 
     <!-- Navigation Links List (#934:5763: x=49, y=54, width=174px, gap=19px, El Messiri) -->
     <nav aria-label="روابط التنقل للأجهزة الذكية" class="pt-[56px] pr-[28px] pl-[20px] flex flex-col gap-[20px] text-right font-messiri overflow-hidden">
-      <a href="#home" data-nav="home" class="mobile-nav-item text-white font-bold text-[19px] leading-[1.5] whitespace-nowrap transition-colors cursor-pointer">الرئيسية</a>
+      <a href="/#home" data-nav="home" class="mobile-nav-item {{ $isHome ? 'text-white font-bold' : 'text-white font-normal hover:text-[#E6B844]' }} text-[19px] leading-[1.5] whitespace-nowrap transition-colors cursor-pointer">الرئيسية</a>
       <a href="#courses" data-nav="courses" class="mobile-nav-item text-white font-normal text-[19px] leading-[1.5] whitespace-nowrap hover:text-[#E6B844] transition-colors cursor-pointer">الدورات</a>
       <a href="#certifications" data-nav="certifications" class="mobile-nav-item text-white font-normal text-[19px] leading-[1.5] whitespace-nowrap hover:text-[#E6B844] transition-colors cursor-pointer">الشهادات الإحترافية</a>
       <a href="#assessments" data-nav="assessments" class="mobile-nav-item text-white font-normal text-[19px] leading-[1.5] whitespace-nowrap hover:text-[#E6B844] transition-colors cursor-pointer">المقاييس</a>

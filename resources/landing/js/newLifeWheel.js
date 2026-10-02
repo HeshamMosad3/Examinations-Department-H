@@ -459,9 +459,16 @@ function updateWheelGeometry() {
     const mid = i * sectorAngle + sectorAngle / 2 + rotationAngle + idleWobbleDeg;
     const fillFrac = Math.max(0, Math.min(100, axis.percent !== undefined ? axis.percent : 50)) / 100;
     const currentFillRadius = innerRadius + fillFrac * (outerRadius - innerRadius);
-    const targetRadius = isResultPage
-      ? outerRadius + (metrics.effectiveLabelOffset || 54)
-      : Math.max(innerRadius + 50, currentFillRadius + metrics.effectiveLabelOffset);
+    
+    let dynamicOffset = metrics.effectiveLabelOffset || 54;
+    if (isResultPage) {
+      const H_half = 68;
+      const W_half = 45;
+      const rad = mid * Math.PI / 180;
+      dynamicOffset = Math.abs(Math.cos(rad)) * H_half + Math.abs(Math.sin(rad)) * W_half + 15;
+    }
+    
+    const targetRadius = Math.max(innerRadius + 50, currentFillRadius + dynamicOffset);
     const basePos = polarToCartesian(cx, cy, targetRadius, mid);
 
     if (isResultPage) {

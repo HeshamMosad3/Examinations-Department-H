@@ -74,13 +74,18 @@
     <!-- Hidden Accessible Page Title for screen readers & SEO -->
     <h1 class="sr-only">تقرير نتيجة تقييم عجلة الحياة</h1>
 
-    <!-- Breadcrumb: Back arrow only on mobile (Figma node 3080:8175), full path on desktop -->
-    <nav class="flex items-center justify-start gap-2 mb-8 lg:mb-16 font-messiri" aria-label="مسار التنقل">
-      <a href="/life-wheel-assessment.html" class="md:hidden w-[32px] h-[32px] rounded-full bg-[#E9EDF2] flex items-center justify-center text-brand-primary hover:bg-[#d8e0ea] transition-colors shadow-sm" aria-label="العودة لاختبار عجلة الحياة">
-        <i class="fa-solid fa-arrow-right text-[14px]"></i>
+    <!-- Mobile header: back button + title -->
+    <div class="md:hidden relative h-[32px] flex items-center justify-center mb-5 font-messiri">
+      <a href="/life-wheel-assessment.html" class="absolute right-0 top-0 size-[32px] p-[8px] rounded-full bg-[#e9edf2] flex items-center justify-center text-brand-primary hover:bg-[#d8e0ea] transition-colors shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary" aria-label="العودة لاختبار عجلة الحياة">
+        <i class="fa-solid fa-arrow-right text-[14px]" aria-hidden="true"></i>
       </a>
-      <div class="hidden md:flex items-center gap-2">
-        <a href="/index.html#home" class="text-[#6f6f6f] hover:text-brand-primary transition-colors text-[15px] md:text-[18px] font-normal">الرئيسية</a>
+      <h1 class="text-[19px] font-bold text-[#204a7a] leading-[28px] tracking-[-0.5px] text-center">نتيجة التقييم</h1>
+    </div>
+
+    <!-- Desktop full breadcrumb -->
+    <nav class="hidden md:flex items-center justify-start gap-2 mb-8 lg:mb-16 font-messiri" aria-label="مسار التنقل">
+      <div class="flex items-center gap-2">
+        <a href="/#home" class="text-[#6f6f6f] hover:text-brand-primary transition-colors text-[15px] md:text-[18px] font-normal">الرئيسية</a>
         <i class="fa-solid fa-chevron-left text-[10px] md:text-[12px] text-[#6f6f6f]" aria-hidden="true"></i>
         <a href="/life-wheel-assessment.html" class="text-[#6f6f6f] hover:text-brand-primary transition-colors text-[15px] md:text-[18px] font-normal">اختبار عجلة الحياة</a>
         <i class="fa-solid fa-chevron-left text-[10px] md:text-[12px] text-[#6f6f6f]" aria-hidden="true"></i>

@@ -64,16 +64,18 @@
     <!-- Hidden Accessible Primary Heading for SEO and Screen Readers -->
     <h1 class="sr-only">اختبار عجلة الحياة - دار الرؤى للتدريب</h1>
 
-    <!-- Breadcrumb -->
-    <nav class="flex items-center justify-start gap-2 mb-5 md:mb-10 font-messiri" aria-label="مسار التنقل">
-      <!-- Mobile back button (arrow only matching Figma #3080:8187) -->
-      <a href="/index.html#home" class="md:hidden w-[32px] h-[32px] rounded-full bg-[#E9EDF2] flex items-center justify-center text-brand-primary hover:bg-[#d8e0ea] transition-colors shadow-sm" aria-label="الرجوع للرئيسية">
+    <!-- Mobile header: back button + title -->
+    <div id="lw-mobile-header" class="md:hidden relative h-[32px] flex items-center justify-center mb-5 font-messiri">
+      <a href="/#home" class="absolute right-0 top-0 size-[32px] p-[8px] rounded-full bg-[#e9edf2] flex items-center justify-center text-brand-primary hover:bg-[#d8e0ea] transition-colors shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary" aria-label="الرجوع للرئيسية">
         <i class="fa-solid fa-arrow-right text-[14px]" aria-hidden="true"></i>
       </a>
+      <h1 class="text-[19px] font-bold text-[#204a7a] leading-[28px] tracking-[-0.5px] text-center">اختبار عجلة الحياة</h1>
+    </div>
 
-      <!-- Desktop full breadcrumb -->
-      <div class="hidden md:flex items-center gap-2">
-        <a href="/index.html#home" class="text-[#6f6f6f] hover:text-brand-primary transition-colors text-[15px] md:text-[18px] font-normal">الرئيسية</a>
+    <!-- Desktop full breadcrumb -->
+    <nav id="lw-desktop-breadcrumb" class="hidden md:flex items-center justify-start gap-2 mb-10 font-messiri" aria-label="مسار التنقل">
+      <div class="flex items-center gap-2">
+        <a href="/#home" class="text-[#6f6f6f] hover:text-brand-primary transition-colors text-[15px] md:text-[18px] font-normal">الرئيسية</a>
         <i class="fa-solid fa-chevron-left text-[10px] md:text-[12px] text-[#6f6f6f]" aria-hidden="true"></i>
         <span class="text-brand-primary text-[15px] md:text-[18px] font-medium">اختبار عجلة الحياة</span>
       </div>
@@ -112,11 +114,13 @@
 
   <!-- Milestone celebration overlay -->
   <div id="lw-milestone-overlay" role="status" aria-live="polite" class="fixed inset-0 z-[200] hidden items-center justify-center bg-black/40 px-4">
-    <div id="lw-milestone-card" class="bg-brand-primary rounded-[20px] md:rounded-[25px] shadow-2xl px-6 py-6 md:px-12 md:py-9 max-w-[820px] w-full flex items-center justify-center gap-4 md:gap-6 text-center">
-      <span class="text-[34px] md:text-[44px] animate-bounce shrink-0" aria-hidden="true">👏</span>
-      <p id="lw-milestone-text" class="font-messiri font-semibold text-white text-[16px] md:text-[24px] leading-snug text-right"></p>
+      <div id="lw-milestone-card" class="bg-brand-primary rounded-[16px] md:rounded-[24px] shadow-2xl px-5 py-4 md:px-10 md:py-6 w-[95%] sm:w-auto max-w-[352px] md:max-w-[650px] flex items-center justify-center gap-[8px] md:gap-[16px]">
+        <!-- In RTL, the first element appears on the right. -->
+        <div id="lw-milestone-icon" class="shrink-0 w-[44px] h-[44px] md:w-[65px] md:h-[65px] lg:w-[75px] lg:h-[75px] flex items-center justify-center"></div>
+        <p id="lw-milestone-text" class="font-messiri font-semibold text-white text-[14px] md:text-[22px] lg:text-[26px] leading-snug text-right m-0"></p>
+      </div>
     </div>
-  </div>
+    </div>
 
   @include('landing.partials.footer')
   @include('landing.partials.login-modal')
@@ -130,5 +134,6 @@
     @endauth
 </script>
 
+<script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
 </body>
 </html>

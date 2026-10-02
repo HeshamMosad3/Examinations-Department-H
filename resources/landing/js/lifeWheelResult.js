@@ -206,7 +206,7 @@ function initResult() {
     hCard.style.borderColor = highest.color;
     hCard.style.background = `linear-gradient(to right, ${highest.color}15, #ffffff)`;
     hIconBox.style.backgroundColor = highest.color + '20'; // 20% opacity
-    hIcon.style.setProperty('--icon-url', `url('${highest.iconUrl}')`);
+    hIcon.style.setProperty('--icon-url', `url('${highest.solidIconUrl}')`);
     hIcon.style.color = highest.color;
     hValue.textContent = highest.label + ' ' + highest.score + '%';
     hValue.style.color = highest.color;
@@ -220,7 +220,7 @@ function initResult() {
     lCard.style.borderColor = lowest.color;
     lCard.style.background = `linear-gradient(to right, ${lowest.color}15, #ffffff)`;
     lIconBox.style.backgroundColor = lowest.color + '20';
-    lIcon.style.setProperty('--icon-url', `url('${lowest.iconUrl}')`);
+    lIcon.style.setProperty('--icon-url', `url('${lowest.solidIconUrl}')`);
     lIcon.style.color = lowest.color;
     lValue.textContent = lowest.label + ' ' + lowest.score + '%';
     lValue.style.color = lowest.color;

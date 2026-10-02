@@ -65,8 +65,8 @@
           <!-- Action Button: ابدأ التحدي / التالي / شاهد نتيجتك -->
           <div class="flex justify-center w-full mt-4 md:mt-8">
             <button id="quiz-action-btn" disabled class="w-full max-w-[330px] md:max-w-[430px] h-[40px] md:h-[57px] rounded-[10px] md:rounded-[14px] bg-[#BAC7D5] text-white font-semibold font-messiri text-[14px] md:text-[20px] flex items-center justify-center gap-[8px] md:gap-[11px] cursor-not-allowed transition-all duration-200 shadow-sm">
-              <span id="quiz-btn-text">ابدأ التحدي</span>
               <svg class="w-[14px] h-[14px] md:w-[20px] md:h-[20px] fill-current shrink-0" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/><circle cx="19" cy="5" r="1.5" /><circle cx="5" cy="19" r="1.5" /></svg>
+              <span id="quiz-btn-text">ابدأ التحدي</span>
             </button>
           </div>
         </div>

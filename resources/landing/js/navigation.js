@@ -116,11 +116,11 @@ export function initNavigation() {
         if (!targetNav) return;
         e.preventDefault();
         if (targetNav !== 'home' && !document.getElementById(targetNav)) {
-          window.location.href = `/index.html#${targetNav}`;
+          window.location.href = `/#${targetNav}`;
           return;
         }
         if (targetNav === 'home' && !document.getElementById('home')) {
-          window.location.href = '/index.html';
+          window.location.href = '/';
           return;
         }
         smoothScrollTo(targetNav, targetNav);
@@ -138,7 +138,7 @@ export function initNavigation() {
         const targetEl = document.getElementById(targetId);
         if (!targetEl) {
           e.preventDefault();
-          window.location.href = `/index.html#${targetId}`;
+          window.location.href = `/#${targetId}`;
           return;
         }
 

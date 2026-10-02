@@ -1,6 +1,6 @@
 <!-- ==================== 9. SECTION: شركاء النجاح (#943:4137) ==================== -->
     <section id="partners" aria-labelledby="partners-title" class="pt-[25px] md:pt-[64px] pb-[25px] md:pb-[64px] px-4 sm:px-6 md:px-12">
-      <div class="max-w-[992px] mx-auto text-center">
+      <div class="w-full mx-auto text-center">
         <div class="text-center mb-[24px] md:mb-[60px] px-2 w-full flex flex-col items-center">
           <!-- Title and Marks Block (#875:7008) -->
           <div class="flex flex-row items-center justify-center gap-1.5 sm:gap-4 md:gap-[24px] w-full max-w-[361px] md:max-w-none mx-auto">
@@ -28,7 +28,7 @@
         </div>
 
           <!-- Partners (#875:7146) — real partner logos exported from Figma -->
-          <div class="w-full overflow-hidden relative py-4" dir="ltr">
+          <div class="w-full overflow-hidden relative py-4" dir="ltr" style="-webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent); mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);">
             <div class="flex items-center gap-[60px] sm:gap-[96px] md:gap-[141px] w-max animate-marquee-right hover:[animation-play-state:paused]">
 
               <!-- Set 1 (Primary for Screen Readers) -->
