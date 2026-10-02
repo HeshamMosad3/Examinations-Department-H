@@ -49,37 +49,8 @@ class RecommendationSelector
             }
         }
 
-        $styles = [
-            ['key' => 'visual', 'score' => $vScore],
-            ['key' => 'auditory', 'score' => $aScore],
-            ['key' => 'kinesthetic', 'score' => $kScore],
-        ];
-
-        usort($styles, fn($a, $b) => $b['score'] <=> $a['score']);
-
-        $s1 = $styles[0];
-        $s2 = $styles[1];
-        $s3 = $styles[2];
-
-        // Rule 1: Balanced Style (difference across all 3 <= 2)
-        if (($s1['score'] - $s3['score']) <= 2) {
-            $targetLevel = 'balanced';
-        }
-        // Rule 2: Dual Style (difference between top 2 <= 2 and top 2 vs 3rd >= 3)
-        elseif (($s1['score'] - $s2['score']) <= 2 && ($s2['score'] - $s3['score']) >= 3) {
-            $keys = [$s1['key'], $s2['key']];
-            sort($keys);
-            $pair = implode('_', $keys);
-            if ($pair === 'auditory_visual') $targetLevel = 'dual_visual_auditory';
-            elseif ($pair === 'kinesthetic_visual') $targetLevel = 'dual_visual_kinesthetic';
-            elseif ($pair === 'auditory_kinesthetic') $targetLevel = 'dual_auditory_kinesthetic';
-            else $targetLevel = 'dual_' . $pair;
-        }
-        // Rule 3: Single Dominant Style
-        else {
-            $targetLevel = $s1['key'];
-        }
-        $rec = $assessment->recommendations->firstWhere('level', $targetLevel);
+        $targetLevel = self::classifyPerceptual($vScore, $aScore, $kScore);
+        $rec =$assessment->recommendations->firstWhere('level', $targetLevel);
         if (!$rec) {
             $dataFile = database_path('data/assessments/28/recommendations.php');
             if (!file_exists($dataFile)) {
@@ -94,6 +65,43 @@ class RecommendationSelector
             }
         }
         return $rec;
+    }
+
+    /**
+     * Classify Visual/Auditory/Kinesthetic scores into one of the 7 perceptual levels.
+     */
+    public static function classifyPerceptual(int $vScore, int $aScore, int $kScore): string
+    {
+        $styles = [
+            ['key' => 'visual', 'score' => $vScore],
+            ['key' => 'auditory', 'score' => $aScore],
+            ['key' => 'kinesthetic', 'score' => $kScore],
+        ];
+
+        usort($styles, fn($a, $b) => $b['score'] <=> $a['score']);
+
+        [$s1, $s2, $s3] = $styles;
+
+        // Rule 1: Balanced Style (difference across all 3 <= 2)
+        if (($s1['score'] - $s3['score']) <= 2) {
+            return 'balanced';
+        }
+
+        // Rule 2: Dual Style (difference between top 2 <= 2 and top 2 vs 3rd >= 3)
+        if (($s1['score'] - $s2['score']) <= 2 && ($s2['score'] - $s3['score']) >= 3) {
+            $keys = [$s1['key'], $s2['key']];
+            sort($keys);
+            $pair = implode('_', $keys);
+            return match ($pair) {
+                'auditory_visual' => 'dual_visual_auditory',
+                'kinesthetic_visual' => 'dual_visual_kinesthetic',
+                'auditory_kinesthetic' => 'dual_auditory_kinesthetic',
+                default => 'dual_' . $pair,
+            };
+        }
+
+        // Rule 3: Single Dominant Style
+        return $s1['key'];
     }
 
     /**

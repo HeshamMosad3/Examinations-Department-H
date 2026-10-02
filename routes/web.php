@@ -65,6 +65,68 @@ Route::get('/result.html', function () use ($getLifeWheelCategories) {
     return view('landing.result', compact('categories'));
 })->name('life-wheel.result');
 
+// اختبار أنماط الإدراك - الأسئلة والإجابات من قاعدة البيانات بس
+$getPerceptualAssessment = function () {
+    $assessment = \App\Models\Assessment::with([
+        'questions' => fn ($q) => $q->orderBy('order_index'),
+        'questions.answerOptions' => fn ($q) => $q->orderBy('order_index'),
+        'questions.dimension',
+        'dimensions' => fn ($q) => $q->orderBy('order_index'),
+        'recommendations',
+    ])->where('scoring_type', 'perceptual_styles')->where('is_active', true)->first();
+
+    abort_if(!$assessment || $assessment->questions->isEmpty(), 404);
+
+    return $assessment;
+};
+
+Route::get('/perceptual-test.html', function () use ($getPerceptualAssessment) {
+    $questions = $getPerceptualAssessment()->questions->map(fn ($q) => [
+        'text' => $q->text_ar,
+        'options' => $q->answerOptions->map(fn ($o) => ['label' => $o->label_ar])->all(),
+    ])->all();
+
+    return view('landing.perceptual-test', compact('questions'));
+})->name('perceptual.test');
+
+// تقرير نتائج أنماط الإدراك - الإجابات جاية في الرابط والدرجات بتتحسب من score_value في قاعدة البيانات
+Route::get('/perceptual-result.html', function (\Illuminate\Http\Request $request) use ($getPerceptualAssessment) {
+    $assessment = $getPerceptualAssessment();
+    $answers = explode(',', (string) $request->query('answers'));
+    abort_if(count($answers) !== $assessment->questions->count(), 422, 'إجابات غير مكتملة');
+
+    $styleKey = fn (string $name) => match (true) {
+        str_contains($name, 'بصري') => 'visual',
+        str_contains($name, 'سمعي') => 'auditory',
+        str_contains($name, 'حسي') => 'kinesthetic',
+        default => null,
+    };
+
+    $scores = $assessment->dimensions->mapWithKeys(fn ($d) => [$d->id => 0])->all();
+    foreach ($assessment->questions->values() as $i => $question) {
+        $option = $question->answerOptions->values()->get((int) $answers[$i]);
+        abort_if(!ctype_digit($answers[$i]) || !$option, 422, 'إجابة غير صحيحة');
+        $scores[$question->dimension_id] = ($scores[$question->dimension_id] ?? 0) + (int) $option->score_value;
+    }
+
+    $styles = $assessment->dimensions
+        ->map(fn ($d) => ['key' => $styleKey($d->name_ar), 'name' => $d->name_ar, 'score' => $scores[$d->id] ?? 0, 'max' => (int) $d->max_score])
+        ->filter(fn ($s) => $s['key'])
+        ->sortByDesc('score')->values();
+
+    $byKey = $styles->pluck('score', 'key');
+    $level = \App\Services\Result\RecommendationSelector::classifyPerceptual($byKey['visual'] ?? 0, $byKey['auditory'] ?? 0, $byKey['kinesthetic'] ?? 0);
+    $recommendation = $assessment->recommendations->firstWhere('level', $level);
+    abort_if(!$recommendation, 404, 'لا يوجد تقرير مسجل لهذه النتيجة');
+
+    return view('landing.perceptual-result', [
+        'report' => app(\App\Services\Result\PerceptualReportBuilder::class)->build($recommendation),
+        'styles' => $styles,
+        'reportCode' => $assessment->report_code,
+        'beneficiary' => auth()->user()?->name ?? 'زائر',
+    ]);
+})->name('perceptual.result');
+
 Route::middleware('auth')->group(function () {
     Route::get('/life-wheel-details.html', [LifeWheelController::class, 'details'])->name('life-wheel.details');
     Route::post('/life-wheel/results', [LifeWheelController::class, 'store'])->middleware('throttle:20,1')->name('life-wheel.results.store');

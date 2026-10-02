@@ -16,6 +16,7 @@ export default defineConfig({
                 'resources/landing/js/lifeWheelResult.js',
                 'resources/landing/js/resultWheel.js',
                 'resources/landing/js/lifeWheelDetails.js',
+                'resources/landing/js/perceptualTest.js',
             ],
             buildDirectory: 'landing/build',
             hotFile: 'public/landing.hot',

@@ -199,8 +199,9 @@ $(document).ready(function() {
         // 2. Programs
         $(container).find('.json-programs-data').not('.json-list-initialized').each(function() {
             initJsonList($(this), [
-                { key: 'title', label: 'اسم البرنامج', type: 'text', placeholder: 'مثال: قيادة الفرق', width: 'col-md-7' },
-                { key: 'icon', label: 'الأيقونة', type: 'select', width: 'col-md-4', options: getIconOptions('programs', [
+                { key: 'title', label: 'اسم البرنامج', type: 'text', placeholder: 'مثال: قيادة الفرق', width: 'col-md-4' },
+                { key: 'subtitle', label: 'الوصف', type: 'text', placeholder: 'مثال: تطوير مهارات القيادة وتحفيز الآخرين', width: 'col-md-4' },
+                { key: 'icon', label: 'الأيقونة', type: 'select', width: 'col-md-3', options: getIconOptions('programs', [
                     { value: 'bi-journal-bookmark', label: 'كتاب (افتراضي)' }
                 ])}
             ]);

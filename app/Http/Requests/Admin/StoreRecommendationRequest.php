@@ -26,6 +26,7 @@ class StoreRecommendationRequest extends FormRequest
             'certificates_intro_ar' => 'nullable|string',
             'programs_ar' => 'nullable|array',
             'programs_ar.*.title' => 'nullable|string',
+            'programs_ar.*.subtitle' => 'nullable|string',
             'programs_ar.*.icon' => 'nullable|string',
             'programs_intro_ar' => 'nullable|string',
             'programs_outro_ar' => 'nullable|string',
