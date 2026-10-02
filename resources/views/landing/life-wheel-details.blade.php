@@ -26,56 +26,14 @@
 @php
   $d = '/landing/images/details';
   $icons = '/landing/icons/aspects';
-  $profileUrl = auth()->check() ? route('dashboard.assessments') : route('login');
 @endphp
-<body class="bg-[#F6F6F6] text-[#1D1D1D] min-h-screen font-messiri antialiased selection:bg-brand-primary selection:text-white flex flex-col xl:pt-0">
+<body class="bg-[#F6F6F6] text-[#1D1D1D] min-h-screen font-messiri antialiased selection:bg-brand-primary selection:text-white flex flex-col relative page-wide-header">
   <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:right-4 focus:z-[999] focus:px-5 focus:py-3 focus:bg-brand-primary focus:text-white focus:rounded-xl focus:shadow-xl focus:outline-none">
     تخطي إلى المحتوى الرئيسي
   </a>
 
-  {{-- ===== Navbar: shared responsive navbar below xl ===== --}}
-  <div class="contents xl:hidden">
-    @include('landing.partials.navbar')
-  </div>
-
-  {{-- ===== Navbar: Figma 3083:12407 (xl and up) ===== --}}
-  <header dir="ltr" class="hidden xl:block w-full pt-[20px]">
-    <div class="bg-[rgba(255,255,255,0.66)] h-[100px] overflow-clip relative rounded-[48px] w-[1242px] mx-auto">
-      <div class="-translate-x-1/2 -translate-y-1/2 absolute flex gap-[83px] items-center justify-center left-1/2 px-[2px] top-[calc(50%-0.5px)] w-[1200px]">
-        <a href="{{ $profileUrl }}" aria-label="حسابي" class="relative shrink-0 size-[65px] block">
-          <img alt="" class="absolute block inset-0 max-w-none size-full" src="{{ $d }}/user-circle.svg" />
-        </a>
-        <nav aria-label="القائمة الرئيسية" class="flex gap-[32px] items-center justify-center relative shrink-0 w-[752px]">
-          <a href="/#contact" class="h-[38px] relative shrink-0 w-[100px]">
-            <p class="-translate-x-1/2 [word-break:break-word] absolute font-messiri font-medium leading-[normal] left-[50px] text-[#1d1d1d] text-[21px] text-center top-0 whitespace-nowrap" dir="auto">تواصل معنا</p>
-          </a>
-          <a href="/#about" class="h-[38px] relative shrink-0 w-[105px]">
-            <p class="-translate-x-1/2 [word-break:break-word] absolute font-messiri font-medium leading-[normal] left-[52.5px] text-[#1d1d1d] text-[21px] text-center top-0 whitespace-nowrap" dir="auto">عن دار الرؤى</p>
-          </a>
-          <a href="/#assessments" class="h-[38px] relative shrink-0 w-[84px]">
-            <p class="-translate-x-1/2 [word-break:break-word] absolute font-messiri font-medium leading-[normal] left-[42px] text-[#1d1d1d] text-[21px] text-center top-0 whitespace-nowrap" dir="auto">المقاييس</p>
-          </a>
-          <a href="/#certifications" class="h-[38px] relative shrink-0 w-[168px]">
-            <p class="-translate-x-1/2 [word-break:break-word] absolute font-messiri font-medium leading-[normal] left-[84px] text-[#1d1d1d] text-[21px] text-center top-0 whitespace-nowrap" dir="auto">الشهادات الاحترافية</p>
-          </a>
-          <a href="/#courses" class="h-[38px] relative shrink-0 w-[61px]">
-            <p class="-translate-x-1/2 [word-break:break-word] absolute font-messiri font-medium leading-[normal] left-[30.5px] text-[#1d1d1d] text-[21px] text-center top-0 whitespace-nowrap" dir="auto">الدورات</p>
-          </a>
-          <a href="/" aria-current="page" class="h-[38px] relative shrink-0 w-[74px]">
-            <p class="-translate-x-1/2 [word-break:break-word] absolute font-messiri font-bold leading-[normal] left-[37px] text-[#204a7a] text-[21px] text-center top-0 whitespace-nowrap" dir="auto">الرئيسية</p>
-            <span class="absolute h-0 left-0 top-[38px] w-[74px]" aria-hidden="true">
-              <span class="absolute inset-[-2.5px_0_0_0]"><img alt="" class="block max-w-none size-full" src="{{ $d }}/nav-underline.svg" /></span>
-            </span>
-          </a>
-        </nav>
-        <a href="/" aria-label="الصفحة الرئيسية لدار الرؤى" class="h-[79px] relative shrink-0 w-[86px] block">
-          <span class="absolute inset-0 overflow-hidden pointer-events-none">
-            <img alt="شعار دار الرؤى للتدريب" class="absolute h-[124.73%] left-[-14.4%] max-w-none top-[-12.77%] w-[127.45%]" src="{{ $d }}/nav-logo.png" />
-          </span>
-        </a>
-      </div>
-    </div>
-  </header>
+  {{-- Shared Unified Navbar matching all pages --}}
+  @include('landing.partials.navbar')
 
   <main id="main-content" data-save-url="{{ route('life-wheel.results.store') }}" data-user-id="{{ auth()->id() }}" class="w-full max-w-[1242px] mx-auto px-4 sm:px-6 xl:px-0 pt-6 sm:pt-8 xl:pt-[48px] pb-16 xl:pb-[128px] flex-1">
     <h1 class="sr-only">تفاصيل جوانب عجلة الحياة</h1>

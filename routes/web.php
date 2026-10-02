@@ -48,15 +48,28 @@ $getLifeWheelCategories = function () {
             'leisure' => '/landing/icons/wheel_of_life_line/gamepad.svg'
         ];
 
+        $solidIcons = [
+            'spiritual' => '/landing/icons/wheel_of_life/spiritual.png',
+            'health' => '/landing/icons/wheel_of_life/health.png',
+            'personal' => '/landing/icons/wheel_of_life/personal.png',
+            'family' => '/landing/icons/wheel_of_life/family.png',
+            'social' => '/landing/icons/wheel_of_life/social.png',
+            'professional' => '/landing/icons/wheel_of_life/career.png',
+            'financial' => '/landing/icons/wheel_of_life/financial.png',
+            'leisure' => '/landing/icons/wheel_of_life/leisure.png'
+        ];
+
         foreach ($assessment->dimensions as $dim) {
             $key = $keys[$dim->name_ar] ?? 'unknown';
             $icon = $icons[$key] ?? '';
+            $solidIcon = $solidIcons[$key] ?? '';
             $questions = $dim->questions->sortBy('order_index')->pluck('text_ar')->toArray();
             
             $categories[] = [
                 'key' => $key,
                 'label' => $dim->name_ar,
                 'iconUrl' => $icon,
+                'solidIconUrl' => $solidIcon,
                 'description' => $dim->description_ar ?? '',
                 'questions' => $questions
             ];
