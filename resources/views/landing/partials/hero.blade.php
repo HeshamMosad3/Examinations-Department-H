@@ -10,7 +10,7 @@
         <!-- Heading: (Figma: 318px x 88px Hug Container, 312px Hug Title) with Sparkle Star on the left -->
         <div class="relative inline-flex items-center justify-center">
           <h1 id="hero-title" class="text-[17.5px] min-[360px]:text-[18px] min-[390px]:text-[19px] sm:text-[27px] md:text-[34px] font-bold text-[#1D436E] leading-tight font-messiri text-center whitespace-nowrap">
-            اكتشف نفسك ... وابدأ رحلة تطورك
+            {{ cms('home.hero.title', 'اكتشف نفسك ... وابدأ رحلة تطورك') }}
           </h1>
           <img src="/landing/images/icons/sparkle.svg" alt="" aria-hidden="true" class="absolute -top-1 -left-4 sm:-left-7 w-[17px] h-[17px] sm:w-[22px] sm:h-[22px] shrink-0 pointer-events-none" />
         </div>
@@ -21,9 +21,9 @@
             <svg class="w-[14px] h-[14px] sm:w-[16px] sm:h-[16px] text-[#204A7A] inline-block align-middle ml-1.5 sm:ml-2 pointer-events-none mb-[2px] sm:mb-[4px]" style="transform: rotate(12.47deg);" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M12 0C12 6.627 6.627 12 0 12C6.627 12 12 17.373 12 24C12 17.373 17.373 12 24 12C17.373 12 12 6.627 12 0Z"/>
             </svg>
-            <span class="align-middle">قياسات ذكية لفهم ذاتك، شخصيتك،</span>
+            <span class="align-middle">{{ cms('home.hero.subtitle_1', 'قياسات ذكية لفهم ذاتك، شخصيتك،') }}</span>
             <br class="sm:hidden"/>
-            <span class="align-middle">وتوازنك في الحياة.</span>
+            <span class="align-middle">{{ cms('home.hero.subtitle_2', 'وتوازنك في الحياة.') }}</span>
           </p>
         </div>
 
@@ -46,10 +46,10 @@
       <!-- Heading CTA (#875:7304 Desktop / #942:4138 Mobile) -->
       <div class="text-center mb-[12px] md:mb-[40px] px-3 sm:px-4 flex flex-col items-center gap-[10px] md:gap-[20px] w-full max-w-[361px] md:max-w-[490px] mx-auto">
         <p class="text-[12.5px] min-[360px]:text-[13px] min-[390px]:text-[14px] md:text-[24px] font-medium text-black font-messiri leading-normal text-center w-full max-w-none md:max-w-[490px] mx-auto whitespace-nowrap">
-          اكتشف مستوى التوازن فى اهم جوانب حياتك باستخدام
+          {{ cms('home.hero.wheel_intro', 'اكتشف مستوى التوازن فى اهم جوانب حياتك باستخدام') }}
         </p>
         <h2 class="text-[16.5px] min-[390px]:text-[17.5px] md:text-[34px] font-bold md:font-semibold text-[#1D436E] font-messiri leading-[23px] sm:leading-[22px] md:leading-[1.5] text-center whitespace-nowrap">
-          اختبار عجلة الحياة
+          {{ cms('home.hero.wheel_title', 'اختبار عجلة الحياة') }}
         </h2>
       </div>
 
@@ -59,17 +59,17 @@
         <!-- Right Promotional Text & Alarm Clock (First child in RTL) -->
         <div class="flex items-center gap-[10px] sm:gap-[21px] min-w-0">
           <div class="flex items-center justify-center shrink-0 w-[35px] h-[35px] sm:w-[62px] sm:h-[62px]">
-            <img src="/landing/images/icons/alarm-clock.svg" alt="أيقونة ساعة منبه ترمز للعرض المحدود" loading="lazy" decoding="async" class="w-full h-full object-contain" />
+            <img src="{{ cms_image('home.hero.offer_icon', '/landing/images/icons/alarm-clock.svg') }}" alt="أيقونة ساعة منبه ترمز للعرض المحدود" loading="lazy" decoding="async" class="w-full h-full object-contain" />
           </div>
           <div class="flex flex-col items-start min-w-0 font-messiri">
-            <span class="text-[23px] min-[390px]:text-[25px] sm:text-[32px] font-bold text-[#204A7A] block leading-tight sm:leading-none">مجاني</span>
-            <span class="text-[13px] min-[390px]:text-[14px] sm:text-[28px] font-normal text-[#204A7A] block leading-[1.5]">لفترة محدودة</span>
+            <span class="text-[23px] min-[390px]:text-[25px] sm:text-[32px] font-bold text-[#204A7A] block leading-tight sm:leading-none">{{ cms('home.hero.offer_title', 'مجاني') }}</span>
+            <span class="text-[13px] min-[390px]:text-[14px] sm:text-[28px] font-normal text-[#204A7A] block leading-[1.5]">{{ cms('home.hero.offer_text', 'لفترة محدودة') }}</span>
           </div>
         </div>
 
         <!-- Left Gift Box Image / Vector (Last child in RTL) -->
         <div class="w-[82px] h-[76px] sm:w-[115px] sm:h-[107px] flex items-center justify-center shrink-0">
-          <img src="/landing/images/icons/wrapped-gift.svg" alt="أيقونة صندوق هدية ترمز للاختبار المجاني" loading="lazy" decoding="async" class="w-full h-full object-contain drop-shadow-sm" />
+          <img src="{{ cms_image('home.hero.offer_image', '/landing/images/icons/wrapped-gift.svg') }}" alt="أيقونة صندوق هدية ترمز للاختبار المجاني" loading="lazy" decoding="async" class="w-full h-full object-contain drop-shadow-sm" />
         </div>
 
       </div>
@@ -77,14 +77,14 @@
       <!-- Action Buttons (#875:6123) — mobile: 330x40 hug, gap 10px -->
       <div class="flex flex-row items-stretch justify-center gap-[10px] sm:gap-[56px] mb-0 w-full max-w-[330px] sm:max-w-[510px] px-0">
         <!-- Start Evaluation Button (Figma: Outline Button/Default, 111x21 Hug body, 4px gap) -->
-        <a href="/life-wheel-assessment.html" class="group flex-1 h-[40px] sm:h-[56px] bg-brand-primary text-white rounded-[10px] sm:rounded-[12px] font-semibold text-[13.5px] sm:text-[17px] flex items-center justify-center gap-1 sm:gap-3 shadow-md hover:bg-[#102744] hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 border-2 border-brand-primary cursor-pointer whitespace-nowrap font-messiri focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary">
-          <span class="leading-none">ابدأ التقييم الآن</span>
+        <a href="{{ cms_url('home.hero.start_url', '/life-wheel-assessment.html') }}" class="group flex-1 h-[40px] sm:h-[56px] bg-brand-primary text-white rounded-[10px] sm:rounded-[12px] font-semibold text-[13.5px] sm:text-[17px] flex items-center justify-center gap-1 sm:gap-3 shadow-md hover:bg-[#102744] hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 border-2 border-brand-primary cursor-pointer whitespace-nowrap font-messiri focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary">
+          <span class="leading-none">{{ cms('home.hero.start_button', 'ابدأ التقييم الآن') }}</span>
           <i class="fa-solid fa-arrow-left text-xs sm:text-sm group-hover:-translate-x-1.5 transition-transform duration-200" aria-hidden="true"></i>
         </a>
 
         <!-- Explore Wheel Button -->
         <a href="{{ route('life-wheel.explore') }}" class="group flex-1 h-[40px] sm:h-[56px] border-2 border-brand-primary text-brand-primary rounded-[10px] sm:rounded-[12px] font-semibold text-[13.5px] sm:text-[17px] flex items-center justify-center hover:bg-brand-primary hover:text-white transition-all duration-200 shadow-sm hover:shadow-md cursor-pointer whitespace-nowrap font-messiri focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary">
-          <span class="leading-none">اكتشف عجلة الحياة</span>
+          <span class="leading-none">{{ cms('home.hero.explore_button', 'اكتشف عجلة الحياة') }}</span>
         </a>
       </div>
 

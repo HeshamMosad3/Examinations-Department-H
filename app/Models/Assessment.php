@@ -2,60 +2,38 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Assessment extends Model
 {
-    use HasUuids, SoftDeletes;
+    // أكواد المقاييس اللي ليها صفحات خاصة في الموقع
+    public const WHEEL_OF_LIFE = 'wheel_of_life';
+    public const PERCEPTUAL_STYLES = 'perceptual_styles';
+
+    public const SCORING_TYPES = [
+        'sum' => 'مجموع الدرجات (مستويات حسب الدرجة)',
+        'dominant_style' => 'النمط الغالب (أعلى محور / ثنائي / متوازن)',
+    ];
+
+    public const LEVEL_BASES = [
+        'score' => 'الدرجة',
+        'percent' => 'النسبة المئوية',
+    ];
 
     protected $fillable = [
-        'title_ar',
-        'title_en',
-        'description_ar',
-        'description_en',
-        'category',
-        'type',
-        'time_limit_min',
-        'is_active',
-        'created_by',
-        'image_url',
-        'subtitle_ar',
-        'scoring_type',
-        'price',
-        'rating',
-        'rating_count',
-        'icon',
-        'report_code',
+        'code', 'title_ar', 'subtitle_ar', 'category', 'description_ar', 'instructions_ar', 'scoring_type', 'level_basis',
+        'time_limit_min', 'price', 'image_url', 'report_code', 'is_active', 'order_index', 'created_by',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
+        'price' => 'decimal:2',
+        'time_limit_min' => 'integer',
+        'order_index' => 'integer',
     ];
 
-    public function creator()
+    public static function byCode(string $code): ?self
     {
-        return $this->belongsTo(User::class, 'created_by');
-    }
-
-    public function dimensions(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(Dimension::class)->orderBy('order_index');
-    }
-
-    public function questions()
-    {
-        return $this->hasMany(Question::class)->orderBy('order_index');
-    }
-
-    public function examSessions()
-    {
-        return $this->hasMany(ExamSession::class);
-    }
-
-    public function recommendations()
-    {
-        return $this->hasMany(Recommendation::class);
+        return static::where('code', $code)->where('is_active', true)->first();
     }
 }

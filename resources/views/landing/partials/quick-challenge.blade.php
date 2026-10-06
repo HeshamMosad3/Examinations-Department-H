@@ -14,7 +14,7 @@
           </div>
           
           <!-- Text -->
-          <h2 id="challenge-title" class="text-[18px] sm:text-[29px] text-brand-primary" style="font-family: 'El Messiri', sans-serif; font-weight: 600; line-height: 1.5;">التحدي السريع</h2>
+          <h2 id="challenge-title" class="text-[18px] sm:text-[29px] text-brand-primary" style="font-family: 'El Messiri', sans-serif; font-weight: 600; line-height: 1.5;">{{ cms('home.challenge.title', 'التحدي السريع') }}</h2>
 
           <!-- Left Mark (Visual Left in RTL) -->
           <div class="flex items-center w-[50px] sm:w-[109px]" dir="ltr" aria-hidden="true">
@@ -28,7 +28,7 @@
 
         <!-- Subtitle -->
         <p class="text-[13.5px] sm:text-[18px] md:text-[24px] font-medium text-brand-dark leading-normal sm:leading-none text-center" style="font-family: 'El Messiri', sans-serif; font-weight: 500;">
-          اختبر دقة ملاحظتك للأنماط والتفاصيل.
+          {{ cms('home.challenge.subtitle', 'اختبر دقة ملاحظتك للأنماط والتفاصيل.') }}
         </p>
       </div>
 
@@ -79,7 +79,7 @@
           <!-- 3D Golden Trophy with celebratory glow -->
           <div class="relative mb-4 md:mb-5 flex items-center justify-center">
             <div class="absolute inset-0 w-24 md:w-28 h-24 md:h-28 rounded-full bg-[#F59E0B]/20 blur-xl animate-pulse pointer-events-none" aria-hidden="true"></div>
-            <img id="quiz-trophy-img" src="/images/icons/trophy.webp" alt="كأس التفوق" class="w-16 h-16 md:w-28 md:h-28 object-contain relative z-10 animate-trophy-pop trophy-glow" />
+            <img id="quiz-trophy-img" src="{{ cms_image('home.challenge.trophy_image', '/images/icons/trophy.webp') }}" alt="كأس التفوق" class="w-16 h-16 md:w-28 md:h-28 object-contain relative z-10 animate-trophy-pop trophy-glow" />
           </div>
 
           <!-- Result Headline -->
@@ -93,10 +93,10 @@
           <!-- Action Buttons -->
           <div class="flex flex-col sm:flex-row items-center gap-3 md:gap-4 w-full max-w-[384px]">
             <button id="quiz-restart-btn" class="w-full h-[40px] md:h-[43px] rounded-[10px] md:rounded-[14px] border-2 border-brand-primary text-brand-primary font-bold hover:bg-brand-primary hover:text-white transition-all duration-200 font-cairo text-[14px] md:text-[14px] shadow-sm hover:shadow-md cursor-pointer">
-              إعادة التحدي
+              {{ cms('home.challenge.restart_button', 'إعادة التحدي') }}
             </button>
-            <a href="#assessments" class="w-full h-[40px] md:h-[43px] rounded-[10px] md:rounded-[14px] bg-brand-primary text-white font-bold hover:bg-[#102744] shadow-md hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 flex items-center justify-center font-cairo text-[14px] md:text-[14px] cursor-pointer border-2 border-brand-primary">
-              اكتشف مقاييسك
+            <a href="{{ cms_url('home.challenge.discover_url', '#assessments') }}" class="w-full h-[40px] md:h-[43px] rounded-[10px] md:rounded-[14px] bg-brand-primary text-white font-bold hover:bg-[#102744] shadow-md hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 flex items-center justify-center font-cairo text-[14px] md:text-[14px] cursor-pointer border-2 border-brand-primary">
+              {{ cms('home.challenge.discover_button', 'اكتشف مقاييسك') }}
             </a>
           </div>
         </div>

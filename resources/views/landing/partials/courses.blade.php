@@ -15,7 +15,7 @@
         </div>
         
         <!-- Text -->
-        <h2 id="courses-title" class="text-[16px] min-[370px]:text-[17.5px] min-[390px]:text-[18px] md:text-[29px] text-[#1D436E] md:text-brand-primary whitespace-nowrap shrink-0" style="font-family: 'El Messiri', sans-serif; font-weight: 600; line-height: 1.5;">اكتشفت نفسك... طوّرها الآن</h2>
+        <h2 id="courses-title" class="text-[16px] min-[370px]:text-[17.5px] min-[390px]:text-[18px] md:text-[29px] text-[#1D436E] md:text-brand-primary whitespace-nowrap shrink-0" style="font-family: 'El Messiri', sans-serif; font-weight: 600; line-height: 1.5;">{{ cms('home.courses.title', 'اكتشفت نفسك... طوّرها الآن') }}</h2>
 
         <!-- Left Mark (Visual Left in RTL) -->
         <div class="flex items-center w-[36px] min-[370px]:w-[48px] min-[390px]:w-[56.56px] md:w-[109px] shrink" dir="ltr" aria-hidden="true">
@@ -29,8 +29,8 @@
 
       <!-- Subtitle from Figma (Single line on mobile matching Figma) -->
       <p class="text-[12px] min-[360px]:text-[13px] min-[390px]:text-[14px] md:text-[19px] font-medium text-[#334155] text-center max-w-[361px] md:max-w-none mx-auto font-messiri whitespace-nowrap">
-        <span class="md:hidden">اختر من خدماتنا المتنوعة لدعم رحلتك نحو التطوير والنمو.</span>
-        <span class="hidden md:inline">اختر من بين خدماتنا المتنوعة، لتساعدك في رحلتك نحو التطوير والنمو.</span>
+        <span class="md:hidden">{{ cms('home.courses.subtitle_mobile', 'اختر من خدماتنا المتنوعة لدعم رحلتك نحو التطوير والنمو.') }}</span>
+        <span class="hidden md:inline">{{ cms('home.courses.subtitle', 'اختر من بين خدماتنا المتنوعة، لتساعدك في رحلتك نحو التطوير والنمو.') }}</span>
       </p>
     </div>
 
@@ -38,7 +38,7 @@
     <div class="w-full max-w-[361px] md:max-w-[992px] lg:max-w-[1240px] mx-auto bg-white md:bg-transparent rounded-[16px] md:rounded-none shadow-[0px_3px_8.5px_rgba(0,0,0,0.12)] md:shadow-none p-[16px_8px] md:p-0 flex flex-col md:flex-row flex-wrap lg:flex-nowrap items-stretch justify-center gap-[14px] md:gap-[20px] lg:gap-[25px]">
 
       <!-- Card 1: الدورات التدريبية (Figma #934:4568 / #875:7050 - 344x100 on Mobile) -->
-      <a href="#courses" aria-label="الدورات التدريبية: نقدم مجموعة من الدورات بمحتوى احترافي مميز" class="group flex items-center justify-between w-full max-w-[344px] md:max-w-[317px] lg:max-w-[396px] h-auto min-h-[115px] sm:min-h-[120px] md:min-h-[140px] lg:min-h-[166px] bg-[#F2F5FA] rounded-[19px] border border-[#4F6EA5] border-r-[3px] md:border-r-[2px] hover:shadow-md transition-all duration-300 p-[10px_12px] sm:p-[13px_16px]">
+      <a href="{{ cms_url('home.courses.card_1_url', '#courses') }}" aria-label="{{ cms('home.courses.card_1_title', 'الدورات التدريبية') }}: {{ cms('home.courses.card_1_text', 'نقدم مجموعة من الدورات بمحتوى احترافي مميز') }}" class="group flex items-center justify-between w-full max-w-[344px] md:max-w-[317px] lg:max-w-[396px] h-auto min-h-[115px] sm:min-h-[120px] md:min-h-[140px] lg:min-h-[166px] bg-[#F2F5FA] rounded-[19px] border border-[#4F6EA5] border-r-[3px] md:border-r-[2px] hover:shadow-md transition-all duration-300 p-[10px_12px] sm:p-[13px_16px]">
         <!-- Icon container on right (first in RTL) -->
         <div class="w-[44px] h-[44px] md:w-[48px] md:h-[48px] lg:w-[54px] lg:h-[54px] rounded-[16px] bg-[#DEE4EB] flex items-center justify-center shrink-0" aria-hidden="true">
           <svg class="w-[20px] h-[20px] md:w-[22px] md:h-[22px] text-[#4F6EA5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -49,8 +49,8 @@
 
         <!-- Text in center -->
         <div class="flex-1 min-w-0 mr-2.5 ml-1.5 min-[370px]:mr-3 min-[370px]:ml-2 md:mr-4 md:ml-4 text-right">
-          <h3 class="text-[13.5px] min-[370px]:text-[14px] md:text-[17px] lg:text-[21px] font-bold md:font-semibold text-[#0B1628] mb-0.5 md:mb-2 group-hover:text-[#4F6EA5] transition-colors whitespace-nowrap" style="font-family: 'El Messiri', sans-serif;">الدورات التدريبية</h3>
-          <p class="text-[11px] min-[370px]:text-[12px] md:text-[14px] lg:text-[17px] font-semibold md:font-medium leading-snug md:leading-normal text-[#565656]" style="font-family: 'El Messiri', sans-serif;">نقدم مجموعة من الدورات بمحتوى احترافي مميز</p>
+          <h3 class="text-[13.5px] min-[370px]:text-[14px] md:text-[17px] lg:text-[21px] font-bold md:font-semibold text-[#0B1628] mb-0.5 md:mb-2 group-hover:text-[#4F6EA5] transition-colors whitespace-nowrap" style="font-family: 'El Messiri', sans-serif;">{{ cms('home.courses.card_1_title', 'الدورات التدريبية') }}</h3>
+          <p class="text-[11px] min-[370px]:text-[12px] md:text-[14px] lg:text-[17px] font-semibold md:font-medium leading-snug md:leading-normal text-[#565656]" style="font-family: 'El Messiri', sans-serif;">{{ cms('home.courses.card_1_text', 'نقدم مجموعة من الدورات بمحتوى احترافي مميز') }}</p>
         </div>
 
         <!-- Arrow button on left (last in RTL) -->
@@ -60,7 +60,7 @@
       </a>
 
       <!-- Card 2: الشهادات الإحترافية (Figma #934:4581 / #875:7036 - 344x100 on Mobile) -->
-      <a href="#certifications" aria-label="الشهادات الإحترافية: جرب اختبارات تجريبية موثوقة لاجتياز أشهر الشهادات الإحترافية" class="group flex items-center justify-between w-full max-w-[344px] md:max-w-[317px] lg:max-w-[396px] h-auto min-h-[115px] sm:min-h-[120px] md:min-h-[140px] lg:min-h-[166px] bg-[#F9F7F7] rounded-[19px] border border-[#B35769] border-r-[3px] md:border-r-[2px] hover:shadow-md transition-all duration-300 p-[10px_12px] sm:p-[13px_16px]">
+      <a href="{{ cms_url('home.courses.card_2_url', '#certifications') }}" aria-label="{{ cms('home.courses.card_2_title', 'الشهادات الإحترافية') }}: {{ rtrim(cms('home.courses.card_2_text', 'جرب اختبارات تجريبية موثوقة لاجتياز أشهر الشهادات الإحترافية.'), '.') }}" class="group flex items-center justify-between w-full max-w-[344px] md:max-w-[317px] lg:max-w-[396px] h-auto min-h-[115px] sm:min-h-[120px] md:min-h-[140px] lg:min-h-[166px] bg-[#F9F7F7] rounded-[19px] border border-[#B35769] border-r-[3px] md:border-r-[2px] hover:shadow-md transition-all duration-300 p-[10px_12px] sm:p-[13px_16px]">
         <!-- Icon container on right (first in RTL) -->
         <div class="w-[44px] h-[44px] md:w-[48px] md:h-[48px] lg:w-[54px] lg:h-[54px] rounded-[16px] bg-[#FBEBEE] flex items-center justify-center shrink-0" aria-hidden="true">
           <svg class="w-[20px] h-[20px] md:w-[22px] md:h-[22px] text-[#B35769]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -71,8 +71,8 @@
 
         <!-- Text in center -->
         <div class="flex-1 min-w-0 mr-2.5 ml-1.5 min-[370px]:mr-3 min-[370px]:ml-2 md:mr-4 md:ml-4 text-right">
-          <h3 class="text-[13.5px] min-[370px]:text-[14px] md:text-[17px] lg:text-[21px] font-bold md:font-semibold text-[#0B1628] mb-0.5 md:mb-2 group-hover:text-[#B35769] transition-colors whitespace-nowrap" style="font-family: 'El Messiri', sans-serif;">الشهادات الإحترافية</h3>
-          <p class="text-[11px] min-[370px]:text-[12px] md:text-[14px] lg:text-[17px] font-semibold md:font-medium leading-snug md:leading-normal text-[#565656]" style="font-family: 'El Messiri', sans-serif;">جرب اختبارات تجريبية موثوقة لاجتياز أشهر الشهادات الإحترافية.</p>
+          <h3 class="text-[13.5px] min-[370px]:text-[14px] md:text-[17px] lg:text-[21px] font-bold md:font-semibold text-[#0B1628] mb-0.5 md:mb-2 group-hover:text-[#B35769] transition-colors whitespace-nowrap" style="font-family: 'El Messiri', sans-serif;">{{ cms('home.courses.card_2_title', 'الشهادات الإحترافية') }}</h3>
+          <p class="text-[11px] min-[370px]:text-[12px] md:text-[14px] lg:text-[17px] font-semibold md:font-medium leading-snug md:leading-normal text-[#565656]" style="font-family: 'El Messiri', sans-serif;">{{ cms('home.courses.card_2_text', 'جرب اختبارات تجريبية موثوقة لاجتياز أشهر الشهادات الإحترافية.') }}</p>
         </div>
 
         <!-- Arrow button on left (last in RTL) -->
@@ -82,7 +82,7 @@
       </a>
 
       <!-- Card 3: الاختبارات المهنية والشخصية (Figma #934:4594 / #875:7021 - 344x100 on Mobile) -->
-      <a href="#assessments" aria-label="الاختبارات المهنية والشخصية: اكتشف قدراتك وميولك من خلال مقاييس علمية موثوقة" class="group flex items-center justify-between w-full max-w-[344px] md:max-w-[317px] lg:max-w-[396px] h-auto min-h-[115px] sm:min-h-[120px] md:min-h-[140px] lg:min-h-[166px] bg-[#F5EFFF] rounded-[19px] border border-[#735297] border-r-[3px] md:border-r-[2px] hover:shadow-md transition-all duration-300 p-[10px_12px] sm:p-[13px_16px]">
+      <a href="{{ cms_url('home.courses.card_3_url', '#assessments') }}" aria-label="{{ cms('home.courses.card_3_title', 'الاختبارات المهنية والشخصية') }}: {{ cms('home.courses.card_3_text', 'اكتشف قدراتك وميولك من خلال مقاييس علمية موثوقة') }}" class="group flex items-center justify-between w-full max-w-[344px] md:max-w-[317px] lg:max-w-[396px] h-auto min-h-[115px] sm:min-h-[120px] md:min-h-[140px] lg:min-h-[166px] bg-[#F5EFFF] rounded-[19px] border border-[#735297] border-r-[3px] md:border-r-[2px] hover:shadow-md transition-all duration-300 p-[10px_12px] sm:p-[13px_16px]">
         <!-- Icon container on right (first in RTL) -->
         <div class="w-[44px] h-[44px] md:w-[48px] md:h-[48px] lg:w-[54px] lg:h-[54px] rounded-[16px] bg-[#E9DDFF] md:bg-[#E7E2F0] flex items-center justify-center shrink-0" aria-hidden="true">
           <svg class="w-[20px] h-[20px] md:w-[22px] md:h-[22px] text-[#735297]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -94,8 +94,8 @@
 
         <!-- Text in center -->
         <div class="flex-1 min-w-0 mr-2.5 ml-1.5 min-[370px]:mr-3 min-[370px]:ml-2 md:mr-4 md:ml-4 text-right">
-          <h3 class="text-[13.5px] min-[370px]:text-[14px] md:text-[17px] lg:text-[21px] font-bold md:font-semibold text-[#0B1628] mb-0.5 md:mb-2 group-hover:text-[#735297] transition-colors whitespace-nowrap" style="font-family: 'El Messiri', sans-serif;">الاختبارات المهنية والشخصية</h3>
-          <p class="text-[11px] min-[370px]:text-[12px] md:text-[14px] lg:text-[17px] font-semibold md:font-medium leading-snug md:leading-normal text-[#565656]" style="font-family: 'El Messiri', sans-serif;">اكتشف قدراتك وميولك من خلال مقاييس علمية موثوقة</p>
+          <h3 class="text-[13.5px] min-[370px]:text-[14px] md:text-[17px] lg:text-[21px] font-bold md:font-semibold text-[#0B1628] mb-0.5 md:mb-2 group-hover:text-[#735297] transition-colors whitespace-nowrap" style="font-family: 'El Messiri', sans-serif;">{{ cms('home.courses.card_3_title', 'الاختبارات المهنية والشخصية') }}</h3>
+          <p class="text-[11px] min-[370px]:text-[12px] md:text-[14px] lg:text-[17px] font-semibold md:font-medium leading-snug md:leading-normal text-[#565656]" style="font-family: 'El Messiri', sans-serif;">{{ cms('home.courses.card_3_text', 'اكتشف قدراتك وميولك من خلال مقاييس علمية موثوقة') }}</p>
         </div>
 
         <!-- Arrow button on left (last in RTL) -->

@@ -1,0 +1,74 @@
+@{
+    bool Has(string permission) => User.HasClaim(DefaultPermissions.Type, permission);
+    string Active(string controller) => string.Equals((string?)ViewContext.RouteData.Values["controller"], controller, StringComparison.OrdinalIgnoreCase) ? "active" : "";
+    string Tint(string controller) => Active(controller) == "active" ? "background: var(--brand)" : "";
+}
+@if (Has(DefaultPermissions.ReportsRead))
+{
+    <li class="nav-item"><a class="nav-link @Active("Dashboard")" style="@Tint("Dashboard")" asp-controller="Dashboard" asp-action="Index"><i class="bi bi-speedometer2"></i> @T["Dashboard"]</a></li>
+}
+@if (Has(DefaultPermissions.ClubsRead) || Has(DefaultPermissions.MembershipsRead))
+{
+    <li class="nav-header text-muted small px-3 pt-3 pb-1">@T["NavClubs"]</li>
+}
+@if (Has(DefaultPermissions.ClubsRead))
+{
+    <li class="nav-item"><a class="nav-link @Active("Clubs")" style="@Tint("Clubs")" asp-controller="Clubs" asp-action="Index"><i class="bi bi-shop"></i> @T["Clubs"]</a></li>
+}
+@if (Has(DefaultPermissions.MembershipsRead))
+{
+    <li class="nav-item"><a class="nav-link @Active("MembershipRequests")" style="@Tint("MembershipRequests")" asp-controller="MembershipRequests" asp-action="Index"><i class="bi bi-person-vcard"></i> @T["MembershipRequests"]</a></li>
+}
+@if (Has(DefaultPermissions.PlansRead) || Has(DefaultPermissions.PaymentsRead))
+{
+    <li class="nav-header text-muted small px-3 pt-3 pb-1">@T["NavBilling"]</li>
+}
+@if (Has(DefaultPermissions.PlansRead))
+{
+    <li class="nav-item"><a class="nav-link @Active("Plans")" style="@Tint("Plans")" asp-controller="Plans" asp-action="Index"><i class="bi bi-tags"></i> @T["Plans"]</a></li>
+}
+@if (Has(DefaultPermissions.PaymentsRead))
+{
+    <li class="nav-item"><a class="nav-link @Active("Subscriptions")" style="@Tint("Subscriptions")" asp-controller="Subscriptions" asp-action="Index"><i class="bi bi-credit-card"></i> @T["Subscriptions"]</a></li>
+}
+@if (Has(DefaultPermissions.UsersRead) || Has(DefaultPermissions.RolesRead))
+{
+    <li class="nav-header text-muted small px-3 pt-3 pb-1">@T["NavAccess"]</li>
+}
+@if (Has(DefaultPermissions.UsersRead))
+{
+    <li class="nav-item"><a class="nav-link @Active("Users")" style="@Tint("Users")" asp-controller="Users" asp-action="Index"><i class="bi bi-people"></i> @T["Users"]</a></li>
+}
+@if (Has(DefaultPermissions.RolesRead))
+{
+    <li class="nav-item"><a class="nav-link @Active("Roles")" style="@Tint("Roles")" asp-controller="Roles" asp-action="Index"><i class="bi bi-shield-lock"></i> @T["Roles"]</a></li>
+}
+@if (Has(DefaultPermissions.ModerationRead) || Has(DefaultPermissions.UsersRead))
+{
+    <li class="nav-header text-muted small px-3 pt-3 pb-1">@T["NavSafety"]</li>
+}
+@if (Has(DefaultPermissions.ModerationRead))
+{
+    <li class="nav-item"><a class="nav-link @Active("Moderation")" style="@Tint("Moderation")" asp-controller="Moderation" asp-action="Index"><i class="bi bi-flag"></i> @T["Reports"]</a></li>
+}
+@if (Has(DefaultPermissions.UsersRead))
+{
+    <li class="nav-item"><a class="nav-link @Active("Bans")" style="@Tint("Bans")" asp-controller="Bans" asp-action="Index"><i class="bi bi-slash-circle"></i> @T["Bans"]</a></li>
+}
+@if (Has(DefaultPermissions.TournamentsWrite) || Has(DefaultPermissions.PayoutsRead))
+{
+    <li class="nav-header text-muted small px-3 pt-3 pb-1">@T["NavTournaments"]</li>
+}
+@if (Has(DefaultPermissions.TournamentsWrite))
+{
+    <li class="nav-item"><a class="nav-link @Active("Tournaments")" style="@Tint("Tournaments")" asp-controller="Tournaments" asp-action="Index"><i class="bi bi-trophy"></i> @T["Tournaments"]</a></li>
+}
+@if (Has(DefaultPermissions.PayoutsRead))
+{
+    <li class="nav-item"><a class="nav-link @Active("Payouts")" style="@Tint("Payouts")" asp-controller="Payouts" asp-action="Index"><i class="bi bi-bank"></i> @T["Payouts"]</a></li>
+}
+@if (Has(DefaultPermissions.SettingsRead))
+{
+    <li class="nav-header text-muted small px-3 pt-3 pb-1">@T["NavSystem"]</li>
+    <li class="nav-item"><a class="nav-link @Active("Settings")" style="@Tint("Settings")" asp-controller="Settings" asp-action="Index"><i class="bi bi-gear"></i> @T["Settings"]</a></li>
+}

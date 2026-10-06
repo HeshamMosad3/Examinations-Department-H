@@ -2,37 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Question extends Model
 {
-    use HasUuids, SoftDeletes;
-
-    protected $fillable = ['assessment_id', 'dimension_id', 'text_ar', 'order_index', 'is_reversed'];
+    protected $fillable = ['assessment_id', 'dimension_id', 'text_ar', 'is_reversed', 'order_index'];
 
     protected $casts = [
         'is_reversed' => 'boolean',
+        'order_index' => 'integer',
     ];
-
-    public function assessment()
-    {
-        return $this->belongsTo(Assessment::class);
-    }
-
-    public function dimension()
-    {
-        return $this->belongsTo(Dimension::class);
-    }
-
-    public function answerOptions()
-    {
-        return $this->hasMany(AnswerOption::class)->orderBy('order_index');
-    }
-
-    public function userAnswers()
-    {
-        return $this->hasMany(UserAnswer::class);
-    }
 }

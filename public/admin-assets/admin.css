@@ -1,0 +1,36 @@
+/* إضافات لوحة إدارة دار الرؤى فوق admin-theme.css (UI kit). */
+
+.stat-icon { width: 48px; height: 48px; }
+.text-brand { color: var(--brand) !important; }
+.bg-brand-subtle { background: #e6f1ec !important; }
+.border-brand { border-color: var(--brand) !important; }
+
+/* تبويبات صفحة المقياس */
+.nav-underline .nav-link { color: var(--muted); }
+.nav-underline .nav-link.active { color: var(--brand); border-bottom-color: var(--brand); font-weight: 700; }
+
+/* شجرة المحاور */
+.dim-child { border-inline-start: 3px solid #e6f1ec; margin-inline-start: 1.25rem; }
+
+/* الأسئلة */
+.q-row .drag-handle { cursor: grab; color: #9aa5a1; }
+.q-row.sortable-ghost { opacity: .4; }
+.q-num { width: 2.2rem; flex: 0 0 2.2rem; }
+.opt-pill { font-size: .75rem; }
+
+/* المستويات */
+.level-card { border-inline-start: 4px solid var(--brand-mid) !important; }
+.level-range { font-variant-numeric: tabular-nums; }
+
+.accordion-button:not(.collapsed) { background: #e6f1ec; color: var(--brand); box-shadow: none; }
+.accordion-button:focus { box-shadow: 0 0 0 .2rem rgba(27, 87, 67, .15); }
+
+/* نص طويل يتلف بشكل مريح */
+.pre-line { white-space: pre-line; }
+.min-w-0 { min-width: 0; }
+
+/* تجربة المقياس */
+.preview-q .form-check-input:checked { background-color: var(--brand); border-color: var(--brand); }
+.form-check-input:checked { background-color: var(--brand); border-color: var(--brand); }
+.form-control:focus, .form-select:focus { border-color: var(--brand-mid); box-shadow: 0 0 0 .2rem rgba(27, 87, 67, .15); }
+.progress-bar { background-color: var(--brand-mid); }

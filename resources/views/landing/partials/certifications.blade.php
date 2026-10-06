@@ -15,7 +15,7 @@
             </div>
             
             <!-- Text -->
-            <h2 id="certifications-title" class="text-[16px] min-[370px]:text-[17.5px] min-[390px]:text-[18px] md:text-[29px] text-[#1D436E] md:text-brand-primary whitespace-nowrap shrink-0" style="font-family: 'El Messiri', sans-serif; font-weight: 600; line-height: 1.5;">الاعتمادات المحلية والدولية</h2>
+            <h2 id="certifications-title" class="text-[16px] min-[370px]:text-[17.5px] min-[390px]:text-[18px] md:text-[29px] text-[#1D436E] md:text-brand-primary whitespace-nowrap shrink-0" style="font-family: 'El Messiri', sans-serif; font-weight: 600; line-height: 1.5;">{{ cms('home.certifications.title', 'الاعتمادات المحلية والدولية') }}</h2>
 
             <!-- Left Mark (Visual Left in RTL) -->
             <div class="flex items-center w-[36px] min-[370px]:w-[48px] min-[390px]:w-[56.56px] md:w-[109px] shrink" dir="ltr" aria-hidden="true">
@@ -36,66 +36,66 @@
             <!-- Set 1 -->
             <div class="flex items-center gap-[16px] sm:gap-[24px] md:gap-[62px] shrink-0">
               <div class="w-[86px] h-[86px] sm:w-[108px] sm:h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
-                <img src="/landing/images/logos/accreditations/national-elearning-center.png" alt="المركز الوطني للتعليم الإلكتروني" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
+                <img src="{{ cms_image('home.certifications.logo_1', '/landing/images/logos/accreditations/national-elearning-center.png') }}" alt="المركز الوطني للتعليم الإلكتروني" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
               </div>
               <div class="w-[86px] h-[86px] sm:w-[108px] sm:h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
-                <img src="/landing/images/logos/accreditations/tvtc.png" alt="المؤسسة العامة للتدريب التقني والمهني" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
+                <img src="{{ cms_image('home.certifications.logo_2', '/landing/images/logos/accreditations/tvtc.png') }}" alt="المؤسسة العامة للتدريب التقني والمهني" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
               </div>
               <div class="w-[86px] h-[86px] sm:w-[108px] sm:h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
-                <img src="/landing/images/logos/accreditations/paul-scheele-institute.png" alt="Paul Scheele Institute" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
+                <img src="{{ cms_image('home.certifications.logo_3', '/landing/images/logos/accreditations/paul-scheele-institute.png') }}" alt="Paul Scheele Institute" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
               </div>
               <div class="w-[86px] h-[86px] sm:w-[108px] sm:h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
-                <img src="/landing/images/logos/accreditations/ibta.png" alt="IBTA" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
+                <img src="{{ cms_image('home.certifications.logo_4', '/landing/images/logos/accreditations/ibta.png') }}" alt="IBTA" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
               </div>
               <div class="w-[86px] h-[86px] sm:w-[108px] sm:h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
-                <img src="/landing/images/logos/accreditations/pecb.png" alt="PECB" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
+                <img src="{{ cms_image('home.certifications.logo_5', '/landing/images/logos/accreditations/pecb.png') }}" alt="PECB" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
               </div>
               <div class="w-[86px] h-[86px] sm:w-[108px] sm:h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
-                <img src="/landing/images/logos/accreditations/certiport.png" alt="Certiport" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
+                <img src="{{ cms_image('home.certifications.logo_6', '/landing/images/logos/accreditations/certiport.png') }}" alt="Certiport" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
               </div>
             </div>
 
             <!-- Set 2 (Decorative duplicate for marquee) -->
             <div class="flex items-center gap-[16px] sm:gap-[24px] md:gap-[62px] shrink-0" aria-hidden="true">
               <div class="w-[86px] h-[86px] sm:w-[108px] sm:h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
-                <img src="/landing/images/logos/accreditations/national-elearning-center.png" alt="" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
+                <img src="{{ cms_image('home.certifications.logo_1', '/landing/images/logos/accreditations/national-elearning-center.png') }}" alt="" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
               </div>
               <div class="w-[86px] h-[86px] sm:w-[108px] sm:h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
-                <img src="/landing/images/logos/accreditations/tvtc.png" alt="" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
+                <img src="{{ cms_image('home.certifications.logo_2', '/landing/images/logos/accreditations/tvtc.png') }}" alt="" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
               </div>
               <div class="w-[86px] h-[86px] sm:w-[108px] sm:h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
-                <img src="/landing/images/logos/accreditations/paul-scheele-institute.png" alt="" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
+                <img src="{{ cms_image('home.certifications.logo_3', '/landing/images/logos/accreditations/paul-scheele-institute.png') }}" alt="" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
               </div>
               <div class="w-[86px] h-[86px] sm:w-[108px] sm:h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
-                <img src="/landing/images/logos/accreditations/ibta.png" alt="" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
+                <img src="{{ cms_image('home.certifications.logo_4', '/landing/images/logos/accreditations/ibta.png') }}" alt="" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
               </div>
               <div class="w-[86px] h-[86px] sm:w-[108px] sm:h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
-                <img src="/landing/images/logos/accreditations/pecb.png" alt="" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
+                <img src="{{ cms_image('home.certifications.logo_5', '/landing/images/logos/accreditations/pecb.png') }}" alt="" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
               </div>
               <div class="w-[86px] h-[86px] sm:w-[108px] sm:h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
-                <img src="/landing/images/logos/accreditations/certiport.png" alt="" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
+                <img src="{{ cms_image('home.certifications.logo_6', '/landing/images/logos/accreditations/certiport.png') }}" alt="" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
               </div>
             </div>
 
             <!-- Set 3 (Decorative duplicate for marquee) -->
             <div class="flex items-center gap-[16px] sm:gap-[24px] md:gap-[62px] shrink-0" aria-hidden="true">
               <div class="w-[86px] h-[86px] sm:w-[108px] sm:h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
-                <img src="/landing/images/logos/accreditations/national-elearning-center.png" alt="" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
+                <img src="{{ cms_image('home.certifications.logo_1', '/landing/images/logos/accreditations/national-elearning-center.png') }}" alt="" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
               </div>
               <div class="w-[86px] h-[86px] sm:w-[108px] sm:h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
-                <img src="/landing/images/logos/accreditations/tvtc.png" alt="" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
+                <img src="{{ cms_image('home.certifications.logo_2', '/landing/images/logos/accreditations/tvtc.png') }}" alt="" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
               </div>
               <div class="w-[86px] h-[86px] sm:w-[108px] sm:h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
-                <img src="/landing/images/logos/accreditations/paul-scheele-institute.png" alt="" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
+                <img src="{{ cms_image('home.certifications.logo_3', '/landing/images/logos/accreditations/paul-scheele-institute.png') }}" alt="" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
               </div>
               <div class="w-[86px] h-[86px] sm:w-[108px] sm:h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
-                <img src="/landing/images/logos/accreditations/ibta.png" alt="" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
+                <img src="{{ cms_image('home.certifications.logo_4', '/landing/images/logos/accreditations/ibta.png') }}" alt="" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
               </div>
               <div class="w-[86px] h-[86px] sm:w-[108px] sm:h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
-                <img src="/landing/images/logos/accreditations/pecb.png" alt="" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
+                <img src="{{ cms_image('home.certifications.logo_5', '/landing/images/logos/accreditations/pecb.png') }}" alt="" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
               </div>
               <div class="w-[86px] h-[86px] sm:w-[108px] sm:h-[108px] md:w-[200px] md:h-[200px] rounded-full border border-[#C3D5EC] bg-white/40 md:bg-white/50 shadow-[0px_4px_20px_rgba(195,213,236,0.25)] flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer">
-                <img src="/landing/images/logos/accreditations/certiport.png" alt="" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
+                <img src="{{ cms_image('home.certifications.logo_6', '/landing/images/logos/accreditations/certiport.png') }}" alt="" loading="lazy" decoding="async" class="w-[65%] h-[65%] object-contain" />
               </div>
             </div>
 

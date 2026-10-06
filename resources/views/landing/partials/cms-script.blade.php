@@ -1,0 +1,1 @@
+@php($cmsJs = app(\App\Services\SiteContentService::class)->jsOverrides())@if ($cmsJs)<script>window.CMS = @json($cmsJs);</script>@endif

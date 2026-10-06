@@ -41,7 +41,7 @@
           </div>
           <div class="flex flex-col items-center relative shrink-0">
             <div class="[word-break:break-word] flex flex-col font-messiri font-semibold justify-center leading-[0] relative shrink-0 text-[#204a7a] text-[14px] xl:text-[17px] text-center whitespace-nowrap">
-              <p class="leading-[16px]" dir="auto">عرض التفاصيل</p>
+              <p class="leading-[16px]" dir="auto">{{ cms('wheel_details.page.show_details', 'عرض التفاصيل') }}</p>
             </div>
           </div>
         </button>
@@ -86,7 +86,7 @@
             </div>
             <div class="flex flex-col items-center relative shrink-0">
               <div class="[word-break:break-word] flex flex-col font-messiri font-semibold justify-center leading-[0] relative shrink-0 text-[#204a7a] text-[14px] xl:text-[17px] text-center whitespace-nowrap">
-                <p class="leading-[16px]" dir="auto">اخفاء التفاصيل</p>
+                <p class="leading-[16px]" dir="auto">{{ cms('wheel_details.page.hide_details', 'اخفاء التفاصيل') }}</p>
               </div>
             </div>
           </button>

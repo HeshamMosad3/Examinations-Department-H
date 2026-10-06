@@ -2,6 +2,7 @@ import Chart from 'chart.js/auto';
 import { CATEGORIES } from './lifeWheelAssessmentData.js';
 import { initNavigation } from './navigation.js';
 import { readStoredAnswers, saveLifeWheelAnswers } from './lifeWheelSave.js';
+import { cms } from './cms.js';
 
 initNavigation();
 
@@ -96,21 +97,21 @@ function initResult() {
   // Render Gauge Chart
   const gaugeCtx = document.getElementById('gaugeChart');
   let gaugeColor = '#38833C';
-  let gaugeText = 'مستوى متميز';
-  let gaugeDesc = 'أنت تسير في الطريق الصحيح حافظ على توازنك واستمر في تطوير نفسك';
+  let gaugeText = cms('wheel_result.gauge.excellent_title', 'مستوى متميز');
+  let gaugeDesc = cms('wheel_result.gauge.excellent_text', 'أنت تسير في الطريق الصحيح حافظ على توازنك واستمر في تطوير نفسك');
 
   if (overallScore < 50) {
     gaugeColor = '#9E1515';
-    gaugeText = 'مستوى منخفض';
-    gaugeDesc = 'لديك فرصة كبيرة للتحسن، وخطوات بسيطة قد تصنع فرقًا.';
+    gaugeText = cms('wheel_result.gauge.low_title', 'مستوى منخفض');
+    gaugeDesc = cms('wheel_result.gauge.low_text', 'لديك فرصة كبيرة للتحسن، وخطوات بسيطة قد تصنع فرقًا.');
   } else if (overallScore < 70) {
     gaugeColor = '#D4AE30';
-    gaugeText = 'مستوى جيد';
-    gaugeDesc = 'أداؤك جيد ولديك مساحة جيدة لتعزيز توازنك وتطوير مجالاتك.';
+    gaugeText = cms('wheel_result.gauge.good_title', 'مستوى جيد');
+    gaugeDesc = cms('wheel_result.gauge.good_text', 'أداؤك جيد ولديك مساحة جيدة لتعزيز توازنك وتطوير مجالاتك.');
   } else if (overallScore < 80) {
     gaugeColor = '#20AD70';
-    gaugeText = 'مستوى جيد جداً';
-    gaugeDesc = 'أنت تسير في الطريق الصحيح حافظ على توازنك واستمر في تطوير نفسك';
+    gaugeText = cms('wheel_result.gauge.very_good_title', 'مستوى جيد جداً');
+    gaugeDesc = cms('wheel_result.gauge.very_good_text', 'أنت تسير في الطريق الصحيح حافظ على توازنك واستمر في تطوير نفسك');
   }
 
   if (gaugeCtx) {
@@ -228,7 +229,7 @@ function initResult() {
 
   const analysisText = document.getElementById('analysis-text');
   if (analysisText) {
-    analysisText.textContent = `تشير نتيجتك إلى توازن بنسبة ${overallScore}% في حياتك بشكل عام. وهناك بعض الجوانب التي تحتاج إلى مزيد من الاهتمام خاصة الجانب ${lowest.label}، بينما تتميز بقوة في الجانب ${highest.label}.`;
+    analysisText.textContent = `${cms('wheel_result.analysis.part_1', 'تشير نتيجتك إلى توازن بنسبة')} ${overallScore}% ${cms('wheel_result.analysis.part_2', 'في حياتك بشكل عام. وهناك بعض الجوانب التي تحتاج إلى مزيد من الاهتمام خاصة الجانب')} ${lowest.label}${cms('wheel_result.analysis.part_3', '، بينما تتميز بقوة في الجانب')} ${highest.label}.`;
   }
 }
 

@@ -3,6 +3,7 @@ import confetti from 'canvas-confetti';
 import { CATEGORIES, ANSWER_SCALE } from './lifeWheelAssessmentData.js';
 import { initNavigation } from './navigation.js';
 import { saveLifeWheelAnswers } from './lifeWheelSave.js';
+import { cms } from './cms.js';
 
 initNavigation();
 
@@ -161,7 +162,7 @@ function renderCategoryHeader() {
 
   el.innerHTML = `
     <div class="flex flex-col items-start gap-1.5 md:gap-2 mb-2 md:mb-3 w-full">
-      <span class="font-messiri font-semibold text-[#ce9d42] text-[13px] sm:text-[14px] md:text-[18px] whitespace-nowrap">الجانب ${currentCategoryIndex + 1} من ${TOTAL_CATEGORIES}</span>
+      <span class="font-messiri font-semibold text-[#ce9d42] text-[13px] sm:text-[14px] md:text-[18px] whitespace-nowrap">${cms('wheel_test.js.counter_aspect', 'الجانب')} ${currentCategoryIndex + 1} ${cms('wheel_test.js.counter_of', 'من')} ${TOTAL_CATEGORIES}</span>
       <div class="flex items-center gap-2.5 md:gap-3">
         <div class="w-[38px] h-[38px] md:w-[54px] md:h-[54px] rounded-full bg-brand-primary flex items-center justify-center shrink-0 shadow-sm">
           <span class="lw-icon-mask w-[18px] h-[18px] md:w-[24px] md:h-[24px] text-white" style="--icon-url:url('${cat.solidIconUrl}')"></span>
@@ -265,11 +266,11 @@ function renderNavButtons() {
     ${isFirst ? '<span></span>' : `
       <button type="button" id="lw-prev-btn" class="flex items-center gap-2 h-[46px] md:h-[60px] px-4 md:px-6 rounded-[15px] border-2 border-brand-primary text-brand-primary font-messiri font-semibold text-[14px] sm:text-[16px] md:text-[21px] hover:bg-brand-primary hover:text-white transition-all cursor-pointer">
         <i class="fa-solid fa-arrow-right text-[12px] md:text-[16px]" aria-hidden="true"></i>
-        <span>الجانب السابق</span>
+        <span>${cms('wheel_test.js.prev_button', 'الجانب السابق')}</span>
       </button>
     `}
     <button type="button" id="lw-next-btn" class="flex items-center gap-2 h-[46px] md:h-[60px] px-4 md:px-6 rounded-[15px] font-messiri font-semibold text-[14px] sm:text-[16px] md:text-[21px] transition-all ${allAnswered ? 'bg-brand-primary text-white hover:bg-[#102744] shadow-md cursor-pointer' : 'bg-brand-primary/50 text-white/70 cursor-not-allowed'}" ${allAnswered ? '' : 'disabled'}>
-      <span>${isLast ? 'إنهاء الاختبار' : 'الجانب التالي'}</span>
+      <span>${isLast ? cms('wheel_test.js.finish_button', 'إنهاء الاختبار') : cms('wheel_test.js.next_button', 'الجانب التالي')}</span>
       <i class="fa-solid fa-arrow-left text-[12px] md:text-[16px]" aria-hidden="true"></i>
     </button>
   `;
@@ -291,14 +292,14 @@ function fireConfetti() {
 }
 
 const milestoneAssets = [
-  { text: 'خطوة جديدة اكتملت! كمّل رحلتك.', lottie: 'aspect-1.json' },
-  { text: 'رائع! أنت تتقدم خطوة بخطوة، استمر.', lottie: 'aspect-2.json' },
-  { text: 'ممتاز! تقدّمك واضح، خلّينا نكمل.', lottie: 'aspect-3.json' },
-  { text: 'أنت في منتصف الطريق! كمّل بنفس الحماس.', lottie: 'aspect-4.json' },
-  { text: 'أحسنت! جانب جديد اكتمل، ورحلتك بتكبر.', lottie: 'aspect-5.json' },
-  { text: 'أحسنت! جانب جديد اكتمل، ورحلتك بتكبر.', lottie: 'aspect-6.json' },
-  { text: 'باقي خطوة واحدة! أنت قريب من النهاية.', lottie: 'aspect-7.json' },
-  { text: 'أحسنت! اكتملت رحلتك، اكتشف نتيجتك.', lottie: 'aspect-8.json' }
+  { text: cms('wheel_test.milestones.after_1', 'خطوة جديدة اكتملت! كمّل رحلتك.'), lottie: 'aspect-1.json' },
+  { text: cms('wheel_test.milestones.after_2', 'رائع! أنت تتقدم خطوة بخطوة، استمر.'), lottie: 'aspect-2.json' },
+  { text: cms('wheel_test.milestones.after_3', 'ممتاز! تقدّمك واضح، خلّينا نكمل.'), lottie: 'aspect-3.json' },
+  { text: cms('wheel_test.milestones.after_4', 'أنت في منتصف الطريق! كمّل بنفس الحماس.'), lottie: 'aspect-4.json' },
+  { text: cms('wheel_test.milestones.after_5', 'أحسنت! جانب جديد اكتمل، ورحلتك بتكبر.'), lottie: 'aspect-5.json' },
+  { text: cms('wheel_test.milestones.after_6', 'أحسنت! جانب جديد اكتمل، ورحلتك بتكبر.'), lottie: 'aspect-6.json' },
+  { text: cms('wheel_test.milestones.after_7', 'باقي خطوة واحدة! أنت قريب من النهاية.'), lottie: 'aspect-7.json' },
+  { text: cms('wheel_test.milestones.after_8', 'أحسنت! اكتملت رحلتك، اكتشف نتيجتك.'), lottie: 'aspect-8.json' }
 ];
 
 function showMilestone() {

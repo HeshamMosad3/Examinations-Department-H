@@ -12,35 +12,35 @@
   $badgeStyle = fn ($b) => "background: {$b['bg']}; border-color: {$b['border']}; box-shadow: 0 17px 17px {$b['shadow']}, inset 0 5.7px 11.45px {$b['inset']};";
 
   $basicTypes = [
-    ['key' => 'visual', 'title' => 'بصري', 'text' => 'يغلب عليك الإدراك البصري.', 'card' => '#eff6ff', 'card_border' => 'rgba(30,90,249,0.3)'],
-    ['key' => 'auditory', 'title' => 'سمعي', 'text' => 'يغلب عليك الإدراك السمعي.', 'card' => '#f5f3ff', 'card_border' => 'rgba(124,58,237,0.3)'],
-    ['key' => 'sensory', 'title' => 'حسي', 'text' => 'تشعر وتتفاعل مع ما حولك.', 'card' => '#fdf2f8', 'card_border' => 'rgba(236,72,153,0.3)'],
+    ['key' => 'visual', 'title' => cms('perceptual_explore.types.visual_title', 'بصري'), 'text' => cms('perceptual_explore.types.visual_text', 'يغلب عليك الإدراك البصري.'), 'card' => '#eff6ff', 'card_border' => 'rgba(30,90,249,0.3)'],
+    ['key' => 'auditory', 'title' => cms('perceptual_explore.types.auditory_title', 'سمعي'), 'text' => cms('perceptual_explore.types.auditory_text', 'يغلب عليك الإدراك السمعي.'), 'card' => '#f5f3ff', 'card_border' => 'rgba(124,58,237,0.3)'],
+    ['key' => 'sensory', 'title' => cms('perceptual_explore.types.kinesthetic_title', 'حسي'), 'text' => cms('perceptual_explore.types.kinesthetic_text', 'تشعر وتتفاعل مع ما حولك.'), 'card' => '#fdf2f8', 'card_border' => 'rgba(236,72,153,0.3)'],
   ];
   // ترتيب الشارات زي فيجما (من الشمال لليمين)
   $otherTypes = [
-    ['title' => 'سمعي - حسي', 'text' => 'يجمع بين السمعي والحسي', 'badges' => ['sensory', 'auditory']],
-    ['title' => 'بصري - حسي', 'text' => 'يجمع بين البصري والحسي', 'badges' => ['sensory', 'visual']],
-    ['title' => 'بصري - سمعي', 'text' => 'يجمع بين البصري والسمعي', 'badges' => ['auditory', 'visual']],
-    ['title' => 'متوازن', 'text' => 'لديك توازن نسبي بين الأنماط', 'badges' => ['sensory', 'auditory', 'visual']],
+    ['title' => cms('perceptual_explore.types.auditory_kinesthetic_title', 'سمعي - حسي'), 'text' => cms('perceptual_explore.types.auditory_kinesthetic_text', 'يجمع بين السمعي والحسي'), 'badges' => ['sensory', 'auditory']],
+    ['title' => cms('perceptual_explore.types.visual_kinesthetic_title', 'بصري - حسي'), 'text' => cms('perceptual_explore.types.visual_kinesthetic_text', 'يجمع بين البصري والحسي'), 'badges' => ['sensory', 'visual']],
+    ['title' => cms('perceptual_explore.types.visual_auditory_title', 'بصري - سمعي'), 'text' => cms('perceptual_explore.types.visual_auditory_text', 'يجمع بين البصري والسمعي'), 'badges' => ['auditory', 'visual']],
+    ['title' => cms('perceptual_explore.types.balanced_title', 'متوازن'), 'text' => cms('perceptual_explore.types.balanced_text', 'لديك توازن نسبي بين الأنماط'), 'badges' => ['sensory', 'auditory', 'visual']],
   ];
 
   $lifeCards = [
-    ['icon' => 'life-learning.svg', 'title' => 'في التعلم', 'text' => 'هل تفضل مشاهدة المحتوى، أم الاستماع إلى الشرح، أم التعلم من خلال التطبيق؟', 'border' => '#204a7a', 'm_border' => '#204a7a', 'icon_bg' => 'rgba(219,234,254,0.7)'],
-    ['icon' => 'life-work.svg', 'title' => 'في العمل', 'text' => 'هل تساعدك المخططات والصور؟ أم النقاش؟ أم التجربة العملية؟', 'border' => '#4f46e5', 'm_border' => '#4f46e5', 'icon_bg' => '#eef2ff'],
-    ['icon' => 'life-communication.svg', 'title' => 'في التواصل', 'text' => 'هل تستوعب الفكرة أكثر عندما تراها، تسمع شرحها، أم تجربها بنفسك؟', 'border' => '#118bcb', 'm_border' => '#204a7a', 'icon_bg' => '#f0f9ff'],
-    ['icon' => 'life-organize.svg', 'title' => 'في تنظيم المعلومات', 'text' => 'هل تميل إلى الصور والمخططات، الملاحظات الصوتية، أم التطبيق والممارسة؟', 'border' => '#0d9488', 'm_border' => '#204a7a', 'icon_bg' => '#f0fdfa'],
+    ['icon' => 'life-learning.svg', 'title' => cms('perceptual_explore.life.card_1_title', 'في التعلم'), 'text' => cms('perceptual_explore.life.card_1_text', 'هل تفضل مشاهدة المحتوى، أم الاستماع إلى الشرح، أم التعلم من خلال التطبيق؟'), 'border' => '#204a7a', 'm_border' => '#204a7a', 'icon_bg' => 'rgba(219,234,254,0.7)'],
+    ['icon' => 'life-work.svg', 'title' => cms('perceptual_explore.life.card_2_title', 'في العمل'), 'text' => cms('perceptual_explore.life.card_2_text', 'هل تساعدك المخططات والصور؟ أم النقاش؟ أم التجربة العملية؟'), 'border' => '#4f46e5', 'm_border' => '#4f46e5', 'icon_bg' => '#eef2ff'],
+    ['icon' => 'life-communication.svg', 'title' => cms('perceptual_explore.life.card_3_title', 'في التواصل'), 'text' => cms('perceptual_explore.life.card_3_text', 'هل تستوعب الفكرة أكثر عندما تراها، تسمع شرحها، أم تجربها بنفسك؟'), 'border' => '#118bcb', 'm_border' => '#204a7a', 'icon_bg' => '#f0f9ff'],
+    ['icon' => 'life-organize.svg', 'title' => cms('perceptual_explore.life.card_4_title', 'في تنظيم المعلومات'), 'text' => cms('perceptual_explore.life.card_4_text', 'هل تميل إلى الصور والمخططات، الملاحظات الصوتية، أم التطبيق والممارسة؟'), 'border' => '#0d9488', 'm_border' => '#204a7a', 'icon_bg' => '#f0fdfa'],
   ];
 
   $benefits = [
-    ['text' => 'تتعرف على نقاط قوتك وفرص التطوير.', 'color' => '#3b82f6', 'bg' => '#e9f1ff', 'ring' => '0 0 0 10px rgba(219,234,254,0.65), 0 0 0 20px rgba(239,246,255,0.4)'],
-    ['text' => 'تكتشف نمطك في استقبال المعلومات.', 'color' => '#06b6d4', 'bg' => '#e8fcff', 'ring' => '0 0 0 10px rgba(207,250,254,0.6), 0 0 0 20px rgba(236,254,255,0.4)'],
-    ['text' => 'تطوّر أساليب التعلم المناسبة لك.', 'color' => '#7c3aed', 'bg' => '#ebdfff', 'ring' => '0 0 0 10px rgba(237,233,254,0.65), 0 0 0 20px rgba(245,243,255,0.4)'],
-    ['text' => 'تحسّن طريقة فهم وتذكر المعلومات.', 'color' => '#0284c7', 'bg' => '#e9f7ff', 'ring' => '0 0 0 10px rgba(224,242,254,0.6), 0 0 0 20px rgba(240,249,255,0.4)'],
-    ['text' => 'تطوّر مهارات التواصل مع الآخرين.', 'color' => '#10b981', 'bg' => '#dffff4', 'ring' => '0 0 0 10px rgba(209,250,229,0.55), 0 0 0 20px rgba(236,253,245,0.4)'],
-    ['text' => 'تحصل على توصيات عملية تناسب نتيجتك.', 'color' => '#f59e0b', 'bg' => '#fff1db', 'ring' => '0 0 0 10px rgba(255,160,0,0.14)'],
+    ['text' => cms('perceptual_explore.benefits.item_1', 'تتعرف على نقاط قوتك وفرص التطوير.'), 'color' => '#3b82f6', 'bg' => '#e9f1ff', 'ring' => '0 0 0 10px rgba(219,234,254,0.65), 0 0 0 20px rgba(239,246,255,0.4)'],
+    ['text' => cms('perceptual_explore.benefits.item_2', 'تكتشف نمطك في استقبال المعلومات.'), 'color' => '#06b6d4', 'bg' => '#e8fcff', 'ring' => '0 0 0 10px rgba(207,250,254,0.6), 0 0 0 20px rgba(236,254,255,0.4)'],
+    ['text' => cms('perceptual_explore.benefits.item_3', 'تطوّر أساليب التعلم المناسبة لك.'), 'color' => '#7c3aed', 'bg' => '#ebdfff', 'ring' => '0 0 0 10px rgba(237,233,254,0.65), 0 0 0 20px rgba(245,243,255,0.4)'],
+    ['text' => cms('perceptual_explore.benefits.item_4', 'تحسّن طريقة فهم وتذكر المعلومات.'), 'color' => '#0284c7', 'bg' => '#e9f7ff', 'ring' => '0 0 0 10px rgba(224,242,254,0.6), 0 0 0 20px rgba(240,249,255,0.4)'],
+    ['text' => cms('perceptual_explore.benefits.item_5', 'تطوّر مهارات التواصل مع الآخرين.'), 'color' => '#10b981', 'bg' => '#dffff4', 'ring' => '0 0 0 10px rgba(209,250,229,0.55), 0 0 0 20px rgba(236,253,245,0.4)'],
+    ['text' => cms('perceptual_explore.benefits.item_6', 'تحصل على توصيات عملية تناسب نتيجتك.'), 'color' => '#f59e0b', 'bg' => '#fff1db', 'ring' => '0 0 0 10px rgba(255,160,0,0.14)'],
   ];
 
-  $questionsLabel = ($questionsCount ?: 30) . ' سؤال';
+  $questionsLabel = ($questionsCount ?: 30) . ' ' . cms('perceptual_explore.hero.questions_unit', 'سؤال');
   $startUrl = route('perceptual.test');
 @endphp
 <!DOCTYPE html>
@@ -48,14 +48,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>اكتشف أنماط الإدراك | دار الرؤى للتدريب</title>
-  <meta name="description" content="أنماط الإدراك هي الطرق التي تميل لاستخدامها في استقبال المعلومات وفهمها والتفاعل معها: بصري، سمعي، حسي، أو مزيج منها." />
+  <title>{{ cms('perceptual_explore.seo.title', 'اكتشف أنماط الإدراك | دار الرؤى للتدريب') }}</title>
+  <meta name="description" content="{{ cms('perceptual_explore.seo.description', 'أنماط الإدراك هي الطرق التي تميل لاستخدامها في استقبال المعلومات وفهمها والتفاعل معها: بصري، سمعي، حسي، أو مزيج منها.') }}" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#204A7A" />
   <link rel="canonical" href="https://alruaa.com/perceptual-explore.html" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="اكتشف أنماط الإدراك | دار الرؤى للتدريب" />
-  <meta property="og:description" content="تعرّف على أنماط الإدراك وكيف تظهر في حياتك، ثم اكتشف نمطك." />
+  <meta property="og:title" content="{{ cms('perceptual_explore.seo.title', 'اكتشف أنماط الإدراك | دار الرؤى للتدريب') }}" />
+  <meta property="og:description" content="{{ cms('perceptual_explore.seo.share_description', 'تعرّف على أنماط الإدراك وكيف تظهر في حياتك، ثم اكتشف نمطك.') }}" />
   <meta property="og:locale" content="ar_SA" />
   <link rel="icon" type="image/png" href="/landing/images/logo.png" />
 
@@ -64,10 +64,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=El+Messiri:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-  {{ (clone app(\Illuminate\Foundation\Vite::class))->useHotFile(public_path('landing.hot'))->useBuildDirectory('landing/build')->withEntryPoints(['resources/landing/style.css', 'resources/landing/js/perceptualExplore.js']) }}
+  @include('landing.partials.cms-script'){{ (clone app(\Illuminate\Foundation\Vite::class))->useHotFile(public_path('landing.hot'))->useBuildDirectory('landing/build')->withEntryPoints(['resources/landing/style.css', 'resources/landing/js/perceptualExplore.js']) }}
 </head>
 <body class="bg-brand-bg text-[#262626] min-h-screen font-cairo antialiased selection:bg-brand-primary selection:text-white relative page-wide-header">
-  <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:right-4 focus:z-[999] focus:px-5 focus:py-3 focus:bg-brand-primary focus:text-white focus:rounded-xl focus:shadow-xl focus:outline-none">تخطي إلى المحتوى الرئيسي</a>
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:right-4 focus:z-[999] focus:px-5 focus:py-3 focus:bg-brand-primary focus:text-white focus:rounded-xl focus:shadow-xl focus:outline-none">{{ cms('global.a11y.skip_link', 'تخطي إلى المحتوى الرئيسي') }}</a>
 
   @include('landing.partials.navbar')
 
@@ -76,9 +76,9 @@
 
     <!-- Desktop breadcrumb -->
     <nav class="hidden md:flex items-center gap-2 h-[32px] mb-[64px]" aria-label="مسار التنقل">
-      <a href="/#home" class="text-[#6f6f6f] hover:text-brand-primary transition-colors text-[18px]">الرئيسية</a>
+      <a href="/#home" class="text-[#6f6f6f] hover:text-brand-primary transition-colors text-[18px]">{{ cms('perceptual_explore.hero.breadcrumb_home', 'الرئيسية') }}</a>
       <i class="fa-solid fa-chevron-left text-[12px] text-[#6f6f6f]" aria-hidden="true"></i>
-      <span class="text-brand-primary text-[18px] font-medium">أنماط الإدراك</span>
+      <span class="text-brand-primary text-[18px] font-medium">{{ cms('perceptual_explore.hero.breadcrumb_current', 'أنماط الإدراك') }}</span>
     </nav>
 
     <div class="flex flex-col gap-[48px] lg:gap-[112px]">
@@ -91,17 +91,17 @@
             <a href="/#assessments" class="md:hidden size-[32px] p-[8px] rounded-full bg-[#e9edf2] flex items-center justify-center text-brand-primary shrink-0" aria-label="الرجوع للرئيسية">
               <i class="fa-solid fa-arrow-right text-[14px]" aria-hidden="true"></i>
             </a>
-            <h1 id="pe-title" class="font-bold text-[21px] lg:text-[36px] leading-normal text-[#1d436e]">ما هي أنماط الإدراك؟</h1>
+            <h1 id="pe-title" class="font-bold text-[21px] lg:text-[36px] leading-normal text-[#1d436e]">{{ cms('perceptual_explore.hero.title', 'ما هي أنماط الإدراك؟') }}</h1>
           </div>
           <div class="flex flex-col items-center lg:items-start gap-[33px] lg:gap-[74px] w-full max-w-[361px] lg:max-w-none lg:-mt-[4px]">
-            <p class="font-medium text-[14px] lg:text-[21px] leading-normal text-[#565656] text-center lg:text-right max-w-[339px] lg:max-w-none">أنماط الإدراك هي الطرق التي تميل لاستخدامها في استقبال المعلومات وفهمها والتفاعل معها. قد تكون ميولك بصرية أو سمعية أو حسية، أو تجمع بين أكثر من نمط.</p>
+            <p class="font-medium text-[14px] lg:text-[21px] leading-normal text-[#565656] text-center lg:text-right max-w-[339px] lg:max-w-none">{{ cms('perceptual_explore.hero.text', 'أنماط الإدراك هي الطرق التي تميل لاستخدامها في استقبال المعلومات وفهمها والتفاعل معها. قد تكون ميولك بصرية أو سمعية أو حسية، أو تجمع بين أكثر من نمط.') }}</p>
             <div class="flex flex-col items-center lg:items-start gap-[16px] lg:gap-[55px] w-full">
               <a href="{{ $startUrl }}" class="group w-[195px] lg:w-[271px] h-[45px] lg:h-[60px] rounded-[10px] lg:rounded-[15px] bg-[#204a7a] hover:bg-[#102744] text-[#e9edf2] font-semibold text-[14px] lg:text-[25px] leading-[1.5] flex items-center justify-center gap-[8px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#204a7a] focus-visible:ring-offset-2">
-                <span>ابدأ التقييم الآن</span>
+                <span>{{ cms('perceptual_explore.hero.start_button', 'ابدأ التقييم الآن') }}</span>
                 <i class="fa-solid fa-arrow-left text-[12px] lg:text-[20px] group-hover:-translate-x-1 transition-transform" aria-hidden="true"></i>
               </a>
               <ul class="flex items-center gap-[6px] lg:gap-[20px]">
-                @foreach ([['chip-list.svg', $questionsLabel, 'w-[80px] lg:w-[100px]'], ['chip-check.svg', 'لا توجد إجابات صحيحة أو خاطئة', 'w-[172px] lg:w-[230px]'], ['chip-lightning.svg', 'نتائج فورية', 'w-[80px] lg:w-[110px]']] as [$icon, $label, $w])
+                @foreach ([['chip-list.svg', $questionsLabel, 'w-[80px] lg:w-[100px]'], ['chip-check.svg', cms('perceptual_explore.hero.chip_no_wrong', 'لا توجد إجابات صحيحة أو خاطئة'), 'w-[172px] lg:w-[230px]'], ['chip-lightning.svg', cms('perceptual_explore.hero.chip_instant', 'نتائج فورية'), 'w-[80px] lg:w-[110px]']] as [$icon, $label, $w])
                   <li class="{{ $w }} h-[25px] lg:h-[35px] bg-white border border-[rgba(226,232,240,0.7)] rounded-full px-[7px] flex items-center justify-center gap-[4px]">
                     <img src="{{ $img }}/{{ $icon }}" alt="" class="size-[16px] lg:size-[20px]" />
                     <span class="font-medium text-[10px] lg:text-[14px] leading-[1.5] text-[#565656] whitespace-nowrap">{{ $label }}</span>
@@ -135,13 +135,13 @@
             </svg>
 
             <!-- Head -->
-            <img src="/landing/images/illustrations/perception-head.png" alt="" loading="lazy" decoding="async" class="absolute object-contain" style="left: {{ $u(144.86) }}; top: {{ $u(158.88) }}; width: {{ $u(269.09) }}; height: {{ $u(226.15) }}" />
+            <img src="{{ cms_image('perceptual_explore.hero.image', '/landing/images/illustrations/perception-head.png') }}" alt="" loading="lazy" decoding="async" class="absolute object-contain" style="left: {{ $u(144.86) }}; top: {{ $u(158.88) }}; width: {{ $u(269.09) }}; height: {{ $u(226.15) }}" />
             <div class="absolute rounded-full bg-brand-bg" style="left: {{ $u(193.52) }}; top: {{ $u(357.84) }}; width: {{ $u(207.54) }}; height: {{ $u(68.7) }}; filter: blur({{ $u(15.3) }})"></div>
 
             @foreach ([
-              ['key' => 'auditory', 'title' => 'سمعي', 'text' => 'تسمع وتفهم الأصوات.', 'box' => 'left: ' . $u(199.25) . '; top: 0; width: ' . $u(156.01), 'gap' => 5.73, 'tgap' => 2.86, 'tw' => 110.21],
-              ['key' => 'sensory', 'title' => 'حسي', 'text' => 'تشعر وتتفاعل مع ما حولك.', 'box' => 'left: ' . $u(412.22) . '; top: ' . $u(236.17) . '; width: ' . $u(127.39), 'gap' => 8.59, 'tgap' => 5.73, 'tw' => 127.39],
-              ['key' => 'visual', 'title' => 'بصري', 'text' => 'ترى وتلاحظ التفاصيل.', 'box' => 'left: ' . $u(12.88) . '; top: ' . $u(221.85) . '; width: ' . $u(140.27), 'gap' => 5.73, 'tgap' => 5.73, 'tw' => 143.13],
+              ['key' => 'auditory', 'title' => cms('perceptual_explore.hero.auditory_title', 'سمعي'), 'text' => cms('perceptual_explore.hero.auditory_text', 'تسمع وتفهم الأصوات.'), 'box' => 'left: ' . $u(199.25) . '; top: 0; width: ' . $u(156.01), 'gap' => 5.73, 'tgap' => 2.86, 'tw' => 110.21],
+              ['key' => 'sensory', 'title' => cms('perceptual_explore.hero.kinesthetic_title', 'حسي'), 'text' => cms('perceptual_explore.hero.kinesthetic_text', 'تشعر وتتفاعل مع ما حولك.'), 'box' => 'left: ' . $u(412.22) . '; top: ' . $u(236.17) . '; width: ' . $u(127.39), 'gap' => 8.59, 'tgap' => 5.73, 'tw' => 127.39],
+              ['key' => 'visual', 'title' => cms('perceptual_explore.hero.visual_title', 'بصري'), 'text' => cms('perceptual_explore.hero.visual_text', 'ترى وتلاحظ التفاصيل.'), 'box' => 'left: ' . $u(12.88) . '; top: ' . $u(221.85) . '; width: ' . $u(140.27), 'gap' => 5.73, 'tgap' => 5.73, 'tw' => 143.13],
             ] as $node)
               @php $b = $badges[$node['key']]; @endphp
               <div class="absolute flex flex-col items-center" style="{{ $node['box'] }}; gap: {{ $u($node['tgap']) }}">
@@ -160,13 +160,13 @@
 
       <!-- ===== Know your perceptual patterns ===== -->
       <section class="flex flex-col items-center gap-[23px] lg:gap-[60px]" aria-labelledby="pe-types">
-        <h2 id="pe-types" class="font-semibold lg:font-bold text-[18px] lg:text-[30px] leading-[1.5] lg:leading-normal text-[#0d0d0d] lg:text-[#262626] text-center">تعرّف على أنماط إدراكك</h2>
+        <h2 id="pe-types" class="font-semibold lg:font-bold text-[18px] lg:text-[30px] leading-[1.5] lg:leading-normal text-[#0d0d0d] lg:text-[#262626] text-center">{{ cms('perceptual_explore.types.title', 'تعرّف على أنماط إدراكك') }}</h2>
         <div class="w-full max-w-[361px] lg:max-w-none flex flex-col items-center gap-[32px] lg:gap-[40px]">
 
           <!-- Basic types -->
           <div class="w-full flex flex-col items-center gap-[20px] lg:gap-px">
             <div class="flex flex-col items-center gap-[16px]">
-              <span class="bg-[#204a7a] text-white rounded-full h-[29px] lg:h-auto w-[147px] lg:w-auto px-[16px] lg:px-[24px] py-[4px] lg:py-[8px] font-bold lg:font-semibold text-[14px] lg:text-[20px] leading-[16px] lg:leading-[24px] flex items-center justify-center drop-shadow-[0px_1px_1px_rgba(0,0,0,0.05)]">الأنماط الأساسية</span>
+              <span class="bg-[#204a7a] text-white rounded-full h-[29px] lg:h-auto w-[147px] lg:w-auto px-[16px] lg:px-[24px] py-[4px] lg:py-[8px] font-bold lg:font-semibold text-[14px] lg:text-[20px] leading-[16px] lg:leading-[24px] flex items-center justify-center drop-shadow-[0px_1px_1px_rgba(0,0,0,0.05)]">{{ cms('perceptual_explore.types.basic_label', 'الأنماط الأساسية') }}</span>
               <img src="{{ $img }}/tree-basic.svg" alt="" class="hidden lg:block w-[793px] h-[12px]" aria-hidden="true" />
             </div>
             <div class="w-full lg:w-[1096px] grid grid-cols-1 lg:grid-cols-3 gap-[14px] lg:gap-[20px]">
@@ -188,7 +188,7 @@
           <!-- Other types -->
           <div class="w-full flex flex-col items-center gap-[20px] lg:gap-[10px]">
             <div class="flex flex-col items-center gap-[16px] w-full">
-              <span class="bg-[#204a7a] text-white rounded-full h-[29px] lg:h-auto w-[131px] lg:w-[168px] px-[16px] lg:px-[24px] py-[4px] lg:py-[8px] font-bold lg:font-semibold text-[14px] lg:text-[20px] leading-[16px] lg:leading-[24px] flex items-center justify-center drop-shadow-[0px_1px_1px_rgba(0,0,0,0.05)]">أنماط أخرى</span>
+              <span class="bg-[#204a7a] text-white rounded-full h-[29px] lg:h-auto w-[131px] lg:w-[168px] px-[16px] lg:px-[24px] py-[4px] lg:py-[8px] font-bold lg:font-semibold text-[14px] lg:text-[20px] leading-[16px] lg:leading-[24px] flex items-center justify-center drop-shadow-[0px_1px_1px_rgba(0,0,0,0.05)]">{{ cms('perceptual_explore.types.other_label', 'أنماط أخرى') }}</span>
               <img src="{{ $img }}/tree-others.svg" alt="" class="hidden lg:block w-[1024px] h-[13px]" aria-hidden="true" />
             </div>
             <div class="w-full grid grid-cols-2 lg:grid-cols-4 gap-[12px] lg:gap-[19px]">
@@ -215,7 +215,7 @@
 
       <!-- ===== How it shows in your life ===== -->
       <section class="flex flex-col items-center gap-[20px] lg:gap-[60px]" aria-labelledby="pe-life">
-        <h2 id="pe-life" class="font-bold text-[21px] lg:text-[30px] leading-normal text-[#262626] text-center">كيف يظهر نمط إدراكك في حياتك؟</h2>
+        <h2 id="pe-life" class="font-bold text-[21px] lg:text-[30px] leading-normal text-[#262626] text-center">{{ cms('perceptual_explore.life.title', 'كيف يظهر نمط إدراكك في حياتك؟') }}</h2>
         <div class="w-full max-w-[361px] lg:max-w-none grid grid-cols-1 lg:grid-cols-4 gap-[14px] lg:gap-[22px]">
           @foreach ($lifeCards as $c)
             <article class="border-[0.8px] lg:border-[1.5px] border-[var(--mb)] lg:border-[var(--b)] rounded-[16px] lg:rounded-[24px] bg-gradient-to-b from-white to-[rgba(248,250,252,0.5)] lg:bg-none lg:bg-white px-[17px] py-[16px] lg:px-[50px] lg:py-[30px] flex lg:flex-col items-start lg:items-center gap-[14px] lg:gap-[12px]" style="--b: {{ $c['border'] }}; --mb: {{ $c['m_border'] }}">
@@ -233,7 +233,7 @@
 
       <!-- ===== Benefits ===== -->
       <section class="flex flex-col items-center gap-[20px] lg:gap-[60px]" aria-labelledby="pe-benefits">
-        <h2 id="pe-benefits" class="font-bold text-[21px] lg:text-[30px] leading-normal text-[#262626] text-center">ماذا تستفيد من معرفة نمطك؟</h2>
+        <h2 id="pe-benefits" class="font-bold text-[21px] lg:text-[30px] leading-normal text-[#262626] text-center">{{ cms('perceptual_explore.benefits.title', 'ماذا تستفيد من معرفة نمطك؟') }}</h2>
 
         <!-- Desktop: horizontal steps on a wavy line -->
         <ol class="hidden lg:flex relative w-[1130px] justify-between">
@@ -282,11 +282,11 @@
       </div>
       <div class="flex flex-col items-center lg:items-start gap-[24px] lg:gap-[48px] lg:w-[589px]">
         <div class="flex flex-col items-center lg:items-start gap-[8px] lg:gap-[20px] text-center lg:text-right">
-          <h2 id="pe-cta" class="font-bold text-[24px] lg:text-[36px] leading-[32px] lg:leading-normal text-[#204a7a] lg:text-[#11254d] pt-[8px] lg:pt-0">اكتشف نمط إدراكك</h2>
-          <p class="font-normal text-[12px] lg:text-[21px] leading-[19.5px] lg:leading-[1.5] text-[#565656] max-w-[274px] lg:max-w-none">أجب عن {{ $questionsCount ?: 30 }} سؤالاً لتتعرف على نمط الإدراك الأقرب إليك، سواء كان بصرياً، سمعياً، حسياً أو مزيجاً من أكثر من نمط.</p>
+          <h2 id="pe-cta" class="font-bold text-[24px] lg:text-[36px] leading-[32px] lg:leading-normal text-[#204a7a] lg:text-[#11254d] pt-[8px] lg:pt-0">{{ cms('perceptual_explore.cta.title', 'اكتشف نمط إدراكك') }}</h2>
+          <p class="font-normal text-[12px] lg:text-[21px] leading-[19.5px] lg:leading-[1.5] text-[#565656] max-w-[274px] lg:max-w-none">{{ cms('perceptual_explore.cta.text_before_count', 'أجب عن') }} {{ $questionsCount ?: 30 }} {{ cms('perceptual_explore.cta.text_after_count', 'سؤالاً لتتعرف على نمط الإدراك الأقرب إليك، سواء كان بصرياً، سمعياً، حسياً أو مزيجاً من أكثر من نمط.') }}</p>
         </div>
         <a href="{{ $startUrl }}" class="group w-[190px] lg:w-[271px] h-[45px] lg:h-[60px] rounded-[10px] lg:rounded-[15px] bg-[#204a7a] hover:bg-[#102744] text-[#e9edf2] font-semibold text-[14px] lg:text-[25px] leading-[1.5] flex items-center justify-center gap-[8px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#204a7a] focus-visible:ring-offset-2">
-          <span>ابدأ التقييم الآن</span>
+          <span>{{ cms('perceptual_explore.cta.start_button', 'ابدأ التقييم الآن') }}</span>
           <i class="fa-solid fa-arrow-left text-[12px] lg:text-[20px] group-hover:-translate-x-1 transition-transform" aria-hidden="true"></i>
         </a>
       </div>

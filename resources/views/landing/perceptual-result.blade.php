@@ -14,7 +14,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>تقرير نتائج مقياس الأنماط الإدراكية | دار الرؤى للتدريب</title>
+  <title>{{ cms('perceptual_result.header.seo_title', 'تقرير نتائج مقياس الأنماط الإدراكية | دار الرؤى للتدريب') }}</title>
   <meta name="robots" content="noindex" />
   <meta name="theme-color" content="#204A7A" />
   <link rel="icon" type="image/png" href="/landing/images/logo.png" />
@@ -38,7 +38,7 @@
 
   <!-- Logo -->
   <a href="/" class="bg-[#204a7a] w-[77px] h-[79px] lg:w-[111px] lg:h-[120px] flex items-center justify-center shrink-0" aria-label="دار الرؤى للتدريب - الرئيسية">
-    <img src="{{ $img }}/logo.png" alt="دار الرؤى للتدريب" class="w-[50px] h-[51px] lg:w-[77px] lg:h-[78px] object-contain object-bottom" />
+    <img src="{{ cms_image('perceptual_result.header.logo', '/landing/images/perceptual-report/logo.png') }}" alt="دار الرؤى للتدريب" class="w-[50px] h-[51px] lg:w-[77px] lg:h-[78px] object-contain object-bottom" />
   </a>
 
   <div class="w-full flex flex-col items-center gap-[48px] lg:gap-[64px]">
@@ -47,17 +47,17 @@
     <header class="flex flex-col items-center gap-[8px] lg:gap-[21px] text-center px-4 lg:px-0 max-w-[767px]">
       <div class="flex items-center justify-center gap-[2px]">
         <img src="{{ $img }}/check-shield.svg" alt="" width="23" height="25" class="lg:hidden w-[23px] h-[25px]" />
-        <h1 class="font-bold lg:font-semibold text-[18px] lg:text-[36px] leading-normal lg:leading-[1.5] text-[#204a7a]">تقرير نتائج مقياس الأنماط الإدراكية</h1>
+        <h1 class="font-bold lg:font-semibold text-[18px] lg:text-[36px] leading-normal lg:leading-[1.5] text-[#204a7a]">{{ cms('perceptual_result.header.title', 'تقرير نتائج مقياس الأنماط الإدراكية') }}</h1>
       </div>
-      <p class="font-medium text-[14px] lg:text-[25px] leading-normal text-[#262626] lg:text-[#565656] max-w-[311px] lg:max-w-[602px]">اكتشف النمط الإدراكي الغالب لديك (بصري، سمعي، أو حسي) لتحسين أساليب التعلم والتواصل.</p>
+      <p class="font-medium text-[14px] lg:text-[25px] leading-normal text-[#262626] lg:text-[#565656] max-w-[311px] lg:max-w-[602px]">{{ cms('perceptual_result.header.subtitle', 'اكتشف النمط الإدراكي الغالب لديك (بصري، سمعي، أو حسي) لتحسين أساليب التعلم والتواصل.') }}</p>
     </header>
 
     <!-- Report info -->
     <section class="w-full max-w-[361px] lg:max-w-none bg-white rounded-[16px] lg:rounded-[20px] drop-shadow-[0px_1px_4.55px_rgba(0,0,0,0.04)] flex items-center justify-center lg:justify-between gap-[10px] lg:px-[48px] lg:py-[32px]">
       @foreach ([
-        ['icon' => 'user-check.svg', 'label' => 'المستفيد', 'mlabel' => 'المستخدم والمستفيد', 'value' => $beneficiary, 'w' => 'lg:w-[241px]'],
-        ['icon' => 'date.svg', 'label' => 'تاريخ التنفيذ', 'mlabel' => null, 'value' => now()->format('d M Y'), 'w' => 'lg:w-[241px]'],
-        ['icon' => 'report.svg', 'label' => 'رقم التقرير المعتمد', 'mlabel' => 'رقم التقرير المعتمد', 'value' => $reportCode,'w' => 'lg:w-[241px]'],
+        ['icon' => 'user-check.svg', 'label' => cms('perceptual_result.info.beneficiary', 'المستفيد'), 'mlabel' => cms('perceptual_result.info.beneficiary_mobile', 'المستخدم والمستفيد'), 'value' => $beneficiary, 'w' => 'lg:w-[241px]'],
+        ['icon' => 'date.svg', 'label' => cms('perceptual_result.info.date', 'تاريخ التنفيذ'), 'mlabel' => null, 'value' => now()->format('d M Y'), 'w' => 'lg:w-[241px]'],
+        ['icon' => 'report.svg', 'label' => cms('perceptual_result.info.report_code', 'رقم التقرير المعتمد'), 'mlabel' => cms('perceptual_result.info.report_code', 'رقم التقرير المعتمد'), 'value' => $reportCode,'w' => 'lg:w-[241px]'],
       ] as $item)
         <div class="{{ $item['mlabel'] ? 'flex' : 'hidden lg:flex' }} flex-col items-center gap-[8px] lg:gap-[16px] p-[10px] lg:p-0 w-[120px] {{ $item['w'] }}">
           <div class="bg-[#fff0e4] rounded-[8px] lg:rounded-[11px] size-[32px] lg:size-[60px] flex items-center justify-center">
@@ -80,7 +80,7 @@
           <div class="flex items-center justify-between">
             <div class="bg-[#d9eaff] h-[35px] lg:h-[40px] rounded-full px-[12px] flex items-center gap-[6px] lg:w-[225px] lg:justify-center">
               <img src="{{ $img }}/star.svg" alt="" class="size-[14px] lg:size-[16px]" />
-              <span class="font-bold text-[12px] lg:text-[14px] leading-[16px] text-[#204a7a] whitespace-nowrap">النمط الإدراكي الغالب لديك</span>
+              <span class="font-bold text-[12px] lg:text-[14px] leading-[16px] text-[#204a7a] whitespace-nowrap">{{ cms('perceptual_result.sections.dominant_label', 'النمط الإدراكي الغالب لديك') }}</span>
             </div>
             <div class="bg-[#d9eaff] w-[40px] h-[35px] lg:w-[45px] lg:h-[40px] rounded-[9px] flex items-center justify-center" aria-hidden="true">
               @if ($report['icon'])<img src="{{ $report['icon'] }}" alt="" class="w-[22px] h-[22px] lg:w-[26px] lg:h-[26px] object-contain" />@endif
@@ -90,7 +90,7 @@
             <div class="flex items-center justify-between gap-3 lg:min-h-[63px]">
               <h2 class="font-bold text-[25px] lg:text-[30px] leading-[32px] tracking-[-0.6px] text-[#204a7a]">{{ $report['title'] }}</h2>
               <p class="font-medium text-[#204a7a] tracking-[-0.6px] leading-[32px] whitespace-nowrap shrink-0">
-                <span dir="ltr"><span class="text-[17px] lg:text-[25px]">{{ $top['max'] }}</span><span class="font-bold text-[25px] lg:text-[30px]">/{{ $top['score'] }}</span></span><span class="text-[16px] lg:text-[25px]">درجة</span>
+                <span dir="ltr"><span class="text-[17px] lg:text-[25px]">{{ $top['max'] }}</span><span class="font-bold text-[25px] lg:text-[30px]">/{{ $top['score'] }}</span></span><span class="text-[16px] lg:text-[25px]">{{ cms('perceptual_result.sections.score_unit', 'درجة') }}</span>
               </p>
             </div>
             <p class="font-medium lg:font-normal text-[12px] lg:text-[17px] leading-[19.5px] lg:leading-[1.5] text-[#262626] lg:max-w-[415px]">{{ $report['summary'] }}</p>
@@ -101,7 +101,7 @@
         <section class="flex-1 bg-white border border-[#e9edf2] rounded-[16px] lg:rounded-[20px] {{ $card }} p-[17px] lg:p-[25px] flex flex-col gap-[20px] justify-center">
           <div class="flex items-center gap-[4px] lg:gap-[8px]">
             <span class="bg-[#e9edf2] rounded-full size-[28px] lg:size-[35px] flex items-center justify-center shrink-0"><img src="{{ $img }}/layers.svg" alt="" class="size-[20px]" /></span>
-            <h2 class="font-semibold text-[17px] lg:text-[25px] leading-[20px] text-[#262626]">درجاتك في الأنماط الإدراكية</h2>
+            <h2 class="font-semibold text-[17px] lg:text-[25px] leading-[20px] text-[#262626]">{{ cms('perceptual_result.sections.scores_title', 'درجاتك في الأنماط الإدراكية') }}</h2>
           </div>
           <div class="flex flex-col gap-[14px]">
             @foreach ($styles as $style)
@@ -127,7 +127,7 @@
       <section class="bg-[#fafcff] border border-[#e9edf2] lg:border-[#f1f5f9] rounded-[16px] {{ $card }} pt-[16px] pb-[28px] lg:pt-[23px] lg:pb-[33px] px-0 lg:px-[23px] flex flex-col gap-[11px] lg:gap-[40px]">
         <div class="flex items-center gap-[8px] px-[27px] lg:px-[2px]">
           <span class="bg-[#e9edf2] rounded-full size-[28px] lg:size-[38px] flex items-center justify-center shrink-0"><img src="{{ $img }}/light-bulb.svg" alt="" class="w-[18px] h-[18px] lg:w-[20px] lg:h-[19px]" /></span>
-          <h2 class="font-semibold text-[17px] lg:text-[25px] leading-[1.5] text-[#262626]">كيف تتعلم بشكل أفضل؟</h2>
+          <h2 class="font-semibold text-[17px] lg:text-[25px] leading-[1.5] text-[#262626]">{{ cms('perceptual_result.sections.how_to_learn_title', 'كيف تتعلم بشكل أفضل؟') }}</h2>
         </div>
         <div class="grid grid-cols-2 lg:grid-cols-3 gap-x-[8px] gap-y-[9px] lg:gap-x-[17px] lg:gap-y-[29px] w-full max-w-[338px] lg:max-w-none mx-auto">
           @foreach ($report['how_to_learn'] as $how)
@@ -144,8 +144,8 @@
       <!-- Strengths + development -->
       <div class="flex flex-col lg:flex-row gap-[32px] lg:gap-[76px] lg:items-stretch">
         @foreach ([
-          ['title' => $report['strengths_title'], 'items' => $report['strengths'], 'label' => 'مكتمل', 'icon' => 'sparkles.svg', 'item_icon' => 'circle-tick.svg', 'top' => '#26797e', 'color' => '#27797e', 'pill' => '#e6f9ef', 'bg' => '#ebfcf3', 'gap' => 'gap-[14px]', 'pad' => 'px-[8px] py-[12px] lg:min-h-[54px]'],
-          ['title' => 'جوانب التطوير والتحسين', 'items' => $report['development'], 'label' => 'توصيات', 'icon' => 'arrow-up-circle.svg', 'item_icon' => 'trending-up.svg', 'top' => '#b8aa44', 'color' => '#9c8e30', 'pill' => '#f9f7e8', 'bg' => '#fcfaec', 'gap' => 'gap-[10px] lg:gap-[14px]', 'pad' => 'px-[10.5px] py-[16.5px] lg:py-0 lg:h-[54px]'],
+          ['title' => $report['strengths_title'], 'items' => $report['strengths'], 'label' => cms('perceptual_result.sections.strengths_badge', 'مكتمل'), 'icon' => 'sparkles.svg', 'item_icon' => 'circle-tick.svg', 'top' => '#26797e', 'color' => '#27797e', 'pill' => '#e6f9ef', 'bg' => '#ebfcf3', 'gap' => 'gap-[14px]', 'pad' => 'px-[8px] py-[12px] lg:min-h-[54px]'],
+          ['title' => cms('perceptual_result.sections.development_title', 'جوانب التطوير والتحسين'), 'items' => $report['development'], 'label' => cms('perceptual_result.sections.development_badge', 'توصيات'), 'icon' => 'arrow-up-circle.svg', 'item_icon' => 'trending-up.svg', 'top' => '#b8aa44', 'color' => '#9c8e30', 'pill' => '#f9f7e8', 'bg' => '#fcfaec', 'gap' => 'gap-[10px] lg:gap-[14px]', 'pad' => 'px-[10.5px] py-[16.5px] lg:py-0 lg:h-[54px]'],
         ] as $list)
           <section class="flex-1 bg-white border-t-4 rounded-[16px] {{ $card }} px-[16px] py-[26px] flex flex-col gap-[24px]" style="border-top-color: {{ $list['top'] }}">
             <div class="flex items-center justify-between gap-3 border-b border-[#ddd] pb-[9px]">
@@ -172,7 +172,7 @@
         <section class="bg-white border border-[#f1f5f9] rounded-[16px] {{ $card }} px-[16px] py-[21px] lg:p-[24px] flex flex-col gap-[19px] lg:gap-[40px]">
           <div class="flex items-center gap-[8px]">
             <span class="bg-[#e5f0ff] rounded-full size-[28px] lg:size-[38px] flex items-center justify-center shrink-0"><img src="{{ $img }}/book-mark.svg" alt="" class="size-[18px] lg:size-[20px]" /></span>
-            <h2 class="font-semibold text-[17px] lg:text-[25px] leading-[1.5] text-[#262626]">البرامج التدريبية المقترحة لك:</h2>
+            <h2 class="font-semibold text-[17px] lg:text-[25px] leading-[1.5] text-[#262626]">{{ cms('perceptual_result.sections.programs_title', 'البرامج التدريبية المقترحة لك:') }}</h2>
           </div>
           @php $programRows = [array_slice($report['programs'], 0, 3), array_slice($report['programs'], 3)]; @endphp
           <div class="flex flex-col gap-[12px] lg:gap-[32px]">
@@ -206,7 +206,7 @@
       <section class="bg-white border border-[#f1f5f9] rounded-[16px] {{ $card }} px-[16px] py-[17px] lg:p-[24px] flex flex-col gap-[19px] lg:gap-[32px]">
         <div class="flex items-center gap-[8px]">
           <span class="bg-[#e5f0ff] rounded-full size-[28px] lg:size-[38px] flex items-center justify-center shrink-0"><img src="{{ $img }}/sparkle.svg" alt="" class="size-[18px] lg:size-[20px]" /></span>
-          <h2 class="font-semibold text-[17px] lg:text-[25px] leading-[20px] text-[#262626]">نصائح عملية لك:</h2>
+          <h2 class="font-semibold text-[17px] lg:text-[25px] leading-[20px] text-[#262626]">{{ cms('perceptual_result.sections.tips_title', 'نصائح عملية لك:') }}</h2>
         </div>
         <ul class="flex flex-col lg:grid lg:grid-cols-3 gap-[10px] lg:gap-x-[14px] lg:gap-y-[20px]">
           @foreach ($report['tips'] as $tip)
@@ -224,9 +224,9 @@
       <section class="w-full lg:max-w-[924px] lg:mx-auto bg-gradient-to-r from-[#f1f5f9] to-[rgba(239,246,255,0.4)] border border-[#d6e5f8] rounded-[16px] lg:rounded-[21px] p-[16px] lg:min-h-[232px] flex flex-col items-center justify-center gap-[10px] text-center">
         <div class="flex items-center gap-[8px]">
           <img src="{{ $img }}/message-dot.svg" alt="" class="size-[18px] lg:size-[24px]" />
-          <h2 class="font-semibold text-[14px] lg:text-[30px] leading-normal lg:leading-[1.5] text-[#204a7a]">رسالتنا لك:</h2>
+          <h2 class="font-semibold text-[14px] lg:text-[30px] leading-normal lg:leading-[1.5] text-[#204a7a]">{{ cms('perceptual_result.sections.message_title', 'رسالتنا لك:') }}</h2>
         </div>
-        <p class="font-normal lg:font-medium text-[12px] lg:text-[21px] leading-[1.5] text-[#262626] max-w-[301px] lg:max-w-[623px]">نتائج هذا التقرير تمثل نقطة بداية لفهم قدراتك وننصحك بالاستفادة منها في وضع خطة تطوير مستمرة تناسب أهدافك المهنية والشخصية.</p>
+        <p class="font-normal lg:font-medium text-[12px] lg:text-[21px] leading-[1.5] text-[#262626] max-w-[301px] lg:max-w-[623px]">{{ cms('perceptual_result.sections.message_text', 'نتائج هذا التقرير تمثل نقطة بداية لفهم قدراتك وننصحك بالاستفادة منها في وضع خطة تطوير مستمرة تناسب أهدافك المهنية والشخصية.') }}</p>
       </section>
     </div>
 
@@ -234,11 +234,11 @@
     <div class="pr-no-print w-full max-w-[361px] lg:max-w-none flex items-center justify-between lg:justify-center gap-[12px] lg:gap-[75px] lg:-mt-0">
       <button type="button" onclick="window.print()" class="w-[165px] lg:w-[290px] h-[45px] lg:h-[60px] rounded-[10px] lg:rounded-[15px] bg-[#204a7a] text-[#e9edf2] font-semibold text-[14px] lg:text-[21px] leading-[1.5] flex items-center justify-center gap-[8px] hover:bg-[#102744] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#204a7a] focus-visible:ring-offset-2">
         <img src="{{ $img }}/download.svg" alt="" class="w-[18px] h-[16px] lg:w-[22px] lg:h-[20px]" />
-        <span>تحميل التقرير</span>
+        <span>{{ cms('perceptual_result.sections.download_button', 'تحميل التقرير') }}</span>
       </button>
       <a href="/" class="w-[165px] lg:w-[290px] h-[45px] lg:h-[60px] rounded-[10px] lg:rounded-[15px] border border-[#204a7a] text-[#204a7a] font-semibold text-[14px] lg:text-[21px] leading-[1.5] flex items-center justify-center gap-[8px] hover:bg-[#e9edf2] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#204a7a] focus-visible:ring-offset-2">
         <img src="{{ $img }}/home.svg" alt="" class="size-[15px] lg:size-[20px]" />
-        <span>العودة إلى الرئيسية</span>
+        <span>{{ cms('perceptual_result.sections.home_button', 'العودة إلى الرئيسية') }}</span>
       </a>
     </div>
   </div>

@@ -4,6 +4,7 @@
 // يدعم الأسئلة النصية والأسئلة البصرية (الأنماط)، وجاهز للربط بقاعدة البيانات مستقبلاً.
 
 import confetti from 'canvas-confetti';
+import { cms } from './cms.js';
 
 export const defaultQuestions = [
   {
@@ -146,7 +147,7 @@ export function initQuiz(customQuestions = null) {
 
     // Button label
     const isLast = currentIndex === questions.length - 1;
-    let label = isLast ? 'شاهد نتيجتك' : 'التالي';
+    let label = isLast ? cms('home.challenge.result_button', 'شاهد نتيجتك') : cms('home.challenge.next_button', 'التالي');
     if (currentIndex === 0 && q.initialBtnText) {
       label = q.initialBtnText;
     }
@@ -156,7 +157,7 @@ export function initQuiz(customQuestions = null) {
 
     // Question counter
     if (counterEl) {
-      counterEl.textContent = `سؤال ${currentIndex + 1} من ${questions.length}`;
+      counterEl.textContent = `${cms('home.challenge.counter_question', 'سؤال')} ${currentIndex + 1} ${cms('home.challenge.counter_of', 'من')} ${questions.length}`;
     }
 
     // Progress dashes
@@ -235,7 +236,7 @@ export function initQuiz(customQuestions = null) {
           actionBtn.disabled = false;
           actionBtn.className = 'w-full max-w-[330px] md:max-w-[671px] h-[40px] md:h-[71px] rounded-[10px] md:rounded-[17.67px] bg-brand-primary hover:bg-[#102744] text-white font-semibold font-messiri text-[14px] md:text-[24.74px] flex items-center justify-center gap-[8px] md:gap-[14.14px] cursor-pointer shadow-md hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 border-2 border-brand-primary';
           if (btnText) {
-            btnText.textContent = isLast ? 'شاهد نتيجتك' : 'التالي';
+            btnText.textContent = isLast ? cms('home.challenge.result_button', 'شاهد نتيجتك') : cms('home.challenge.next_button', 'التالي');
           }
         });
 
@@ -275,7 +276,7 @@ export function initQuiz(customQuestions = null) {
           actionBtn.disabled = false;
           actionBtn.className = 'w-full max-w-[330px] md:max-w-[671px] h-[40px] md:h-[71px] rounded-[10px] md:rounded-[17.67px] bg-brand-primary hover:bg-[#102744] text-white font-semibold font-messiri text-[14px] md:text-[24.74px] flex items-center justify-center gap-[8px] md:gap-[14.14px] cursor-pointer shadow-md hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 border-2 border-brand-primary';
           if (btnText) {
-            btnText.textContent = isLast ? 'شاهد نتيجتك' : 'التالي';
+            btnText.textContent = isLast ? cms('home.challenge.result_button', 'شاهد نتيجتك') : cms('home.challenge.next_button', 'التالي');
           }
         });
 
@@ -370,11 +371,11 @@ export function initQuiz(customQuestions = null) {
 
       if (resultTitleEl) {
         if (score === questions.length) {
-          resultTitleEl.textContent = 'ممتاز! أداء رائع';
+          resultTitleEl.textContent = cms('home.challenge.result_excellent', 'ممتاز! أداء رائع');
         } else if (score > 0) {
-          resultTitleEl.textContent = 'محاولة جيدة!';
+          resultTitleEl.textContent = cms('home.challenge.result_good', 'محاولة جيدة!');
         } else {
-          resultTitleEl.textContent = 'حظ أوفر!';
+          resultTitleEl.textContent = cms('home.challenge.result_low', 'حظ أوفر!');
         }
       }
 

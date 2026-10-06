@@ -1,12 +1,14 @@
 // بيانات اختبار عجلة الحياة - 8 جوانب × 10 أسئلة (مقياس ليكرت 0-4)
 // المحتوى منقول حرفيًا من تصميم Figma (اختبار عجلة الحياة)
 
+import { cms } from './cms.js';
+
 export const ANSWER_SCALE = [
-  { value: 4, label: 'دائماً', bg: '#dcfce7', text: '#16a34a' },
-  { value: 3, label: 'غالباً', bg: '#e3d8ef', text: '#735297' },
-  { value: 2, label: 'أحياناً', bg: '#d7def7', text: '#204a7a' },
-  { value: 1, label: 'نادراً', bg: '#ffedd5', text: '#e24949' },
-  { value: 0, label: 'لا تنطبق', bg: '#fee2e2', text: '#e24949' }
+  { value: 4, label: cms('wheel_test.answers.always', 'دائماً'), bg: '#dcfce7', text: '#16a34a' },
+  { value: 3, label: cms('wheel_test.answers.often', 'غالباً'), bg: '#e3d8ef', text: '#735297' },
+  { value: 2, label: cms('wheel_test.answers.sometimes', 'أحياناً'), bg: '#d7def7', text: '#204a7a' },
+  { value: 1, label: cms('wheel_test.answers.rarely', 'نادراً'), bg: '#ffedd5', text: '#e24949' },
+  { value: 0, label: cms('wheel_test.answers.never', 'لا تنطبق'), bg: '#fee2e2', text: '#e24949' }
 ];
 
 export const CATEGORIES = (typeof window !== 'undefined' && window.WHEEL_OF_LIFE_DB && window.WHEEL_OF_LIFE_DB.length > 0) ? window.WHEEL_OF_LIFE_DB : [

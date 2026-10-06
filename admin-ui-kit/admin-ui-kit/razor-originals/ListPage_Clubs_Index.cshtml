@@ -1,0 +1,74 @@
+@model ClubsIndexViewModel
+@inject PanelFormatter F
+@{
+    ViewData["Title"] = T["Clubs"];
+    var canWrite = User.HasClaim(DefaultPermissions.Type, DefaultPermissions.ClubsWrite);
+}
+
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+    <h1 class="h4 m-0">@T["Clubs"] <span class="badge text-bg-light" dir="ltr">@F.Number(Model.Page.TotalCount)</span></h1>
+    @if (canWrite)
+    {
+        <a class="btn btn-brand" asp-action="New"><i class="bi bi-plus-lg"></i> @T["AddClub"]</a>
+    }
+</div>
+
+<form method="get" class="row g-2 mb-3">
+    <div class="col-12 col-md-5 col-lg-4"><input class="form-control" name="q" value="@Model.Q" placeholder="@T["SearchClubs"]" /></div>
+    <div class="col-6 col-md-3 col-lg-2">
+        <select class="form-select" name="active">
+            <option value="">@T["AllStatuses"]</option>
+            <option value="true" selected="@(Model.Active == "true")">@T["Open"]</option>
+            <option value="false" selected="@(Model.Active == "false")">@T["Closed"]</option>
+        </select>
+    </div>
+    <div class="col-6 col-md-4 col-lg-3">
+        <select class="form-select" name="governorateId">
+            <option value="">@T["AllGovernorates"]</option>
+            @foreach (var governorate in Model.Governorates)
+            {
+                <option value="@governorate.Id" selected="@(Model.GovernorateId == governorate.Id)">@Lang.Pick(governorate.NameAr, governorate.NameEn)</option>
+            }
+        </select>
+    </div>
+    <div class="col-12 col-lg-auto d-flex gap-2">
+        <button class="btn btn-outline-secondary flex-fill" type="submit"><i class="bi bi-search"></i> @T["Search"]</button>
+        <a class="btn btn-outline-secondary" asp-action="Index" title="@T["Reset"]"><i class="bi bi-x-lg"></i></a>
+    </div>
+</form>
+
+@if (Model.Page.Items.Count == 0)
+{
+    <div class="text-center text-muted py-5"><i class="bi bi-inbox fs-1"></i><p class="mt-2">@T["NothingHere"]</p></div>
+}
+else
+{
+    <div class="card border-0 shadow-sm">
+        <table class="table rtable align-middle mb-0">
+            <thead>
+                <tr><th>@T["Club"]</th><th>@T["Owner"]</th><th>@T["Location"]</th><th>@T["Status"]</th><th>@T["Subscription"]</th><th>@T["Courts"]</th><th>@T["Created"]</th></tr>
+            </thead>
+            <tbody>
+                @foreach (var club in Model.Page.Items)
+                {
+                    <tr>
+                        <td data-label="@T["Club"]" class="fw-bold">@club.Name</td>
+                        <td data-label="@T["Owner"]">@club.Owner.FullName<div class="small text-muted"><bdi>@club.OwnerEmail</bdi></div></td>
+                        <td data-label="@T["Location"]">@club.GovernorateName · @club.City</td>
+                        <td data-label="@T["Status"]"><span class="badge text-bg-@(club.IsActive ? "success" : "secondary")">@T[club.IsActive ? "Open" : "Closed"]</span></td>
+                        <td data-label="@T["Subscription"]">
+                            <span class="badge text-bg-@(club.SubscriptionState.ToString() == "Expired" ? "danger" : PanelBadge.Tone(club.SubscriptionState))">@T["Sub_" + club.SubscriptionState]</span>
+                            @if (club.SubscriptionEndsAt is not null)
+                            {
+                                <div class="small text-muted">@F.Date(club.SubscriptionEndsAt)</div>
+                            }
+                        </td>
+                        <td data-label="@T["Courts"]" dir="ltr">@club.CourtsCount</td>
+                        <td class="nw" data-label="@T["Created"]">@F.Date(club.CreatedAt)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    @await Html.PartialAsync("_Pager", PagerModel.Of(Model.Page))
+}

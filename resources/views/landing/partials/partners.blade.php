@@ -14,7 +14,7 @@
             </div>
             
             <!-- Text (#875:7013) -->
-            <h2 id="partners-title" class="text-[16px] min-[370px]:text-[17.5px] min-[390px]:text-[18px] md:text-[29px] text-[#204A7A] whitespace-nowrap shrink-0 font-messiri font-semibold leading-[1.5]">شركاء النجاح</h2>
+            <h2 id="partners-title" class="text-[16px] min-[370px]:text-[17.5px] min-[390px]:text-[18px] md:text-[29px] text-[#204A7A] whitespace-nowrap shrink-0 font-messiri font-semibold leading-[1.5]">{{ cms('home.partners.title', 'شركاء النجاح') }}</h2>
 
             <!-- Left Mark (Visual Left in RTL) -->
             <div class="flex items-center w-[36px] min-[370px]:w-[48px] min-[390px]:w-[56.56px] md:w-[109px] shrink" dir="ltr" aria-hidden="true">
@@ -33,44 +33,44 @@
 
               <!-- Set 1 (Primary for Screen Readers) -->
               <div class="flex items-center gap-[60px] sm:gap-[96px] md:gap-[141px] shrink-0">
-                <img src="/landing/images/logos/partners/stc.png" alt="شعار شركة الاتصالات السعودية stc" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
-                <img src="/landing/images/logos/partners/ministry-of-commerce.png" alt="شعار وزارة التجارة" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
-                <img src="/landing/images/logos/partners/ministry-of-foreign-affairs.png" alt="شعار وزارة الخارجية" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
-                <img src="/landing/images/logos/partners/ministry-of-health.png" alt="شعار وزارة الصحة" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
-                <img src="/landing/images/logos/partners/ministry-of-justice.png" alt="شعار وزارة العدل" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
-                <img src="/landing/images/logos/partners/anb.png" alt="شعار البنك العربي الوطني anb" loading="lazy" decoding="async" class="h-7 sm:h-16 w-auto object-contain shrink-0" />
-                <img src="/landing/images/logos/partners/alrajhi-bank.png" alt="شعار مصرف الراجحي" loading="lazy" decoding="async" class="h-6 sm:h-14 w-auto object-contain shrink-0" />
-                <img src="/landing/images/logos/partners/saudi-aramco.png" alt="شعار أرامكو السعودية" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
-                <img src="/landing/images/logos/partners/hrdf.png" alt="شعار صندوق تنمية الموارد البشرية هدف" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
-                <img src="/landing/images/logos/partners/bank-partner.png" alt="شعار بنك شريك" loading="lazy" decoding="async" class="h-7 sm:h-16 w-auto object-contain shrink-0" />
+                <img src="{{ cms_image('home.partners.logo_1', '/landing/images/logos/partners/stc.png') }}" alt="شعار شركة الاتصالات السعودية stc" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
+                <img src="{{ cms_image('home.partners.logo_2', '/landing/images/logos/partners/ministry-of-commerce.png') }}" alt="شعار وزارة التجارة" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
+                <img src="{{ cms_image('home.partners.logo_3', '/landing/images/logos/partners/ministry-of-foreign-affairs.png') }}" alt="شعار وزارة الخارجية" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
+                <img src="{{ cms_image('home.partners.logo_4', '/landing/images/logos/partners/ministry-of-health.png') }}" alt="شعار وزارة الصحة" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
+                <img src="{{ cms_image('home.partners.logo_5', '/landing/images/logos/partners/ministry-of-justice.png') }}" alt="شعار وزارة العدل" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
+                <img src="{{ cms_image('home.partners.logo_6', '/landing/images/logos/partners/anb.png') }}" alt="شعار البنك العربي الوطني anb" loading="lazy" decoding="async" class="h-7 sm:h-16 w-auto object-contain shrink-0" />
+                <img src="{{ cms_image('home.partners.logo_7', '/landing/images/logos/partners/alrajhi-bank.png') }}" alt="شعار مصرف الراجحي" loading="lazy" decoding="async" class="h-6 sm:h-14 w-auto object-contain shrink-0" />
+                <img src="{{ cms_image('home.partners.logo_8', '/landing/images/logos/partners/saudi-aramco.png') }}" alt="شعار أرامكو السعودية" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
+                <img src="{{ cms_image('home.partners.logo_9', '/landing/images/logos/partners/hrdf.png') }}" alt="شعار صندوق تنمية الموارد البشرية هدف" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
+                <img src="{{ cms_image('home.partners.logo_10', '/landing/images/logos/partners/bank-partner.png') }}" alt="شعار بنك شريك" loading="lazy" decoding="async" class="h-7 sm:h-16 w-auto object-contain shrink-0" />
               </div>
 
               <!-- Set 2 (Decorative Marquee Duplicate) -->
               <div class="flex items-center gap-[60px] sm:gap-[96px] md:gap-[141px] shrink-0" aria-hidden="true">
-                <img src="/landing/images/logos/partners/stc.png" alt="" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
-                <img src="/landing/images/logos/partners/ministry-of-commerce.png" alt="" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
-                <img src="/landing/images/logos/partners/ministry-of-foreign-affairs.png" alt="" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
-                <img src="/landing/images/logos/partners/ministry-of-health.png" alt="" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
-                <img src="/landing/images/logos/partners/ministry-of-justice.png" alt="" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
-                <img src="/landing/images/logos/partners/anb.png" alt="" loading="lazy" decoding="async" class="h-7 sm:h-16 w-auto object-contain shrink-0" />
-                <img src="/landing/images/logos/partners/alrajhi-bank.png" alt="" loading="lazy" decoding="async" class="h-6 sm:h-14 w-auto object-contain shrink-0" />
-                <img src="/landing/images/logos/partners/saudi-aramco.png" alt="" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
-                <img src="/landing/images/logos/partners/hrdf.png" alt="" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
-                <img src="/landing/images/logos/partners/bank-partner.png" alt="" loading="lazy" decoding="async" class="h-7 sm:h-16 w-auto object-contain shrink-0" />
+                <img src="{{ cms_image('home.partners.logo_1', '/landing/images/logos/partners/stc.png') }}" alt="" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
+                <img src="{{ cms_image('home.partners.logo_2', '/landing/images/logos/partners/ministry-of-commerce.png') }}" alt="" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
+                <img src="{{ cms_image('home.partners.logo_3', '/landing/images/logos/partners/ministry-of-foreign-affairs.png') }}" alt="" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
+                <img src="{{ cms_image('home.partners.logo_4', '/landing/images/logos/partners/ministry-of-health.png') }}" alt="" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
+                <img src="{{ cms_image('home.partners.logo_5', '/landing/images/logos/partners/ministry-of-justice.png') }}" alt="" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
+                <img src="{{ cms_image('home.partners.logo_6', '/landing/images/logos/partners/anb.png') }}" alt="" loading="lazy" decoding="async" class="h-7 sm:h-16 w-auto object-contain shrink-0" />
+                <img src="{{ cms_image('home.partners.logo_7', '/landing/images/logos/partners/alrajhi-bank.png') }}" alt="" loading="lazy" decoding="async" class="h-6 sm:h-14 w-auto object-contain shrink-0" />
+                <img src="{{ cms_image('home.partners.logo_8', '/landing/images/logos/partners/saudi-aramco.png') }}" alt="" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
+                <img src="{{ cms_image('home.partners.logo_9', '/landing/images/logos/partners/hrdf.png') }}" alt="" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
+                <img src="{{ cms_image('home.partners.logo_10', '/landing/images/logos/partners/bank-partner.png') }}" alt="" loading="lazy" decoding="async" class="h-7 sm:h-16 w-auto object-contain shrink-0" />
               </div>
 
               <!-- Set 3 -->
               <div class="flex items-center gap-[60px] sm:gap-[96px] md:gap-[141px] shrink-0">
-                <img src="/landing/images/logos/partners/stc.png" alt="STC" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
-                <img src="/landing/images/logos/partners/ministry-of-commerce.png" alt="وزارة التجارة" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
-                <img src="/landing/images/logos/partners/ministry-of-foreign-affairs.png" alt="وزارة الخارجية" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
-                <img src="/landing/images/logos/partners/ministry-of-health.png" alt="وزارة الصحة" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
-                <img src="/landing/images/logos/partners/ministry-of-justice.png" alt="وزارة العدل" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
-                <img src="/landing/images/logos/partners/anb.png" alt="anb" loading="lazy" decoding="async" class="h-7 sm:h-16 w-auto object-contain shrink-0" />
-                <img src="/landing/images/logos/partners/alrajhi-bank.png" alt="Al Rajhi Bank" loading="lazy" decoding="async" class="h-6 sm:h-14 w-auto object-contain shrink-0" />
-                <img src="/landing/images/logos/partners/saudi-aramco.png" alt="Saudi Aramco" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
-                <img src="/landing/images/logos/partners/hrdf.png" alt="HRDF" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
-                <img src="/landing/images/logos/partners/bank-partner.png" alt="Bank" loading="lazy" decoding="async" class="h-7 sm:h-16 w-auto object-contain shrink-0" />
+                <img src="{{ cms_image('home.partners.logo_1', '/landing/images/logos/partners/stc.png') }}" alt="STC" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
+                <img src="{{ cms_image('home.partners.logo_2', '/landing/images/logos/partners/ministry-of-commerce.png') }}" alt="وزارة التجارة" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
+                <img src="{{ cms_image('home.partners.logo_3', '/landing/images/logos/partners/ministry-of-foreign-affairs.png') }}" alt="وزارة الخارجية" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
+                <img src="{{ cms_image('home.partners.logo_4', '/landing/images/logos/partners/ministry-of-health.png') }}" alt="وزارة الصحة" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
+                <img src="{{ cms_image('home.partners.logo_5', '/landing/images/logos/partners/ministry-of-justice.png') }}" alt="وزارة العدل" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
+                <img src="{{ cms_image('home.partners.logo_6', '/landing/images/logos/partners/anb.png') }}" alt="anb" loading="lazy" decoding="async" class="h-7 sm:h-16 w-auto object-contain shrink-0" />
+                <img src="{{ cms_image('home.partners.logo_7', '/landing/images/logos/partners/alrajhi-bank.png') }}" alt="Al Rajhi Bank" loading="lazy" decoding="async" class="h-6 sm:h-14 w-auto object-contain shrink-0" />
+                <img src="{{ cms_image('home.partners.logo_8', '/landing/images/logos/partners/saudi-aramco.png') }}" alt="Saudi Aramco" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
+                <img src="{{ cms_image('home.partners.logo_9', '/landing/images/logos/partners/hrdf.png') }}" alt="HRDF" loading="lazy" decoding="async" class="h-[50px] sm:h-[96px] w-auto object-contain shrink-0" />
+                <img src="{{ cms_image('home.partners.logo_10', '/landing/images/logos/partners/bank-partner.png') }}" alt="Bank" loading="lazy" decoding="async" class="h-7 sm:h-16 w-auto object-contain shrink-0" />
               </div>
 
             </div>

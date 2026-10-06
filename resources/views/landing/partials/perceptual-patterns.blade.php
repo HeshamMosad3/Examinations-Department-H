@@ -70,7 +70,7 @@
 
         <!-- Center Head/Brain Illustration (Mobile: 188x158 at Left 104, Top 111) -->
         <div class="absolute flex items-center justify-center pointer-events-none left-[26.46%] top-[32.08%] w-[47.84%] h-[45.66%] sm:left-[25.926%] sm:top-[32.08%] sm:w-[48.81%] sm:h-[45.66%]">
-          <img src="/landing/images/illustrations/perception-head.png" alt="رسم توضيحي لمركز أنماط الإدراك" loading="lazy" decoding="async" class="w-full h-full object-contain" />
+          <img src="{{ cms_image('home.perceptual.image', '/landing/images/illustrations/perception-head.png') }}" alt="رسم توضيحي لمركز أنماط الإدراك" loading="lazy" decoding="async" class="w-full h-full object-contain" />
         </div>
 
         <!-- 1. سمعي (Auditory) — Top (#875:6228 Desktop / #934:4970 Mobile) -->
@@ -80,11 +80,11 @@
               <img src="/landing/images/icons/icon-auditory-headphones.svg" alt="" aria-hidden="true" loading="lazy" decoding="async" class="w-[20px] h-[20px] sm:w-[28px] sm:h-[28px] md:w-[38px] md:h-[38px] object-contain" />
             </div>
             <h4 class="font-bold text-[17px] sm:text-[22px] md:text-[33px] leading-none text-[#7C3AED] font-messiri">
-              سمعي
+              {{ cms('home.perceptual.auditory_title', 'سمعي') }}
             </h4>
           </div>
           <p class="text-[12px] sm:text-[14px] md:text-[23px] text-[#262626] text-center font-normal leading-[1.3] font-messiri mt-1 sm:mt-2">
-            تسمع وتفهم<br />الأصوات.
+            {{ cms('home.perceptual.auditory_line_1', 'تسمع وتفهم') }}<br />{{ cms('home.perceptual.auditory_line_2', 'الأصوات.') }}
           </p>
         </div>
 
@@ -95,11 +95,11 @@
               <img src="/landing/images/icons/icon-sensory-heart.svg" alt="" aria-hidden="true" loading="lazy" decoding="async" class="w-[20px] h-[20px] sm:w-[28px] sm:h-[28px] md:w-[38px] md:h-[38px] object-contain" />
             </div>
             <h4 class="font-bold text-[17px] sm:text-[22px] md:text-[33px] leading-none text-[#EC4899] font-messiri">
-              حسي
+              {{ cms('home.perceptual.kinesthetic_title', 'حسي') }}
             </h4>
           </div>
           <p class="text-[12px] sm:text-[14px] md:text-[23px] text-[#262626] text-center font-normal leading-[1.3] font-messiri mt-1 sm:mt-2">
-            تشعر وتتفاعل مع<br />ما حولك.
+            {{ cms('home.perceptual.kinesthetic_line_1', 'تشعر وتتفاعل مع') }}<br />{{ cms('home.perceptual.kinesthetic_line_2', 'ما حولك.') }}
           </p>
         </div>
 
@@ -110,11 +110,11 @@
               <img src="/landing/images/icons/icon-visual-eye.svg" alt="" aria-hidden="true" loading="lazy" decoding="async" class="w-[20px] h-[20px] sm:w-[28px] sm:h-[28px] md:w-[38px] md:h-[38px] object-contain" />
             </div>
             <h4 class="font-bold text-[17px] sm:text-[22px] md:text-[33px] leading-none text-[#1E5AF9] font-messiri">
-              بصري
+              {{ cms('home.perceptual.visual_title', 'بصري') }}
             </h4>
           </div>
           <p class="text-[12px] sm:text-[14px] md:text-[23px] text-[#262626] text-center font-normal leading-[1.3] font-messiri mt-1 sm:mt-2">
-            ترى وتلاحظ<br />التفاصيل.
+            {{ cms('home.perceptual.visual_line_1', 'ترى وتلاحظ') }}<br />{{ cms('home.perceptual.visual_line_2', 'التفاصيل.') }}
           </p>
         </div>
 
@@ -123,10 +123,10 @@
       <!-- Heading CTA (#875:7315 Desktop / #942:4140 Mobile) -->
       <div class="text-center mb-[12px] md:mb-[40px] px-3 sm:px-4 flex flex-col items-center gap-[10px] md:gap-[20px] w-full max-w-[361px] md:max-w-[490px] mx-auto">
         <p class="text-[14px] md:text-[24px] font-medium text-black font-messiri leading-normal text-center w-full max-w-[333px] md:max-w-[490px] mx-auto">
-          اكتشف طريقتك في فهم العالم من حولك باستخدام
+          {{ cms('home.perceptual.intro', 'اكتشف طريقتك في فهم العالم من حولك باستخدام') }}
         </p>
         <h2 id="perceptual-title" class="text-[18px] md:text-[34px] font-bold md:font-semibold text-[#1D436E] font-messiri leading-[27px] md:leading-[1.5] text-center whitespace-nowrap">
-          اختبار أنماط الإدراك
+          {{ cms('home.perceptual.title', 'اختبار أنماط الإدراك') }}
         </h2>
       </div>
 
@@ -136,17 +136,17 @@
         <!-- Right Promotional Text & Alarm Clock (First child in RTL) -->
         <div class="flex items-center gap-[10px] sm:gap-[21px] min-w-0">
           <div class="flex items-center justify-center shrink-0 w-[37px] h-[37px] sm:w-[62px] sm:h-[62px]" aria-hidden="true">
-            <img src="/landing/images/icons/alarm-clock.svg" alt="" loading="lazy" decoding="async" class="w-full h-full object-contain" />
+            <img src="{{ cms_image('home.perceptual.offer_icon', '/landing/images/icons/alarm-clock.svg') }}" alt="" loading="lazy" decoding="async" class="w-full h-full object-contain" />
           </div>
           <div class="flex flex-col items-start min-w-0 font-messiri">
-            <span class="text-[25px] sm:text-[32px] font-bold text-[#204A7A] block leading-tight sm:leading-none">مجاني</span>
-            <span class="text-[14px] sm:text-[28px] font-normal text-[#204A7A] block leading-[1.5]">لفترة محدودة</span>
+            <span class="text-[25px] sm:text-[32px] font-bold text-[#204A7A] block leading-tight sm:leading-none">{{ cms('home.perceptual.offer_title', 'مجاني') }}</span>
+            <span class="text-[14px] sm:text-[28px] font-normal text-[#204A7A] block leading-[1.5]">{{ cms('home.perceptual.offer_text', 'لفترة محدودة') }}</span>
           </div>
         </div>
 
         <!-- Left Gift Box Image / Vector (Last child in RTL) -->
         <div class="w-[84px] h-[78px] sm:w-[115px] sm:h-[107px] flex items-center justify-center shrink-0" aria-hidden="true">
-          <img src="/landing/images/icons/wrapped-gift.svg" alt="" loading="lazy" decoding="async" class="w-full h-full object-contain drop-shadow-sm" />
+          <img src="{{ cms_image('home.perceptual.offer_image', '/landing/images/icons/wrapped-gift.svg') }}" alt="" loading="lazy" decoding="async" class="w-full h-full object-contain drop-shadow-sm" />
         </div>
 
       </div>
@@ -155,13 +155,13 @@
       <div class="flex flex-row items-stretch justify-center gap-[10px] sm:gap-[56px] mt-0 mb-0 w-full max-w-[330px] sm:max-w-[510px] px-0">
         <!-- Start Evaluation Button -->
         <a href="{{ route('perceptual.test') }}" class="group flex-1 h-[40px] sm:h-[56px] bg-brand-primary text-white rounded-[10px] sm:rounded-[12px] font-semibold text-[13.5px] sm:text-[17px] flex items-center justify-center gap-1 sm:gap-3 shadow-md hover:bg-[#102744] hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 border-2 border-brand-primary cursor-pointer whitespace-nowrap font-messiri">
-          <span class="leading-none">ابدأ التقييم الآن</span>
+          <span class="leading-none">{{ cms('home.perceptual.start_button', 'ابدأ التقييم الآن') }}</span>
           <i class="fa-solid fa-arrow-left text-xs sm:text-sm group-hover:-translate-x-1.5 transition-transform duration-200" aria-hidden="true"></i>
         </a>
 
         <!-- Explore Button -->
         <a href="{{ route('perceptual.explore') }}" class="group flex-1 h-[40px] sm:h-[56px] border-2 border-brand-primary text-brand-primary rounded-[10px] sm:rounded-[12px] font-semibold text-[13.5px] sm:text-[17px] flex items-center justify-center hover:bg-brand-primary hover:text-white transition-all duration-200 shadow-sm hover:shadow-md cursor-pointer whitespace-nowrap font-messiri">
-          <span class="leading-none">اكتشف أنماط الإدراك</span>
+          <span class="leading-none">{{ cms('home.perceptual.explore_button', 'اكتشف أنماط الإدراك') }}</span>
         </a>
       </div>
 

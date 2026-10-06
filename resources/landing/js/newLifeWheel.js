@@ -1,3 +1,5 @@
+import { cms } from './cms.js';
+
 export function initNewLifeWheel(options = {}) {
 const isResultPage = options.isResultPage || false;
 
@@ -21,28 +23,39 @@ const SETTINGS = {
 };
 
 /* شرح كل محور اللي بيظهر في الـ Tooltip لما المستخدم يشاور على المحور (الصفحة الرئيسية وصفحة "اكتشف عجلة الحياة") */
+// أسماء المحاور وشرحها من محتوى الموقع (لوحة الإدارة)، والشرح مربوط بالاسم بنفس دالة cms
+const AXIS_LABELS = {
+  personal: cms('home.wheel.label_personal', 'الشخصي'),
+  spiritual: cms('home.wheel.label_spiritual', 'الروحاني'),
+  health: cms('home.wheel.label_health', 'الصحي'),
+  social: cms('home.wheel.label_social', 'الاجتماعي'),
+  family: cms('home.wheel.label_family', 'العائلي'),
+  leisure: cms('home.wheel.label_leisure', 'الترفيهي'),
+  financial: cms('home.wheel.label_financial', 'المالي'),
+  career: cms('home.wheel.label_career', 'المهني'),
+};
 const AXIS_DESCRIPTIONS = {
-  "الروحاني": "يقيس مدى التزام الفرد بالعبادات والممارسات الإيمانية، وانعكاس القيم الروحية على سلوكه بما يمنحه السكينة والاستقرار النفسي.",
-  "الصحي": "يقيس مدى تبني الفرد لعادات صحية متكاملة تشمل التغذية، النشاط البدني، كفاية النوم، والتدابير الوقائية لدعم العافية الجسدية.",
-  "الشخصي": "يقيس مستوى سعي الفرد للتعلم المستمر، وفاعليته في تنظيم وقته، ووضع الأهداف الشخصية والعمل على تحقيقها.",
-  "العائلي": "يقيس جودة التواصل الأسري، ومستوى تحمل المسؤوليات، والدعم المتبادل، والقدرة على إدارة الخلافات العائلية بحوار وإيجابية.",
-  "الاجتماعي": "يقيس مدى اهتمام الفرد بصلة الأرحام وبناء علاقات إيجابية مع المحيط، والمشاركة الفاعلة في المناسبات والمبادرات المجتمعية.",
-  "المهني": "يقيس انضباط الفرد والتزامه بأنظمة العمل، وجودة أدائه المهني، وسعيه لتطوير مهاراته وبناء علاقات عمل إيجابية.",
-  "المالي": "يقيس مدى كفاءة الفرد في التخطيط المالي، وإدارة الدخل والمصروفات، والقدرة على الادخار والاستثمار والوفاء بالالتزامات المالية.",
-  "الترفيهي": "يقيس قدرة الفرد على التوازن بين العمل والحياة، وممارسة الهوايات والأنشطة الترفيهية لتجديد الطاقة وتخفيف ضغوط الحياة."
+  [AXIS_LABELS.spiritual]: cms('home.wheel.tooltip_spiritual', 'يقيس مدى التزام الفرد بالعبادات والممارسات الإيمانية، وانعكاس القيم الروحية على سلوكه بما يمنحه السكينة والاستقرار النفسي.'),
+  [AXIS_LABELS.health]: cms('home.wheel.tooltip_health', 'يقيس مدى تبني الفرد لعادات صحية متكاملة تشمل التغذية، النشاط البدني، كفاية النوم، والتدابير الوقائية لدعم العافية الجسدية.'),
+  [AXIS_LABELS.personal]: cms('home.wheel.tooltip_personal', 'يقيس مستوى سعي الفرد للتعلم المستمر، وفاعليته في تنظيم وقته، ووضع الأهداف الشخصية والعمل على تحقيقها.'),
+  [AXIS_LABELS.family]: cms('home.wheel.tooltip_family', 'يقيس جودة التواصل الأسري، ومستوى تحمل المسؤوليات، والدعم المتبادل، والقدرة على إدارة الخلافات العائلية بحوار وإيجابية.'),
+  [AXIS_LABELS.social]: cms('home.wheel.tooltip_social', 'يقيس مدى اهتمام الفرد بصلة الأرحام وبناء علاقات إيجابية مع المحيط، والمشاركة الفاعلة في المناسبات والمبادرات المجتمعية.'),
+  [AXIS_LABELS.career]: cms('home.wheel.tooltip_career', 'يقيس انضباط الفرد والتزامه بأنظمة العمل، وجودة أدائه المهني، وسعيه لتطوير مهاراته وبناء علاقات عمل إيجابية.'),
+  [AXIS_LABELS.financial]: cms('home.wheel.tooltip_financial', 'يقيس مدى كفاءة الفرد في التخطيط المالي، وإدارة الدخل والمصروفات، والقدرة على الادخار والاستثمار والوفاء بالالتزامات المالية.'),
+  [AXIS_LABELS.leisure]: cms('home.wheel.tooltip_leisure', 'يقيس قدرة الفرد على التوازن بين العمل والحياة، وممارسة الهوايات والأنشطة الترفيهية لتجديد الطاقة وتخفيف ضغوط الحياة.')
 };
 const tooltipsEnabled = !isResultPage;
 
 /* بيانات كل محور - الترتيب يبدأ من المحور الشخصي في أعلى العجلة مع عقارب الساعة تماماً كما في Figma */
 let axesState = [
-  { label: "الشخصي", color: "#7844D0", percent: 30, direction: "dark-to-light", icon: "custom", customIconUrl: "/landing/icons/wheel_of_life/personal.png" },
-  { label: "الروحاني", color: "#5875E5", percent: 45, direction: "dark-to-light", icon: "custom", customIconUrl: "/landing/icons/wheel_of_life/spiritual.png" },
-  { label: "الصحي", color: "#43A074", percent: 38, direction: "dark-to-light", icon: "custom", customIconUrl: "/landing/icons/wheel_of_life/health.png" },
-  { label: "الاجتماعي", color: "#C53664", percent: 40, direction: "dark-to-light", icon: "custom", customIconUrl: "/landing/icons/wheel_of_life/social.png" },
-  { label: "العائلي", color: "#D98344", percent: 50, direction: "dark-to-light", icon: "custom", customIconUrl: "/landing/icons/wheel_of_life/family.png" },
-  { label: "الترفيهي", color: "#C9B642", percent: 30, direction: "dark-to-light", icon: "custom", customIconUrl: "/landing/icons/wheel_of_life/leisure.png" },
-  { label: "المالي", color: "#3CB1B3", percent: 35, direction: "dark-to-light", icon: "custom", customIconUrl: "/landing/icons/wheel_of_life/financial.png" },
-  { label: "المهني", color: "#4474D0", percent: 45, direction: "dark-to-light", icon: "custom", customIconUrl: "/landing/icons/wheel_of_life/career.png" }
+  { label: AXIS_LABELS.personal, color: "#7844D0", percent: 30, direction: "dark-to-light", icon: "custom", customIconUrl: "/landing/icons/wheel_of_life/personal.png" },
+  { label: AXIS_LABELS.spiritual, color: "#5875E5", percent: 45, direction: "dark-to-light", icon: "custom", customIconUrl: "/landing/icons/wheel_of_life/spiritual.png" },
+  { label: AXIS_LABELS.health, color: "#43A074", percent: 38, direction: "dark-to-light", icon: "custom", customIconUrl: "/landing/icons/wheel_of_life/health.png" },
+  { label: AXIS_LABELS.social, color: "#C53664", percent: 40, direction: "dark-to-light", icon: "custom", customIconUrl: "/landing/icons/wheel_of_life/social.png" },
+  { label: AXIS_LABELS.family, color: "#D98344", percent: 50, direction: "dark-to-light", icon: "custom", customIconUrl: "/landing/icons/wheel_of_life/family.png" },
+  { label: AXIS_LABELS.leisure, color: "#C9B642", percent: 30, direction: "dark-to-light", icon: "custom", customIconUrl: "/landing/icons/wheel_of_life/leisure.png" },
+  { label: AXIS_LABELS.financial, color: "#3CB1B3", percent: 35, direction: "dark-to-light", icon: "custom", customIconUrl: "/landing/icons/wheel_of_life/financial.png" },
+  { label: AXIS_LABELS.career, color: "#4474D0", percent: 45, direction: "dark-to-light", icon: "custom", customIconUrl: "/landing/icons/wheel_of_life/career.png" }
 ];
 
 /* حالة الدوران والصورة في المنتصف */
@@ -644,7 +657,7 @@ function showTooltip(index) {
   icon.src = axis.customIconUrl || "";
   icon.style.display = axis.customIconUrl ? "" : "none";
   const title = tooltipEl.querySelector("[data-tt-title]");
-  title.textContent = `الجانب ${axis.label}`;
+  title.textContent = `${cms('home.wheel.tooltip_title_prefix', 'الجانب')} ${axis.label}`;
   title.style.color = accent;
   tooltipEl.querySelector("[data-tt-desc]").textContent = desc;
 

@@ -3,68 +3,42 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\StoreDimensionRequest;
-use App\Http\Requests\Admin\StoreInterpretationsRequest;
+use App\Http\Requests\Admin\DimensionRequest;
 use App\Models\Assessment;
 use App\Models\Dimension;
-use App\Services\DimensionService;
-use Illuminate\Http\JsonResponse;
+use App\Services\Assessments\AssessmentManager;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class DimensionController extends Controller
 {
-    public function __construct(
-        private readonly DimensionService $dimensionService,
-    ) {}
+    public function __construct(private readonly AssessmentManager $manager) {}
 
-    public function byAssessment(Assessment $assessment): JsonResponse
+    public function store(DimensionRequest $request, Assessment $assessment): RedirectResponse
     {
-        $dimensions = $this->dimensionService->byAssessment($assessment);
+        $this->manager->saveDimension($assessment, $request->validated());
 
-        return response()->json($dimensions);
+        return $this->back($assessment, 'تمت إضافة المحور.');
     }
 
-    public function store(StoreDimensionRequest $request, Assessment $assessment): JsonResponse
+    public function update(DimensionRequest $request, Dimension $dimension): RedirectResponse
     {
-        $dimension = $this->dimensionService->create($assessment, $request->validated());
+        $assessment = Assessment::findOrFail($dimension->assessment_id);
+        $this->manager->saveDimension($assessment, $request->validated(), $dimension);
 
-        return response()->json([
-            'success' => true,
-            'dimension' => $dimension,
-            'message' => 'تم إضافة البُعد بنجاح.',
-        ]);
+        return $this->back($assessment, 'تم حفظ المحور.');
     }
 
-    public function update(StoreDimensionRequest $request, Dimension $dimension): JsonResponse
+    public function destroy(Request $request, Dimension $dimension): RedirectResponse
     {
-        $this->dimensionService->update($dimension, $request->validated());
+        $assessment = Assessment::findOrFail($dimension->assessment_id);
+        $this->manager->deleteDimension($dimension, $request->boolean('delete_questions'));
 
-        return response()->json(['success' => true, 'message' => 'تم تحديث البُعد.']);
+        return $this->back($assessment, 'تم حذف المحور.');
     }
 
-    public function destroy(Dimension $dimension): JsonResponse
+    private function back(Assessment $assessment, string $message): RedirectResponse
     {
-        $this->dimensionService->delete($dimension);
-
-        return response()->json(['success' => true, 'message' => 'تم حذف البُعد بنجاح.']);
-    }
-
-    public function reorder(Request $request): JsonResponse
-    {
-        $data = $request->validate([
-            'order' => 'required|array',
-            'order.*' => 'required|uuid|exists:dimensions,id,deleted_at,NULL',
-        ]);
-
-        $this->dimensionService->reorder($data['order']);
-
-        return response()->json(['success' => true, 'message' => 'تم إعادة ترتيب الأبعاد.']);
-    }
-
-    public function storeInterpretations(StoreInterpretationsRequest $request, Dimension $dimension): JsonResponse
-    {
-        $this->dimensionService->saveInterpretations($dimension, $request->validated());
-
-        return response()->json(['success' => true, 'message' => 'تم حفظ تفسيرات البُعد بنجاح.']);
+        return redirect()->route('admin.assessments.show', [$assessment, 'tab' => 'dimensions'])->with('success', $message);
     }
 }

@@ -1,0 +1,53 @@
+/* Sportiva admin panel theme — drop-in on top of Bootstrap 5.3 (use bootstrap.rtl.min.css for Arabic).
+   Font: Almarai (Google Fonts, 300/400/700/800). Icons: Bootstrap Icons 1.11. */
+
+:root {
+  --brand: #1b5743;        /* main green  */
+  --brand-mid: #2a7f62;    /* hover / secondary green */
+  --brand-light: #7ee8c7;  /* accents on dark */
+  --ink: #0d1110;          /* text */
+  --muted: #636363;        /* secondary text */
+  --line: #e0e0e0;         /* borders */
+  --bg: #f6f8f7;           /* page background (cards are white) */
+}
+
+body { font-family: 'Almarai', system-ui, sans-serif; background: var(--bg); color: var(--ink); overflow-x: hidden; }
+a { color: var(--brand); }
+
+/* Buttons */
+.btn-brand { background: var(--brand); border-color: var(--brand); color: #fff; }
+.btn-brand:hover, .btn-brand:focus, .btn-brand:active { background: var(--brand-mid) !important; border-color: var(--brand-mid) !important; color: #fff !important; }
+.btn-brand:disabled { background: var(--brand); border-color: var(--brand); color: #fff; opacity: .55; }
+
+/* Brand text, sidebar pills */
+.brand-mark { color: var(--brand); font-weight: 800; letter-spacing: .3px; }
+.nav-pills .nav-link { color: var(--ink); }
+.nav-pills .nav-link:hover:not(.active) { background: #eef3f1; }
+.nav-pills .nav-link.active { color: #fff; background: var(--brand); }
+.nav-header { list-style: none; }
+
+/* Shell: sticky top bar + 250px sidebar (an offcanvas under 992px) + main */
+.panel-shell { min-height: calc(100vh - 57px); }
+.panel-aside { width: 250px; flex: 0 0 250px; }
+.panel-main { min-width: 0; flex: 1 1 auto; }
+@media (max-width: 991.98px) { .panel-aside { width: 280px; flex-basis: auto; } }
+
+/* Pagination active page */
+.page-item.active .page-link { background: var(--brand); border-color: var(--brand); }
+
+/* Helpers */
+.nw { white-space: nowrap; }
+.validation-summary-valid { display: none !important; }
+
+/* Responsive tables: under 768px every row becomes a card and each cell prints its own label
+   (put data-label="Column name" on each <td>; add class "actions" on the buttons cell). */
+@media (max-width: 767.98px) {
+  .rtable thead { display: none; }
+  .rtable, .rtable tbody, .rtable tr, .rtable td { display: block; width: 100%; }
+  .rtable tr { border-bottom: 1px solid var(--line); padding: .6rem .9rem; }
+  .rtable tr:last-child { border-bottom: 0; }
+  .rtable td { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: .3rem 0; border: 0; text-align: end; background: transparent; }
+  .rtable td::before { content: attr(data-label); color: var(--muted); font-size: .8rem; text-align: start; flex-shrink: 0; }
+  .rtable td.actions { justify-content: flex-end; }
+  .rtable td.actions::before { content: none; }
+}

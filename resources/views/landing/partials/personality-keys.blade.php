@@ -92,55 +92,55 @@
 
         <!-- Center 7PK emblem (#875:6260 / #934:5004) -->
         <div class="absolute -translate-x-1/2 -translate-y-1/2 z-10 w-[14.37%] sm:w-[14.17%] max-w-[140px] left-[50.56%] sm:left-[50.58%] top-[49.26%] sm:top-[49.95%] group cursor-pointer pointer-events-auto">
-          <img src="/landing/images/icons/emblem-7pk.svg" alt="شعار مفاتيح الشخصية السبعة" loading="lazy" decoding="async" class="w-full h-auto object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-300" />
+          <img src="{{ cms_image('home.keys.emblem', '/landing/images/icons/emblem-7pk.svg') }}" alt="شعار مفاتيح الشخصية السبعة" loading="lazy" decoding="async" class="w-full h-auto object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-300" />
         </div>
 
         <!-- 01 البصيرة (#934:5657 / #875:6913) -->
         <div class="absolute -translate-x-1/2 -translate-y-1/2 z-10 w-[29%] sm:w-[27%] left-[51.96%] sm:left-[51.97%] top-[15.68%] sm:top-[15.85%] group cursor-pointer">
-          <img src="/landing/images/key_to_personality/insight.png" alt="البصيرة" loading="lazy" decoding="async" class="w-full h-auto object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-300" />
+          <img src="{{ cms_image('home.keys.key_1_image', '/landing/images/key_to_personality/insight.png') }}" alt="البصيرة" loading="lazy" decoding="async" class="w-full h-auto object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-300" />
         </div>
 
         <!-- 02 الدافع (#934:5666 / #875:6922) -->
         <div class="absolute -translate-x-1/2 -translate-y-1/2 z-10 w-[29%] sm:w-[27%] left-[78.14%] sm:left-[77.79%] top-[28.4%] sm:top-[28.71%] group cursor-pointer">
-          <img src="/landing/images/key_to_personality/motive.png" alt="الدافع" loading="lazy" decoding="async" class="w-full h-auto object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-300" />
+          <img src="{{ cms_image('home.keys.key_2_image', '/landing/images/key_to_personality/motive.png') }}" alt="الدافع" loading="lazy" decoding="async" class="w-full h-auto object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-300" />
         </div>
 
         <!-- 03 الصمود (#934:5681 / #875:6937) -->
         <div class="absolute -translate-x-1/2 -translate-y-1/2 z-10 w-[29%] sm:w-[27%] left-[82.76%] sm:left-[82.91%] top-[56.8%] sm:top-[57.42%] group cursor-pointer">
-          <img src="/landing/images/key_to_personality/resilience.png" alt="الصمود" loading="lazy" decoding="async" class="w-full h-auto object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-300" />
+          <img src="{{ cms_image('home.keys.key_3_image', '/landing/images/key_to_personality/resilience.png') }}" alt="الصمود" loading="lazy" decoding="async" class="w-full h-auto object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-300" />
         </div>
 
         <!-- 04 الارتباط (#934:5688 / #875:6944) -->
         <div class="absolute -translate-x-1/2 -translate-y-1/2 z-10 w-[29%] sm:w-[27%] left-[67.1%] sm:left-[66.19%] top-[81.36%] sm:top-[82.25%] group cursor-pointer">
-          <img src="/landing/images/key_to_personality/connection.png" alt="الارتباط" loading="lazy" decoding="async" class="w-full h-auto object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-300" />
+          <img src="{{ cms_image('home.keys.key_4_image', '/landing/images/key_to_personality/connection.png') }}" alt="الارتباط" loading="lazy" decoding="async" class="w-full h-auto object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-300" />
         </div>
 
         <!-- 05 القرار (#934:5698 / #875:6954) -->
         <div class="absolute -translate-x-1/2 -translate-y-1/2 z-10 w-[29%] sm:w-[27%] left-[36.31%] sm:left-[35.82%] top-[81.36%] sm:top-[82.25%] group cursor-pointer">
-          <img src="/landing/images/key_to_personality/decision.png" alt="القرار" loading="lazy" decoding="async" class="w-full h-auto object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-300" />
+          <img src="{{ cms_image('home.keys.key_5_image', '/landing/images/key_to_personality/decision.png') }}" alt="القرار" loading="lazy" decoding="async" class="w-full h-auto object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-300" />
         </div>
 
         <!-- 06 التأثير (#934:5672 / #875:6928) -->
         <div class="absolute -translate-x-1/2 -translate-y-1/2 z-10 w-[29%] sm:w-[27%] left-[18.09%] sm:left-[17.85%] top-[57.39%] sm:top-[58.02%] group cursor-pointer">
-          <img src="/landing/images/key_to_personality/influence.png" alt="التأثير" loading="lazy" decoding="async" class="w-full h-auto object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-300" />
+          <img src="{{ cms_image('home.keys.key_6_image', '/landing/images/key_to_personality/influence.png') }}" alt="التأثير" loading="lazy" decoding="async" class="w-full h-auto object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-300" />
         </div>
 
         <!-- 07 الأفق (#934:5707 / #875:6963) -->
         <div class="absolute -translate-x-1/2 -translate-y-1/2 z-10 w-[29%] sm:w-[27%] left-[24.0%] sm:left-[24.38%] top-[28.4%] sm:top-[28.71%] group cursor-pointer">
-          <img src="/landing/images/key_to_personality/horizon.png" alt="الأفق" loading="lazy" decoding="async" class="w-full h-auto object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-300" />
+          <img src="{{ cms_image('home.keys.key_7_image', '/landing/images/key_to_personality/horizon.png') }}" alt="الأفق" loading="lazy" decoding="async" class="w-full h-auto object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-300" />
         </div>
       </div>
 
       <!-- Heading (#898:3897) -->
       <div class="text-center mb-[12px] md:mb-[56px] px-3 sm:px-4 flex flex-col items-center gap-[10px] md:gap-[20px] w-full max-w-[361px] sm:max-w-none mx-auto">
         <p class="text-[13px] min-[370px]:text-[13.5px] min-[400px]:text-[14px] sm:text-[18px] md:text-[24px] font-medium text-brand-dark font-messiri leading-tight sm:leading-relaxed text-center w-full sm:max-w-none">
-          اكتشف سمات شخصيتك وطريقة تعاملك باستخدام
+          {{ cms('home.keys.intro', 'اكتشف سمات شخصيتك وطريقة تعاملك باستخدام') }}
         </p>
         <h2 id="personality-keys-title" class="text-[18px] sm:text-[27px] md:text-[34px] font-bold text-brand-primary font-messiri leading-[27px] sm:leading-tight text-center">
-          اختبار مفاتيح الشخصية السبعة
+          {{ cms('home.keys.title', 'اختبار مفاتيح الشخصية السبعة') }}
         </h2>
         <p class="text-[12px] sm:text-[16px] md:text-[21px] leading-tight font-medium text-[#1D436E] font-messiri text-center">
-          (Seven Personality Keys · 7PK)
+          {{ cms('home.keys.subtitle', '(Seven Personality Keys · 7PK)') }}
         </p>
       </div>
 
@@ -150,17 +150,17 @@
         <!-- Right Promotional Text & Alarm Clock (First child in RTL) -->
         <div class="flex items-center gap-[10px] sm:gap-[21px] min-w-0">
           <div class="flex items-center justify-center shrink-0 w-[37px] h-[37px] sm:w-[62px] sm:h-[62px]" aria-hidden="true">
-            <img src="/landing/images/icons/alarm-clock.svg" alt="" loading="lazy" decoding="async" class="w-full h-full object-contain" />
+            <img src="{{ cms_image('home.keys.offer_icon', '/landing/images/icons/alarm-clock.svg') }}" alt="" loading="lazy" decoding="async" class="w-full h-full object-contain" />
           </div>
           <div class="flex flex-col items-start min-w-0 font-messiri">
-            <span class="text-[25px] sm:text-[32px] font-bold text-[#204A7A] block leading-tight sm:leading-none">مجاني</span>
-            <span class="text-[14px] sm:text-[28px] font-normal text-[#204A7A] block leading-[1.5]">لفترة محدودة</span>
+            <span class="text-[25px] sm:text-[32px] font-bold text-[#204A7A] block leading-tight sm:leading-none">{{ cms('home.keys.offer_title', 'مجاني') }}</span>
+            <span class="text-[14px] sm:text-[28px] font-normal text-[#204A7A] block leading-[1.5]">{{ cms('home.keys.offer_text', 'لفترة محدودة') }}</span>
           </div>
         </div>
 
         <!-- Left Gift Box Image / Vector (Last child in RTL) -->
         <div class="w-[84px] h-[78px] sm:w-[115px] sm:h-[107px] flex items-center justify-center shrink-0" aria-hidden="true">
-          <img src="/landing/images/icons/wrapped-gift.svg" alt="" loading="lazy" decoding="async" class="w-full h-full object-contain drop-shadow-sm" />
+          <img src="{{ cms_image('home.keys.offer_image', '/landing/images/icons/wrapped-gift.svg') }}" alt="" loading="lazy" decoding="async" class="w-full h-full object-contain drop-shadow-sm" />
         </div>
 
       </div>
@@ -168,14 +168,14 @@
       <!-- Action Buttons (#875:6213) — mobile: 330x40 hug, gap 10px -->
       <div class="flex flex-row items-stretch justify-center gap-[10px] sm:gap-[56px] mt-0 mb-0 w-full max-w-[330px] sm:max-w-[510px] px-0">
         <!-- Start Evaluation Button -->
-        <a href="#challenge" class="group flex-1 h-[40px] sm:h-[56px] bg-brand-primary text-white rounded-[10px] sm:rounded-[12px] font-semibold text-[13.5px] sm:text-[17px] flex items-center justify-center gap-1 sm:gap-3 shadow-md hover:bg-[#102744] hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 border-2 border-brand-primary cursor-pointer whitespace-nowrap font-messiri">
-          <span class="leading-none">ابدأ التقييم الآن</span>
+        <a href="{{ cms_url('home.keys.start_url', '#challenge') }}" class="group flex-1 h-[40px] sm:h-[56px] bg-brand-primary text-white rounded-[10px] sm:rounded-[12px] font-semibold text-[13.5px] sm:text-[17px] flex items-center justify-center gap-1 sm:gap-3 shadow-md hover:bg-[#102744] hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 border-2 border-brand-primary cursor-pointer whitespace-nowrap font-messiri">
+          <span class="leading-none">{{ cms('home.keys.start_button', 'ابدأ التقييم الآن') }}</span>
           <i class="fa-solid fa-arrow-left text-xs sm:text-sm group-hover:-translate-x-1.5 transition-transform duration-200" aria-hidden="true"></i>
         </a>
 
         <!-- Explore Button -->
-        <a href="#personality-keys" class="group flex-1 h-[40px] sm:h-[56px] border-2 border-brand-primary text-brand-primary rounded-[10px] sm:rounded-[12px] font-semibold text-[13.5px] sm:text-[17px] flex items-center justify-center hover:bg-brand-primary hover:text-white transition-all duration-200 shadow-sm hover:shadow-md cursor-pointer whitespace-nowrap font-messiri">
-          <span class="leading-none">اكتشف سمات الشخصية</span>
+        <a href="{{ cms_url('home.keys.explore_url', '#personality-keys') }}" class="group flex-1 h-[40px] sm:h-[56px] border-2 border-brand-primary text-brand-primary rounded-[10px] sm:rounded-[12px] font-semibold text-[13.5px] sm:text-[17px] flex items-center justify-center hover:bg-brand-primary hover:text-white transition-all duration-200 shadow-sm hover:shadow-md cursor-pointer whitespace-nowrap font-messiri">
+          <span class="leading-none">{{ cms('home.keys.explore_button', 'اكتشف سمات الشخصية') }}</span>
         </a>
       </div>
 

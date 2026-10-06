@@ -3,233 +3,137 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\StoreAssessmentRequest;
-use App\Http\Requests\Admin\UpdateAssessmentRequest;
-use App\Http\Requests\Admin\UpdateSettingsRequest;
+use App\Http\Requests\Admin\AssessmentRequest;
+use App\Http\Requests\Admin\AssessmentWizardRequest;
 use App\Models\Assessment;
-use App\Services\AssessmentService;
-use App\Models\Icon;
-use App\Models\Result;
-use App\Models\DimensionScore;
-use App\Models\ExamSession;
-use App\Services\Result\ResultFormatter;
-use Illuminate\Http\JsonResponse;
+use App\Services\Assessments\AssessmentData;
+use App\Services\Assessments\AssessmentExporter;
+use App\Services\Assessments\AssessmentHealth;
+use App\Services\Assessments\AssessmentImporter;
+use App\Services\Assessments\AssessmentManager;
+use App\Services\Assessments\ScoringService;
+use App\Services\FileUploadService;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class AssessmentController extends Controller
 {
+    private const IMAGES_FOLDER = 'images/assessments';
+
     public function __construct(
-        private readonly AssessmentService $assessmentService,
+        private readonly AssessmentManager $manager,
+        private readonly FileUploadService $uploads,
     ) {}
 
-    public function index(\Illuminate\Http\Request $request): View
+    public function index(): View
     {
-        $filters = $request->only(['category', 'search']);
-        $assessments = $this->assessmentService->list($filters);
-
-        return view('admin.assessments.index', compact('assessments'));
+        return view('admin.assessments.index', ['assessments' => $this->manager->listing()]);
     }
 
-    public function store(StoreAssessmentRequest $request): JsonResponse
+    /** مقياس جديد في صفحة واحدة: البيانات ← الإجابات ← المحاور والأسئلة ← النتائج */
+    public function create(): View
     {
-        $data = $request->validated();
+        return view('admin.assessments.create');
+    }
 
+    public function store(AssessmentWizardRequest $request, AssessmentImporter $importer): RedirectResponse
+    {
+        $input = $request->validated();
+        $data = array_intersect_key($input, array_flip(['title_ar', 'subtitle_ar', 'category', 'description_ar', 'instructions_ar', 'time_limit_min', 'is_active', 'level_basis']));
+        $data += [
+            'code' => $input['code'] ?: $this->manager->uniqueCodeFor($input['title_ar']),
+            'scoring_type' => 'sum',
+            'price' => $input['price'] ?? 0,
+            'order_index' => (int) Assessment::max('order_index') + 1,
+            'created_by' => $request->user()->id,
+            'options' => array_map(fn ($o) => [$o['label_ar'], (int) $o['score_value']], $input['options']),
+            'dimensions' => $input['dimensions'],
+            'levels' => array_map(fn ($l, $i) => [
+                'code' => AssessmentManager::levelCode($i, count($input['levels'])),
+                'title_ar' => $l['title_ar'],
+                'min' => (int) $l['min'],
+                'max' => (int) $l['max'],
+                'summary_ar' => $l['description'] ?? null,
+            ], collect($input['levels'])->sortBy('min')->values()->all(), array_keys($input['levels'])),
+        ];
+
+        $assessment = $importer->import($data);
+
+        // نفس المستويات لكل محور (بنطاقات متساوية على درجة المحور)، لو المقياس فيه أكتر من محور
+        if ($input['dimension_levels'] && count($input['dimensions']) > 1) {
+            $titles = array_column($data['levels'], 'title_ar');
+            foreach (AssessmentData::load($assessment)->roots() as $dimension) {
+                $this->manager->generateLevels($assessment, $dimension->id, $titles);
+            }
+        }
+
+        return redirect()->route('admin.assessments.show', $assessment)
+            ->with('success', 'تم إنشاء المقياس بمحاوره وأسئلته ومستوياته. جرّبه من «تجربة المقياس»، وأضف الأوصاف والتوصيات لكل مستوى من تبويب «مستويات النتائج».');
+    }
+
+    /** صفحة إدارة المقياس: المحاور، الأسئلة، المستويات، وفحص السلامة */
+    public function show(Assessment $assessment, AssessmentHealth $health): View
+    {
+        $data = AssessmentData::load($assessment);
+
+        return view('admin.assessments.show', [
+            'assessment' => $assessment,
+            'data' => $data,
+            'issues' => $health->issuesByArea($data),
+            'tab' => request('tab', 'dimensions'),
+        ]);
+    }
+
+    public function edit(Assessment $assessment): View
+    {
+        return view('admin.assessments.form', ['assessment' => $assessment]);
+    }
+
+    public function update(AssessmentRequest $request, Assessment $assessment): RedirectResponse
+    {
+        $data = $request->assessmentData();
         if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $filename = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
-            $file->move(public_path('images/dashboard'), $filename);
-            $data['image_url'] = $filename;
+            $data['image_url'] = $this->uploads->uploadPublicImage($request->file('image'), self::IMAGES_FOLDER, $assessment->image_url);
         }
-        unset($data['image']);
+        $this->manager->updateAssessment($assessment, $data);
 
-        $assessment = $this->assessmentService->create($data);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'تم إنشاء المقياس بنجاح.',
-            'id' => $assessment->id,
-        ]);
+        return redirect()->route('admin.assessments.show', $assessment)->with('success', 'تم حفظ بيانات المقياس.');
     }
 
-    public function show(Assessment $assessment): View
+    public function toggle(Assessment $assessment): RedirectResponse
     {
-        $assessment = $this->assessmentService->getForManagement($assessment->id);
-        $icons = Icon::all()->groupBy('category');
-        return view('admin.assessments.show', compact('assessment', 'icons'));
+        $assessment->update(['is_active' => ! $assessment->is_active]);
+
+        return back()->with('success', $assessment->is_active ? 'تم تفعيل المقياس.' : 'تم إيقاف المقياس.');
     }
 
-    public function update(UpdateAssessmentRequest $request, Assessment $assessment): JsonResponse
+    public function duplicate(Assessment $assessment, AssessmentExporter $exporter, AssessmentImporter $importer): RedirectResponse
     {
-        $this->assessmentService->update($assessment, $request->validated());
+        $copy = $this->manager->duplicate($assessment, $exporter, $importer);
 
-        return response()->json(['success' => true, 'message' => 'تم تحديث المقياس.']);
+        return redirect()->route('admin.assessments.show', $copy)->with('success', 'تم إنشاء نسخة من المقياس (غير مفعلة). عدّل فيها براحتك.');
     }
 
-    public function updateSettings(UpdateSettingsRequest $request, Assessment $assessment): JsonResponse
+    public function destroy(Assessment $assessment): RedirectResponse
     {
-        $data = $request->validated();
-
-        if ($request->hasFile('image')) {
-            // Delete old image if it exists and is not one of the default seeded images
-            if ($assessment->image_url && ! preg_match('/^([1-9]|1[0-9]|2[0-5])\.png$/', $assessment->image_url)) {
-                $oldPath = public_path('images/dashboard/'.$assessment->image_url);
-                if (\Illuminate\Support\Facades\File::exists($oldPath)) {
-                    \Illuminate\Support\Facades\File::delete($oldPath);
-                }
-            }
-
-            $file = $request->file('image');
-            $filename = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
-            $file->move(public_path('images/dashboard'), $filename);
-            $data['image_url'] = $filename;
+        if (in_array($assessment->code, [Assessment::WHEEL_OF_LIFE, Assessment::PERCEPTUAL_STYLES], true)) {
+            return back()->withErrors(['assessment' => 'المقياس ده ليه صفحات في الموقع ومينفعش يتمسح. ممكن توقفه بدل الحذف.']);
         }
-        unset($data['image']);
+        $this->manager->deleteAssessment($assessment);
 
-        if ($request->hasFile('icon_file')) {
-            // Delete old icon if it exists and is an uploaded file
-            if ($assessment->icon && str_starts_with($assessment->icon, '/images/icons/')) {
-                $oldIconPath = public_path(ltrim($assessment->icon, '/'));
-                if (\Illuminate\Support\Facades\File::exists($oldIconPath)) {
-                    \Illuminate\Support\Facades\File::delete($oldIconPath);
-                }
-            }
-
-            $file = $request->file('icon_file');
-            $filename = 'icon_'.time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
-            $file->move(public_path('images/icons'), $filename);
-            $data['icon'] = '/images/icons/' . $filename;
-        }
-        unset($data['icon_file']);
-
-
-        $this->assessmentService->updateSettings($assessment, $data);
-
-        return response()->json(['success' => true, 'message' => 'تم حفظ الإعدادات بنجاح.']);
+        return redirect()->route('admin.assessments.index')->with('success', 'تم حذف المقياس وكل محتواه ومحاولاته.');
     }
 
-    public function destroy(Assessment $assessment): JsonResponse
+    /** تجربة المقياس: الأدمن بيجاوب وبيشوف النتيجة المحسوبة من غير ما تتحفظ */
+    public function preview(Request $request, Assessment $assessment, ScoringService $scoring): View
     {
-        $this->assessmentService->delete($assessment);
-
-        return response()->json(['success' => true, 'message' => 'تم حذف المقياس.']);
-    }
-
-    public function toggle(Assessment $assessment): JsonResponse
-    {
-        $updated = $this->assessmentService->toggle($assessment);
-        $status = $updated->is_active ? 'تم تفعيل' : 'تم إيقاف';
-
-        return response()->json([
-            'success' => true,
-            'message' => "$status المقياس.",
-            'is_active' => $updated->is_active,
-        ]);
-    }
-
-    public function previewResult(Assessment $assessment, string $level): View
-    {
-        // Find recommendation by level or ID
-        $recommendation = $assessment->recommendations()
-            ->where('level', $level)
-            ->orWhere('id', $level)
-            ->first();
-
-        $levelKey = $recommendation ? $recommendation->level : $level;
-        $scoringType = $assessment->scoring_type ?? 'overall_score';
-
-        // Fallback for perceptual styles if DB recommendations table is empty on server
-        if (!$recommendation && $scoringType === 'perceptual_styles') {
-            $dataFile = database_path('data/assessments/28/recommendations.php');
-            if (!file_exists($dataFile)) {
-                $dataFile = database_path('data/assessments/perceptual_styles/recommendations.php');
-            }
-            if (file_exists($dataFile)) {
-                $allRecs = require $dataFile;
-                $found = collect($allRecs)->firstWhere('level', $levelKey);
-                if ($found) {
-                    $recommendation = new \App\Models\Recommendation(array_merge($found, ['assessment_id' => $assessment->id]));
-                }
-            }
+        $data = AssessmentData::load($assessment);
+        $result = null;
+        if ($request->isMethod('post')) {
+            $result = $scoring->score($data, array_map('intval', (array) $request->input('answers', [])));
         }
 
-        // Build mock scores based on scoring_type & level
-        $mockDimensionScores = collect();
-        $totalScore = 0;
-        $maxPossible = 0;
-
-        if ($scoringType === 'perceptual_styles') {
-            $presetScores = [
-                'visual'                    => ['النمط البصري' => 18, 'النمط السمعي' => 12, 'النمط الحسي' => 9],
-                'auditory'                  => ['النمط البصري' => 11, 'النمط السمعي' => 19, 'النمط الحسي' => 10],
-                'kinesthetic'               => ['النمط البصري' => 10, 'النمط السمعي' => 11, 'النمط الحسي' => 18],
-                'balanced'                  => ['النمط البصري' => 15, 'النمط السمعي' => 14, 'النمط الحسي' => 13],
-                'dual_visual_auditory'      => ['النمط البصري' => 17, 'النمط السمعي' => 16, 'النمط الحسي' => 10],
-                'dual_visual_kinesthetic'   => ['النمط البصري' => 17, 'النمط السمعي' => 10, 'النمط الحسي' => 16],
-                'dual_auditory_kinesthetic'  => ['النمط البصري' => 10, 'النمط السمعي' => 17, 'النمط الحسي' => 16],
-            ];
-
-            $scoresMap = $presetScores[$levelKey] ?? ['النمط البصري' => 15, 'النمط السمعي' => 14, 'النمط الحسي' => 13];
-
-            foreach ($assessment->dimensions as $dim) {
-                $scoreVal = $scoresMap[$dim->name_ar] ?? 12;
-                $totalScore += $scoreVal;
-                $maxPossible += 20;
-
-                $ds = new DimensionScore([
-                    'dimension_id' => $dim->id,
-                    'score' => $scoreVal,
-                    'max_score' => 20,
-                    'level' => $levelKey,
-                ]);
-                $clonedDim = clone $dim;
-                $ds->setRelation('dimension', $clonedDim);
-                $mockDimensionScores->push($ds);
-            }
-        } else {
-            $score = $recommendation ? ($recommendation->high_threshold ?? 85) : 85;
-            $totalScore = $score;
-            $maxPossible = 100;
-
-            foreach ($assessment->dimensions as $dim) {
-                $interp = $dim->interpretations()->where('level', $levelKey)->first();
-                $ds = new DimensionScore([
-                    'dimension_id' => $dim->id,
-                    'score' => $interp ? $interp->high_threshold : 10,
-                    'max_score' => 10,
-                    'level' => $levelKey,
-                ]);
-                $clonedDim = clone $dim;
-                $clonedDim->load('interpretations');
-                $ds->setRelation('dimension', $clonedDim);
-                $mockDimensionScores->push($ds);
-            }
-        }
-
-        // Mock Result model
-        $result = new Result([
-            'id' => 'PREVIEW-' . strtoupper(substr(md5($levelKey), 0, 8)),
-            'assessment_id' => $assessment->id,
-            'total_score' => $totalScore,
-            'max_possible_score' => $maxPossible ?: 60,
-            'level' => $levelKey,
-            'calculated_at' => now(),
-        ]);
-        $result->setRelation('dimensionScores', $mockDimensionScores);
-
-        $formatter = app(ResultFormatter::class);
-        $formattedData = $formatter->format($assessment, $result, $recommendation);
-
-        $session = tap(new ExamSession([
-            'id' => 'PREVIEW-SESSION-' . time(),
-            'status' => 'completed',
-            'created_at' => now(),
-        ]))->setRelation('result', $result)
-           ->setRelation('assessment', $assessment);
-
-        if (view()->exists('user.result')) {
-            return view('user.result', array_merge(['session' => $session], $formattedData));
-        }
-
-        return response()->json(array_merge(['session' => $session], $formattedData));
+        return view('admin.assessments.preview', compact('assessment', 'data', 'result'));
     }
 }

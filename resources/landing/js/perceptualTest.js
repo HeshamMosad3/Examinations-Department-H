@@ -1,5 +1,6 @@
 // محرك اختبار أنماط الإدراك - سؤال واحد في كل مرة (نعم / إلى حد ما / لا)
 import { initNavigation } from './navigation.js';
+import { cms } from './cms.js';
 
 initNavigation();
 
@@ -45,14 +46,14 @@ function renderNav() {
   const prev = current > 0
     ? `<button type="button" id="pt-prev" class="${BTN_BASE} border border-[#204a7a] text-[#204a7a] bg-transparent hover:bg-[#e9edf2] cursor-pointer">
         <i class="fa-solid fa-arrow-right text-[14px] md:text-[18px]" aria-hidden="true"></i>
-        <span>السؤال السابق</span>
+        <span>${cms('perceptual_test.js.prev_button', 'السؤال السابق')}</span>
       </button>`
     : '<span aria-hidden="true"></span>';
 
   el('pt-nav').innerHTML = `
     ${prev}
     <button type="button" id="pt-next" ${answered ? '' : 'disabled aria-disabled="true"'} class="${BTN_BASE} ${nextClass}">
-      <span>${isLast ? 'عرض النتيجة' : 'السؤال التالي'}</span>
+      <span>${isLast ? cms('perceptual_test.js.result_button', 'عرض النتيجة') : cms('perceptual_test.js.next_button', 'السؤال التالي')}</span>
       <i class="fa-solid fa-arrow-left text-[14px] md:text-[18px]" aria-hidden="true"></i>
     </button>`;
 

@@ -24,11 +24,11 @@ class LifeWheelController extends Controller
             'answers.*.*' => ['required', 'integer', 'between:0,4'],
         ]);
 
-        $session = $this->lifeWheel->saveAnswers($request->user(), $data['answers']);
+        $attempt = $this->lifeWheel->saveAnswers($request->user(), $data['answers']);
 
         return response()->json([
             'ok' => true,
-            'session_id' => $session->id,
+            'session_id' => $attempt->id,
             'user_id' => $request->user()->id,
             'redirect' => route('life-wheel.details'),
         ]);

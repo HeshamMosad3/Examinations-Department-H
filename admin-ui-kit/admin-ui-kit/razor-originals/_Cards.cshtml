@@ -1,0 +1,38 @@
+@model DashboardViewModel
+@{
+    var data = Model.Data;
+    string Money(long piasters) => $"{(piasters / 100m).ToString("N0", System.Globalization.CultureInfo.InvariantCulture)} {T["Currency"]}";
+    string Count(int value) => value.ToString("N0", System.Globalization.CultureInfo.InvariantCulture);
+
+    var cards = new (string Key, string Value, string Icon, string Tone, string? Url)[]
+    {
+        ("OperatingClubs", Count(data.OperatingClubs), "bi-shop", "success", Url.Action("Index", "Clubs")),
+        ("ClubsInGrace", Count(data.ClubsInGracePeriod), "bi-hourglass-split", data.ClubsInGracePeriod > 0 ? "warning" : "secondary", Url.Action("Index", "Clubs")),
+        ("ActiveSubscriptions", Count(data.ActiveSubscriptions), "bi-patch-check", "success", Url.Action("Index", "Subscriptions")),
+        ("NewSubscriptions", Count(data.NewSubscriptions), "bi-plus-circle", "primary", Url.Action("Index", "Subscriptions")),
+        ("SubscriptionRevenue", Money(data.SubscriptionRevenuePiasters), "bi-cash-coin", "success", Url.Action("Index", "Subscriptions")),
+        ("Refunded", Money(data.RefundedPiasters), "bi-arrow-counterclockwise", data.RefundedPiasters > 0 ? "danger" : "secondary", Url.Action("Index", "Subscriptions")),
+        ("Bookings", Count(data.Bookings), "bi-calendar-check", "primary", null),
+        ("CompletedBookings", Count(data.CompletedBookings), "bi-check2-circle", "success", null),
+        ("NewUsers", Count(data.NewUsers), "bi-person-plus", "primary", Url.Action("Index", "Users")),
+        ("PendingMemberships", Count(data.PendingMembershipRequests), "bi-person-vcard", data.PendingMembershipRequests > 0 ? "warning" : "secondary", Url.Action("Index", "MembershipRequests")),
+        ("OpenReports", Count(data.OpenReports), "bi-flag", data.OpenReports > 0 ? "danger" : "secondary", Url.Action("Index", "Moderation")),
+    };
+}
+
+<div class="row g-3">
+    @foreach (var card in cards)
+    {
+        <div class="col-6 col-lg-4 col-xxl-3">
+            <div class="card border-0 shadow-sm h-100 position-relative">
+                <div class="card-body d-flex align-items-center gap-3">
+                    <span class="rounded-3 bg-@card.Tone-subtle text-@card.Tone-emphasis d-inline-flex align-items-center justify-content-center" style="width:48px;height:48px"><i class="bi @card.Icon fs-4"></i></span>
+                    <div>
+                        <div class="text-muted small">@(card.Url is null ? (object)T[card.Key] : Html.Raw($"<a class=\"stretched-link text-decoration-none text-muted\" href=\"{card.Url}\">{System.Net.WebUtility.HtmlEncode(T[card.Key])}</a>"))</div>
+                        <div class="fs-4 fw-bold" dir="ltr">@card.Value</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

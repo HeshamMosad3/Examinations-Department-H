@@ -3,55 +3,54 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Attempt;
 use App\Models\User;
+use App\Services\Assessments\AttemptService;
 use App\Services\UserService;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class UserController extends Controller
 {
     public function __construct(
-        private readonly UserService $userService,
+        private readonly UserService $users,
+        private readonly AttemptService $attempts,
     ) {}
 
     public function index(Request $request): View
     {
-        $search = $request->query('search');
-        $users = $this->userService->searchPaginated($search);
-
-        return view('admin.users.index', compact('users', 'search'));
+        return view('admin.users.index', [
+            'users' => $this->users->paginate($request->query('search'), $request->query('role')),
+        ]);
     }
 
-    public function userResults(User $user): JsonResponse
+    public function show(User $user): View
     {
-        $sessions = $this->userService->getUserResults($user->id);
+        return view('admin.users.show', ['user' => $user, 'attempts' => $this->attempts->forUser($user->id)]);
+    }
 
-        $levelTranslations = [
-            'high' => 'مرتفع',
-            'medium' => 'متوسط',
-            'low' => 'منخفض',
-        ];
+    /** تفاصيل محاولة: درجة كل محور ومستواه */
+    public function attempt(Attempt $attempt): View
+    {
+        $info = DB::table('attempts as a')
+            ->join('users as u', 'u.id', '=', 'a.user_id')
+            ->join('assessments as s', 's.id', '=', 'a.assessment_id')
+            ->leftJoin('result_levels as l', 'l.id', '=', 'a.level_id')
+            ->where('a.id', $attempt->id)
+            ->first(['a.*', 'u.name as user_name', 's.title_ar as assessment_title', 's.id as assessment_id', 'l.title_ar as level_title', 'l.summary_ar as level_summary', 'l.description_ar as level_description']);
 
-        $formatted = $sessions->map(function ($session) use ($levelTranslations) {
-            return [
-                'id' => $session->id,
-                'assessment_title' => $session->assessment->title_ar,
-                'completed_at' => $session->completed_at ? $session->completed_at->format('Y-m-d H:i') : null,
-                'total_score' => $session->result ? $session->result->total_score : 0,
-                'max_possible_score' => $session->result ? $session->result->max_possible_score : 0,
-                'level' => $session->result ? ($levelTranslations[$session->result->level] ?? $session->result->level) : 'غير متوفر',
-                'level_raw' => $session->result ? $session->result->level : 'unknown',
-            ];
-        });
+        return view('admin.users.attempt', ['attempt' => $info, 'scores' => $this->attempts->scoresOf($attempt->id)]);
+    }
 
-        return response()->json([
-            'success' => true,
-            'user' => [
-                'name' => $user->name,
-                'email' => $user->email,
-            ],
-            'results' => $formatted,
-        ]);
+    public function destroy(Request $request, User $user): RedirectResponse
+    {
+        if ($user->id === $request->user()->id) {
+            return back()->withErrors(['user' => 'مينفعش تحذف حسابك.']);
+        }
+        $this->users->delete($user);
+
+        return redirect()->route('admin.users.index')->with('success', 'تم حذف المستخدم ومحاولاته.');
     }
 }

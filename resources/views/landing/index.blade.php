@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>دار الرؤى للتدريب | Dar Al-Ruya Training</title>
+  <title>{{ cms('global.seo.title', 'دار الرؤى للتدريب | Dar Al-Ruya Training') }}</title>
   
-  <meta name="description" content="دار الرؤى للتدريب - منصة رائدة في التدريب والتطوير وبناء المهارات القيادية والمقاييس الشخصية المتقدمة مثل اختبار عجلة الحياة المعتمد في المملكة العربية السعودية." />
-  <meta name="keywords" content="دار الرؤى, تدريب, عجلة الحياة, مقاييس شخصية, دورات قيادية, شهادات احترافية, تطوير الذات, السعودية" />
+  <meta name="description" content="{{ cms('global.seo.description', 'دار الرؤى للتدريب - منصة رائدة في التدريب والتطوير وبناء المهارات القيادية والمقاييس الشخصية المتقدمة مثل اختبار عجلة الحياة المعتمد في المملكة العربية السعودية.') }}" />
+  <meta name="keywords" content="{{ cms('global.seo.keywords', 'دار الرؤى, تدريب, عجلة الحياة, مقاييس شخصية, دورات قيادية, شهادات احترافية, تطوير الذات, السعودية') }}" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#204A7A" />
   <link rel="canonical" href="https://alruaa.com/" />
@@ -14,8 +14,8 @@
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://alruaa.com/" />
-  <meta property="og:title" content="دار الرؤى للتدريب | Dar Al-Ruya Training" />
-  <meta property="og:description" content="اكتشف نفسك وابدأ رحلة تطورك مع مقاييس ذكية لفهم ذاتك وتوازنك في الحياة من دار الرؤى للتدريب." />
+  <meta property="og:title" content="{{ cms('global.seo.title', 'دار الرؤى للتدريب | Dar Al-Ruya Training') }}" />
+  <meta property="og:description" content="{{ cms('global.seo.share_description', 'اكتشف نفسك وابدأ رحلة تطورك مع مقاييس ذكية لفهم ذاتك وتوازنك في الحياة من دار الرؤى للتدريب.') }}" />
   <meta property="og:image" content="https://alruaa.com/images/hero_cover.png" />
   <meta property="og:locale" content="ar_SA" />
   <meta property="og:site_name" content="دار الرؤى للتدريب" />
@@ -23,8 +23,8 @@
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:url" content="https://alruaa.com/" />
-  <meta name="twitter:title" content="دار الرؤى للتدريب | Dar Al-Ruya Training" />
-  <meta name="twitter:description" content="اكتشف نفسك وابدأ رحلة تطورك مع مقاييس ذكية لفهم ذاتك وتوازنك في الحياة من دار الرؤى للتدريب." />
+  <meta name="twitter:title" content="{{ cms('global.seo.title', 'دار الرؤى للتدريب | Dar Al-Ruya Training') }}" />
+  <meta name="twitter:description" content="{{ cms('global.seo.share_description', 'اكتشف نفسك وابدأ رحلة تطورك مع مقاييس ذكية لفهم ذاتك وتوازنك في الحياة من دار الرؤى للتدريب.') }}" />
   <meta name="twitter:image" content="https://alruaa.com/images/hero_cover.png" />
 
   <!-- Structured Data (Schema.org) -->
@@ -87,7 +87,7 @@
     window.challengeQuestions = @json($challengeQuestions ?? null);
   </script>
 
-  <!-- Local compiled styles via Vite -->
+  @include('landing.partials.cms-script')<!-- Local compiled styles via Vite -->
   {{ (clone app(\Illuminate\Foundation\Vite::class))->useHotFile(public_path('landing.hot'))->useBuildDirectory('landing/build')->withEntryPoints(['resources/landing/style.css', 'resources/landing/js/main.js']) }}
 
   <style>
@@ -105,7 +105,7 @@
 <body class="bg-[#F8FAFC] text-brand-dark min-h-screen font-cairo antialiased selection:bg-brand-primary selection:text-white relative">
   <!-- Skip to Main Content Link for Keyboard Accessibility -->
   <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:right-4 focus:z-[999] focus:px-5 focus:py-3 focus:bg-brand-primary focus:text-white focus:rounded-xl focus:shadow-xl focus:outline-none">
-    تخطي إلى المحتوى الرئيسي
+    {{ cms('global.a11y.skip_link', 'تخطي إلى المحتوى الرئيسي') }}
   </a>
 
   <!-- Top anchor for Home (#home) navigation -->

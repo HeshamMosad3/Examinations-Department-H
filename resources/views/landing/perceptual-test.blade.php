@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>اختبار أنماط الإدراك | دار الرؤى للتدريب</title>
+  <title>{{ cms('perceptual_test.seo.title', 'اختبار أنماط الإدراك | دار الرؤى للتدريب') }}</title>
   <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-  <meta name="description" content="أجب عن أسئلة أنماط الإدراك وتعرّف على أسلوبك في استقبال المعلومات والتعلّم، سواء كنت تميل إلى النمط البصري، السمعي، أو الحركي." />
+  <meta name="description" content="{{ cms('perceptual_test.seo.description', 'أجب عن أسئلة أنماط الإدراك وتعرّف على أسلوبك في استقبال المعلومات والتعلّم، سواء كنت تميل إلى النمط البصري، السمعي، أو الحركي.') }}" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#204A7A" />
   <link rel="canonical" href="https://alruaa.com/perceptual-test.html" />
 
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://alruaa.com/perceptual-test.html" />
-  <meta property="og:title" content="اختبار أنماط الإدراك | دار الرؤى للتدريب" />
-  <meta property="og:description" content="اكتشف نمطك الإدراكي الغالب: بصري، سمعي، أو حسي." />
+  <meta property="og:title" content="{{ cms('perceptual_test.seo.title', 'اختبار أنماط الإدراك | دار الرؤى للتدريب') }}" />
+  <meta property="og:description" content="{{ cms('perceptual_test.seo.share_description', 'اكتشف نمطك الإدراكي الغالب: بصري، سمعي، أو حسي.') }}" />
   <meta property="og:image" content="https://alruaa.com/images/hero_cover.png" />
   <meta property="og:locale" content="ar_SA" />
 
@@ -26,11 +26,11 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-  {{ (clone app(\Illuminate\Foundation\Vite::class))->useHotFile(public_path('landing.hot'))->useBuildDirectory('landing/build')->withEntryPoints(['resources/landing/style.css', 'resources/landing/js/perceptualTest.js']) }}
+  @include('landing.partials.cms-script'){{ (clone app(\Illuminate\Foundation\Vite::class))->useHotFile(public_path('landing.hot'))->useBuildDirectory('landing/build')->withEntryPoints(['resources/landing/style.css', 'resources/landing/js/perceptualTest.js']) }}
 </head>
 <body class="bg-brand-bg text-brand-dark min-h-screen font-cairo antialiased selection:bg-brand-primary selection:text-white relative page-wide-header">
   <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:right-4 focus:z-[999] focus:px-5 focus:py-3 focus:bg-brand-primary focus:text-white focus:rounded-xl focus:shadow-xl focus:outline-none">
-    تخطي إلى المحتوى الرئيسي
+    {{ cms('global.a11y.skip_link', 'تخطي إلى المحتوى الرئيسي') }}
   </a>
 
   @include('landing.partials.navbar')
@@ -43,20 +43,20 @@
       <a href="/#assessments" class="size-[32px] p-[8px] rounded-full bg-[#e9edf2] flex items-center justify-center text-brand-primary shrink-0 hover:bg-[#d8e0ea] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary" aria-label="الرجوع للرئيسية">
         <i class="fa-solid fa-arrow-right text-[14px]" aria-hidden="true"></i>
       </a>
-      <h1 class="text-[21px] font-bold text-[#204a7a] leading-[28px] tracking-[-0.5px]">اختبار أنماط الإدراك</h1>
+      <h1 class="text-[21px] font-bold text-[#204a7a] leading-[28px] tracking-[-0.5px]">{{ cms('perceptual_test.header.title', 'اختبار أنماط الإدراك') }}</h1>
     </div>
 
     <!-- Desktop breadcrumb (#3083:14979) -->
     <nav class="hidden md:flex items-center gap-2 h-[33px] mb-[64px]" aria-label="مسار التنقل">
-      <a href="/#home" class="text-[#6f6f6f] hover:text-brand-primary transition-colors text-[18px] font-normal">الرئيسية</a>
+      <a href="/#home" class="text-[#6f6f6f] hover:text-brand-primary transition-colors text-[18px] font-normal">{{ cms('perceptual_test.header.breadcrumb_home', 'الرئيسية') }}</a>
       <i class="fa-solid fa-chevron-left text-[12px] text-[#6f6f6f]" aria-hidden="true"></i>
-      <span class="text-brand-primary text-[18px] font-medium">اختبار أنماط الإدراك</span>
+      <span class="text-brand-primary text-[18px] font-medium">{{ cms('perceptual_test.header.title', 'اختبار أنماط الإدراك') }}</span>
     </nav>
 
     <!-- Desktop title + description (#3083:14992) -->
     <div class="hidden md:flex flex-col items-center gap-[28px] max-w-[729px] mx-auto text-center mb-[64px]">
-      <h2 class="text-[36px] font-semibold text-[#204a7a] leading-[1.5] -my-[15px]">اختبار أنماط الإدراك</h2>
-      <p class="text-[21px] font-medium text-[#565656] leading-normal">أجب عن أسئلة أنماط الإدراك وتعرّف على أسلوبك في استقبال المعلومات والتعلّم، سواء كنت تميل إلى النمط البصري، السمعي، أو الحركي.</p>
+      <h2 class="text-[36px] font-semibold text-[#204a7a] leading-[1.5] -my-[15px]">{{ cms('perceptual_test.header.title', 'اختبار أنماط الإدراك') }}</h2>
+      <p class="text-[21px] font-medium text-[#565656] leading-normal">{{ cms('perceptual_test.header.text', 'أجب عن أسئلة أنماط الإدراك وتعرّف على أسلوبك في استقبال المعلومات والتعلّم، سواء كنت تميل إلى النمط البصري، السمعي، أو الحركي.') }}</p>
     </div>
 
     <!-- Reminder box (#3083:14997 / #3080:12224) -->
@@ -65,8 +65,8 @@
         <img src="/landing/images/perceptual-test/lightbulb.svg" alt="" width="24" height="24" class="size-[18px] md:size-[24px]" />
       </div>
       <div class="flex flex-col min-w-0">
-        <p class="text-[14px] md:text-[17px] font-bold md:font-semibold text-[#262626] leading-normal md:leading-[1.5]">تذكّر</p>
-        <p class="text-[12px] md:text-[17px] font-medium text-[#565656] leading-normal pt-[2px]">اختر الإجابة الأقرب إليك لا توجد إجابة صحيحة أو خاطئة.</p>
+        <p class="text-[14px] md:text-[17px] font-bold md:font-semibold text-[#262626] leading-normal md:leading-[1.5]">{{ cms('perceptual_test.reminder.title', 'تذكّر') }}</p>
+        <p class="text-[12px] md:text-[17px] font-medium text-[#565656] leading-normal pt-[2px]">{{ cms('perceptual_test.reminder.text', 'اختر الإجابة الأقرب إليك لا توجد إجابة صحيحة أو خاطئة.') }}</p>
       </div>
     </div>
 

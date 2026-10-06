@@ -16,7 +16,7 @@
         </div>
         
         <!-- Text -->
-        <h2 id="testimonials-title" class="text-[16px] min-[370px]:text-[17.5px] min-[390px]:text-[18px] md:text-[29px] text-[#1D436E] md:text-brand-primary whitespace-nowrap shrink-0" style="font-family: 'El Messiri', sans-serif; font-weight: 600; line-height: 1.5;">آراء المتدربين</h2>
+        <h2 id="testimonials-title" class="text-[16px] min-[370px]:text-[17.5px] min-[390px]:text-[18px] md:text-[29px] text-[#1D436E] md:text-brand-primary whitespace-nowrap shrink-0" style="font-family: 'El Messiri', sans-serif; font-weight: 600; line-height: 1.5;">{{ cms('home.testimonials.title', 'آراء المتدربين') }}</h2>
 
         <!-- Left Mark (Visual Left in RTL) -->
         <div class="flex items-center w-[36px] min-[370px]:w-[48px] min-[390px]:w-[56.56px] md:w-[109px] shrink" dir="ltr" aria-hidden="true">
@@ -38,7 +38,7 @@
           <div class="bg-[#FEFEFE] rounded-[13.5px] md:rounded-[20px] w-full h-full p-4 min-[390px]:p-5 md:p-8 flex flex-col justify-between">
             <div>
               <p class="text-[#0B1628] text-[13px] min-[390px]:text-[14px] md:text-[14px] leading-[1.5] font-messiri md:font-cairo text-right mb-3 md:mb-6 font-normal md:font-medium max-w-[314px] mx-auto">
-                «تجربة تدريبية استثنائية! بفضل دورات القيادة المتقدمة تمكنت من تطوير استراتيجيات فعالة لفريقي وتحسين الأداء العام.»
+                {{ cms('home.testimonials.card_1_quote', '«تجربة تدريبية استثنائية! بفضل دورات القيادة المتقدمة تمكنت من تطوير استراتيجيات فعالة لفريقي وتحسين الأداء العام.»') }}
               </p>
               <div class="flex items-center justify-between mb-2 md:mb-4">
                 <div class="flex items-center gap-1 text-[#F59E0B] text-[13px] md:text-[14px]">
@@ -48,10 +48,10 @@
               </div>
             </div>
             <div class="flex items-center gap-[12px] md:gap-[16px] pt-2 md:pt-4 mt-auto text-right">
-              <img src="/landing/images/testimonials/user1.jpg" alt="د. عبدالله السالم" loading="lazy" decoding="async" class="w-[38px] h-[38px] min-[390px]:w-[40px] min-[390px]:h-[40px] md:w-[38px] md:h-[38px] rounded-full object-cover shrink-0 border-[1.6px] border-[#204A7A]/30" />
+              <img src="{{ cms_image('home.testimonials.card_1_photo', '/landing/images/testimonials/user1.jpg') }}" alt="{{ cms('home.testimonials.card_1_name', 'د. عبدالله السالم') }}" loading="lazy" decoding="async" class="w-[38px] h-[38px] min-[390px]:w-[40px] min-[390px]:h-[40px] md:w-[38px] md:h-[38px] rounded-full object-cover shrink-0 border-[1.6px] border-[#204A7A]/30" />
               <div class="min-w-0 flex flex-col justify-center">
-                <h4 class="font-bold md:font-semibold text-[13.5px] min-[390px]:text-[14px] md:text-[14px] leading-[1.5] text-[#204A7A] truncate font-messiri md:font-cairo">د. عبدالله السالم</h4>
-                <p class="text-[11.5px] min-[390px]:text-[12px] md:text-[11px] leading-[1.5] text-[#565656] md:text-[#64748B] font-messiri md:font-cairo truncate font-normal">مستشار تقنية معلومات - وزارة الصحة</p>
+                <h4 class="font-bold md:font-semibold text-[13.5px] min-[390px]:text-[14px] md:text-[14px] leading-[1.5] text-[#204A7A] truncate font-messiri md:font-cairo">{{ cms('home.testimonials.card_1_name', 'د. عبدالله السالم') }}</h4>
+                <p class="text-[11.5px] min-[390px]:text-[12px] md:text-[11px] leading-[1.5] text-[#565656] md:text-[#64748B] font-messiri md:font-cairo truncate font-normal">{{ cms('home.testimonials.card_1_role', 'مستشار تقنية معلومات - وزارة الصحة') }}</p>
               </div>
             </div>
           </div>
@@ -62,7 +62,7 @@
           <div class="bg-[#FEFEFE] rounded-[13.5px] md:rounded-[20px] w-full h-full p-4 min-[390px]:p-5 md:p-8 flex flex-col justify-between">
             <div>
               <p class="text-[#0B1628] text-[13px] min-[390px]:text-[14px] md:text-[14px] leading-[1.5] font-messiri md:font-cairo text-right mb-3 md:mb-6 font-normal md:font-medium max-w-[314px] mx-auto">
-                «دار الرؤى غيّرت مسيرتي المهنية. حصلت على شهادة CBP وترقيت خلال ستة أشهر فقط.»
+                {{ cms('home.testimonials.card_2_quote', '«دار الرؤى غيّرت مسيرتي المهنية. حصلت على شهادة CBP وترقيت خلال ستة أشهر فقط.»') }}
               </p>
               <div class="flex items-center justify-between mb-2 md:mb-4">
                 <div class="flex items-center gap-1 text-[#F59E0B] text-[13px] md:text-[14px]">
@@ -72,10 +72,10 @@
               </div>
             </div>
             <div class="flex items-center gap-[12px] md:gap-[16px] pt-2 md:pt-4 mt-auto text-right">
-              <img src="/landing/images/testimonials/user3.jpg" alt="أحمد الراشد" loading="lazy" decoding="async" class="w-[38px] h-[38px] min-[390px]:w-[40px] min-[390px]:h-[40px] md:w-[38px] md:h-[38px] rounded-full object-cover shrink-0 border-[1.6px] border-[#204A7A]/30" />
+              <img src="{{ cms_image('home.testimonials.card_2_photo', '/landing/images/testimonials/user3.jpg') }}" alt="{{ cms('home.testimonials.card_2_name', 'أحمد الراشد') }}" loading="lazy" decoding="async" class="w-[38px] h-[38px] min-[390px]:w-[40px] min-[390px]:h-[40px] md:w-[38px] md:h-[38px] rounded-full object-cover shrink-0 border-[1.6px] border-[#204A7A]/30" />
               <div class="min-w-0 flex flex-col justify-center">
-                <h4 class="font-bold md:font-semibold text-[13.5px] min-[390px]:text-[14px] md:text-[14px] leading-[1.5] text-[#204A7A] truncate font-messiri md:font-cairo">أحمد الراشد</h4>
-                <p class="text-[11.5px] min-[390px]:text-[12px] md:text-[11px] leading-[1.5] text-[#565656] md:text-[#64748B] font-messiri md:font-cairo truncate font-normal">مدير موارد بشرية · أرامكو السعودية</p>
+                <h4 class="font-bold md:font-semibold text-[13.5px] min-[390px]:text-[14px] md:text-[14px] leading-[1.5] text-[#204A7A] truncate font-messiri md:font-cairo">{{ cms('home.testimonials.card_2_name', 'أحمد الراشد') }}</h4>
+                <p class="text-[11.5px] min-[390px]:text-[12px] md:text-[11px] leading-[1.5] text-[#565656] md:text-[#64748B] font-messiri md:font-cairo truncate font-normal">{{ cms('home.testimonials.card_2_role', 'مدير موارد بشرية · أرامكو السعودية') }}</p>
               </div>
             </div>
           </div>
@@ -86,7 +86,7 @@
           <div class="bg-[#FEFEFE] rounded-[13.5px] md:rounded-[20px] w-full h-full p-4 min-[390px]:p-5 md:p-8 flex flex-col justify-between">
             <div>
               <p class="text-[#0B1628] text-[13px] min-[390px]:text-[14px] md:text-[14px] leading-[1.5] font-messiri md:font-cairo text-right mb-3 md:mb-6 font-normal md:font-medium max-w-[314px] mx-auto">
-                «محتوى غني وعملي جداً. أنصح بشدة ببرامج الشهادات الدولية المقدمة من دار الرؤى لكل طموح يسعى للتميز المهني.»
+                {{ cms('home.testimonials.card_3_quote', '«محتوى غني وعملي جداً. أنصح بشدة ببرامج الشهادات الدولية المقدمة من دار الرؤى لكل طموح يسعى للتميز المهني.»') }}
               </p>
               <div class="flex items-center justify-between mb-2 md:mb-4">
                 <div class="flex items-center gap-1 text-[#F59E0B] text-[13px] md:text-[14px]">
@@ -96,10 +96,10 @@
               </div>
             </div>
             <div class="flex items-center gap-[12px] md:gap-[16px] pt-2 md:pt-4 mt-auto text-right">
-              <img src="/landing/images/testimonials/user2.jpg" alt="خالد المطيري" loading="lazy" decoding="async" class="w-[38px] h-[38px] min-[390px]:w-[40px] min-[390px]:h-[40px] md:w-[38px] md:h-[38px] rounded-full object-cover shrink-0 border-[1.6px] border-[#204A7A]/30" />
+              <img src="{{ cms_image('home.testimonials.card_3_photo', '/landing/images/testimonials/user2.jpg') }}" alt="{{ cms('home.testimonials.card_3_name', 'خالد المطيري') }}" loading="lazy" decoding="async" class="w-[38px] h-[38px] min-[390px]:w-[40px] min-[390px]:h-[40px] md:w-[38px] md:h-[38px] rounded-full object-cover shrink-0 border-[1.6px] border-[#204A7A]/30" />
               <div class="min-w-0 flex flex-col justify-center">
-                <h4 class="font-bold md:font-semibold text-[13.5px] min-[390px]:text-[14px] md:text-[14px] leading-[1.5] text-[#204A7A] truncate font-messiri md:font-cairo">خالد المطيري</h4>
-                <p class="text-[11.5px] min-[390px]:text-[12px] md:text-[11px] leading-[1.5] text-[#565656] md:text-[#64748B] font-messiri md:font-cairo truncate font-normal">رئيس قسم التسويق - شركة STC</p>
+                <h4 class="font-bold md:font-semibold text-[13.5px] min-[390px]:text-[14px] md:text-[14px] leading-[1.5] text-[#204A7A] truncate font-messiri md:font-cairo">{{ cms('home.testimonials.card_3_name', 'خالد المطيري') }}</h4>
+                <p class="text-[11.5px] min-[390px]:text-[12px] md:text-[11px] leading-[1.5] text-[#565656] md:text-[#64748B] font-messiri md:font-cairo truncate font-normal">{{ cms('home.testimonials.card_3_role', 'رئيس قسم التسويق - شركة STC') }}</p>
               </div>
             </div>
           </div>
@@ -110,7 +110,7 @@
           <div class="bg-[#FEFEFE] rounded-[13.5px] md:rounded-[20px] w-full h-full p-4 min-[390px]:p-5 md:p-8 flex flex-col justify-between">
             <div>
               <p class="text-[#0B1628] text-[13px] min-[390px]:text-[14px] md:text-[14px] leading-[1.5] font-messiri md:font-cairo text-right mb-3 md:mb-6 font-normal md:font-medium max-w-[314px] mx-auto">
-                «البيئة التدريبية التفاعلية ساعدتني على بناء شبكة علاقات قوية واكتساب مهارات لا تقدر بثمن في وقت قياسي.»
+                {{ cms('home.testimonials.card_4_quote', '«البيئة التدريبية التفاعلية ساعدتني على بناء شبكة علاقات قوية واكتساب مهارات لا تقدر بثمن في وقت قياسي.»') }}
               </p>
               <div class="flex items-center justify-between mb-2 md:mb-4">
                 <div class="flex items-center gap-1 text-[#F59E0B] text-[13px] md:text-[14px]">
@@ -120,10 +120,10 @@
               </div>
             </div>
             <div class="flex items-center gap-[12px] md:gap-[16px] pt-2 md:pt-4 mt-auto text-right">
-              <img src="/landing/images/testimonials/user1.jpg" alt="فهد العتيبي" loading="lazy" decoding="async" class="w-[38px] h-[38px] min-[390px]:w-[40px] min-[390px]:h-[40px] md:w-[38px] md:h-[38px] rounded-full object-cover shrink-0 border-[1.6px] border-[#204A7A]/30" />
+              <img src="{{ cms_image('home.testimonials.card_4_photo', '/landing/images/testimonials/user1.jpg') }}" alt="{{ cms('home.testimonials.card_4_name', 'فهد العتيبي') }}" loading="lazy" decoding="async" class="w-[38px] h-[38px] min-[390px]:w-[40px] min-[390px]:h-[40px] md:w-[38px] md:h-[38px] rounded-full object-cover shrink-0 border-[1.6px] border-[#204A7A]/30" />
               <div class="min-w-0 flex flex-col justify-center">
-                <h4 class="font-bold md:font-semibold text-[13.5px] min-[390px]:text-[14px] md:text-[14px] leading-[1.5] text-[#204A7A] truncate font-messiri md:font-cairo">فهد العتيبي</h4>
-                <p class="text-[11.5px] min-[390px]:text-[12px] md:text-[11px] leading-[1.5] text-[#565656] md:text-[#64748B] font-messiri md:font-cairo truncate font-normal">مدير مشاريع - البنك العربي</p>
+                <h4 class="font-bold md:font-semibold text-[13.5px] min-[390px]:text-[14px] md:text-[14px] leading-[1.5] text-[#204A7A] truncate font-messiri md:font-cairo">{{ cms('home.testimonials.card_4_name', 'فهد العتيبي') }}</h4>
+                <p class="text-[11.5px] min-[390px]:text-[12px] md:text-[11px] leading-[1.5] text-[#565656] md:text-[#64748B] font-messiri md:font-cairo truncate font-normal">{{ cms('home.testimonials.card_4_role', 'مدير مشاريع - البنك العربي') }}</p>
               </div>
             </div>
           </div>
@@ -134,7 +134,7 @@
           <div class="bg-[#FEFEFE] rounded-[13.5px] md:rounded-[20px] w-full h-full p-4 min-[390px]:p-5 md:p-8 flex flex-col justify-between">
             <div>
               <p class="text-[#0B1628] text-[13px] min-[390px]:text-[14px] md:text-[14px] leading-[1.5] font-messiri md:font-cairo text-right mb-3 md:mb-6 font-normal md:font-medium max-w-[314px] mx-auto">
-                «منهجية التدريب متطورة وتواكب أحدث متطلبات سوق العمل. شكراً لفريق دار الرؤى على هذا الإبداع والتميز.»
+                {{ cms('home.testimonials.card_5_quote', '«منهجية التدريب متطورة وتواكب أحدث متطلبات سوق العمل. شكراً لفريق دار الرؤى على هذا الإبداع والتميز.»') }}
               </p>
               <div class="flex items-center justify-between mb-2 md:mb-4">
                 <div class="flex items-center gap-1 text-[#F59E0B] text-[13px] md:text-[14px]">
@@ -144,10 +144,10 @@
               </div>
             </div>
             <div class="flex items-center gap-[12px] md:gap-[16px] pt-2 md:pt-4 mt-auto text-right">
-              <img src="/landing/images/testimonials/user2.jpg" alt="سلطان الدوسري" loading="lazy" decoding="async" class="w-[38px] h-[38px] min-[390px]:w-[40px] min-[390px]:h-[40px] md:w-[38px] md:h-[38px] rounded-full object-cover shrink-0 border-[1.6px] border-[#204A7A]/30" />
+              <img src="{{ cms_image('home.testimonials.card_5_photo', '/landing/images/testimonials/user2.jpg') }}" alt="{{ cms('home.testimonials.card_5_name', 'سلطان الدوسري') }}" loading="lazy" decoding="async" class="w-[38px] h-[38px] min-[390px]:w-[40px] min-[390px]:h-[40px] md:w-[38px] md:h-[38px] rounded-full object-cover shrink-0 border-[1.6px] border-[#204A7A]/30" />
               <div class="min-w-0 flex flex-col justify-center">
-                <h4 class="font-bold md:font-semibold text-[13.5px] min-[390px]:text-[14px] md:text-[14px] leading-[1.5] text-[#204A7A] truncate font-messiri md:font-cairo">سلطان الدوسري</h4>
-                <p class="text-[11.5px] min-[390px]:text-[12px] md:text-[11px] leading-[1.5] text-[#565656] md:text-[#64748B] font-messiri md:font-cairo truncate font-normal">أخصائي تدريب وتطوير - الرياض</p>
+                <h4 class="font-bold md:font-semibold text-[13.5px] min-[390px]:text-[14px] md:text-[14px] leading-[1.5] text-[#204A7A] truncate font-messiri md:font-cairo">{{ cms('home.testimonials.card_5_name', 'سلطان الدوسري') }}</h4>
+                <p class="text-[11.5px] min-[390px]:text-[12px] md:text-[11px] leading-[1.5] text-[#565656] md:text-[#64748B] font-messiri md:font-cairo truncate font-normal">{{ cms('home.testimonials.card_5_role', 'أخصائي تدريب وتطوير - الرياض') }}</p>
               </div>
             </div>
           </div>
@@ -158,7 +158,7 @@
           <div class="bg-[#FEFEFE] rounded-[13.5px] md:rounded-[20px] w-full h-full p-4 min-[390px]:p-5 md:p-8 flex flex-col justify-between">
             <div>
               <p class="text-[#0B1628] text-[13px] min-[390px]:text-[14px] md:text-[14px] leading-[1.5] font-messiri md:font-cairo text-right mb-3 md:mb-6 font-normal md:font-medium max-w-[314px] mx-auto">
-                «استفدت كثيراً من جلسات التوجيه المهني. المقاييس دقيقة جداً وأضاءت لي جوانب مهمة في شخصيتي لم أكن أدركها.»
+                {{ cms('home.testimonials.card_6_quote', '«استفدت كثيراً من جلسات التوجيه المهني. المقاييس دقيقة جداً وأضاءت لي جوانب مهمة في شخصيتي لم أكن أدركها.»') }}
               </p>
               <div class="flex items-center justify-between mb-2 md:mb-4">
                 <div class="flex items-center gap-1 text-[#F59E0B] text-[13px] md:text-[14px]">
@@ -168,10 +168,10 @@
               </div>
             </div>
             <div class="flex items-center gap-[12px] md:gap-[16px] pt-2 md:pt-4 mt-auto text-right">
-              <img src="/landing/images/testimonials/user3.jpg" alt="محمد القحطاني" loading="lazy" decoding="async" class="w-[38px] h-[38px] min-[390px]:w-[40px] min-[390px]:h-[40px] md:w-[38px] md:h-[38px] rounded-full object-cover shrink-0 border-[1.6px] border-[#204A7A]/30" />
+              <img src="{{ cms_image('home.testimonials.card_6_photo', '/landing/images/testimonials/user3.jpg') }}" alt="{{ cms('home.testimonials.card_6_name', 'محمد القحطاني') }}" loading="lazy" decoding="async" class="w-[38px] h-[38px] min-[390px]:w-[40px] min-[390px]:h-[40px] md:w-[38px] md:h-[38px] rounded-full object-cover shrink-0 border-[1.6px] border-[#204A7A]/30" />
               <div class="min-w-0 flex flex-col justify-center">
-                <h4 class="font-bold md:font-semibold text-[13.5px] min-[390px]:text-[14px] md:text-[14px] leading-[1.5] text-[#204A7A] truncate font-messiri md:font-cairo">محمد القحطاني</h4>
-                <p class="text-[11.5px] min-[390px]:text-[12px] md:text-[11px] leading-[1.5] text-[#565656] md:text-[#64748B] font-messiri md:font-cairo truncate font-normal">محلل بيانات - مصرف الراجحي</p>
+                <h4 class="font-bold md:font-semibold text-[13.5px] min-[390px]:text-[14px] md:text-[14px] leading-[1.5] text-[#204A7A] truncate font-messiri md:font-cairo">{{ cms('home.testimonials.card_6_name', 'محمد القحطاني') }}</h4>
+                <p class="text-[11.5px] min-[390px]:text-[12px] md:text-[11px] leading-[1.5] text-[#565656] md:text-[#64748B] font-messiri md:font-cairo truncate font-normal">{{ cms('home.testimonials.card_6_role', 'محلل بيانات - مصرف الراجحي') }}</p>
               </div>
             </div>
           </div>
@@ -182,7 +182,7 @@
           <div class="bg-[#FEFEFE] rounded-[13.5px] md:rounded-[20px] w-full h-full p-4 min-[390px]:p-5 md:p-8 flex flex-col justify-between">
             <div>
               <p class="text-[#0B1628] text-[13px] min-[390px]:text-[14px] md:text-[14px] leading-[1.5] font-messiri md:font-cairo text-right mb-3 md:mb-6 font-normal md:font-medium max-w-[314px] mx-auto">
-                «أفضل استثمار في الذات! الشهادة التي حصلت عليها فتحت لي أبواباً جديدة وفرص وظيفية لم أكن أتوقعها.»
+                {{ cms('home.testimonials.card_7_quote', '«أفضل استثمار في الذات! الشهادة التي حصلت عليها فتحت لي أبواباً جديدة وفرص وظيفية لم أكن أتوقعها.»') }}
               </p>
               <div class="flex items-center justify-between mb-2 md:mb-4">
                 <div class="flex items-center gap-1 text-[#F59E0B] text-[13px] md:text-[14px]">
@@ -192,10 +192,10 @@
               </div>
             </div>
             <div class="flex items-center gap-[12px] md:gap-[16px] pt-2 md:pt-4 mt-auto text-right">
-              <img src="/landing/images/testimonials/user1.jpg" alt="صالح الزهراني" loading="lazy" decoding="async" class="w-[38px] h-[38px] min-[390px]:w-[40px] min-[390px]:h-[40px] md:w-[38px] md:h-[38px] rounded-full object-cover shrink-0 border-[1.6px] border-[#204A7A]/30" />
+              <img src="{{ cms_image('home.testimonials.card_7_photo', '/landing/images/testimonials/user1.jpg') }}" alt="{{ cms('home.testimonials.card_7_name', 'صالح الزهراني') }}" loading="lazy" decoding="async" class="w-[38px] h-[38px] min-[390px]:w-[40px] min-[390px]:h-[40px] md:w-[38px] md:h-[38px] rounded-full object-cover shrink-0 border-[1.6px] border-[#204A7A]/30" />
               <div class="min-w-0 flex flex-col justify-center">
-                <h4 class="font-bold md:font-semibold text-[13.5px] min-[390px]:text-[14px] md:text-[14px] leading-[1.5] text-[#204A7A] truncate font-messiri md:font-cairo">صالح الزهراني</h4>
-                <p class="text-[11.5px] min-[390px]:text-[12px] md:text-[11px] leading-[1.5] text-[#565656] md:text-[#64748B] font-messiri md:font-cairo truncate font-normal">مدير تخطيط استراتيجي - جدة</p>
+                <h4 class="font-bold md:font-semibold text-[13.5px] min-[390px]:text-[14px] md:text-[14px] leading-[1.5] text-[#204A7A] truncate font-messiri md:font-cairo">{{ cms('home.testimonials.card_7_name', 'صالح الزهراني') }}</h4>
+                <p class="text-[11.5px] min-[390px]:text-[12px] md:text-[11px] leading-[1.5] text-[#565656] md:text-[#64748B] font-messiri md:font-cairo truncate font-normal">{{ cms('home.testimonials.card_7_role', 'مدير تخطيط استراتيجي - جدة') }}</p>
               </div>
             </div>
           </div>
@@ -206,7 +206,7 @@
           <div class="bg-[#FEFEFE] rounded-[13.5px] md:rounded-[20px] w-full h-full p-4 min-[390px]:p-5 md:p-8 flex flex-col justify-between">
             <div>
               <p class="text-[#0B1628] text-[13px] min-[390px]:text-[14px] md:text-[14px] leading-[1.5] font-messiri md:font-cairo text-right mb-3 md:mb-6 font-normal md:font-medium max-w-[314px] mx-auto">
-                «احترافية في التعامل، دقة في المواعيد، وقيمة علمية عالية. دار الرؤى هي الخيار الأول للتدريب والتطوير.»
+                {{ cms('home.testimonials.card_8_quote', '«احترافية في التعامل، دقة في المواعيد، وقيمة علمية عالية. دار الرؤى هي الخيار الأول للتدريب والتطوير.»') }}
               </p>
               <div class="flex items-center justify-between mb-2 md:mb-4">
                 <div class="flex items-center gap-1 text-[#F59E0B] text-[13px] md:text-[14px]">
@@ -216,10 +216,10 @@
               </div>
             </div>
             <div class="flex items-center gap-[12px] md:gap-[16px] pt-2 md:pt-4 mt-auto text-right">
-              <img src="/landing/images/testimonials/user2.jpg" alt="طارق الحربي" loading="lazy" decoding="async" class="w-[38px] h-[38px] min-[390px]:w-[40px] min-[390px]:h-[40px] md:w-[38px] md:h-[38px] rounded-full object-cover shrink-0 border-[1.6px] border-[#204A7A]/30" />
+              <img src="{{ cms_image('home.testimonials.card_8_photo', '/landing/images/testimonials/user2.jpg') }}" alt="{{ cms('home.testimonials.card_8_name', 'طارق الحربي') }}" loading="lazy" decoding="async" class="w-[38px] h-[38px] min-[390px]:w-[40px] min-[390px]:h-[40px] md:w-[38px] md:h-[38px] rounded-full object-cover shrink-0 border-[1.6px] border-[#204A7A]/30" />
               <div class="min-w-0 flex flex-col justify-center">
-                <h4 class="font-bold md:font-semibold text-[13.5px] min-[390px]:text-[14px] md:text-[14px] leading-[1.5] text-[#204A7A] truncate font-messiri md:font-cairo">طارق الحربي</h4>
-                <p class="text-[11.5px] min-[390px]:text-[12px] md:text-[11px] leading-[1.5] text-[#565656] md:text-[#64748B] font-messiri md:font-cairo truncate font-normal">مدير علاقات عامة - وزارة التجارة</p>
+                <h4 class="font-bold md:font-semibold text-[13.5px] min-[390px]:text-[14px] md:text-[14px] leading-[1.5] text-[#204A7A] truncate font-messiri md:font-cairo">{{ cms('home.testimonials.card_8_name', 'طارق الحربي') }}</h4>
+                <p class="text-[11.5px] min-[390px]:text-[12px] md:text-[11px] leading-[1.5] text-[#565656] md:text-[#64748B] font-messiri md:font-cairo truncate font-normal">{{ cms('home.testimonials.card_8_role', 'مدير علاقات عامة - وزارة التجارة') }}</p>
               </div>
             </div>
           </div>
@@ -230,7 +230,7 @@
           <div class="bg-[#FEFEFE] rounded-[13.5px] md:rounded-[20px] w-full h-full p-4 min-[390px]:p-5 md:p-8 flex flex-col justify-between">
             <div>
               <p class="text-[#0B1628] text-[13px] min-[390px]:text-[14px] md:text-[14px] leading-[1.5] font-messiri md:font-cairo text-right mb-3 md:mb-6 font-normal md:font-medium max-w-[314px] mx-auto">
-                «شكراً لدار الرؤى على هذا الجهد الرائع في تقديم محتوى تدريبي يلامس احتياجاتنا الفعلية في بيئة العمل.»
+                {{ cms('home.testimonials.card_9_quote', '«شكراً لدار الرؤى على هذا الجهد الرائع في تقديم محتوى تدريبي يلامس احتياجاتنا الفعلية في بيئة العمل.»') }}
               </p>
               <div class="flex items-center justify-between mb-2 md:mb-4">
                 <div class="flex items-center gap-1 text-[#F59E0B] text-[13px] md:text-[14px]">
@@ -240,10 +240,10 @@
               </div>
             </div>
             <div class="flex items-center gap-[12px] md:gap-[16px] pt-2 md:pt-4 mt-auto text-right">
-              <img src="/landing/images/testimonials/user3.jpg" alt="عبدالمجيد الغامدي" loading="lazy" decoding="async" class="w-[38px] h-[38px] min-[390px]:w-[40px] min-[390px]:h-[40px] md:w-[38px] md:h-[38px] rounded-full object-cover shrink-0 border-[1.6px] border-[#204A7A]/30" />
+              <img src="{{ cms_image('home.testimonials.card_9_photo', '/landing/images/testimonials/user3.jpg') }}" alt="{{ cms('home.testimonials.card_9_name', 'عبدالمجيد الغامدي') }}" loading="lazy" decoding="async" class="w-[38px] h-[38px] min-[390px]:w-[40px] min-[390px]:h-[40px] md:w-[38px] md:h-[38px] rounded-full object-cover shrink-0 border-[1.6px] border-[#204A7A]/30" />
               <div class="min-w-0 flex flex-col justify-center">
-                <h4 class="font-bold md:font-semibold text-[13.5px] min-[390px]:text-[14px] md:text-[14px] leading-[1.5] text-[#204A7A] truncate font-messiri md:font-cairo">عبدالمجيد الغامدي</h4>
-                <p class="text-[11.5px] min-[390px]:text-[12px] md:text-[11px] leading-[1.5] text-[#565656] md:text-[#64748B] font-messiri md:font-cairo truncate font-normal">مستشار قانوني - الدمام</p>
+                <h4 class="font-bold md:font-semibold text-[13.5px] min-[390px]:text-[14px] md:text-[14px] leading-[1.5] text-[#204A7A] truncate font-messiri md:font-cairo">{{ cms('home.testimonials.card_9_name', 'عبدالمجيد الغامدي') }}</h4>
+                <p class="text-[11.5px] min-[390px]:text-[12px] md:text-[11px] leading-[1.5] text-[#565656] md:text-[#64748B] font-messiri md:font-cairo truncate font-normal">{{ cms('home.testimonials.card_9_role', 'مستشار قانوني - الدمام') }}</p>
               </div>
             </div>
           </div>
@@ -254,7 +254,7 @@
           <div class="bg-[#FEFEFE] rounded-[13.5px] md:rounded-[20px] w-full h-full p-4 min-[390px]:p-5 md:p-8 flex flex-col justify-between">
             <div>
               <p class="text-[#0B1628] text-[13px] min-[390px]:text-[14px] md:text-[14px] leading-[1.5] font-messiri md:font-cairo text-right mb-3 md:mb-6 font-normal md:font-medium max-w-[314px] mx-auto">
-                «تجربة التدريب في دار الرؤى تجاوزت توقعاتي. حصلت على معرفة تطبيقية عميقة ساعدتني في تحسين كفاءة العمل المالي في قطاعي بشكل ملحوظ.»
+                {{ cms('home.testimonials.card_10_quote', '«تجربة التدريب في دار الرؤى تجاوزت توقعاتي. حصلت على معرفة تطبيقية عميقة ساعدتني في تحسين كفاءة العمل المالي في قطاعي بشكل ملحوظ.»') }}
               </p>
               <div class="flex items-center justify-between mb-2 md:mb-4">
                 <div class="flex items-center gap-1 text-[#F59E0B] text-[13px] md:text-[14px]">
@@ -264,10 +264,10 @@
               </div>
             </div>
             <div class="flex items-center gap-[12px] md:gap-[16px] pt-2 md:pt-4 mt-auto text-right">
-              <img src="/landing/images/testimonials/user1.jpg" alt="عبدالرحمن الشهري" loading="lazy" decoding="async" class="w-[38px] h-[38px] min-[390px]:w-[40px] min-[390px]:h-[40px] md:w-[38px] md:h-[38px] rounded-full object-cover shrink-0 border-[1.6px] border-[#204A7A]/30" />
+              <img src="{{ cms_image('home.testimonials.card_10_photo', '/landing/images/testimonials/user1.jpg') }}" alt="{{ cms('home.testimonials.card_10_name', 'عبدالرحمن الشهري') }}" loading="lazy" decoding="async" class="w-[38px] h-[38px] min-[390px]:w-[40px] min-[390px]:h-[40px] md:w-[38px] md:h-[38px] rounded-full object-cover shrink-0 border-[1.6px] border-[#204A7A]/30" />
               <div class="min-w-0 flex flex-col justify-center">
-                <h4 class="font-bold md:font-semibold text-[13.5px] min-[390px]:text-[14px] md:text-[14px] leading-[1.5] text-[#204A7A] truncate font-messiri md:font-cairo">عبدالرحمن الشهري</h4>
-                <p class="text-[11.5px] min-[390px]:text-[12px] md:text-[11px] leading-[1.5] text-[#565656] md:text-[#64748B] font-messiri md:font-cairo truncate font-normal">مستشار مالي - وزارة المالية</p>
+                <h4 class="font-bold md:font-semibold text-[13.5px] min-[390px]:text-[14px] md:text-[14px] leading-[1.5] text-[#204A7A] truncate font-messiri md:font-cairo">{{ cms('home.testimonials.card_10_name', 'عبدالرحمن الشهري') }}</h4>
+                <p class="text-[11.5px] min-[390px]:text-[12px] md:text-[11px] leading-[1.5] text-[#565656] md:text-[#64748B] font-messiri md:font-cairo truncate font-normal">{{ cms('home.testimonials.card_10_role', 'مستشار مالي - وزارة المالية') }}</p>
               </div>
             </div>
           </div>
@@ -278,7 +278,7 @@
           <div class="bg-[#FEFEFE] rounded-[13.5px] md:rounded-[20px] w-full h-full p-4 min-[390px]:p-5 md:p-8 flex flex-col justify-between">
             <div>
               <p class="text-[#0B1628] text-[13px] min-[390px]:text-[14px] md:text-[14px] leading-[1.5] font-messiri md:font-cairo text-right mb-3 md:mb-6 font-normal md:font-medium max-w-[314px] mx-auto">
-                «الاحترافية في تقديم المادة العلمية واختيار المدربين ذوي الخبرة العالية هو ما يميز برامج الشهادات الاحترافية هنا. أنصح بها بشدة.»
+                {{ cms('home.testimonials.card_11_quote', '«الاحترافية في تقديم المادة العلمية واختيار المدربين ذوي الخبرة العالية هو ما يميز برامج الشهادات الاحترافية هنا. أنصح بها بشدة.»') }}
               </p>
               <div class="flex items-center justify-between mb-2 md:mb-4">
                 <div class="flex items-center gap-1 text-[#F59E0B] text-[13px] md:text-[14px]">
@@ -288,10 +288,10 @@
               </div>
             </div>
             <div class="flex items-center gap-[12px] md:gap-[16px] pt-2 md:pt-4 mt-auto text-right">
-              <img src="/landing/images/testimonials/user2.jpg" alt="فيصل الشمري" loading="lazy" decoding="async" class="w-[38px] h-[38px] min-[390px]:w-[40px] min-[390px]:h-[40px] md:w-[38px] md:h-[38px] rounded-full object-cover shrink-0 border-[1.6px] border-[#204A7A]/30" />
+              <img src="{{ cms_image('home.testimonials.card_11_photo', '/landing/images/testimonials/user2.jpg') }}" alt="{{ cms('home.testimonials.card_11_name', 'فيصل الشمري') }}" loading="lazy" decoding="async" class="w-[38px] h-[38px] min-[390px]:w-[40px] min-[390px]:h-[40px] md:w-[38px] md:h-[38px] rounded-full object-cover shrink-0 border-[1.6px] border-[#204A7A]/30" />
               <div class="min-w-0 flex flex-col justify-center">
-                <h4 class="font-bold md:font-semibold text-[13.5px] min-[390px]:text-[14px] md:text-[14px] leading-[1.5] text-[#204A7A] truncate font-messiri md:font-cairo">فيصل الشمري</h4>
-                <p class="text-[11.5px] min-[390px]:text-[12px] md:text-[11px] leading-[1.5] text-[#565656] md:text-[#64748B] font-messiri md:font-cairo truncate font-normal">مدير إدارة المخاطر - بنك الرياض</p>
+                <h4 class="font-bold md:font-semibold text-[13.5px] min-[390px]:text-[14px] md:text-[14px] leading-[1.5] text-[#204A7A] truncate font-messiri md:font-cairo">{{ cms('home.testimonials.card_11_name', 'فيصل الشمري') }}</h4>
+                <p class="text-[11.5px] min-[390px]:text-[12px] md:text-[11px] leading-[1.5] text-[#565656] md:text-[#64748B] font-messiri md:font-cairo truncate font-normal">{{ cms('home.testimonials.card_11_role', 'مدير إدارة المخاطر - بنك الرياض') }}</p>
               </div>
             </div>
           </div>
@@ -302,7 +302,7 @@
           <div class="bg-[#FEFEFE] rounded-[13.5px] md:rounded-[20px] w-full h-full p-4 min-[390px]:p-5 md:p-8 flex flex-col justify-between">
             <div>
               <p class="text-[#0B1628] text-[13px] min-[390px]:text-[14px] md:text-[14px] leading-[1.5] font-messiri md:font-cairo text-right mb-3 md:mb-6 font-normal md:font-medium max-w-[314px] mx-auto">
-                «بيئة محفزة للتعلم والتطور المستمر. بفضل الله ثم بفضل برامج القيادة المتقدمة، تمكنت من الارتقاء بمهاراتي القيادية والإدارية.»
+                {{ cms('home.testimonials.card_12_quote', '«بيئة محفزة للتعلم والتطور المستمر. بفضل الله ثم بفضل برامج القيادة المتقدمة، تمكنت من الارتقاء بمهاراتي القيادية والإدارية.»') }}
               </p>
               <div class="flex items-center justify-between mb-2 md:mb-4">
                 <div class="flex items-center gap-1 text-[#F59E0B] text-[13px] md:text-[14px]">
@@ -312,10 +312,10 @@
               </div>
             </div>
             <div class="flex items-center gap-[12px] md:gap-[16px] pt-2 md:pt-4 mt-auto text-right">
-              <img src="/landing/images/testimonials/user3.jpg" alt="ياسر العتيبي" loading="lazy" decoding="async" class="w-[38px] h-[38px] min-[390px]:w-[40px] min-[390px]:h-[40px] md:w-[38px] md:h-[38px] rounded-full object-cover shrink-0 border-[1.6px] border-[#204A7A]/30" />
+              <img src="{{ cms_image('home.testimonials.card_12_photo', '/landing/images/testimonials/user3.jpg') }}" alt="{{ cms('home.testimonials.card_12_name', 'ياسر العتيبي') }}" loading="lazy" decoding="async" class="w-[38px] h-[38px] min-[390px]:w-[40px] min-[390px]:h-[40px] md:w-[38px] md:h-[38px] rounded-full object-cover shrink-0 border-[1.6px] border-[#204A7A]/30" />
               <div class="min-w-0 flex flex-col justify-center">
-                <h4 class="font-bold md:font-semibold text-[13.5px] min-[390px]:text-[14px] md:text-[14px] leading-[1.5] text-[#204A7A] truncate font-messiri md:font-cairo">ياسر العتيبي</h4>
-                <p class="text-[11.5px] min-[390px]:text-[12px] md:text-[11px] leading-[1.5] text-[#565656] md:text-[#64748B] font-messiri md:font-cairo truncate font-normal">خبير تسويق رقمي - هيئة السياحة</p>
+                <h4 class="font-bold md:font-semibold text-[13.5px] min-[390px]:text-[14px] md:text-[14px] leading-[1.5] text-[#204A7A] truncate font-messiri md:font-cairo">{{ cms('home.testimonials.card_12_name', 'ياسر العتيبي') }}</h4>
+                <p class="text-[11.5px] min-[390px]:text-[12px] md:text-[11px] leading-[1.5] text-[#565656] md:text-[#64748B] font-messiri md:font-cairo truncate font-normal">{{ cms('home.testimonials.card_12_role', 'خبير تسويق رقمي - هيئة السياحة') }}</p>
               </div>
             </div>
           </div>

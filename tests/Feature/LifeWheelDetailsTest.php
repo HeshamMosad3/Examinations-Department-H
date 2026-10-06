@@ -2,9 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\Models\ExamSession;
+use App\Models\Attempt;
 use App\Models\User;
-use App\Models\UserAnswer;
+use App\Models\AttemptAnswer;
 use App\Services\LifeWheelService;
 use Database\Seeders\WheelOfLifeSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -61,7 +61,7 @@ class LifeWheelDetailsTest extends TestCase
         $answers[3][4] = 5; // out of the 0..4 scale
         $this->postJson(route('life-wheel.results.store'), ['answers' => $answers])->assertUnprocessable();
 
-        $this->assertSame(0, ExamSession::count());
+        $this->assertSame(0, Attempt::count());
     }
 
     public function test_store_saves_a_completed_result_and_the_details_page_shows_its_percentages(): void
@@ -72,8 +72,8 @@ class LifeWheelDetailsTest extends TestCase
         $response = $this->actingAs($this->user)->postJson(route('life-wheel.results.store'), ['answers' => $answers]);
 
         $response->assertOk()->assertJson(['ok' => true, 'redirect' => route('life-wheel.details')]);
-        $this->assertSame(1, ExamSession::where('user_id', $this->user->id)->where('status', 'completed')->count());
-        $this->assertSame(80, UserAnswer::count());
+        $this->assertSame(1, Attempt::where('user_id', $this->user->id)->whereNotNull('completed_at')->count());
+        $this->assertSame(80, AttemptAnswer::count());
 
         $result = app(LifeWheelService::class)->resultFor($this->user);
         $this->assertSame(55, $result['aspects']['spiritual']['percent']);
@@ -107,8 +107,8 @@ class LifeWheelDetailsTest extends TestCase
         $this->postJson(route('life-wheel.results.store'), ['answers' => $this->uniformAnswers(3)])->assertOk();
         $this->postJson(route('life-wheel.results.store'), ['answers' => $this->uniformAnswers(3)])->assertOk();
 
-        $this->assertSame(1, ExamSession::count());
-        $this->assertSame(80, UserAnswer::count());
+        $this->assertSame(1, Attempt::count());
+        $this->assertSame(80, AttemptAnswer::count());
     }
 
     public function test_the_details_page_uses_the_latest_result_of_the_signed_in_user_only(): void
@@ -123,6 +123,6 @@ class LifeWheelDetailsTest extends TestCase
 
         $result = app(LifeWheelService::class)->resultFor($this->user);
         $this->assertSame(75, $result['aspects']['career']['percent']);   // latest = all 3s, not the 1s and not the other user's 4s
-        $this->assertSame(2, ExamSession::where('user_id', $this->user->id)->count());
+        $this->assertSame(2, Attempt::where('user_id', $this->user->id)->count());
     }
 }

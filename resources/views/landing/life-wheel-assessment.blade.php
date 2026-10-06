@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>اختبار عجلة الحياة | دار الرؤى للتدريب</title>
+  <title>{{ cms('wheel_test.seo.title', 'اختبار عجلة الحياة | دار الرؤى للتدريب') }}</title>
   <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-  <meta name="description" content="اختبار عجلة الحياة التفاعلي المجاني من دار الرؤى للتدريب. قيّم توازنك عبر 8 جوانب أساسية في حياتك واكتشف مؤشرات تطورك الشخصي والمهني." />
+  <meta name="description" content="{{ cms('wheel_test.seo.description', 'اختبار عجلة الحياة التفاعلي المجاني من دار الرؤى للتدريب. قيّم توازنك عبر 8 جوانب أساسية في حياتك واكتشف مؤشرات تطورك الشخصي والمهني.') }}" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#204A7A" />
   <link rel="canonical" href="https://alruaa.com/life-wheel-assessment.html" />
@@ -14,15 +14,15 @@
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://alruaa.com/life-wheel-assessment.html" />
-  <meta property="og:title" content="اختبار عجلة الحياة | دار الرؤى للتدريب" />
-  <meta property="og:description" content="اختبار عجلة الحياة التفاعلي - قيّم مستوى توازنك في 8 جوانب حياتية واحصل على تقريرك الفوري." />
+  <meta property="og:title" content="{{ cms('wheel_test.seo.title', 'اختبار عجلة الحياة | دار الرؤى للتدريب') }}" />
+  <meta property="og:description" content="{{ cms('wheel_test.seo.share_description', 'اختبار عجلة الحياة التفاعلي - قيّم مستوى توازنك في 8 جوانب حياتية واحصل على تقريرك الفوري.') }}" />
   <meta property="og:image" content="https://alruaa.com/images/hero_cover.png" />
   <meta property="og:locale" content="ar_SA" />
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="اختبار عجلة الحياة | دار الرؤى للتدريب" />
-  <meta name="twitter:description" content="اختبار عجلة الحياة التفاعلي - قيّم مستوى توازنك في 8 جوانب حياتية واحصل على تقريرك الفوري." />
+  <meta name="twitter:title" content="{{ cms('wheel_test.seo.title', 'اختبار عجلة الحياة | دار الرؤى للتدريب') }}" />
+  <meta name="twitter:description" content="{{ cms('wheel_test.seo.share_description', 'اختبار عجلة الحياة التفاعلي - قيّم مستوى توازنك في 8 جوانب حياتية واحصل على تقريرك الفوري.') }}" />
   <meta name="twitter:image" content="https://alruaa.com/images/hero_cover.png" />
 
   <!-- Structured Data -->
@@ -49,12 +49,12 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-  {{ (clone app(\Illuminate\Foundation\Vite::class))->useHotFile(public_path('landing.hot'))->useBuildDirectory('landing/build')->withEntryPoints(['resources/landing/style.css', 'resources/landing/js/lifeWheelAssessment.js']) }}
+  @include('landing.partials.cms-script'){{ (clone app(\Illuminate\Foundation\Vite::class))->useHotFile(public_path('landing.hot'))->useBuildDirectory('landing/build')->withEntryPoints(['resources/landing/style.css', 'resources/landing/js/lifeWheelAssessment.js']) }}
 </head>
 <body class="bg-[#F8FAFC] text-brand-dark min-h-screen font-cairo antialiased selection:bg-brand-primary selection:text-white relative page-wide-header">
   <!-- Skip to Main Content Link -->
   <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:right-4 focus:z-[999] focus:px-5 focus:py-3 focus:bg-brand-primary focus:text-white focus:rounded-xl focus:shadow-xl focus:outline-none">
-    تخطي إلى المحتوى الرئيسي
+    {{ cms('global.a11y.skip_link', 'تخطي إلى المحتوى الرئيسي') }}
   </a>
 
   @include('landing.partials.navbar')
@@ -62,22 +62,22 @@
   <main id="main-content" class="w-full max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-0 pt-6 sm:pt-8 md:pt-10 pb-16 md:pb-24 relative">
 
     <!-- Hidden Accessible Primary Heading for SEO and Screen Readers -->
-    <h1 class="sr-only">اختبار عجلة الحياة - دار الرؤى للتدريب</h1>
+    <h1 class="sr-only">{{ cms('wheel_test.header.sr_title', 'اختبار عجلة الحياة - دار الرؤى للتدريب') }}</h1>
 
     <!-- Mobile header: back button + title -->
     <div id="lw-mobile-header" class="md:hidden relative h-[32px] flex items-center justify-center mb-5 font-messiri">
       <a href="/#home" class="absolute right-0 top-0 size-[32px] p-[8px] rounded-full bg-[#e9edf2] flex items-center justify-center text-brand-primary hover:bg-[#d8e0ea] transition-colors shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary" aria-label="الرجوع للرئيسية">
         <i class="fa-solid fa-arrow-right text-[14px]" aria-hidden="true"></i>
       </a>
-      <h1 class="text-[19px] font-bold text-[#204a7a] leading-[28px] tracking-[-0.5px] text-center">اختبار عجلة الحياة</h1>
+      <h1 class="text-[19px] font-bold text-[#204a7a] leading-[28px] tracking-[-0.5px] text-center">{{ cms('wheel_test.header.title', 'اختبار عجلة الحياة') }}</h1>
     </div>
 
     <!-- Desktop full breadcrumb -->
     <nav id="lw-desktop-breadcrumb" class="hidden md:flex items-center justify-start gap-2 mb-10 font-messiri" aria-label="مسار التنقل">
       <div class="flex items-center gap-2">
-        <a href="/#home" class="text-[#6f6f6f] hover:text-brand-primary transition-colors text-[15px] md:text-[18px] font-normal">الرئيسية</a>
+        <a href="/#home" class="text-[#6f6f6f] hover:text-brand-primary transition-colors text-[15px] md:text-[18px] font-normal">{{ cms('wheel_test.header.breadcrumb_home', 'الرئيسية') }}</a>
         <i class="fa-solid fa-chevron-left text-[10px] md:text-[12px] text-[#6f6f6f]" aria-hidden="true"></i>
-        <span class="text-brand-primary text-[15px] md:text-[18px] font-medium">اختبار عجلة الحياة</span>
+        <span class="text-brand-primary text-[15px] md:text-[18px] font-medium">{{ cms('wheel_test.header.title', 'اختبار عجلة الحياة') }}</span>
       </div>
     </nav>
 
@@ -93,8 +93,8 @@
         <i class="fa-regular fa-lightbulb text-[#ce9d42] text-[17px] md:text-[20px]"></i>
       </div>
       <div class="text-right flex-1 min-w-0">
-        <p class="font-messiri font-semibold text-[#262626] text-[14px] md:text-[17px]">تذكّر</p>
-        <p class="font-messiri font-medium text-[#565656] text-[12.5px] md:text-[17px] mt-0.5 md:mt-1 leading-snug">اختر الإجابة الأقرب إليك لا توجد إجابة صحيحة أو خاطئة.</p>
+        <p class="font-messiri font-semibold text-[#262626] text-[14px] md:text-[17px]">{{ cms('wheel_test.reminder.title', 'تذكّر') }}</p>
+        <p class="font-messiri font-medium text-[#565656] text-[12.5px] md:text-[17px] mt-0.5 md:mt-1 leading-snug">{{ cms('wheel_test.reminder.text', 'اختر الإجابة الأقرب إليك لا توجد إجابة صحيحة أو خاطئة.') }}</p>
       </div>
     </div>
 

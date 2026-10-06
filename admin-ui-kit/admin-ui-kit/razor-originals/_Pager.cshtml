@@ -1,0 +1,37 @@
+@model PagerModel
+@{
+    string Link(int number)
+    {
+        var values = new RouteValueDictionary(ViewContext.RouteData.Values);
+        foreach (var pair in Context.Request.Query)
+            if (!string.Equals(pair.Key, "page", StringComparison.OrdinalIgnoreCase))
+                values[pair.Key] = pair.Value.ToString();
+        values["page"] = number;
+        return Url.Action(null, values)!;
+    }
+    var first = Math.Max(1, Model.PageNumber - 2);
+    var last = Math.Min(Model.TotalPages, Model.PageNumber + 2);
+}
+@if (Model.TotalPages > 1)
+{
+    <nav class="mt-3" aria-label="pages">
+        <ul class="pagination pagination-sm justify-content-center flex-wrap mb-0">
+            <li class="page-item @(Model.PageNumber == 1 ? "disabled" : "")"><a class="page-link" href="@Link(Model.PageNumber - 1)" aria-label="prev"><i class="bi bi-chevron-@(T.IsArabic ? "right" : "left")"></i></a></li>
+            @if (first > 1)
+            {
+                <li class="page-item"><a class="page-link" href="@Link(1)">1</a></li>
+                @if (first > 2) { <li class="page-item disabled"><span class="page-link">…</span></li> }
+            }
+            @for (var number = first; number <= last; number++)
+            {
+                <li class="page-item @(number == Model.PageNumber ? "active" : "")"><a class="page-link" style="@(number == Model.PageNumber ? "background: var(--brand); border-color: var(--brand)" : "")" href="@Link(number)">@number</a></li>
+            }
+            @if (last < Model.TotalPages)
+            {
+                @if (last < Model.TotalPages - 1) { <li class="page-item disabled"><span class="page-link">…</span></li> }
+                <li class="page-item"><a class="page-link" href="@Link(Model.TotalPages)">@Model.TotalPages</a></li>
+            }
+            <li class="page-item @(Model.PageNumber == Model.TotalPages ? "disabled" : "")"><a class="page-link" href="@Link(Model.PageNumber + 1)" aria-label="next"><i class="bi bi-chevron-@(T.IsArabic ? "left" : "right")"></i></a></li>
+        </ul>
+    </nav>
+}

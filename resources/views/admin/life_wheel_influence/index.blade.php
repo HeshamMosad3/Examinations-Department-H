@@ -1,7 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'تأثير عجلة الحياة')
-@section('page-title', 'تأثير جوانب عجلة الحياة')
+@section('title', 'إدارة عجلة الحياة')
 
 @push('styles')
 <style>
@@ -22,7 +21,7 @@
     .influence-table tbody th { background: #f8f9fa; font-weight: 700; white-space: nowrap; }
     .influence-table .diag { background: #f1f3f5; color: #adb5bd; font-weight: 700; }
     .cell-select { background-color: var(--lvl-bg); color: var(--lvl-fg); border-color: var(--lvl-bd); font-weight: 600; font-size: .85rem; min-width: 100px; cursor: pointer; transition: background-color .15s, color .15s; }
-    .cell-select:focus { box-shadow: 0 0 0 .2rem rgba(13,110,253,.2); }
+    .cell-select:focus { box-shadow: 0 0 0 .2rem rgba(27,87,67,.2); }
     .cell-select option { background: #fff; color: #212529; }
 
     .save-bar { position: sticky; bottom: 0; z-index: 5; background: rgba(255,255,255,.96); border-top: 1px solid #dee2e6; backdrop-filter: blur(4px); }
@@ -39,22 +38,13 @@
 
     <div class="d-flex justify-content-between align-items-start mb-3 flex-wrap gap-2">
         <div>
-            <h4 class="mb-1 fw-bold"><i class="bi bi-diagram-3 me-2"></i>تأثير جوانب عجلة الحياة</h4>
+            <h1 class="h4 mb-1">إدارة عجلة الحياة</h1>
             <p class="text-muted small mb-0" style="max-width: 760px">
-                العجلة اللي في الصفحة الرئيسية بتعرض حياة شخص عشوائي في حوالي 5 ثواني: جوانب بتتطور وجوانب بتتراجع،
-                وكل تغيير بينتقل لباقي الجوانب حسب الجدول ده. في كل مرة النظام بيختار نسبة عشوائية جوه نطاق المستوى.
+                العجلة اللي في الصفحة الرئيسية بتعرض حياة شخص عشوائي في حوالي 5 ثواني: ليه جانب أساسي بيكبر، وكل جانب تاني
+                بيكبر معاه بنسبة عشوائية من نموه جوه نطاق المستوى اللي في الجدول ده (صف الجانب الأساسي).
             </p>
         </div>
     </div>
-
-    @if(session('success'))
-        <div class="alert alert-success border-0 shadow-sm rounded-3"><i class="bi bi-check-circle-fill me-2"></i>{{ session('success') }}</div>
-    @endif
-    @if($errors->any())
-        <div class="alert alert-danger border-0 shadow-sm rounded-3">
-            <ul class="mb-0 ps-3">@foreach($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul>
-        </div>
-    @endif
 
     {{-- مستويات التأثير --}}
     <div class="card shadow-sm border-0 mb-4">
@@ -151,7 +141,7 @@
 
     <div class="save-bar d-flex justify-content-between align-items-center px-3 py-3 rounded-3 shadow-sm">
         <small class="text-muted"><i class="bi bi-info-circle me-1"></i>التغييرات بتظهر في عجلة الصفحة الرئيسية من أول زيارة بعد الحفظ.</small>
-        <button type="submit" class="btn btn-primary px-4"><i class="bi bi-save me-1"></i>حفظ التعديلات</button>
+        <button type="submit" class="btn btn-brand px-4"><i class="bi bi-save me-1"></i>حفظ التعديلات</button>
     </div>
 </form>
 @endsection
