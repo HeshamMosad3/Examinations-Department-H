@@ -30,6 +30,7 @@
       </div>
 
       <!-- ==================== THE WHEEL OF LIFE (عجلة الحياة) ==================== -->
+      @include('landing.partials.life-wheel-influence-config')
       <div class="w-full max-w-[800px] mx-auto relative flex flex-col items-center justify-center -mt-[2px] md:-mt-[15px] mb-0 md:mb-[40px] px-0">
 
         <!-- Outer Radial Wheel Graphic (Figma: Mobile 319.08x332.58, Desktop 834.43x869.75) -->

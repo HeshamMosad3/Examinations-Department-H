@@ -83,6 +83,7 @@
         <div class="order-2 mt-[24px] lg:mt-0 lg:col-start-2 lg:row-start-1 lg:row-span-2 relative w-full h-[407px] px-4 py-6 sm:p-0 sm:h-[499px] lg:w-[707px] flex items-center justify-center rounded-[12px] lg:rounded-[30px] overflow-hidden shadow-[0px_5px_11.8px_0px_rgba(0,0,0,0.03)] bg-gradient-to-b from-[#ebf3fc] to-white lg:from-[#fbfbfb] lg:to-[#edf4fc]">
           <div class="hidden lg:block absolute bottom-0 left-[-49px] w-[293px] h-[568px] rounded-full blur-[12px] pointer-events-none" style="background-image: linear-gradient(62.71deg, rgba(197, 223, 241, 0.4) 0%, #ffffff 100%);" aria-hidden="true"></div>
 
+          @include('landing.partials.life-wheel-influence-config')
           <!-- Home-page wheel: mobile uses the exact hero sizing (landing/partials/hero.blade.php); desktop fits the whole wheel (incl. labels at max size) inside the Figma wheel frame 412.25x463 -->
           <div class="relative mx-auto w-full max-w-[305px] min-[390px]:max-w-[325px] min-[410px]:max-w-[335px] aspect-[319.08/332.58] sm:absolute sm:left-[calc(50%-0.38px)] sm:top-[calc(50%+1px)] sm:-translate-x-1/2 sm:-translate-y-1/2 sm:w-[412.25px] sm:max-w-none sm:h-[463px] sm:aspect-auto flex items-center justify-center overflow-visible">
             <div id="wheel-wrap" class="w-full h-full relative z-10">

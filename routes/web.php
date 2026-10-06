@@ -186,6 +186,8 @@ Route::middleware(['auth', 'user'])->group(function () {
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [Admin\DashboardController::class, 'index'])->name('dashboard');
     Route::resource('challenge-questions', Admin\ChallengeQuestionController::class);
+    Route::get('/life-wheel-influence', [Admin\LifeWheelInfluenceController::class, 'index'])->name('life-wheel-influence.index');
+    Route::put('/life-wheel-influence', [Admin\LifeWheelInfluenceController::class, 'update'])->name('life-wheel-influence.update');
 
     Route::get('/assessments', [Admin\AssessmentController::class, 'index'])->name('assessments.index');
     Route::post('/assessments', [Admin\AssessmentController::class, 'store'])->name('assessments.store');

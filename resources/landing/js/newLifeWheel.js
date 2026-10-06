@@ -716,34 +716,30 @@ function drawWheel(forceRebuild = false) {
 }
 
 /* ============================================================
-   محرك رحلة النمو الواقعية (Realistic Growth Journey Engine)
-   مستوحى من محاكاة حقيقية لـ 1000 اختبار عجلة حياة على مدار 5 سنين:
-   كل محور بيمشي على منحنى نموه الفعلي (بداية منخفضة → انتكاسة/تذبذب → نمو)
-   مضغوط في ~10 ثواني، وبعدها العجلة تثبت مع تذبذب طبيعي بسيط جداً.
-   كل محور له إيقاعه الخاص (مش كلهم بيتحركوا مع بعض بالظبط): تعشيق زمني بسيط
-   في البداية + مدة كل خطوة عشوائية شوية + وقفات قصيرة أحياناً + تذبذب صغير
-   حوالين كل هدف مرحلي عشان تحس إنها بتتنفس وتقف وتترجع شوية زي البيانات الحقيقية.
-   الحركة نفسها بقت "ملاحقة" مستمرة (exponential smoothing) للهدف الحالي بدل
-   تحريك من نقطة لنقطة بمدة ثابتة، عشان تبقى سايحة/ناعمة من غير أي وقفة سرعة
-   عند كل نقطة تحول (زي ما كان بيحصل مع easing لكل قطعة لوحدها).
+   محرك رحلة الحياة (Life Journey Engine)
+   العجلة بتعرض حياة شخص عشوائي كاملة في ~5 ثواني: أحداث تطور وانتكاسات في جوانب مختلفة،
+   وكل حدث بيأثر على باقي الجوانب حسب مصفوفة التأثير (generatePersonaJourney تحت).
+   بعد ما الحياة تخلص العجلة تثبت على النتيجة مع تذبذب طبيعي بسيط جداً.
+   الحركة نفسها "ملاحقة" مستمرة (exponential smoothing) للهدف الحالي عشان تبقى ناعمة
+   من غير أي وقفة سرعة عند كل نقطة تحول.
    ============================================================ */
 let dynamicBreathingOn = true;
 let isWheelVisible = true;
 let isTabVisible = true;
 let breathingLoopId = null;
 
-const JOURNEY_TOTAL_MS = 11000; // مدة الرحلة التقريبية من البداية لحد الاستقرار (5 سنوات كاملة)
+const JOURNEY_TOTAL_MS = 5000; // حياة الشخص كلها (من العشرينات لحد 45-60 سنة) مضغوطة في 5 ثواني
 const SETTLE_JITTER_RANGE = 2.5;   // تذبذب صغير جداً حول القيمة النهائية بعد الاستقرار
 const SETTLE_DURATION_MIN = 1000;
 const SETTLE_DURATION_MAX = 2000;
 
-const AXIS_STAGGER_MAX_MS = 450;      // فرق بداية عشوائي بين المحاور عشان ميبقوش متزامنين
-const SEGMENT_DURATION_VARIANCE_MS = 180; // تنويع بسيط في سرعة كل خطوة
-const SEGMENT_JITTER_RANGE = 2.2;     // تذبذب صغير حوالين كل هدف مرحلي (ممكن يعمل نزول خفيف مؤقت)
-const PAUSE_CHANCE = 0.3;             // احتمال وقفة قصيرة بعد الوصول لهدف قبل الاستمرار
+const AXIS_STAGGER_MAX_MS = 50;       // فرق بداية عشوائي بسيط بين المحاور عشان ميبقوش متزامنين
+const SEGMENT_DURATION_VARIANCE_MS = 50; // تنويع بسيط في سرعة كل خطوة
+const SEGMENT_JITTER_RANGE = 0.8;     // تذبذب صغير حوالين كل هدف مرحلي
+const PAUSE_CHANCE = 0;               // مفيش وقفات: الـ 5 ثواني كلها للأحداث
 const PAUSE_DURATION_MIN = 150;
 const PAUSE_DURATION_MAX = 420;
-const SMOOTHING_TAU_MS = 480; // ثابت زمني للملاحقة الناعمة (أكبر = حركة أنعم وأبطأ في اللحاق بالهدف)
+const SMOOTHING_TAU_MS = 200; // ثابت زمني للملاحقة الناعمة (صغير عشان العجلة تلحق الأحداث في الـ 5 ثواني)
 const MAX_FRAME_DT_MS = 100;  // سقف لأي قفزة زمن كبيرة (تبديل تابات مثلاً) عشان الحركة تفضل ناعمة
 
 // ثوابت دوران العجلة الثابت (تم إلغاء الاهتزاز)
@@ -754,117 +750,98 @@ const WHEEL_WOBBLE_SPEED_2 = 0;
 
 /**
  * ============================================================
- * توليد رحلة واقعية لشخص حقيقي عبر 5 سنوات (12 محطة زمنية لكل 6 شهور)
- * مع مراعاة الترابط المنطقي بين الجوانب:
- * 1. نمو الجانبين المهني والمالي معاً يؤدي منطقياً لضغط وتراجع في الجانبين العائلي والاجتماعي والترفيهي.
- * 2. ازدهار الجانبين الروحي والصحي ينعكس إيجابياً بنمو العائلي والاجتماعي، بينما يهدأ الاندفاع المهني والمالي الحاد.
- * 3. في كل تحديث أو دخول جديد للصفحة، يتم اختيار شخصية إنسانية مختلفة (persona) بنسب ومسارات فريدة.
+ * محاكاة حياة شخص حقيقي على العجلة، مضغوطة في ~5 ثواني.
+ * كل زيارة = شخص عشوائي مختلف، ليه جانب أساسي واحد اشتغل عليه في حياته (مثلاً الصحي).
+ * الجانب ده بيكبر على مراحل (وأحياناً بتيجي أزمة بيرجع فيها شوية وبعدين يقوم)،
+ * وكل جانب تاني بيكبر معاه في نفس اللحظة بنسبة عشوائية من نموه جوه نطاق المستوى
+ * اللي في جدول التأثير في لوحة الإدارة (صف الجانب الأساسي):
+ * لو الصحي زاد 60 نقطة والاجتماعي "متوسط" (26-50%) → الاجتماعي بيزيد من 16 لـ 30 نقطة بس.
+ * فالجانب الأساسي دايماً الأكبر، والشكل النهائي للعجلة بيعكس الجدول زي ما الأدمن حاطه.
+ * الجوانب اللي مالهاش تأثير في الجدول بتتراجع شوية من الإهمال.
  * ============================================================
  */
-function generatePersonaJourney() {
-  // ترتيب المحاور: 0: الشخصي, 1: الروحاني, 2: الصحي, 3: الاجتماعي, 4: العائلي, 5: الترفيهي, 6: المالي, 7: المهني
-  const archetypes = [
-    {
-      id: "career_wealth_grind",
-      title: "التركيز على النمو المهني والاستقلال المالي",
-      // يبدأ بعلاقات أسرية جيدة وصحة متوسطة، لكن بوضع مهني ومالي متواضع
-      start: [32, 44, 52, 60, 65, 45, 30, 35],
-      // ينمو المهني والمالي بقوة (+45% إلى +50%)، بينما يتراجع الاجتماعي والعائلي والترفيهي بسبب ضغط العمل
-      end:   [46, 38, 44, 34, 40, 24, 82, 86],
-      midDip: { 3: -8, 4: -8, 5: -9 },
-      midSurge: { 6: 6, 7: 8 }
-    },
-    {
-      id: "spiritual_health_family_harmony",
-      title: "أولوية السلام الداخلي والنهوض الروحي والصحي والأسري",
-      // يبدأ بوظيفة مستهلكة ودخل مرتفع مع إرهاق صحي وروحي وتراجع أسري
-      start: [30, 26, 28, 38, 34, 25, 74, 78],
-      // ينمو الروحي والصحي والشخصي والعائلي والاجتماعي بقوة، مع تخفيف الاندفاع المهني والمالي المفرط
-      end:   [75, 84, 82, 72, 78, 64, 48, 52],
-      midDip: { 6: -6, 7: -8 },
-      midSurge: { 1: 7, 2: 7, 4: 5 }
-    },
-    {
-      id: "family_and_social_solidarity",
-      title: "الاستقرار الأسري والروابط الاجتماعية والروحية",
-      // يبدأ بتركيز مهني مع تباعد أسري واجتماعي
-      start: [35, 40, 44, 36, 40, 30, 68, 70],
-      // طفرة في الجانب العائلي والاجتماعي والروحي والترفيهي مع تراجع وتوازن المهني والمالي
-      end:   [68, 78, 70, 82, 85, 65, 44, 46],
-      midDip: { 6: -7, 7: -7 },
-      midSurge: { 3: 6, 4: 8 }
-    },
-    {
-      id: "burnout_recovery_balance",
-      title: "التعافي من الاحتراق الوظيفي وإعادة اكتشاف الحياة",
-      // يبدأ بمهني ومالي في القمة، بينما الصحة والروح والأسرة في أدنى مستوياتها
-      start: [24, 22, 20, 30, 28, 16, 76, 86],
-      // تعافي كبير للصحة والروح والأسرة بعد التخفف من أعباء العمل الزائدة
-      end:   [72, 76, 84, 66, 74, 60, 54, 56],
-      midDip: { 6: -8, 7: -12 },
-      midSurge: { 0: 6, 1: 6, 2: 9 }
-    },
-    {
-      id: "entrepreneurial_climb",
-      title: "رحلة رائد الأعمال: قفزة مالية تليها مرحلة استقرار",
-      // يبدأ بطموح عالي ويضحي بالوقت الاجتماعي والترفيهي والصحي في سنوات التأسيس ثم يعيد توازنه
-      start: [28, 35, 38, 48, 50, 35, 25, 32],
-      end:   [60, 50, 52, 42, 48, 38, 85, 88],
-      midDip: { 2: -6, 3: -12, 4: -10, 5: -10 },
-      midSurge: { 6: 9, 7: 10 }
-    },
-    {
-      id: "holistic_life_mastery",
-      title: "التحول الشامل والمتدرج عبر استخدام المنصة",
-      // يبدأ بمستوى متواضع ثم يرتفع مهنياً ومالياً متبوعاً بنمو صحي وأسري متزن
-      start: [30, 36, 36, 44, 46, 32, 34, 38],
-      end:   [70, 74, 76, 68, 76, 62, 74, 78],
-      midDip: { 3: -6, 5: -6 },
-      midSurge: { 6: 7, 7: 8 }
+// ترتيب المحاور: 0: الشخصي, 1: الروحاني, 2: الصحي, 3: الاجتماعي, 4: العائلي, 5: الترفيهي, 6: المالي, 7: المهني
+const DEFAULT_INFLUENCE = {
+  levels: { weak: [0.05, 0.25], medium: [0.26, 0.50], strong: [0.51, 0.75], very_strong: [0.76, 0.92] },
+  matrix: [
+    [null, "strong", "strong", "strong", "strong", "medium", "medium", "strong"],                      // الشخصي
+    ["strong", null, "very_strong", "medium", "strong", "weak", "medium", "medium"],                  // الروحاني
+    ["very_strong", "medium", null, "medium", "strong", "strong", "strong", "very_strong"],           // الصحي
+    ["strong", "medium", "strong", null, "medium", "strong", "medium", "strong"],                     // الاجتماعي
+    ["very_strong", "medium", "strong", "medium", null, "medium", "very_strong", "strong"],           // العائلي
+    ["strong", "weak", "medium", "strong", "strong", null, "medium", "medium"],                       // الترفيهي
+    ["strong", "medium", "medium", "medium", "very_strong", "strong", null, "strong"],                // المالي
+    ["very_strong", "medium", "weak", "medium", "very_strong", "strong", "very_strong", null]         // المهني
+  ]
+};
+// الإعدادات من لوحة الإدارة (window.LIFE_WHEEL_INFLUENCE)، ولو مش موجودة أو ناقصة بنستخدم الافتراضي
+const INFLUENCE = (() => {
+  const cfg = typeof window !== "undefined" ? window.LIFE_WHEEL_INFLUENCE : null;
+  const ok = cfg && cfg.levels && Array.isArray(cfg.matrix) && cfg.matrix.length === 8 && cfg.matrix.every((r) => Array.isArray(r) && r.length === 8);
+  return ok ? cfg : DEFAULT_INFLUENCE;
+})();
+// نطاق تأثير جانب على جانب ([min, max] كنسبة من التغيير) أو null لو مفيش تأثير
+const influenceRange = (source, target) => {
+  const key = INFLUENCE.matrix[source] && INFLUENCE.matrix[source][target];
+  return key && INFLUENCE.levels[key] ? INFLUENCE.levels[key] : null;
+};
+
+const LIFE_EVENTS = 6;          // عدد مراحل الحياة
+const LIFE_MIN = 8;             // أقل قيمة لأي جانب
+const LIFE_MAX = 92;            // مفيش بني آدم "كامل"
+
+// الجانب صاحب كل مرحلة، عشان العجلة تحرّكه الأول والباقي يتبعه (التأثير بيبان بالعين)
+const LIFE_SOURCES = [];
+
+const randBetween = (a, b) => a + Math.random() * (b - a);
+
+function simulateLife() {
+  const n = 8;
+  const hero = Math.floor(Math.random() * n);
+
+  // بداية الحياة: كل الجوانب في مستوى منخفض متقارب، عشان الشكل النهائي يبيّن التأثير مش البداية
+  const base = randBetween(16, 26);
+  const start = Array.from({ length: n }, () => base + randBetween(-3, 3));
+  // الجانب الأساسي بيبدأ من أعلى مستوى، فحتى "قوي جداً" (لحد 92%) يفضل أقل منه بفرق باين في الآخر
+  start[hero] = Math.max(...start);
+
+  // نمو الجانب الأساسي، وحصة كل جانب منه: نسبة عشوائية جوه نطاق مستواه في الجدول
+  const growth = randBetween(76, 90) - start[hero];
+  const share = start.map((_, t) => {
+    if (t === hero) return 1;
+    const r = influenceRange(hero, t);
+    return r ? randBetween(r[0], r[1]) : 0;
+  });
+  const neglect = share.map((s, t) => (t !== hero && s === 0 ? randBetween(2, 6) : 0));
+
+  // خطوات نمو الجانب الأساسي على المراحل، وفي 40% من الحيوات أزمة في النص بيرجع فيها 12-22% وبعدين يعوّضها
+  const setback = Math.random() < 0.4 ? 2 + Math.floor(Math.random() * (LIFE_EVENTS - 3)) : -1;
+  const dip = setback >= 0 ? randBetween(0.12, 0.22) : 0;
+  const weights = Array.from({ length: LIFE_EVENTS }, (_, e) => (e === setback ? 0 : randBetween(0.6, 1.4)));
+  const totalWeight = weights.reduce((a, b) => a + b, 0);
+  const steps = weights.map((w, e) => (e === setback ? -dip * growth : (w / totalWeight) * growth * (1 + dip)));
+
+  const journey = start.map((v) => [Math.round(v)]);
+  let heroValue = start[hero];
+  for (let e = 0; e < LIFE_EVENTS; e++) {
+    heroValue += steps[e];
+    const progress = Math.min(LIFE_MAX, heroValue) - start[hero];
+    const last = e === LIFE_EVENTS - 1;
+    for (let t = 0; t < n; t++) {
+      // تذبذب بسيط في المراحل اللي في النص عشان الحركة تبان طبيعية، والنهاية بالظبط على نسبة الجدول
+      const wobble = t === hero || last ? 0 : randBetween(-1.5, 1.5);
+      const v = start[t] + share[t] * progress - neglect[t] * ((e + 1) / LIFE_EVENTS) + wobble;
+      journey[t].push(Math.round(Math.max(LIFE_MIN, Math.min(LIFE_MAX, v))));
     }
-  ];
-
-  // اختيار شخصية إنسانية عشوائية في كل تحميل للصفحة
-  const archetype = archetypes[Math.floor(Math.random() * archetypes.length)];
-  const steps = 11; // 11 خطوة تعطي 12 نقطة زمنية عبر 5 سنوات (كل 6 أشهر نقطة)
-  const journey = [];
-
-  for (let axisIdx = 0; axisIdx < 8; axisIdx++) {
-    // تباين عشوائي خاص بكل جلسة حتى لا تتكرر الأرقام إطلاقاً
-    const startVariance = (Math.random() * 8) - 4; // ±4%
-    const endVariance = (Math.random() * 8) - 4;   // ±4%
-
-    const s = Math.max(14, Math.min(88, Math.round(archetype.start[axisIdx] + startVariance)));
-    const e = Math.max(14, Math.min(88, Math.round(archetype.end[axisIdx] + endVariance)));
-
-    const points = [s];
-
-    for (let step = 1; step < steps; step++) {
-      const t = step / steps;
-      // منحنى S ناعم وتدريجي يعكس التغير الزمني البشري الحقيقي (Cubic Hermite)
-      const smoothT = t * t * (3 - 2 * t);
-      let val = s + (e - s) * smoothT;
-
-      // تأثير منتصف الطريق وفق ضغوطات الحياة والترابط المنطقي
-      const midFactor = Math.sin(t * Math.PI);
-      if (archetype.midDip && archetype.midDip[axisIdx]) {
-        val += archetype.midDip[axisIdx] * midFactor;
-      }
-      if (archetype.midSurge && archetype.midSurge[axisIdx]) {
-        val += archetype.midSurge[axisIdx] * midFactor;
-      }
-
-      // تذبذب بشري طفيف وغير منتظم (صعود وهبوط خفيف خلال السنوات)
-      const humanJitter = (Math.random() * 2 - 1) * 1.2;
-      val = Math.max(10, Math.min(90, Math.round(val + humanJitter)));
-      points.push(val);
-    }
-
-    points.push(e);
-    journey.push(points);
+    LIFE_SOURCES.push([hero]);
   }
 
   return journey;
+}
+
+function generatePersonaJourney() {
+  LIFE_SOURCES.length = 0;
+  return simulateLife();
 }
 
 const AXIS_JOURNEY = generatePersonaJourney();
@@ -876,7 +853,7 @@ if (!isResultPage) {
   });
 }
 
-const JOURNEY_SEGMENTS = AXIS_JOURNEY[0].length - 1; // 11 خطوة
+const JOURNEY_SEGMENTS = AXIS_JOURNEY[0].length - 1; // عدد أحداث الحياة (LIFE_EVENTS)
 const JOURNEY_SEGMENT_MS = JOURNEY_TOTAL_MS / JOURNEY_SEGMENTS;
 const MAX_AUTO_PERCENT = 90; // سقف صارم: مفيش جانب بيوصل له تلقائيًا (مفيش بني آدم "كامل")
 
@@ -904,6 +881,7 @@ function scheduleNextJourneySegment(anim, i) {
   if (anim.segmentsCompleted < JOURNEY_SEGMENTS) {
     anim.target = jitteredTarget(AXIS_JOURNEY[i][anim.segmentsCompleted + 1], SEGMENT_JITTER_RANGE, MAX_AUTO_PERCENT);
     anim.duration = JOURNEY_SEGMENT_MS + (Math.random() * 2 - 1) * SEGMENT_DURATION_VARIANCE_MS;
+    delayIfRipple(anim, i, anim.segmentsCompleted);
   } else {
     anim.journeyDone = true;
     const step = settledStep(i);
@@ -912,9 +890,18 @@ function scheduleNextJourneySegment(anim, i) {
   }
 }
 
+// الجوانب صاحبة المرحلة بتتحرك الأول، والجوانب اللي بتتأثر بيها بتتبعها بعد لحظة (عشان التأثير يبان بالعين)
+const RIPPLE_DELAY_MS = 200;
+function delayIfRipple(anim, i, eventIndex) {
+  const sources = LIFE_SOURCES[eventIndex];
+  if (!sources || sources.includes(i)) return;
+  anim.segmentStartTime += RIPPLE_DELAY_MS;
+  anim.duration -= RIPPLE_DELAY_MS;
+}
+
 let axisAnimState = axesState.map((axis, i) => {
   const kf = AXIS_JOURNEY[i];
-  return {
+  const anim = {
     current: kf[0],
     target: kf[1],
     segmentsCompleted: 0,
@@ -923,6 +910,8 @@ let axisAnimState = axesState.map((axis, i) => {
     segmentStartTime: performance.now() + Math.random() * AXIS_STAGGER_MAX_MS,
     duration: JOURNEY_SEGMENT_MS
   };
+  delayIfRipple(anim, i, 0);
+  return anim;
 });
 
 let lastBreathingTime = performance.now();

@@ -66,6 +66,11 @@
                     <i class="bi bi-puzzle me-2"></i>إدارة التحدي السريع
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link {{ request()->routeIs('admin.life-wheel-influence*') ? 'active' : '' }}" href="{{ route('admin.life-wheel-influence.index') }}">
+                    <i class="bi bi-diagram-3 me-2"></i>تأثير عجلة الحياة
+                </a>
+            </li>
 
             <!-- قسم الإدارة العامة -->
             <li class="nav-item mt-3 mb-1 px-3">
