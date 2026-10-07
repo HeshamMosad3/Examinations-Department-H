@@ -32,8 +32,13 @@ class LandingController extends Controller
         return view('landing.index', compact('challengeQuestions'));
     }
 
-    public function lifeWheelAssessment(LifeWheelService $lifeWheel): View
+    public function lifeWheelAssessment(LifeWheelService $lifeWheel)
     {
+        if (! auth()->check()) {
+            return redirect()->route('login', ['next' => 'life-wheel-assessment'])
+                ->with('info', 'يرجى تسجيل الدخول أو إنشاء حساب للبدء في إجراء الاختبار.');
+        }
+
         return view('landing.life-wheel-assessment', ['categories' => $lifeWheel->categories()]);
     }
 
@@ -54,8 +59,13 @@ class LandingController extends Controller
         return view('landing.perceptual-explore', compact('questionsCount'));
     }
 
-    public function perceptualTest(): View
+    public function perceptualTest()
     {
+        if (! auth()->check()) {
+            return redirect()->route('login', ['next' => 'perceptual-test'])
+                ->with('info', 'يرجى تسجيل الدخول أو إنشاء حساب للبدء في إجراء الاختبار.');
+        }
+
         $questions = $this->perceptual()->questions->map(fn ($q) => [
             'text' => $q->text_ar,
             'options' => array_map(fn ($o) => ['label' => $o->label_ar], $q->options),

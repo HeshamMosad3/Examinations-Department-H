@@ -237,6 +237,29 @@ export function initNavigation() {
         }
       }
     }, { passive: true });
+
+    // Handle initial load scroll behavior (prevent native jumping and account for fixed header)
+    if (window.history && 'scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+
+    setTimeout(() => {
+      const hash = window.location.hash;
+      if (hash && hash.length > 1) {
+        const targetId = hash.substring(1);
+        let navMap = null;
+        if (targetId === 'home' || targetId === 'wheel-wrap') navMap = 'home';
+        else if (targetId === 'assessments' || targetId === 'personality-keys' || targetId === 'challenge') navMap = 'assessments';
+        else if (targetId === 'courses') navMap = 'courses';
+        else if (targetId === 'certifications') navMap = 'certifications';
+        else if (targetId === 'about') navMap = 'about';
+        else if (targetId === 'contact') navMap = 'contact';
+        
+        smoothScrollTo(targetId, navMap);
+      } else {
+        window.scrollTo(0, 0);
+      }
+    }, 100);
   }
 
   if (document.readyState === 'loading') {

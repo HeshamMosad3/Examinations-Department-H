@@ -8,7 +8,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
-    path.resolve(__dirname, '../views/landing/**/*.blade.php'),
+    path.resolve(__dirname, '../views/**/*.blade.php'),
     path.resolve(__dirname, '../data/**/*.php'),
     path.resolve(__dirname, './js/**/*.js'),
   ],

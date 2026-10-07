@@ -168,7 +168,16 @@
       <!-- Action Buttons (#875:6213) — mobile: 330x40 hug, gap 10px -->
       <div class="flex flex-row items-stretch justify-center gap-[10px] sm:gap-[56px] mt-0 mb-0 w-full max-w-[330px] sm:max-w-[510px] px-0">
         <!-- Start Evaluation Button -->
-        <a href="{{ cms_url('home.keys.start_url', '#challenge') }}" class="group flex-1 h-[40px] sm:h-[56px] bg-brand-primary text-white rounded-[10px] sm:rounded-[12px] font-semibold text-[13.5px] sm:text-[17px] flex items-center justify-center gap-1 sm:gap-3 shadow-md hover:bg-[#102744] hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 border-2 border-brand-primary cursor-pointer whitespace-nowrap font-messiri">
+        <a 
+          href="{{ cms_url('home.keys.start_url', '#challenge') }}" 
+          @guest 
+            role="button" 
+            aria-haspopup="dialog" 
+            aria-controls="login-modal" 
+            onclick="event.preventDefault(); window.openLoginModal ? window.openLoginModal({ next: 'home#challenge', prompt: 'يرجى تسجيل الدخول أو إنشاء حساب للبدء في إجراء التقييم.' }) : (location.href = '{{ route('login', ['next' => 'home#challenge']) }}');"
+          @endguest 
+          class="group flex-1 h-[40px] sm:h-[56px] bg-brand-primary text-white rounded-[10px] sm:rounded-[12px] font-semibold text-[13.5px] sm:text-[17px] flex items-center justify-center gap-1 sm:gap-3 shadow-md hover:bg-[#102744] hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 border-2 border-brand-primary cursor-pointer whitespace-nowrap font-messiri"
+        >
           <span class="leading-none">{{ cms('home.keys.start_button', 'ابدأ التقييم الآن') }}</span>
           <i class="fa-solid fa-arrow-left text-xs sm:text-sm group-hover:-translate-x-1.5 transition-transform duration-200" aria-hidden="true"></i>
         </a>

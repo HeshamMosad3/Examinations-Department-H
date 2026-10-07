@@ -205,7 +205,16 @@
         </div>
 
         <!-- Primary Button (#3083:16979 / #3080:10961) -->
-        <a href="{{ route('life-wheel.assessment') }}" class="group w-[300px] lg:w-[400px] max-w-full h-[45px] lg:h-[60px] px-6 py-3 bg-[#204a7a] rounded-[10px] lg:rounded-[15px] flex items-center justify-center gap-2 text-[#e9edf2] lg:text-[#f6f6f6] text-[14px] lg:text-[21px] font-semibold leading-[1.5] whitespace-nowrap hover:bg-[#102744] hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2">
+        <a 
+          href="{{ route('life-wheel.assessment') }}" 
+          @guest 
+            role="button" 
+            aria-haspopup="dialog" 
+            aria-controls="login-modal" 
+            onclick="event.preventDefault(); window.openLoginModal ? window.openLoginModal({ next: 'life-wheel-assessment', prompt: 'يرجى تسجيل الدخول أو إنشاء حساب للبدء في اختبار عجلة الحياة.' }) : (location.href = '{{ route('login', ['next' => 'life-wheel-assessment']) }}');"
+          @endguest 
+          class="group w-[300px] lg:w-[400px] max-w-full h-[45px] lg:h-[60px] px-6 py-3 bg-[#204a7a] rounded-[10px] lg:rounded-[15px] flex items-center justify-center gap-2 text-[#e9edf2] lg:text-[#f6f6f6] text-[14px] lg:text-[21px] font-semibold leading-[1.5] whitespace-nowrap hover:bg-[#102744] hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+        >
           <span>{{ cms('life_wheel.steps.start_button', 'ابدأ التقييم الآن') }}</span>
           <img src="/landing/images/life-wheel-explore/m-arrow-left.svg" alt="" aria-hidden="true" width="12" height="12" class="lg:hidden size-[12px] group-hover:-translate-x-1 transition-transform duration-200" />
           <img src="/landing/images/life-wheel-explore/arrow-left.svg" alt="" aria-hidden="true" width="24" height="24" class="hidden lg:block size-[24px] group-hover:-translate-x-1 transition-transform duration-200" />

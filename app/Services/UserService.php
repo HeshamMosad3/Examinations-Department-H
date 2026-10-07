@@ -13,6 +13,14 @@ class UserService
 
     public function register(array $data): User
     {
+        if (empty($data['name'])) {
+            $firstName = $data['first_name'] ?? '';
+            $fatherName = $data['father_name'] ?? '';
+            $grandfatherName = $data['grandfather_name'] ?? '';
+            $lastName = $data['last_name'] ?? '';
+            $data['name'] = trim("{$firstName} {$fatherName} {$grandfatherName} {$lastName}");
+        }
+
         return User::create($data + ['role' => 'user']);
     }
 

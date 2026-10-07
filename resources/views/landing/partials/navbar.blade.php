@@ -44,10 +44,25 @@
 
     <!-- LEFT SIDE IN RTL: Outline Button (#954:5878 mobile / #656:3810 desktop) -->
     <div class="flex items-center justify-end">
-      <a href="#login" role="button" aria-haspopup="dialog" aria-controls="login-modal" aria-label="فتح نافذة تسجيل الدخول" class="w-[80px] h-[28px] lg:w-[154px] lg:h-[45px] rounded-[5px] lg:rounded-[16px] border border-[#204A7A] text-[#204A7A] font-messiri lg:font-cairo font-semibold text-[10px] lg:text-[14px] hover:bg-[#204A7A] hover:text-white transition-all duration-200 shadow-sm flex items-center justify-center whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary">
-        <span class="leading-none lg:hidden">{{ cms('global.nav.login_mobile', 'تسجيل دخول') }}</span>
-        <span class="leading-none hidden lg:inline">{{ cms('global.nav.login', 'تسجيل الدخول') }}</span>
-      </a>
+      @auth
+        <div class="flex items-center gap-2">
+          <span class="hidden sm:inline-block text-[#204A7A] font-medium text-xs lg:text-sm font-messiri max-w-[120px] lg:max-w-[160px] truncate">
+            {{ auth()->user()->name }}
+          </span>
+          <form method="POST" action="{{ route('logout') }}" class="inline">
+            @csrf
+            <button type="submit" aria-label="تسجيل الخروج" title="تسجيل الخروج" class="h-[28px] lg:h-[40px] px-2.5 lg:px-4 rounded-[5px] lg:rounded-[14px] border border-[#E53935]/40 text-[#E53935] hover:bg-[#E53935] hover:text-white font-messiri lg:font-cairo font-semibold text-[10px] lg:text-[13px] transition-all duration-200 flex items-center justify-center gap-1.5 whitespace-nowrap shadow-sm">
+              <i class="fa-solid fa-arrow-right-from-bracket text-xs"></i>
+              <span class="hidden lg:inline">خروج</span>
+            </button>
+          </form>
+        </div>
+      @else
+        <a href="#login" role="button" aria-haspopup="dialog" aria-controls="login-modal" aria-label="فتح نافذة تسجيل الدخول" class="w-[80px] h-[28px] lg:w-[154px] lg:h-[45px] rounded-[5px] lg:rounded-[16px] border border-[#204A7A] text-[#204A7A] font-messiri lg:font-cairo font-semibold text-[10px] lg:text-[14px] hover:bg-[#204A7A] hover:text-white transition-all duration-200 shadow-sm flex items-center justify-center whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary">
+          <span class="leading-none lg:hidden">{{ cms('global.nav.login_mobile', 'تسجيل دخول') }}</span>
+          <span class="leading-none hidden lg:inline">{{ cms('global.nav.login', 'تسجيل الدخول') }}</span>
+        </a>
+      @endauth
     </div>
   </header>
 
@@ -73,6 +88,24 @@
       <a href="{{ cms_url('global.nav.assessments_url', '#assessments') }}" data-nav="assessments" class="mobile-nav-item text-white font-normal text-[19px] leading-[1.5] whitespace-nowrap hover:text-[#E6B844] transition-colors cursor-pointer">{{ cms('global.nav.assessments', 'المقاييس') }}</a>
       <a href="{{ cms_url('global.nav.about_url', '#about') }}" data-nav="about" class="mobile-nav-item text-white font-normal text-[19px] leading-[1.5] whitespace-nowrap hover:text-[#E6B844] transition-colors cursor-pointer">{{ cms('global.nav.about', 'عن دار الرؤى') }}</a>
       <a href="{{ cms_url('global.nav.contact_url', '#contact') }}" data-nav="contact" class="mobile-nav-item text-white font-normal text-[19px] leading-[1.5] whitespace-nowrap hover:text-[#E6B844] transition-colors cursor-pointer">{{ cms('global.nav.contact', 'تواصل معنا') }}</a>
+      
+      <div class="pt-4 border-t border-white/10 mt-2">
+        @auth
+          <div class="text-white/80 text-sm mb-2 font-messiri">{{ auth()->user()->name }}</div>
+          <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" class="w-full h-[42px] rounded-[10px] bg-red-600/80 hover:bg-red-600 text-white font-semibold text-[15px] flex items-center justify-center gap-2 transition-colors">
+              <i class="fa-solid fa-arrow-right-from-bracket text-xs"></i>
+              <span>تسجيل الخروج</span>
+            </button>
+          </form>
+        @else
+          <a href="#login" onclick="const d = document.getElementById('mobile-drawer-close'); if(d) d.click();" class="w-full h-[42px] rounded-[10px] bg-white text-[#1A3B62] font-semibold text-[15px] flex items-center justify-center gap-2 transition-colors">
+            <i class="fa-regular fa-user text-xs"></i>
+            <span>تسجيل الدخول</span>
+          </a>
+        @endauth
+      </div>
     </nav>
   </aside>
 

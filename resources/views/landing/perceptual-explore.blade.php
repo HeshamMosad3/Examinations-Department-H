@@ -96,7 +96,16 @@
           <div class="flex flex-col items-center lg:items-start gap-[33px] lg:gap-[74px] w-full max-w-[361px] lg:max-w-none lg:-mt-[4px]">
             <p class="font-medium text-[14px] lg:text-[21px] leading-normal text-[#565656] text-center lg:text-right max-w-[339px] lg:max-w-none">{{ cms('perceptual_explore.hero.text', 'أنماط الإدراك هي الطرق التي تميل لاستخدامها في استقبال المعلومات وفهمها والتفاعل معها. قد تكون ميولك بصرية أو سمعية أو حسية، أو تجمع بين أكثر من نمط.') }}</p>
             <div class="flex flex-col items-center lg:items-start gap-[16px] lg:gap-[55px] w-full">
-              <a href="{{ $startUrl }}" class="group w-[195px] lg:w-[271px] h-[45px] lg:h-[60px] rounded-[10px] lg:rounded-[15px] bg-[#204a7a] hover:bg-[#102744] text-[#e9edf2] font-semibold text-[14px] lg:text-[25px] leading-[1.5] flex items-center justify-center gap-[8px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#204a7a] focus-visible:ring-offset-2">
+              <a 
+                href="{{ $startUrl }}" 
+                @guest 
+                  role="button" 
+                  aria-haspopup="dialog" 
+                  aria-controls="login-modal" 
+                  onclick="event.preventDefault(); window.openLoginModal ? window.openLoginModal({ next: 'perceptual-test', prompt: 'يرجى تسجيل الدخول أو إنشاء حساب للبدء في اختبار أنماط الإدراك.' }) : (location.href = '{{ route('login', ['next' => 'perceptual-test']) }}');"
+                @endguest 
+                class="group w-[195px] lg:w-[271px] h-[45px] lg:h-[60px] rounded-[10px] lg:rounded-[15px] bg-[#204a7a] hover:bg-[#102744] text-[#e9edf2] font-semibold text-[14px] lg:text-[25px] leading-[1.5] flex items-center justify-center gap-[8px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#204a7a] focus-visible:ring-offset-2"
+              >
                 <span>{{ cms('perceptual_explore.hero.start_button', 'ابدأ التقييم الآن') }}</span>
                 <i class="fa-solid fa-arrow-left text-[12px] lg:text-[20px] group-hover:-translate-x-1 transition-transform" aria-hidden="true"></i>
               </a>
@@ -285,7 +294,16 @@
           <h2 id="pe-cta" class="font-bold text-[24px] lg:text-[36px] leading-[32px] lg:leading-normal text-[#204a7a] lg:text-[#11254d] pt-[8px] lg:pt-0">{{ cms('perceptual_explore.cta.title', 'اكتشف نمط إدراكك') }}</h2>
           <p class="font-normal text-[12px] lg:text-[21px] leading-[19.5px] lg:leading-[1.5] text-[#565656] max-w-[274px] lg:max-w-none">{{ cms('perceptual_explore.cta.text_before_count', 'أجب عن') }} {{ $questionsCount ?: 30 }} {{ cms('perceptual_explore.cta.text_after_count', 'سؤالاً لتتعرف على نمط الإدراك الأقرب إليك، سواء كان بصرياً، سمعياً، حسياً أو مزيجاً من أكثر من نمط.') }}</p>
         </div>
-        <a href="{{ $startUrl }}" class="group w-[190px] lg:w-[271px] h-[45px] lg:h-[60px] rounded-[10px] lg:rounded-[15px] bg-[#204a7a] hover:bg-[#102744] text-[#e9edf2] font-semibold text-[14px] lg:text-[25px] leading-[1.5] flex items-center justify-center gap-[8px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#204a7a] focus-visible:ring-offset-2">
+        <a 
+          href="{{ $startUrl }}" 
+          @guest 
+            role="button" 
+            aria-haspopup="dialog" 
+            aria-controls="login-modal" 
+            onclick="event.preventDefault(); window.openLoginModal ? window.openLoginModal({ next: 'perceptual-test', prompt: 'يرجى تسجيل الدخول أو إنشاء حساب للبدء في اختبار أنماط الإدراك.' }) : (location.href = '{{ route('login', ['next' => 'perceptual-test']) }}');"
+          @endguest 
+          class="group w-[190px] lg:w-[271px] h-[45px] lg:h-[60px] rounded-[10px] lg:rounded-[15px] bg-[#204a7a] hover:bg-[#102744] text-[#e9edf2] font-semibold text-[14px] lg:text-[25px] leading-[1.5] flex items-center justify-center gap-[8px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#204a7a] focus-visible:ring-offset-2"
+        >
           <span>{{ cms('perceptual_explore.cta.start_button', 'ابدأ التقييم الآن') }}</span>
           <i class="fa-solid fa-arrow-left text-[12px] lg:text-[20px] group-hover:-translate-x-1 transition-transform" aria-hidden="true"></i>
         </a>

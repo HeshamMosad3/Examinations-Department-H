@@ -100,4 +100,40 @@ class LifeWheelLoginRedirectTest extends TestCase
             ->assertSee('data-details-url="' . route('life-wheel.details') . '"', false)
             ->assertSee('data-save-url="' . route('life-wheel.results.store') . '"', false);
     }
+
+    public function test_guests_cannot_access_assessment_pages_directly_and_are_redirected_to_login(): void
+    {
+        $this->get(route('life-wheel.assessment'))
+            ->assertRedirect(route('login', ['next' => 'life-wheel-assessment']))
+            ->assertSessionHas('info');
+
+        $this->get(route('perceptual.test'))
+            ->assertRedirect(route('login', ['next' => 'perceptual-test']))
+            ->assertSessionHas('info');
+    }
+
+    public function test_authenticated_users_can_access_assessment_pages(): void
+    {
+        $this->seed(\Database\Seeders\WheelOfLifeSeeder::class);
+        $this->seed(\Database\Seeders\PerceptualStylesSeeder::class);
+
+        $user = $this->makeUser();
+
+        $this->actingAs($user)
+            ->get(route('life-wheel.assessment'))
+            ->assertOk();
+
+        $this->actingAs($user)
+            ->get(route('perceptual.test'))
+            ->assertOk();
+    }
+
+    public function test_landing_page_renders_login_modal_with_create_quick_account_link(): void
+    {
+        $this->get(route('home'))
+            ->assertOk()
+            ->assertSee('إذا لم يكن لديك حساب،')
+            ->assertSee('أنشئ حساباً سريعاً الآن')
+            ->assertSee('openLoginModal');
+    }
 }
