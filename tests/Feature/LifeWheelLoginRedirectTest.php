@@ -136,4 +136,25 @@ class LifeWheelLoginRedirectTest extends TestCase
             ->assertSee('أنشئ حساباً سريعاً الآن')
             ->assertSee('openLoginModal');
     }
+
+    public function test_authenticated_user_sees_icon_and_name_in_dropdown_and_logout_redirects_to_home(): void
+    {
+        $user = $this->makeUser();
+
+        $this->actingAs($user)
+            ->get(route('home'))
+            ->assertOk()
+            ->assertSee('id="user-menu-button"', false)
+            ->assertSee('fa-solid fa-user', false)
+            ->assertSee($user->name)
+            ->assertSee('الملف الشخصي')
+            ->assertSee('تسجيل الخروج')
+            ->assertDontSee('مسؤول النظام')
+            ->assertDontSee('fa-shield-halved', false)
+            ->assertDontSee('fa-id-badge', false);
+
+        $this->actingAs($user)
+            ->post(route('logout'))
+            ->assertRedirect(route('home'));
+    }
 }

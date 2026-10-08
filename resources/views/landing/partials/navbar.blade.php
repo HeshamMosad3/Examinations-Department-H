@@ -42,20 +42,65 @@
       </a>
     </nav>
 
-    <!-- LEFT SIDE IN RTL: Outline Button (#954:5878 mobile / #656:3810 desktop) -->
+    <!-- LEFT SIDE IN RTL: User Profile Dropdown or Login Button -->
     <div class="flex items-center justify-end">
       @auth
-        <div class="flex items-center gap-2">
-          <span class="hidden sm:inline-block text-[#204A7A] font-medium text-xs lg:text-sm font-messiri max-w-[120px] lg:max-w-[160px] truncate">
-            {{ auth()->user()->name }}
-          </span>
-          <form method="POST" action="{{ route('logout') }}" class="inline">
-            @csrf
-            <button type="submit" aria-label="تسجيل الخروج" title="تسجيل الخروج" class="h-[28px] lg:h-[40px] px-2.5 lg:px-4 rounded-[5px] lg:rounded-[14px] border border-[#E53935]/40 text-[#E53935] hover:bg-[#E53935] hover:text-white font-messiri lg:font-cairo font-semibold text-[10px] lg:text-[13px] transition-all duration-200 flex items-center justify-center gap-1.5 whitespace-nowrap shadow-sm">
-              <i class="fa-solid fa-arrow-right-from-bracket text-xs"></i>
-              <span class="hidden lg:inline">خروج</span>
-            </button>
-          </form>
+        <!-- User Profile Dropdown (Hover Trigger) -->
+        <div class="relative group" id="user-profile-menu">
+          <!-- User Avatar / Icon Trigger Button -->
+          <button 
+            type="button"
+            id="user-menu-button"
+            aria-expanded="false" 
+            aria-haspopup="true"
+            aria-label="قائمة المستخدم"
+            class="w-[36px] h-[36px] lg:w-[45px] lg:h-[45px] rounded-full bg-[#E9EDF2] hover:bg-[#204A7A] text-[#204A7A] hover:text-white border border-[#204A7A]/30 transition-all duration-200 flex items-center justify-center shadow-sm cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#204A7A]"
+          >
+            <i class="fa-solid fa-user text-[15px] lg:text-[18px]"></i>
+          </button>
+
+          <!-- Invisible bridge to prevent hover loss when moving mouse to dropdown -->
+          <div class="absolute left-0 top-full w-full h-2"></div>
+
+          <!-- Dropdown Menu (Opens on hover and focus-within) -->
+          <div 
+            class="absolute left-0 top-[calc(100%+8px)] w-[230px] bg-white rounded-[18px] border border-[#DADADA]/70 shadow-[0_12px_32px_rgba(0,0,0,0.12)] p-2.5 z-50 text-right opacity-0 pointer-events-none translate-y-1.5 transition-all duration-200 group-hover:opacity-100 group-hover:pointer-events-auto group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:pointer-events-auto group-focus-within:translate-y-0"
+            role="menu"
+            aria-labelledby="user-menu-button"
+          >
+            <!-- User Info: Name -->
+            <div class="px-3.5 py-2.5 rounded-[12px] bg-[#F8FAFC] border border-[#E2E8F0] mb-2">
+              <p class="text-[#204A7A] font-bold text-[15px] leading-tight font-messiri truncate">
+                {{ auth()->user()->name }}
+              </p>
+            </div>
+
+            <!-- Profile / Dashboard Link -->
+            <a 
+              href="{{ auth()->user()->isAdmin() ? route('admin.dashboard') : route('life-wheel.details') }}" 
+              class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-[10px] text-[#262626] hover:bg-[#F0F5FA] hover:text-[#204A7A] font-messiri font-semibold text-[14px] transition-colors mb-1"
+              role="menuitem"
+            >
+              <span class="flex items-center gap-2">
+                <i class="fa-regular fa-id-card text-[15px] text-[#204A7A]"></i>
+                <span>الملف الشخصي</span>
+              </span>
+              <i class="fa-solid fa-chevron-left text-[11px] text-gray-400"></i>
+            </a>
+
+            <!-- Sign Out Action -->
+            <form method="POST" action="{{ route('logout') }}" class="w-full m-0 p-0">
+              @csrf
+              <button 
+                type="submit" 
+                class="w-full flex items-center gap-2 px-3.5 py-2.5 rounded-[10px] text-[#E53935] hover:bg-[#FFF5F5] font-messiri font-semibold text-[14px] transition-colors cursor-pointer text-right"
+                role="menuitem"
+              >
+                <i class="fa-solid fa-arrow-right-from-bracket text-[14px]"></i>
+                <span>تسجيل الخروج</span>
+              </button>
+            </form>
+          </div>
         </div>
       @else
         <a href="#login" role="button" aria-haspopup="dialog" aria-controls="login-modal" aria-label="فتح نافذة تسجيل الدخول" class="w-[80px] h-[28px] lg:w-[154px] lg:h-[45px] rounded-[5px] lg:rounded-[16px] border border-[#204A7A] text-[#204A7A] font-messiri lg:font-cairo font-semibold text-[10px] lg:text-[14px] hover:bg-[#204A7A] hover:text-white transition-all duration-200 shadow-sm flex items-center justify-center whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary">
@@ -91,10 +136,24 @@
       
       <div class="pt-4 border-t border-white/10 mt-2">
         @auth
-          <div class="text-white/80 text-sm mb-2 font-messiri">{{ auth()->user()->name }}</div>
+          <div class="px-3 py-2.5 rounded-[12px] bg-white/10 mb-3 text-right">
+            <div class="text-white font-bold text-[15px] font-messiri truncate">{{ auth()->user()->name }}</div>
+          </div>
+
+          <a 
+            href="{{ auth()->user()->isAdmin() ? route('admin.dashboard') : route('life-wheel.details') }}"
+            class="w-full h-[40px] rounded-[10px] bg-white/15 hover:bg-white/25 text-white font-semibold text-[14px] flex items-center justify-between px-3 transition-colors mb-2"
+          >
+            <span class="flex items-center gap-2">
+              <i class="fa-regular fa-id-card text-xs"></i>
+              <span>الملف الشخصي</span>
+            </span>
+            <i class="fa-solid fa-chevron-left text-[10px] opacity-70"></i>
+          </a>
+
           <form method="POST" action="{{ route('logout') }}">
             @csrf
-            <button type="submit" class="w-full h-[42px] rounded-[10px] bg-red-600/80 hover:bg-red-600 text-white font-semibold text-[15px] flex items-center justify-center gap-2 transition-colors">
+            <button type="submit" class="w-full h-[40px] rounded-[10px] bg-red-600/80 hover:bg-red-600 text-white font-semibold text-[14px] flex items-center justify-center gap-2 transition-colors cursor-pointer">
               <i class="fa-solid fa-arrow-right-from-bracket text-xs"></i>
               <span>تسجيل الخروج</span>
             </button>

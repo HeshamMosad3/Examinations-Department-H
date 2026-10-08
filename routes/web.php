@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [LandingController::class, 'home'])->name('home');
 
 Route::view('/life-wheel.html', 'landing.life-wheel')->name('life-wheel.explore');
+Route::get('/wheel-test', [LandingController::class, 'wheelTest'])->name('life-wheel.test');
+Route::get('/wheel-test.html', [LandingController::class, 'wheelTest']);
+Route::get('/life-wheel-test.html', [LandingController::class, 'wheelTest']);
 Route::get('/life-wheel-assessment.html', [LandingController::class, 'lifeWheelAssessment'])->name('life-wheel.assessment');
 Route::get('/result.html', [LandingController::class, 'lifeWheelResult'])->name('life-wheel.result');
 

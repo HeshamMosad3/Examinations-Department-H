@@ -47,6 +47,11 @@ class LandingController extends Controller
         return view('landing.result', ['categories' => $lifeWheel->categories()]);
     }
 
+    public function wheelTest(LifeWheelService $lifeWheel): View
+    {
+        return view('landing.life-wheel-test', ['categories' => $lifeWheel->categories()]);
+    }
+
     /** "اكتشف أنماط الإدراك": عدد أسئلة المقياس */
     public function perceptualExplore(): View
     {
