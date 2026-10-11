@@ -4,6 +4,8 @@ use App\Http\Controllers\Admin;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LifeWheelController;
+use App\Http\Controllers\PersonalityKeysController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 // Landing pages
@@ -18,10 +20,16 @@ Route::get('/result.html', [LandingController::class, 'lifeWheelResult'])->name(
 
 Route::get('/perceptual-explore.html', [LandingController::class, 'perceptualExplore'])->name('perceptual.explore');
 Route::get('/perceptual-test.html', [LandingController::class, 'perceptualTest'])->name('perceptual.test');
-Route::get('/perceptual-result.html', [LandingController::class, 'perceptualResult'])->name('perceptual.result');
+Route::get('/perceptual-result.html', [LandingController::class, 'perceptualResult'])->middleware(['auth', 'profile.complete'])->name('perceptual.result');
+
+// مقياس مفاتيح الشخصية السبعة: الصفحة نفسها للمسجلين بس (الزائر بيروح لتسجيل الدخول ويرجع لها)، والنتيجة بتتحفظ للمستخدم
+Route::get('/personality-keys-test.html', [PersonalityKeysController::class, 'test'])->name('keys.test');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/life-wheel-details.html', [LifeWheelController::class, 'details'])->name('life-wheel.details');
+    Route::post('/personality-keys/results', [PersonalityKeysController::class, 'store'])->middleware('throttle:20,1')->name('keys.results.store');
+    Route::get('/personality-keys-result.html', [PersonalityKeysController::class, 'result'])->name('keys.result');
+    // التقرير المفصّل: بعد اكتمال الملف الشخصي بس
+    Route::get('/life-wheel-details.html', [LifeWheelController::class, 'details'])->middleware('profile.complete')->name('life-wheel.details');
     Route::post('/life-wheel/results', [LifeWheelController::class, 'store'])->middleware('throttle:20,1')->name('life-wheel.results.store');
 });
 
@@ -50,6 +58,11 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // User routes
 Route::middleware(['auth', 'user'])->group(function () {
+    // الملف الشخصي: عرض / تعديل وإكمال / حذف البيانات
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [ProfileController::class, 'update'])->middleware('throttle:20,1')->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->middleware('throttle:5,1')->name('profile.destroy');
+
     Route::redirect('/dashboard', '/')->name('dashboard');
     Route::redirect('/assessments', '/')->name('dashboard.assessments');
 });

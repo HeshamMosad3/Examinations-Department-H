@@ -8,6 +8,7 @@ use App\Models\AttemptAnswer;
 use App\Services\LifeWheelService;
 use Database\Seeders\WheelOfLifeSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\Support\ProfileData;
 use Tests\TestCase;
 
 class LifeWheelDetailsTest extends TestCase
@@ -26,7 +27,10 @@ class LifeWheelDetailsTest extends TestCase
 
     private function makeUser(string $email): User
     {
-        return User::create(['name' => 'Test user', 'email' => $email, 'password' => bcrypt('password'), 'role' => 'user']);
+        // الملف الشخصي مكتمل: التقرير المفصّل مقفول قدام الملفات الناقصة (ProfileGateTest)
+        $digits = str_pad((string) (crc32($email) % 100000000), 8, '0', STR_PAD_LEFT);   // جوال وهوية مختلفين لكل مستخدم (unique)
+
+        return User::create(ProfileData::complete(['name' => 'Test user', 'email' => $email, 'password' => bcrypt('password'), 'phone' => "05{$digits}", 'national_id' => "10{$digits}"]) + ['role' => 'user']);
     }
 
     /** 8 aspects x 10 answers, every answer = $value. */

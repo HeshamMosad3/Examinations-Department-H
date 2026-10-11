@@ -134,7 +134,7 @@ class LifeWheelLoginRedirectTest extends TestCase
             ->assertDontSee('id="login-modal"', false)
             ->assertDontSee('openLoginModal')
             ->assertSee('href="' . e(route('login', ['next' => '/'])) . '"', false)
-            ->assertSee('href="' . e(route('login', ['next' => '/#challenge'])) . '"', false)
+            ->assertSee('href="' . e(route('login', ['next' => '/personality-keys-test.html'])) . '"', false)
             ->assertSee('href="' . route('life-wheel.assessment') . '"', false);
     }
 

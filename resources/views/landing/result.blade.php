@@ -175,77 +175,12 @@
         </div>
 
       </div>
-<<<<<<< HEAD
-
-      <!-- Bottom Section: Analysis and Highlights (Figma #3083:11353 on Desktop, #3080:8190 on Mobile) -->
-      <div class="flex flex-col lg:flex-row items-stretch gap-4 sm:gap-6 lg:gap-10">
-        
-        <!-- Highest and Lowest Cards (Figma #3080:8282 on Mobile: top in 2 cols; Figma #3083:11368 on Desktop: left stack) -->
-        <div class="w-full lg:w-[420px] xl:w-[460px] shrink-0 grid grid-cols-2 lg:grid-cols-1 gap-3 sm:gap-4 order-1 lg:order-2">
-            
-          <!-- Highest (Right in RTL on mobile) -->
-          <div id="highest-card" class="bg-gradient-to-l from-[#5c3e9b]/20 to-white border border-[#8b5cf6]/40 rounded-[16px] sm:rounded-[20px] p-3 sm:p-5 flex items-center justify-between shadow-sm transition-all">
-            <div class="flex flex-col items-start gap-0.5 sm:gap-1 text-right">
-              <span class="font-messiri font-semibold text-[#111111] text-[12px] min-[360px]:text-[13px] sm:text-[16px]">{{ cms('wheel_result.summary.highest', 'أعلى جانب') }}</span>
-              <span id="highest-value" class="font-messiri font-bold text-[#8b5cf6] text-[14px] min-[360px]:text-[16px] sm:text-[20px]">--</span>
-            </div>
-            <div id="highest-icon-box" class="w-[38px] h-[38px] sm:w-[52px] sm:h-[52px] rounded-xl bg-[#8b5cf6]/20 flex items-center justify-center shrink-0" aria-hidden="true">
-              <span id="highest-icon" class="lw-icon-mask w-[20px] h-[20px] sm:w-[28px] sm:h-[28px] text-[#8b5cf6]" style="--icon-url:url('')"></span>
-            </div>
-          </div>
-
-          <!-- Lowest (Left in RTL on mobile) -->
-          <div id="lowest-card" class="bg-gradient-to-l from-[#fbbaba]/20 to-white border border-[#f97316]/40 rounded-[16px] sm:rounded-[20px] p-3 sm:p-5 flex items-center justify-between shadow-sm transition-all">
-            <div class="flex flex-col items-start gap-0.5 sm:gap-1 text-right">
-              <span class="font-messiri font-semibold text-[#111111] text-[12px] min-[360px]:text-[13px] sm:text-[16px]">{{ cms('wheel_result.summary.lowest', 'أقل جانب') }}</span>
-              <span id="lowest-value" class="font-messiri font-bold text-[#f97316] text-[14px] min-[360px]:text-[16px] sm:text-[20px]">--</span>
-            </div>
-            <div id="lowest-icon-box" class="w-[38px] h-[38px] sm:w-[52px] sm:h-[52px] rounded-xl bg-[#f97316]/20 flex items-center justify-center shrink-0" aria-hidden="true">
-              <span id="lowest-icon" class="lw-icon-mask w-[20px] h-[20px] sm:w-[28px] sm:h-[28px] text-[#f97316]" style="--icon-url:url('')"></span>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Text Analysis (Figma: AI Insight #3080:8303 on Mobile: below high/low; #3083:11354 on Desktop: right side in RTL) -->
-        <div class="bg-gradient-to-tr from-white to-[#dbeafe] border border-blue-100 rounded-[16px] sm:rounded-[20px] p-4 sm:p-6 lg:p-10 flex-1 flex flex-col justify-center relative overflow-hidden order-2 lg:order-1 shadow-sm">
-          <div class="flex items-center justify-between mb-3 lg:mb-4 relative z-10 gap-2 sm:gap-3">
-            <div class="flex items-center gap-2.5 sm:gap-3">
-              <div class="w-[38px] h-[38px] sm:w-[48px] sm:h-[48px] lg:w-[56px] lg:h-[56px] bg-[#1a3b62] rounded-xl flex items-center justify-center shrink-0 shadow-sm" aria-hidden="true">
-                <i class="fa-regular fa-lightbulb text-white text-[18px] sm:text-[22px] lg:text-[26px]"></i>
-              </div>
-              <h2 class="font-messiri font-bold text-[#172554] text-[15px] sm:text-[19px] lg:text-[25px]">{{ cms('wheel_result.summary.analysis_title', 'ماذا تعني هذه النتيجة؟') }}</h2>
-            </div>
-            <div class="bg-white/80 border border-blue-200/50 px-2.5 sm:px-3 lg:px-4 py-1 sm:py-1.5 rounded-full flex items-center gap-1 sm:gap-1.5 shrink-0">
-              <span class="text-[10px] sm:text-[12px] lg:text-[14px] font-semibold text-[#1a3b62] font-messiri">{{ cms('wheel_result.summary.analysis_badge', 'تحليل ذكي') }}</span>
-              <i class="fa-solid fa-wand-magic-sparkles text-[9px] sm:text-[11px] lg:text-[13px] text-[#1a3b62]" aria-hidden="true"></i>
-            </div>
-          </div>
-          
-          <p id="analysis-text" class="font-messiri text-[#565656] text-[12px] sm:text-[15px] lg:text-[19px] leading-relaxed text-right relative z-10 mt-1 sm:mt-2">
-            جاري تحليل النتيجة...
-          </p>
-        </div>
-
-      </div>
-      
-      <!-- Action Button -->
-      <div class="flex justify-center mt-8 lg:mt-[128px]">
-        <button id="viewReportBtn" class="bg-[#1a3b62] text-white font-messiri font-bold text-[16px] md:text-[20px] w-full max-w-[467px] h-[60px] md:h-[70px] rounded-[15px] hover:bg-[#112948] transition-colors flex items-center justify-center gap-[8px] shadow-md cursor-pointer"
-          @auth data-details-url="{{ route('life-wheel.details') }}" data-save-url="{{ route('life-wheel.results.store') }}" @else data-auth-gate="life-wheel" @endauth>
-          <span>{{ cms('wheel_result.summary.details_button', 'عرض جوانب التقرير') }}</span>
-          <i class="fa-solid fa-arrow-left text-[14px]" aria-hidden="true"></i>
-        </button>
-      </div>
-
-=======
->>>>>>> b143ca051e4716516fa8d739d3873876c4187fb7
     </div>
 
     <!-- Action Button (Figma #3414:6556 / #3418:6485): desktop 467x70 بعد 128px، mobile بعد 48px -->
     <div class="flex justify-center mt-12 lg:mt-32 max-w-[480px] mx-auto lg:max-w-none">
       <button id="viewReportBtn" class="bg-[#204a7a] text-[#e9edf2] font-semibold w-full lg:w-[467px] py-3 px-6 lg:h-[70px] rounded-[10px] lg:rounded-[15px] hover:bg-[#1a3b62] transition-colors flex items-center justify-center gap-2 cursor-pointer text-[14px] lg:text-[25px] leading-[1.5]"
-        @auth data-details-url="{{ route('life-wheel.details') }}" data-save-url="{{ route('life-wheel.results.store') }}" @else aria-haspopup="dialog" aria-controls="authModal" @endauth>
+        @auth data-details-url="{{ route('life-wheel.details') }}" data-save-url="{{ route('life-wheel.results.store') }}" @else data-auth-gate="life-wheel" @endauth>
         <span class="whitespace-nowrap">{{ cms('wheel_result.summary.details_button', 'عرض جوانب التقرير') }}</span>
         <img src="/landing/icons/result/arrow-left.svg" alt="" width="24" height="24" class="size-[12px] lg:size-[24px]" aria-hidden="true" />
       </button>

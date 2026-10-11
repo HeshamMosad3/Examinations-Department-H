@@ -9,6 +9,7 @@ class Assessment extends Model
     // أكواد المقاييس اللي ليها صفحات خاصة في الموقع
     public const WHEEL_OF_LIFE = 'wheel_of_life';
     public const PERCEPTUAL_STYLES = 'perceptual_styles';
+    public const SEVEN_PERSONALITY_KEYS = 'seven_personality_keys';
 
     public const SCORING_TYPES = [
         'sum' => 'مجموع الدرجات (مستويات حسب الدرجة)',

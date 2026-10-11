@@ -33,6 +33,7 @@ class AuthController extends Controller
      * - 'life-wheel' -> life-wheel.details (from report view)
      * - 'life-wheel-assessment' -> life-wheel.assessment
      * - 'perceptual-test' -> perceptual.test
+     * - 'personality-keys-test' -> keys.test
      * - a path on this site, e.g. '/', '/life-wheel.html', '/#challenge' (the page the user was on)
      */
     private function rememberIntendedDestination(Request $request): void
@@ -46,6 +47,7 @@ class AuthController extends Controller
             'life-wheel' => route('life-wheel.details'),
             'life-wheel-assessment' => route('life-wheel.assessment'),
             'perceptual-test' => route('perceptual.test'),
+            'personality-keys-test' => route('keys.test'),
         ];
 
         if (isset($destinations[$next])) {

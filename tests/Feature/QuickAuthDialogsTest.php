@@ -45,7 +45,7 @@ class QuickAuthDialogsTest extends TestCase
         $home = $this->get(route('home'))->getContent();
         $this->assertStringContainsString('data-auth-gate="life-wheel-assessment"', $home);
         $this->assertStringContainsString('data-auth-gate="perceptual-test"', $home);
-        $this->assertStringContainsString('data-auth-gate="/#challenge"', $home);
+        $this->assertStringContainsString('data-auth-gate="/personality-keys-test.html"', $home);
 
         // The plain link is still there as a fallback (no JS / middle-click): the existing sign-in gate
         $this->assertStringContainsString('href="' . route('life-wheel.assessment') . '"', $home);

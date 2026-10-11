@@ -77,15 +77,18 @@
 
             <!-- Profile / Dashboard Link -->
             <a 
-              href="{{ auth()->user()->isAdmin() ? route('admin.dashboard') : route('life-wheel.details') }}" 
+              href="{{ auth()->user()->isAdmin() ? route('admin.dashboard') : route('profile.edit') }}"
               class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-[10px] text-[#262626] hover:bg-[#F0F5FA] hover:text-[#204A7A] font-messiri font-semibold text-[14px] transition-colors mb-1"
               role="menuitem"
             >
               <span class="flex items-center gap-2">
                 <i class="fa-regular fa-id-card text-[15px] text-[#204A7A]"></i>
-                <span>الملف الشخصي</span>
+                <span>{{ cms('global.nav.profile', 'الملف الشخصي') }}</span>
               </span>
-              <i class="fa-solid fa-chevron-left text-[11px] text-gray-400"></i>
+              @unless (auth()->user()->isAdmin())
+                @php $navPercent = app(\App\Services\Auth\ProfileForm::class)->completion(auth()->user())['percent']; @endphp
+                <span dir="ltr" class="rounded-full px-2 py-0.5 text-[11px] font-cairo font-bold {{ $navPercent === 100 ? 'bg-[#dcfce7] text-[#166534]' : 'bg-[#fff3cd] text-[#92400e]' }}">{{ $navPercent }}%</span>
+              @endunless
             </a>
 
             <!-- Sign Out Action -->
@@ -141,7 +144,7 @@
           </div>
 
           <a 
-            href="{{ auth()->user()->isAdmin() ? route('admin.dashboard') : route('life-wheel.details') }}"
+            href="{{ auth()->user()->isAdmin() ? route('admin.dashboard') : route('profile.edit') }}"
             class="w-full h-[40px] rounded-[10px] bg-white/15 hover:bg-white/25 text-white font-semibold text-[14px] flex items-center justify-between px-3 transition-colors mb-2"
           >
             <span class="flex items-center gap-2">

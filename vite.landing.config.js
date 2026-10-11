@@ -1,9 +1,9 @@
-import { defineConfig } from 'vite';
+﻿import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import tailwindcssV3 from 'tailwindcss-v3';
 import autoprefixer from 'autoprefixer';
 
-// Landing pages build — isolated from vite.config.js.
+// Landing pages build â€” isolated from vite.config.js.
 // Uses Tailwind v3 (the version the design was built with) so the output CSS matches the design 1:1.
 export default defineConfig({
     plugins: [
@@ -19,6 +19,8 @@ export default defineConfig({
                 'resources/landing/js/perceptualExplore.js',
                 'resources/landing/js/wheelTestingLab.js',
                 'resources/landing/js/notFound.js',
+                'resources/landing/js/personalityKeysTest.js',
+                'resources/landing/js/profile.js',
             ],
             buildDirectory: 'landing/build',
             hotFile: 'public/landing.hot',
@@ -45,3 +47,4 @@ export default defineConfig({
         },
     },
 });
+
