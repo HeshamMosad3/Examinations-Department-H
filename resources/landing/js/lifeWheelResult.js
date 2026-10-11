@@ -7,7 +7,7 @@ import { cms } from './cms.js';
 initNavigation();
 
 // "عرض جوانب التقرير": a signed-in user (button carries data-details-url) goes straight to the details page, after
-// saving the test they just finished. For guests the button has no data-details-url and opens the "sign in to see your report" prompt (#authModal) instead.
+// saving the test they just finished. For guests the button has no data-details-url and opens the quick sign-up dialog (landing.partials.auth-dialogs, via data-auth-gate) instead.
 function initViewReportButton() {
   const button = document.getElementById('viewReportBtn');
   if (!button || !button.dataset.detailsUrl) return;

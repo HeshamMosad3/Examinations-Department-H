@@ -198,7 +198,7 @@
       <!-- Action Button -->
       <div class="flex justify-center mt-8 lg:mt-[128px]">
         <button id="viewReportBtn" class="bg-[#1a3b62] text-white font-messiri font-bold text-[16px] md:text-[20px] w-full max-w-[467px] h-[60px] md:h-[70px] rounded-[15px] hover:bg-[#112948] transition-colors flex items-center justify-center gap-[8px] shadow-md cursor-pointer"
-          @auth data-details-url="{{ route('life-wheel.details') }}" data-save-url="{{ route('life-wheel.results.store') }}" @else aria-haspopup="dialog" aria-controls="authModal" @endauth>
+          @auth data-details-url="{{ route('life-wheel.details') }}" data-save-url="{{ route('life-wheel.results.store') }}" @else data-auth-gate="life-wheel" @endauth>
           <span>{{ cms('wheel_result.summary.details_button', 'عرض جوانب التقرير') }}</span>
           <i class="fa-solid fa-arrow-left text-[14px]" aria-hidden="true"></i>
         </button>
@@ -210,87 +210,9 @@
   @include('landing.partials.footer')
   
 
-  <!-- Auth Modal -->
-  <div id="authModal" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title" aria-describedby="auth-modal-desc" class="fixed inset-0 z-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300">
-    <!-- Backdrop -->
-    <div id="authModalBackdrop" class="absolute inset-0 bg-[#000000]/60 backdrop-blur-sm" aria-hidden="true"></div>
-    
-    <!-- Modal Content -->
-    <div id="authModalContent" class="relative bg-white rounded-[24px] w-[90%] max-w-[746px] p-8 md:p-12 flex flex-col items-center text-center shadow-2xl scale-95 transition-transform duration-300">
-      
-      <!-- Close Button -->
-      <button id="closeAuthModal" aria-label="إغلاق النافذة" class="absolute top-6 left-6 text-[#999999] hover:text-[#1a3b62] transition-colors cursor-pointer">
-        <i class="fa-solid fa-xmark text-[24px]" aria-hidden="true"></i>
-      </button>
-
-      <!-- Icon -->
-      <div class="w-[80px] h-[80px] rounded-full bg-[#f4f7fb] flex items-center justify-center mb-6 text-[#1a3b62]" aria-hidden="true">
-        <i class="fa-solid fa-lock text-[32px]"></i>
-      </div>
-
-      <!-- Title & Subtitle -->
-      <h3 id="auth-modal-title" class="font-messiri font-bold text-[24px] md:text-[32px] text-[#1a3b62] mb-4">{{ cms('wheel_result.auth_modal.title', 'سجّل الدخول للوصول إلى تقريرك') }}</h3>
-      <p id="auth-modal-desc" class="font-messiri text-[15px] md:text-[18px] text-[#6f6f6f] max-w-[500px] mb-10 leading-relaxed">
-        {{ cms('wheel_result.auth_modal.text', 'للاطلاع على تفاصيل تقريرك، يرجى تسجيل الدخول أو إنشاء حساب اذا لم يكن لديك حساب.') }}
-      </p>
-
-      <!-- Buttons -->
-      <div class="flex flex-col w-full max-w-[682px] gap-4">
-        <a href="{{ route('login', ['next' => 'life-wheel']) }}" class="w-full h-[60px] bg-[#1a3b62] text-white rounded-[15px] flex items-center justify-center gap-3 hover:bg-[#112948] transition-colors font-messiri font-bold text-[18px]">
-          <span>{{ cms('wheel_result.auth_modal.login_button', 'تسجيل دخول') }}</span>
-          <i class="fa-solid fa-arrow-right-to-bracket text-[18px]" aria-hidden="true"></i>
-        </a>
-        <a href="{{ route('register', ['next' => 'life-wheel']) }}" class="w-full h-[60px] bg-transparent border-2 border-[#1a3b62] text-[#1a3b62] rounded-[15px] flex items-center justify-center gap-3 hover:bg-[#f4f7fb] transition-colors font-messiri font-bold text-[18px]">
-          <span>{{ cms('wheel_result.auth_modal.register_button', 'إنشاء حساب جديد') }}</span>
-          <i class="fa-regular fa-user text-[18px]" aria-hidden="true"></i>
-        </a>
-      </div>
-
-    </div>
-  </div>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const modal = document.getElementById('authModal');
-      const content = document.getElementById('authModalContent');
-      const openBtn = document.getElementById('viewReportBtn');
-      const closeBtn = document.getElementById('closeAuthModal');
-      const backdrop = document.getElementById('authModalBackdrop');
-      let triggerBtn = null;
-
-      function openModal() {
-        triggerBtn = document.activeElement;
-        modal.classList.remove('opacity-0', 'pointer-events-none');
-        modal.setAttribute('aria-hidden', 'false');
-        content.classList.remove('scale-95');
-        content.classList.add('scale-100');
-        if (closeBtn) closeBtn.focus();
-      }
-
-      function closeModal() {
-        modal.classList.add('opacity-0', 'pointer-events-none');
-        modal.setAttribute('aria-hidden', 'true');
-        content.classList.remove('scale-100');
-        content.classList.add('scale-95');
-        if (triggerBtn && typeof triggerBtn.focus === 'function') {
-          triggerBtn.focus();
-        }
-      }
-
-      @guest
-      if (openBtn) openBtn.addEventListener('click', openModal);
-      @endguest
-      if (closeBtn) closeBtn.addEventListener('click', closeModal);
-      if (backdrop) backdrop.addEventListener('click', closeModal);
-
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !modal.classList.contains('pointer-events-none')) {
-          closeModal();
-        }
-      });
-    });
-  </script>
-
+  @guest
+    @include('landing.partials.auth-dialogs')
+  @endguest
 
 <script>
     window.WHEEL_OF_LIFE_DB = {!! json_encode($categories ?? []) !!};

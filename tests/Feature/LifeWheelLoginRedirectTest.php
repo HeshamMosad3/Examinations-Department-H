@@ -88,10 +88,9 @@ class LifeWheelLoginRedirectTest extends TestCase
 
         $this->get(route('life-wheel.result'))
             ->assertOk()
-            ->assertSee('aria-haspopup="dialog"', false)
+            ->assertSee('data-auth-gate="life-wheel"', false)
+            ->assertSee('id="authDialog"', false)
             ->assertDontSee('data-details-url', false)
-            ->assertSee(route('login', ['next' => 'life-wheel']), false)
-            ->assertSee(route('register', ['next' => 'life-wheel']), false)
             ->assertDontSee('id="login-modal"', false);
 
         $this->actingAs($this->makeUser())

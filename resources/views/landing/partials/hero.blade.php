@@ -78,7 +78,7 @@
       <div class="flex flex-row items-stretch justify-center gap-[10px] sm:gap-[56px] mb-0 w-full max-w-[330px] sm:max-w-[510px] px-0">
         <!-- Start Evaluation Button (Figma: Outline Button/Default, 111x21 Hug body, 4px gap) -->
         <a 
-          href="{{ route('life-wheel.assessment') }}" 
+          href="{{ route('life-wheel.assessment') }}" @guest data-auth-gate="life-wheel-assessment" @endguest
           class="group flex-1 h-[40px] sm:h-[56px] bg-brand-primary text-white rounded-[10px] sm:rounded-[12px] font-semibold text-[13.5px] sm:text-[17px] flex items-center justify-center gap-1 sm:gap-3 shadow-md hover:bg-[#102744] hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 border-2 border-brand-primary cursor-pointer whitespace-nowrap font-messiri focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary"
         >
           <span class="leading-none">{{ cms('home.hero.start_button', 'ابدأ التقييم الآن') }}</span>

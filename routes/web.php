@@ -32,6 +32,10 @@ Route::middleware('guest')->group(function () {
     Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
     Route::post('/register', [AuthController::class, 'register'])->middleware('throttle:5,1')->name('register.post');
 
+    // Pop-up dialogs (sign-up / sign-in) opened from the "start assessment" and "view report" buttons; they answer with JSON
+    Route::post('/quick-signup', [AuthController::class, 'quickRegister'])->middleware('throttle:5,1')->name('quick-signup.post');
+    Route::post('/quick-login', [AuthController::class, 'quickLogin'])->middleware('throttle:10,1')->name('quick-login.post');
+
     // Password Reset (OTP Flow matching Figma)
     Route::get('/forgot-password', [AuthController::class, 'showForgotPassword'])->name('password.request');
     Route::post('/forgot-password', [AuthController::class, 'sendOtp'])->middleware('throttle:5,1')->name('password.email');

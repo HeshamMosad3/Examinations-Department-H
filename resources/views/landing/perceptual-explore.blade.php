@@ -97,7 +97,7 @@
             <p class="font-medium text-[14px] lg:text-[21px] leading-normal text-[#565656] text-center lg:text-right max-w-[339px] lg:max-w-none">{{ cms('perceptual_explore.hero.text', 'أنماط الإدراك هي الطرق التي تميل لاستخدامها في استقبال المعلومات وفهمها والتفاعل معها. قد تكون ميولك بصرية أو سمعية أو حسية، أو تجمع بين أكثر من نمط.') }}</p>
             <div class="flex flex-col items-center lg:items-start gap-[16px] lg:gap-[55px] w-full">
               <a 
-                href="{{ $startUrl }}" 
+                href="{{ $startUrl }}" @guest data-auth-gate="perceptual-test" @endguest
                 class="group w-[195px] lg:w-[271px] h-[45px] lg:h-[60px] rounded-[10px] lg:rounded-[15px] bg-[#204a7a] hover:bg-[#102744] text-[#e9edf2] font-semibold text-[14px] lg:text-[25px] leading-[1.5] flex items-center justify-center gap-[8px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#204a7a] focus-visible:ring-offset-2"
               >
                 <span>{{ cms('perceptual_explore.hero.start_button', 'ابدأ التقييم الآن') }}</span>
@@ -289,7 +289,7 @@
           <p class="font-normal text-[12px] lg:text-[21px] leading-[19.5px] lg:leading-[1.5] text-[#565656] max-w-[274px] lg:max-w-none">{{ cms('perceptual_explore.cta.text_before_count', 'أجب عن') }} {{ $questionsCount ?: 30 }} {{ cms('perceptual_explore.cta.text_after_count', 'سؤالاً لتتعرف على نمط الإدراك الأقرب إليك، سواء كان بصرياً، سمعياً، حسياً أو مزيجاً من أكثر من نمط.') }}</p>
         </div>
         <a 
-          href="{{ $startUrl }}" 
+          href="{{ $startUrl }}" @guest data-auth-gate="perceptual-test" @endguest
           class="group w-[190px] lg:w-[271px] h-[45px] lg:h-[60px] rounded-[10px] lg:rounded-[15px] bg-[#204a7a] hover:bg-[#102744] text-[#e9edf2] font-semibold text-[14px] lg:text-[25px] leading-[1.5] flex items-center justify-center gap-[8px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#204a7a] focus-visible:ring-offset-2"
         >
           <span>{{ cms('perceptual_explore.cta.start_button', 'ابدأ التقييم الآن') }}</span>
@@ -300,5 +300,8 @@
   </section>
 
   @include('landing.partials.footer')
+  @guest
+    @include('landing.partials.auth-dialogs')
+  @endguest
 </body>
 </html>

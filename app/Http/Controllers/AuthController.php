@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\QuickRegisterRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use App\Services\UserService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,6 +17,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
@@ -165,6 +168,39 @@ class AuthController extends Controller
         $this->rememberIntendedDestination($request);
 
         return redirect()->intended(route('home'));
+    }
+
+    /**
+     * نافذة التسجيل السريع (landing.partials.auth-dialogs): بيسجّل ويدخّل المستخدم ويرجّع JSON فيه الصفحة اللي يكمّل عليها
+     * (اللي كان رايحلها قبل التسجيل: ?next= المبعوت مع الفورم). صفحة التسجيل الكامل (/register) منفصلة وزي ما هي.
+     */
+    public function quickRegister(QuickRegisterRequest $request): JsonResponse
+    {
+        $user = $this->userService->register($request->safe()->only(['name', 'email', 'phone', 'national_id', 'password']));
+
+        Auth::login($user, $request->boolean('remember'));
+        $request->session()->regenerate();
+        $this->rememberIntendedDestination($request);
+
+        return response()->json(['success' => true, 'redirect' => redirect()->intended(route('home'))->getTargetUrl()]);
+    }
+
+    /** نافذة الدخول السريع: نفس منطق /login بس بترجّع JSON (الأدمن بيروح للوحة الإدارة، والمستخدم للصفحة اللي كان رايحلها) */
+    public function quickLogin(LoginRequest $request): JsonResponse
+    {
+        if (! Auth::attempt($request->validated(), $request->boolean('remember'))) {
+            throw ValidationException::withMessages([
+                'email' => cms('auth.login.failed', 'البريد الإلكتروني أو كلمة المرور غير صحيحة.'),
+            ]);
+        }
+
+        $request->session()->regenerate();
+        $this->rememberIntendedDestination($request);
+
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
+        return response()->json(['success' => true, 'redirect' => $this->redirectAfterLogin($request, $user)->getTargetUrl()]);
     }
 
     public function showForgotPassword()

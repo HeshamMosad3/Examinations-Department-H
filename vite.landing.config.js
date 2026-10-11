@@ -19,6 +19,7 @@ export default defineConfig({
                 'resources/landing/js/perceptualTest.js',
                 'resources/landing/js/perceptualExplore.js',
                 'resources/landing/js/wheelTestingLab.js',
+                'resources/landing/js/notFound.js',
             ],
             buildDirectory: 'landing/build',
             hotFile: 'public/landing.hot',
