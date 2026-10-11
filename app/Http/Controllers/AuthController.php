@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 
 class AuthController extends Controller
@@ -21,17 +22,20 @@ class AuthController extends Controller
         private readonly UserService $userService,
     ) {}
 
+    /** OTP attempts allowed before the code is burned and the user has to request a new one */
+    private const OTP_MAX_ATTEMPTS = 5;
+
     /**
-     * Preserves intended destination for login / registration when guests initiate tests:
+     * Remembers where to send the user after login / registration (?next=...):
      * - 'life-wheel' -> life-wheel.details (from report view)
      * - 'life-wheel-assessment' -> life-wheel.assessment
      * - 'perceptual-test' -> perceptual.test
-     * - specific route names / relative app paths
+     * - a path on this site, e.g. '/', '/life-wheel.html', '/#challenge' (the page the user was on)
      */
     private function rememberIntendedDestination(Request $request): void
     {
         $next = $request->input('next', $request->query('next'));
-        if (! $next) {
+        if (! is_string($next) || $next === '') {
             return;
         }
 
@@ -46,14 +50,71 @@ class AuthController extends Controller
             return;
         }
 
-        if (Route::has($next)) {
-            $request->session()->put('url.intended', route($next));
+        // Local paths only ('//host' and '/\host' are protocol-relative tricks), and never back to an auth page
+        if (! str_starts_with($next, '/') || str_starts_with($next, '//') || str_starts_with($next, '/\\')) {
             return;
         }
 
-        if (is_string($next) && str_starts_with($next, '/') && ! str_starts_with($next, '//')) {
-            $request->session()->put('url.intended', url($next));
+        $path = '/' . trim((string) parse_url($next, PHP_URL_PATH), '/');
+        $authPaths = ['/login', '/register', '/logout', '/forgot-password', '/verify-otp', '/resend-otp', '/reset-password'];
+        foreach ($authPaths as $authPath) {
+            if ($path === $authPath || str_starts_with($path, $authPath . '/')) {
+                return;
+            }
         }
+
+        $request->session()->put('url.intended', url($next));
+    }
+
+    /** Admins only follow an intended URL inside the admin panel; anything else lands them on the dashboard */
+    private function redirectAfterLogin(Request $request, User $user): RedirectResponse
+    {
+        if (! $user->isAdmin()) {
+            return redirect()->intended(route('home'));
+        }
+
+        $intended = (string) $request->session()->pull('url.intended', '');
+        $adminPrefix = url('/admin');
+
+        return $intended === $adminPrefix || str_starts_with($intended, $adminPrefix . '/')
+            ? redirect()->to($intended)
+            : redirect()->route('admin.dashboard');
+    }
+
+    /** Creates a fresh 4-digit code for the email (replacing any previous one) and sends it */
+    private function issueOtp(Request $request, string $email): void
+    {
+        $otp = sprintf('%04d', random_int(0, 9999));
+
+        DB::table('password_reset_otps')->where('email', $email)->delete();
+        DB::table('password_reset_otps')->insert([
+            'email'      => $email,
+            'otp'        => $otp,
+            'token'      => null,
+            'expires_at' => now()->addMinutes(15),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        RateLimiter::clear($this->otpAttemptsKey($email));
+
+        try {
+            Mail::raw(
+                str_replace(':code', $otp, cms('auth.otp.email_body', 'رمز التحقق لإعادة تعيين كلمة المرور في دار الرؤى هو: :code — صالح لمدة 15 دقيقة. إذا لم تطلب إعادة التعيين فتجاهل هذه الرسالة.')),
+                fn ($message) => $message->to($email)->subject(cms('auth.otp.email_subject', 'رمز التحقق — دار الرؤى'))
+            );
+        } catch (\Throwable $e) {
+            Log::error('Failed to send password reset OTP', ['email' => $email, 'error' => $e->getMessage()]);
+        }
+
+        // Shown on the verify page only while developing locally (no real mailbox)
+        if (app()->isLocal()) {
+            $request->session()->flash('dev_otp', $otp);
+        }
+    }
+
+    private function otpAttemptsKey(string $email): string
+    {
+        return 'password-otp:' . sha1(strtolower($email));
     }
 
     public function showLogin(Request $request)
@@ -77,14 +138,11 @@ class AuthController extends Controller
 
             /** @var \App\Models\User $user */
             $user = Auth::user();
-            if ($user->isAdmin()) {
-                return redirect()->route('admin.dashboard');
-            }
 
-            return redirect()->intended(route('home'));
+            return $this->redirectAfterLogin($request, $user);
         }
 
-        return back()->withErrors(['email' => 'البريد الإلكتروني أو كلمة المرور غير صحيحة.'])->onlyInput('email');
+        return back()->withErrors(['email' => cms('auth.login.failed', 'البريد الإلكتروني أو كلمة المرور غير صحيحة.')])->onlyInput('email');
     }
 
     public function showRegister(Request $request)
@@ -119,23 +177,13 @@ class AuthController extends Controller
         $request->validate([
             'email' => 'required|email|exists:users,email',
         ], [
-            'email.required' => 'يرجى إدخال البريد الإلكتروني.',
-            'email.email'    => 'يرجى إدخال بريد إلكتروني صحيح.',
-            'email.exists'   => 'هذا البريد الإلكتروني غير مسجل لدينا.',
+            'email.required' => cms('auth.forgot.email_required', 'يرجى إدخال البريد الإلكتروني.'),
+            'email.email'    => cms('auth.validation.email', 'يرجى إدخال بريد إلكتروني صحيح.'),
+            'email.exists'   => cms('auth.forgot.email_not_found', 'هذا البريد الإلكتروني غير مسجل لدينا.'),
         ]);
 
         $email = $request->email;
-        $otp = sprintf('%04d', random_int(1000, 9999));
-
-        DB::table('password_reset_otps')->where('email', $email)->delete();
-        DB::table('password_reset_otps')->insert([
-            'email'      => $email,
-            'otp'        => $otp,
-            'token'      => null,
-            'expires_at' => now()->addMinutes(15),
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        $this->issueOtp($request, $email);
 
         $parts = explode('@', $email);
         $namePart = $parts[0];
@@ -145,9 +193,7 @@ class AuthController extends Controller
 
         $request->session()->put('password_reset_email', $email);
         $request->session()->put('password_reset_masked_email', $maskedEmail);
-
-        Log::info("Password reset OTP for {$email}: {$otp}");
-        session()->flash('dev_otp', $otp);
+        $request->session()->forget('password_reset_token');
 
         return redirect()->route('password.verify-otp');
     }
@@ -181,6 +227,11 @@ class AuthController extends Controller
             $otp = (string) $otpInput;
         }
 
+        $attemptsKey = $this->otpAttemptsKey($email);
+        if (RateLimiter::tooManyAttempts($attemptsKey, self::OTP_MAX_ATTEMPTS)) {
+            return back()->withErrors(['otp' => cms('auth.otp.too_many', 'تجاوزت عدد المحاولات المسموح بها، يرجى طلب رمز جديد.')]);
+        }
+
         $record = DB::table('password_reset_otps')
             ->where('email', $email)
             ->where('otp', $otp)
@@ -188,8 +239,17 @@ class AuthController extends Controller
             ->first();
 
         if (!$record) {
-            return back()->withErrors(['otp' => 'رمز التحقق غير صحيح أو انتهت صلاحيته.']);
+            RateLimiter::hit($attemptsKey, 15 * 60);
+            if (RateLimiter::tooManyAttempts($attemptsKey, self::OTP_MAX_ATTEMPTS)) {
+                // Burn the code so it can't be brute-forced from another IP either
+                DB::table('password_reset_otps')->where('email', $email)->delete();
+                return back()->withErrors(['otp' => cms('auth.otp.too_many', 'تجاوزت عدد المحاولات المسموح بها، يرجى طلب رمز جديد.')]);
+            }
+
+            return back()->withErrors(['otp' => cms('auth.otp.invalid', 'رمز التحقق غير صحيح أو انتهت صلاحيته.')]);
         }
+
+        RateLimiter::clear($attemptsKey);
 
         $token = Str::random(60);
         DB::table('password_reset_otps')
@@ -209,31 +269,18 @@ class AuthController extends Controller
         $email = $request->session()->get('password_reset_email');
         if (!$email) {
             if ($request->wantsJson()) {
-                return response()->json(['success' => false, 'message' => 'انتهت الجلسة'], 400);
+                return response()->json(['success' => false, 'message' => cms('auth.otp.session_expired', 'انتهت الجلسة، يرجى طلب رمز جديد.')], 400);
             }
             return redirect()->route('password.request');
         }
 
-        $otp = sprintf('%04d', random_int(1000, 9999));
-
-        DB::table('password_reset_otps')->where('email', $email)->delete();
-        DB::table('password_reset_otps')->insert([
-            'email'      => $email,
-            'otp'        => $otp,
-            'token'      => null,
-            'expires_at' => now()->addMinutes(15),
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-        Log::info("Resent password reset OTP for {$email}: {$otp}");
-        session()->flash('dev_otp', $otp);
+        $this->issueOtp($request, $email);
 
         if ($request->wantsJson()) {
-            return response()->json(['success' => true, 'message' => 'تم إرسال رمز جديد']);
+            return response()->json(['success' => true, 'message' => cms('auth.otp.resent', 'تم إرسال رمز تحقق جديد بنجاح.')]);
         }
 
-        return back()->with('status', 'تم إرسال رمز تحقق جديد بنجاح.');
+        return back()->with('status', cms('auth.otp.resent', 'تم إرسال رمز تحقق جديد بنجاح.'));
     }
 
     public function showResetPassword(Request $request)
@@ -252,7 +299,7 @@ class AuthController extends Controller
             ->exists();
 
         if (!$valid) {
-            return redirect()->route('password.request')->withErrors(['email' => 'انتهت صلاحية جلسة إعادة التعيين.']);
+            return redirect()->route('password.request')->withErrors(['email' => cms('auth.reset.expired', 'انتهت صلاحية جلسة إعادة التعيين، يرجى المحاولة مجدداً.')]);
         }
 
         return view('auth.reset-password', [
@@ -282,12 +329,14 @@ class AuthController extends Controller
             ]);
         }
 
+        // نفس أقل طول لكلمة المرور في فورم إنشاء حساب
+        $passwordMin = cms_number('auth.field_password.min', '8');
         $request->validate([
-            'password' => 'required|string|min:8|confirmed',
+            'password' => "required|string|min:{$passwordMin}|confirmed",
         ], [
-            'password.required'  => 'يرجى إدخال كلمة المرور الجديدة.',
-            'password.min'       => 'يجب أن تكون كلمة المرور الجديدة مكونة من 8 خانات على الأقل.',
-            'password.confirmed' => 'تأكيد كلمة المرور غير متطابق.',
+            'password.required'  => cms('auth.reset.password_required', 'كلمة المرور الجديدة مطلوبة.'),
+            'password.min'       => str_replace(':min', $passwordMin, cms('auth.reset.password_min', 'يجب أن تكون كلمة المرور :min خانات على الأقل.')),
+            'password.confirmed' => cms('auth.reset.confirm_mismatch', 'كلمة المرور وتأكيدها غير متطابقين.'),
         ]);
 
         $record = DB::table('password_reset_otps')
@@ -297,21 +346,27 @@ class AuthController extends Controller
             ->first();
 
         if (!$record) {
-            return redirect()->route('password.request')->withErrors(['email' => 'انتهت صلاحية الرمز، يرجى المحاولة مجدداً.']);
+            return redirect()->route('password.request')->withErrors(['email' => cms('auth.reset.expired', 'انتهت صلاحية جلسة إعادة التعيين، يرجى المحاولة مجدداً.')]);
         }
 
-        User::where('email', $email)->update([
+        // A new remember token signs out "remember me" cookies on other devices
+        User::where('email', $email)->first()?->forceFill([
             'password' => Hash::make($request->password),
-        ]);
+            'remember_token' => Str::random(60),
+        ])->save();
 
         DB::table('password_reset_otps')->where('email', $email)->delete();
         $request->session()->forget(['password_reset_email', 'password_reset_token', 'password_reset_masked_email']);
 
-        return redirect()->route('password.reset-success');
+        return redirect()->route('password.reset-success')->with('password_reset_done', true);
     }
 
-    public function showResetSuccess()
+    public function showResetSuccess(Request $request)
     {
+        if (! $request->session()->get('password_reset_done')) {
+            return redirect()->route('login');
+        }
+
         return view('auth.reset-success');
     }
 

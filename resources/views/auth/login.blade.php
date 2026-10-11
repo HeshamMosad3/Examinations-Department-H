@@ -1,19 +1,19 @@
 @extends('layouts.auth')
 
-@section('title', 'تسجيل الدخول — دار الرؤى')
+@section('title', cms('auth.login.page_title', 'تسجيل الدخول — دار الرؤى'))
 
 @section('content')
 <div class="w-full max-w-[580px]">
     <!-- Header: Logo, Title, Subtitle -->
     <div class="flex flex-col items-center text-center mb-6 lg:mb-6">
         <a href="{{ route('home') }}" class="inline-block mb-3 transition-transform hover:scale-105">
-            <img src="/images/auth/auth-logo.png" alt="دار الرؤى" class="w-[80px] h-[80px] lg:w-[84px] lg:h-[84px] object-contain" />
+            <img src="{{ cms_image('auth.common.logo', '/images/auth/auth-logo.png') }}" alt="{{ cms('auth.common.logo_alt', 'دار الرؤى') }}" class="w-[80px] h-[80px] lg:w-[84px] lg:h-[84px] object-contain" />
         </a>
         <h1 class="text-[#204A7A] font-bold text-[28px] sm:text-[32px] leading-tight mb-1.5">
-            تسجيل الدخول
+            {{ cms('auth.login.title', 'تسجيل الدخول') }}
         </h1>
         <p class="text-[#565656] font-medium text-[16px] sm:text-[17px]">
-            مرحباً بعودتك! أدخل بياناتك للمتابعة.
+            {{ cms('auth.login.subtitle', 'مرحباً بعودتك! أدخل بياناتك للمتابعة.') }}
         </p>
         <div class="w-full h-[1px] bg-[#E9E9E9] mt-4"></div>
     </div>
@@ -50,7 +50,7 @@
         <!-- Email -->
         <div class="flex flex-col gap-1.5" id="group-email">
             <label for="email" class="text-[#262626] font-medium text-[16px] flex items-center gap-1">
-                البريد الإلكتروني
+                {{ cms('auth.login.email_label', 'البريد الإلكتروني') }}
                 <span class="text-[#E53935] font-bold text-xs">*</span>
             </label>
             <div id="wrapper-email" class="w-full h-[56px] px-4 rounded-[10px] border border-[#DADADA] bg-white flex items-center form-input-focus transition-all">
@@ -59,7 +59,7 @@
                     id="email" 
                     name="email" 
                     value="{{ old('email') }}" 
-                    placeholder="user@gmail.com" 
+                    placeholder="{{ cms('auth.login.email_placeholder', 'user@gmail.com') }}" 
                     required 
                     autofocus
                     dir="rtl"
@@ -72,7 +72,7 @@
         <!-- Password -->
         <div class="flex flex-col gap-1.5" id="group-password">
             <label for="password" class="text-[#262626] font-medium text-[16px] flex items-center gap-1">
-                كلمة المرور
+                {{ cms('auth.login.password_label', 'كلمة المرور') }}
                 <span class="text-[#E53935] font-bold text-xs">*</span>
             </label>
             <div id="wrapper-password" class="w-full h-[56px] px-4 rounded-[10px] border border-[#DADADA] bg-white flex items-center justify-between form-input-focus transition-all">
@@ -80,7 +80,7 @@
                     type="password" 
                     id="password" 
                     name="password" 
-                    placeholder="••••••••" 
+                    placeholder="{{ cms('auth.login.password_placeholder', '••••••••') }}" 
                     required 
                     class="w-full h-full bg-transparent text-[#262626] placeholder-[#949494] text-[16px] focus:outline-none"
                 />
@@ -88,7 +88,7 @@
                     type="button" 
                     onclick="togglePassword('password', 'password-toggle-icon')" 
                     class="text-[#949494] hover:text-[#204A7A] transition-colors p-2 focus:outline-none"
-                    aria-label="عرض أو إخفاء كلمة المرور"
+                    aria-label="{{ cms('auth.common.toggle_password', 'عرض أو إخفاء كلمة المرور') }}"
                 >
                     <i id="password-toggle-icon" class="fa-regular fa-eye-slash text-[18px]"></i>
                 </button>
@@ -106,11 +106,11 @@
                     class="w-[19px] h-[19px] rounded border-[#565656] text-[#204A7A] focus:ring-[#204A7A] cursor-pointer"
                     {{ old('remember') ? 'checked' : '' }}
                 />
-                <span class="text-[#565656] font-medium text-[16px]">تذكرني</span>
+                <span class="text-[#565656] font-medium text-[16px]">{{ cms('auth.login.remember', 'تذكرني') }}</span>
             </label>
 
             <a href="{{ route('password.request') }}" class="text-[#204A7A] hover:underline font-semibold text-[16px]">
-                هل نسيت كلمة المرور؟
+                {{ cms('auth.login.forgot_link', 'هل نسيت كلمة المرور؟') }}
             </a>
         </div>
 
@@ -119,14 +119,14 @@
             type="submit" 
             class="w-full h-[56px] rounded-[10px] bg-[#204A7A] hover:bg-[#163558] text-[#F6F6F6] font-semibold text-[18px] sm:text-[20px] transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center mt-2"
         >
-            تسجيل الدخول
+            {{ cms('auth.login.submit', 'تسجيل الدخول') }}
         </button>
 
         <!-- Register Link -->
         <div class="text-center mt-3">
-            <span class="text-[#515151] font-normal text-[17px]">إذا لم يكن لديك حساب، </span>
+            <span class="text-[#515151] font-normal text-[17px]">{{ cms('auth.login.no_account', 'إذا لم يكن لديك حساب،') }} </span>
             <a href="{{ route('register', request()->only('next')) }}" class="text-[#204A7A] hover:underline font-semibold text-[17px] border-b border-[#204A7A] pb-[1px]">
-                أنشئ حساباً سريعاً الآن
+                {{ cms('auth.login.register_link', 'أنشئ حساباً سريعاً الآن') }}
             </a>
         </div>
     </form>
@@ -163,12 +163,12 @@
         function validateEmail() {
             const val = emailInput.value.trim();
             if (!val) {
-                setFieldError('email', 'البريد الإلكتروني مطلوب.');
+                setFieldError('email', @json(cms('auth.login.email_required', 'البريد الإلكتروني مطلوب.')));
                 return false;
             }
             const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailPattern.test(val)) {
-                setFieldError('email', 'يرجى إدخال بريد إلكتروني صحيح.');
+                setFieldError('email', @json(cms('auth.validation.email', 'يرجى إدخال بريد إلكتروني صحيح.')));
                 return false;
             }
             clearFieldError('email');
@@ -178,11 +178,7 @@
         function validatePassword() {
             const val = passwordInput.value;
             if (!val) {
-                setFieldError('password', 'كلمة المرور مطلوبة.');
-                return false;
-            }
-            if (val.length < 8) {
-                setFieldError('password', 'كلمة المرور يجب أن لا تقل عن 8 خانات.');
+                setFieldError('password', @json(cms('auth.login.password_required', 'كلمة المرور مطلوبة.')));
                 return false;
             }
             clearFieldError('password');

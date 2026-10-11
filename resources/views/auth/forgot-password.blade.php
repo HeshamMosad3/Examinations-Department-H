@@ -1,12 +1,12 @@
 @extends('layouts.auth')
 
-@section('title', 'إعادة تعيين كلمة المرور — دار الرؤى')
+@section('title', cms('auth.forgot.page_title', 'إعادة تعيين كلمة المرور — دار الرؤى'))
 
 @section('content')
 <div class="w-full max-w-[580px]">
     <!-- Top Back Arrow -->
     <div class="w-full flex justify-end mb-1">
-        <a href="{{ route('login') }}" class="p-2 text-[#204A7A] hover:bg-[#204A7A]/10 rounded-full transition-colors flex items-center justify-center" aria-label="العودة لتسجيل الدخول">
+        <a href="{{ route('login') }}" class="p-2 text-[#204A7A] hover:bg-[#204A7A]/10 rounded-full transition-colors flex items-center justify-center" aria-label="{{ cms('auth.forgot.back_link', 'العودة إلى تسجيل الدخول') }}">
             <i class="fa-solid fa-arrow-right text-[20px]"></i>
         </a>
     </div>
@@ -14,13 +14,13 @@
     <!-- Header: Logo, Title, Subtitle -->
     <div class="flex flex-col items-center text-center mb-6">
         <a href="{{ route('home') }}" class="inline-block mb-3 transition-transform hover:scale-105">
-            <img src="/images/auth/auth-logo.png" alt="دار الرؤى" class="w-[80px] h-[80px] object-contain" />
+            <img src="{{ cms_image('auth.common.logo', '/images/auth/auth-logo.png') }}" alt="{{ cms('auth.common.logo_alt', 'دار الرؤى') }}" class="w-[80px] h-[80px] object-contain" />
         </a>
         <h1 class="text-[#204A7A] font-bold text-[28px] sm:text-[32px] leading-tight mb-1.5">
-            إعادة تعيين كلمة المرور
+            {{ cms('auth.forgot.title', 'إعادة تعيين كلمة المرور') }}
         </h1>
         <p class="text-[#565656] font-medium text-[16px] sm:text-[17px]">
-            قم بإدخال بريدك الإلكتروني لاستعادة كلمة المرور الخاصة بك!
+            {{ cms('auth.forgot.subtitle', 'قم بإدخال بريدك الإلكتروني لاستعادة كلمة المرور الخاصة بك!') }}
         </p>
         <div class="w-full h-[1px] bg-[#E9E9E9] mt-4"></div>
     </div>
@@ -39,7 +39,7 @@
         <!-- Email Input -->
         <div class="flex flex-col gap-1.5" id="group-email">
             <label for="email" class="text-[#262626] font-medium text-[16px] flex items-center gap-1">
-                البريد الإلكتروني
+                {{ cms('auth.forgot.email_label', 'البريد الإلكتروني') }}
                 <span class="text-[#E53935] font-bold text-xs">*</span>
             </label>
             <div id="wrapper-email" class="w-full h-[56px] px-4 rounded-[10px] border border-[#DADADA] bg-white flex items-center form-input-focus transition-all">
@@ -48,7 +48,7 @@
                     id="email" 
                     name="email" 
                     value="{{ old('email') }}" 
-                    placeholder="user@gmail.com" 
+                    placeholder="{{ cms('auth.forgot.email_placeholder', 'user@gmail.com') }}" 
                     required 
                     autofocus
                     dir="rtl"
@@ -63,13 +63,13 @@
             type="submit" 
             class="w-full h-[56px] rounded-[10px] bg-[#204A7A] hover:bg-[#163558] text-[#F6F6F6] font-semibold text-[18px] sm:text-[20px] transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center mt-2"
         >
-            إرسال رمز التحقق (OTP)
+            {{ cms('auth.forgot.submit', 'إرسال رمز التحقق (OTP)') }}
         </button>
 
         <!-- Back to login link -->
         <div class="text-center mt-4">
             <a href="{{ route('login') }}" class="text-[#204A7A] hover:underline font-semibold text-[17px] border-b border-[#204A7A] pb-[1px]">
-                العودة إلى تسجيل الدخول
+                {{ cms('auth.forgot.back_link', 'العودة إلى تسجيل الدخول') }}
             </a>
         </div>
     </form>
@@ -105,12 +105,12 @@
         function validateEmail() {
             const val = emailInput.value.trim();
             if (!val) {
-                setFieldError('email', 'البريد الإلكتروني مطلوب.');
+                setFieldError('email', @json(cms('auth.forgot.email_required', 'يرجى إدخال البريد الإلكتروني.')));
                 return false;
             }
             const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailPattern.test(val)) {
-                setFieldError('email', 'يرجى إدخال بريد إلكتروني صحيح.');
+                setFieldError('email', @json(cms('auth.validation.email', 'يرجى إدخال بريد إلكتروني صحيح.')));
                 return false;
             }
             clearFieldError('email');

@@ -20,6 +20,10 @@ class UserService
             $lastName = $data['last_name'] ?? '';
             $data['name'] = trim("{$firstName} {$fatherName} {$grandfatherName} {$lastName}");
         }
+        // كل حقول الاسم ممكن تتقفل من لوحة الإدارة: الاسم وقتها يبقى أول جزء من البريد
+        if ($data['name'] === '') {
+            $data['name'] = strstr($data['email'], '@', true) ?: $data['email'];
+        }
 
         return User::create($data + ['role' => 'user']);
     }

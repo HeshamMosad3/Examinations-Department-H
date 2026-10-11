@@ -208,7 +208,6 @@
   </main>
 
   @include('landing.partials.footer')
-  @include('landing.partials.login-modal', ['loginNext' => 'life-wheel'])
   
 
   <!-- Auth Modal -->

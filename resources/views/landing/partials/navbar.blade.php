@@ -103,7 +103,7 @@
           </div>
         </div>
       @else
-        <a href="#login" role="button" aria-haspopup="dialog" aria-controls="login-modal" aria-label="فتح نافذة تسجيل الدخول" class="w-[80px] h-[28px] lg:w-[154px] lg:h-[45px] rounded-[5px] lg:rounded-[16px] border border-[#204A7A] text-[#204A7A] font-messiri lg:font-cairo font-semibold text-[10px] lg:text-[14px] hover:bg-[#204A7A] hover:text-white transition-all duration-200 shadow-sm flex items-center justify-center whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary">
+        <a href="{{ route('login', ['next' => request()->getRequestUri()]) }}" class="w-[80px] h-[28px] lg:w-[154px] lg:h-[45px] rounded-[5px] lg:rounded-[16px] border border-[#204A7A] text-[#204A7A] font-messiri lg:font-cairo font-semibold text-[10px] lg:text-[14px] hover:bg-[#204A7A] hover:text-white transition-all duration-200 shadow-sm flex items-center justify-center whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary">
           <span class="leading-none lg:hidden">{{ cms('global.nav.login_mobile', 'تسجيل دخول') }}</span>
           <span class="leading-none hidden lg:inline">{{ cms('global.nav.login', 'تسجيل الدخول') }}</span>
         </a>
@@ -159,7 +159,7 @@
             </button>
           </form>
         @else
-          <a href="#login" onclick="const d = document.getElementById('mobile-drawer-close'); if(d) d.click();" class="w-full h-[42px] rounded-[10px] bg-white text-[#1A3B62] font-semibold text-[15px] flex items-center justify-center gap-2 transition-colors">
+          <a href="{{ route('login', ['next' => request()->getRequestUri()]) }}" class="w-full h-[42px] rounded-[10px] bg-white text-[#1A3B62] font-semibold text-[15px] flex items-center justify-center gap-2 transition-colors">
             <i class="fa-regular fa-user text-xs"></i>
             <span>تسجيل الدخول</span>
           </a>

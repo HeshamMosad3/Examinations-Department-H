@@ -22,7 +22,7 @@
                     <div class="row g-3">
                         @foreach ($section['fields'] as $field)
                             @php $name = str_replace('.', '__', $field['key']); @endphp
-                            <div class="{{ in_array($field['type'], ['textarea', 'image']) ? 'col-12' : 'col-md-6' }}" data-field data-search="{{ $field['label'] }} {{ $field['default'] }} {{ $field['value'] }}">
+                            <div class="{{ in_array($field['type'], ['textarea', 'image']) ? 'col-12' : (in_array($field['type'], ['toggle', 'number']) ? 'col-6 col-md-3' : 'col-md-6') }}" data-field data-search="{{ $field['label'] }} {{ $field['default'] }} {{ $field['value'] }}">
                                 <div class="d-flex justify-content-between align-items-center gap-2 mb-1">
                                     <label class="form-label small fw-bold m-0" for="f-{{ $name }}">{{ $field['label'] }}</label>
                                     @if ($field['changed'])
@@ -43,6 +43,17 @@
                                             <div class="form-text" dir="ltr">{{ $field['value'] }}</div>
                                         </div>
                                     </div>
+                                @elseif ($field['type'] === 'toggle')
+                                    <input type="hidden" name="values[{{ $name }}]" value="0">
+                                    <div class="form-check form-switch m-0">
+                                        <input class="form-check-input" type="checkbox" role="switch" name="values[{{ $name }}]" value="1" id="f-{{ $name }}" @checked($field['value'] === '1')>
+                                        <label class="form-check-label small text-muted" for="f-{{ $name }}">مفعّل</label>
+                                    </div>
+                                @elseif ($field['type'] === 'number')
+                                    <input type="number" min="0" step="1" name="values[{{ $name }}]" id="f-{{ $name }}" class="form-control" value="{{ $field['value'] }}" dir="ltr">
+                                @elseif ($field['type'] === 'list')
+                                    <textarea name="values[{{ $name }}]" id="f-{{ $name }}" rows="3" class="form-control">{{ implode("\n", cms_list($field['key'], $field['default'])) }}</textarea>
+                                    <div class="form-text">خيار في كل سطر (أو افصل بينها بفاصلة).</div>
                                 @elseif ($field['type'] === 'textarea')
                                     <textarea name="values[{{ $name }}]" id="f-{{ $name }}" rows="3" class="form-control">{{ $field['value'] }}</textarea>
                                 @else
@@ -50,7 +61,7 @@
                                 @endif
 
                                 @if ($field['changed'] && $field['type'] !== 'image')
-                                    <div class="form-text"><i class="bi bi-arrow-counterclockwise"></i> الأصلي: {{ \Illuminate\Support\Str::limit($field['default'], 140) }}</div>
+                                    <div class="form-text"><i class="bi bi-arrow-counterclockwise"></i> الأصلي: {{ $field['type'] === 'toggle' ? ($field['default'] === '1' ? 'مفعّل' : 'متوقف') : \Illuminate\Support\Str::limit($field['default'], 140) }}</div>
                                 @endif
                             </div>
                         @endforeach

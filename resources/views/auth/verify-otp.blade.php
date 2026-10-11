@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 
-@section('title', 'إدخال رمز التحقق — دار الرؤى')
+@section('title', cms('auth.otp.page_title', 'إدخال رمز التحقق — دار الرؤى'))
 
 @section('content')
 <div class="w-full max-w-[620px]">
@@ -14,21 +14,21 @@
     <!-- Header: Mail Icon, Title, Subtitle -->
     <div class="flex flex-col items-center text-center mb-8">
         <div class="w-[90px] h-[90px] rounded-[16px] bg-[#E9EDF2] border border-[#204A7A] flex items-center justify-center mb-5 shadow-sm">
-            <img src="/images/auth/mail-icon.svg" alt="" aria-hidden="true" class="w-[50px] h-[50px] object-contain" />
+            <img src="{{ cms_image('auth.otp.icon', '/images/auth/mail-icon.svg') }}" alt="" aria-hidden="true" class="w-[50px] h-[50px] object-contain" />
         </div>
 
         <h1 class="text-[#204A7A] font-bold text-[28px] sm:text-[32px] leading-tight mb-2">
-            إدخال رمز التحقيق
+            {{ cms('auth.otp.title', 'إدخال رمز التحقق') }}
         </h1>
         <p class="text-[#565656] font-medium text-[16px] sm:text-[18px]">
-            لقد قمنا بإرسال رمز التأكيد إلى <span class="font-bold text-[#204A7A]">{{ $maskedEmail }}</span>
+            {{ cms('auth.otp.subtitle', 'لقد قمنا بإرسال رمز التأكيد إلى') }} <span class="font-bold text-[#204A7A]">{{ $maskedEmail }}</span>
         </p>
         <div class="w-full h-[1px] bg-[#E9E9E9] mt-6"></div>
     </div>
 
     @if(session('dev_otp'))
         <div class="mb-5 p-3 rounded-xl bg-blue-50 border border-blue-200 text-blue-800 text-sm text-center">
-            رمز التحقق التجريبي هو: <strong class="text-base tracking-widest text-[#204A7A]">{{ session('dev_otp') }}</strong>
+            {{ cms('auth.otp.dev_code', 'رمز التحقق التجريبي (يظهر على جهاز التطوير فقط):') }} <strong class="text-base tracking-widest text-[#204A7A]">{{ session('dev_otp') }}</strong>
         </div>
     @endif
 
@@ -43,8 +43,8 @@
     <form method="POST" action="{{ route('password.verify-otp.post') }}" id="otp-form" class="flex flex-col gap-6">
         @csrf
 
-        <!-- 4 Digit Inputs (RTL Order) -->
-        <div class="flex items-center justify-center gap-3 sm:gap-6 my-2" dir="rtl">
+        <!-- 4 Digit Inputs (codes read left-to-right, so the first digit goes in the left box) -->
+        <div class="flex items-center justify-center gap-3 sm:gap-6 my-2" dir="ltr">
             @for($i = 0; $i < 4; $i++)
                 <input 
                     type="text" 
@@ -54,7 +54,7 @@
                     pattern="[0-9]"
                     required
                     autocomplete="one-time-code"
-                    dir="rtl"
+                    aria-label="{{ cms('auth.otp.digit_label', 'رقم من رمز التحقق') }} {{ $i + 1 }}"
                     class="otp-box w-[60px] h-[60px] sm:w-[85px] sm:h-[85px] text-center text-[26px] sm:text-[32px] font-bold text-[#204A7A] rounded-[10px] sm:rounded-[12px] border border-[#DADADA] bg-white focus:outline-none focus:border-[#204A7A] focus:ring-1 focus:ring-[#204A7A] transition-all shadow-sm font-sans"
                     data-index="{{ $i }}"
                 />
@@ -64,7 +64,7 @@
         <!-- Timer / Resend Block -->
         <div class="text-center min-h-[30px] flex items-center justify-center">
             <div id="timer-container" class="text-[#565656] text-[16px]">
-                لم يصلك الرمز؟ إعادة الإرسال خلال <span id="countdown" class="font-bold text-[#204A7A]">30</span> ثانية
+                {{ cms('auth.otp.resend_wait_before', 'لم يصلك الرمز؟ إعادة الإرسال خلال') }} <span id="countdown" class="font-bold text-[#204A7A]">{{ cms_number('auth.otp.resend_seconds', '30') }}</span> {{ cms('auth.otp.resend_wait_after', 'ثانية') }}
             </div>
             <button 
                 type="button" 
@@ -72,7 +72,7 @@
                 onclick="resendOtpCode()" 
                 class="hidden text-[#204A7A] hover:underline font-bold text-[16px] transition-all"
             >
-                ارسال رمز جديد
+                {{ cms('auth.otp.resend_button', 'إرسال رمز جديد') }}
             </button>
         </div>
 
@@ -81,7 +81,7 @@
             type="submit" 
             class="w-full h-[56px] rounded-[10px] bg-[#204A7A] hover:bg-[#163558] text-[#F6F6F6] font-semibold text-[18px] sm:text-[20px] transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center mt-2"
         >
-            تحقق من الرمز
+            {{ cms('auth.otp.submit', 'تحقق من الرمز') }}
         </button>
     </form>
 </div>
@@ -123,7 +123,7 @@
     }
 
     // 30 Seconds Countdown Timer
-    let timeLeft = 30;
+    let timeLeft = {{ cms_number('auth.otp.resend_seconds', '30') }};
     const countdownEl = document.getElementById('countdown');
     const timerContainer = document.getElementById('timer-container');
     const resendBtn = document.getElementById('resend-btn');
@@ -140,7 +140,7 @@
 
     function resendOtpCode() {
         resendBtn.disabled = true;
-        resendBtn.textContent = 'جاري الإرسال...';
+        resendBtn.textContent = @json(cms('auth.otp.sending', 'جاري الإرسال...'));
 
         fetch('{{ route("password.resend-otp") }}', {
             method: 'POST',
@@ -149,13 +149,23 @@
                 'Accept': 'application/json'
             }
         })
-        .then(res => res.json())
-        .then(data => {
-            alert('تم إرسال رمز تحقق جديد بنجاح.');
-            location.reload();
+        .then(res => res.json().then(data => ({ status: res.status, data })))
+        .then(({ status, data }) => {
+            if (status === 200 && data.success) {
+                alert(@json(cms('auth.otp.resent', 'تم إرسال رمز تحقق جديد بنجاح.')));
+                location.reload();
+            } else if (status === 400) {
+                // Session expired: start the reset again
+                alert(data.message);
+                location.href = '{{ route("password.request") }}';
+            } else {
+                throw new Error();
+            }
         })
         .catch(() => {
-            location.reload();
+            alert(@json(cms('auth.otp.resend_failed', 'تعذر إرسال رمز جديد، يرجى المحاولة بعد قليل.')));
+            resendBtn.disabled = false;
+            resendBtn.textContent = @json(cms('auth.otp.resend_button', 'إرسال رمز جديد'));
         });
     }
 </script>

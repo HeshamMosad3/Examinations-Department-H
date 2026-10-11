@@ -36,7 +36,7 @@ class LandingController extends Controller
     {
         if (! auth()->check()) {
             return redirect()->route('login', ['next' => 'life-wheel-assessment'])
-                ->with('info', 'يرجى تسجيل الدخول أو إنشاء حساب للبدء في إجراء الاختبار.');
+                ->with('info', cms('auth.login.assessment_notice', 'يرجى تسجيل الدخول أو إنشاء حساب للبدء في إجراء الاختبار.'));
         }
 
         return view('landing.life-wheel-assessment', ['categories' => $lifeWheel->categories()]);
@@ -68,7 +68,7 @@ class LandingController extends Controller
     {
         if (! auth()->check()) {
             return redirect()->route('login', ['next' => 'perceptual-test'])
-                ->with('info', 'يرجى تسجيل الدخول أو إنشاء حساب للبدء في إجراء الاختبار.');
+                ->with('info', cms('auth.login.assessment_notice', 'يرجى تسجيل الدخول أو إنشاء حساب للبدء في إجراء الاختبار.'));
         }
 
         $questions = $this->perceptual()->questions->map(fn ($q) => [

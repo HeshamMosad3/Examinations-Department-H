@@ -114,6 +114,9 @@ class SiteContentController extends Controller
         static $words = null;
         $words ??= (require resource_path('data/site-content-pages.php'))['words'];
         $field = last(explode('.', $key));
+        if (isset($words[$field])) {
+            return $words[$field]; // اسم الحقل كله له ترجمة (arabic_only ← عربي فقط)
+        }
 
         return trim(implode(' ', array_map(fn ($part) => $words[$part] ?? $part, explode('_', $field)))) ?: $field;
     }

@@ -1,6 +1,11 @@
 @extends('layouts.auth')
 
-@section('title', 'إدخال كلمة المرور الجديدة — دار الرؤى')
+@section('title', cms('auth.reset.page_title', 'إدخال كلمة المرور الجديدة — دار الرؤى'))
+
+@php
+    // نفس أقل طول لكلمة المرور في فورم إنشاء حساب
+    $passwordMin = cms_number('auth.field_password.min', '8');
+@endphp
 
 @section('content')
 <div class="w-full max-w-[620px]">
@@ -14,13 +19,13 @@
     <!-- Header: Logo, Title, Subtitle -->
     <div class="flex flex-col items-center text-center mb-8">
         <a href="{{ route('home') }}" class="inline-block mb-4 transition-transform hover:scale-105">
-            <img src="/images/auth/auth-logo.png" alt="دار الرؤى" class="w-[90px] h-[90px] object-contain" />
+            <img src="{{ cms_image('auth.common.logo', '/images/auth/auth-logo.png') }}" alt="{{ cms('auth.common.logo_alt', 'دار الرؤى') }}" class="w-[90px] h-[90px] object-contain" />
         </a>
         <h1 class="text-[#204A7A] font-bold text-[28px] sm:text-[32px] leading-tight mb-2">
-            إدخال كلمة المرور الجديدة
+            {{ cms('auth.reset.title', 'إدخال كلمة المرور الجديدة') }}
         </h1>
         <p class="text-[#565656] font-medium text-[16px] sm:text-[18px]">
-            يجب أن تكون كلمة المرور الجديدة مكونة من 8 خانات على الأقل.
+            {{ str_replace(':min', $passwordMin, cms('auth.reset.subtitle', 'يجب أن تكون كلمة المرور الجديدة مكونة من :min خانات على الأقل.')) }}
         </p>
         <div class="w-full h-[1px] bg-[#E9E9E9] mt-6"></div>
     </div>
@@ -39,7 +44,7 @@
         <!-- New Password -->
         <div class="flex flex-col gap-1.5" id="group-password">
             <label for="password" class="text-[#262626] font-medium text-[16px] flex items-center gap-1">
-                كلمة المرور الجديدة
+                {{ cms('auth.reset.password_label', 'كلمة المرور الجديدة') }}
                 <span class="text-[#E53935] font-bold text-xs">*</span>
             </label>
             <div id="wrapper-password" class="w-full h-[56px] px-4 rounded-[10px] border border-[#DADADA] bg-white flex items-center justify-between form-input-focus transition-all">
@@ -47,7 +52,7 @@
                     type="password" 
                     id="password" 
                     name="password" 
-                    placeholder="••••••••" 
+                    placeholder="{{ cms('auth.reset.password_placeholder', '••••••••') }}" 
                     required 
                     autofocus
                     class="w-full h-full bg-transparent text-[#262626] placeholder-[#949494] text-[16px] focus:outline-none"
@@ -56,7 +61,7 @@
                     type="button" 
                     onclick="togglePassword('password', 'password-toggle-icon')" 
                     class="text-[#949494] hover:text-[#204A7A] transition-colors p-2 focus:outline-none"
-                    aria-label="عرض أو إخفاء كلمة المرور"
+                    aria-label="{{ cms('auth.common.toggle_password', 'عرض أو إخفاء كلمة المرور') }}"
                 >
                     <i id="password-toggle-icon" class="fa-regular fa-eye-slash text-[18px]"></i>
                 </button>
@@ -67,7 +72,7 @@
         <!-- Confirm New Password -->
         <div class="flex flex-col gap-1.5" id="group-password_confirmation">
             <label for="password_confirmation" class="text-[#262626] font-medium text-[16px] flex items-center gap-1">
-                تأكيد كلمة المرور
+                {{ cms('auth.reset.confirm_label', 'تأكيد كلمة المرور') }}
                 <span class="text-[#E53935] font-bold text-xs">*</span>
             </label>
             <div id="wrapper-password_confirmation" class="w-full h-[56px] px-4 rounded-[10px] border border-[#DADADA] bg-white flex items-center justify-between form-input-focus transition-all">
@@ -75,7 +80,7 @@
                     type="password" 
                     id="password_confirmation" 
                     name="password_confirmation" 
-                    placeholder="••••••••" 
+                    placeholder="{{ cms('auth.reset.password_placeholder', '••••••••') }}" 
                     required 
                     class="w-full h-full bg-transparent text-[#262626] placeholder-[#949494] text-[16px] focus:outline-none"
                 />
@@ -83,7 +88,7 @@
                     type="button" 
                     onclick="togglePassword('password_confirmation', 'password-confirm-toggle-icon')" 
                     class="text-[#949494] hover:text-[#204A7A] transition-colors p-2 focus:outline-none"
-                    aria-label="عرض أو إخفاء تأكيد كلمة المرور"
+                    aria-label="{{ cms('auth.common.toggle_password', 'عرض أو إخفاء كلمة المرور') }}"
                 >
                     <i id="password-confirm-toggle-icon" class="fa-regular fa-eye-slash text-[18px]"></i>
                 </button>
@@ -96,7 +101,7 @@
             type="submit" 
             class="w-full h-[56px] rounded-[10px] bg-[#204A7A] hover:bg-[#163558] text-[#F6F6F6] font-semibold text-[18px] sm:text-[20px] transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center mt-2"
         >
-            إعادة تعيين كلمة المرور
+            {{ cms('auth.reset.submit', 'إعادة تعيين كلمة المرور') }}
         </button>
     </form>
 </div>
@@ -138,11 +143,11 @@
         function validatePass() {
             const val = cleanPassVal(pass.value);
             if (!val) {
-                setFieldError('password', 'كلمة المرور الجديدة مطلوبة.');
+                setFieldError('password', @json(cms('auth.reset.password_required', 'كلمة المرور الجديدة مطلوبة.')));
                 return false;
             }
-            if (val.length < 8) {
-                setFieldError('password', 'يجب أن تكون كلمة المرور 8 خانات على الأقل.');
+            if (val.length < {{ $passwordMin }}) {
+                setFieldError('password', {{ \Illuminate\Support\Js::from(str_replace(':min', $passwordMin, cms('auth.reset.password_min', 'يجب أن تكون كلمة المرور :min خانات على الأقل.'))) }});
                 return false;
             }
             clearFieldError('password');
@@ -154,11 +159,11 @@
             const originalVal = cleanPassVal(pass.value);
 
             if (!val) {
-                setFieldError('password_confirmation', 'يرجى تأكيد كلمة المرور.');
+                setFieldError('password_confirmation', @json(cms('auth.reset.confirm_required', 'يرجى تأكيد كلمة المرور.')));
                 return false;
             }
             if (val !== originalVal) {
-                setFieldError('password_confirmation', 'كلمة المرور وتأكيدها غير متطابقين.');
+                setFieldError('password_confirmation', @json(cms('auth.reset.confirm_mismatch', 'كلمة المرور وتأكيدها غير متطابقين.')));
                 return false;
             }
             clearFieldError('password_confirmation');

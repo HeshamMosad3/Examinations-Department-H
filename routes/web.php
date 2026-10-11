@@ -25,22 +25,24 @@ Route::middleware('auth')->group(function () {
     Route::post('/life-wheel/results', [LifeWheelController::class, 'store'])->middleware('throttle:20,1')->name('life-wheel.results.store');
 });
 
-// Auth
-Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-Route::post('/login', [AuthController::class, 'login'])->name('login.post');
-Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
-Route::post('/register', [AuthController::class, 'register'])->middleware('throttle:5,1')->name('register.post');
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+// Auth (guests only; signed-in users are sent home)
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+    Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:10,1')->name('login.post');
+    Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+    Route::post('/register', [AuthController::class, 'register'])->middleware('throttle:5,1')->name('register.post');
 
-// Password Reset (OTP Flow matching Figma)
-Route::get('/forgot-password', [AuthController::class, 'showForgotPassword'])->name('password.request');
-Route::post('/forgot-password', [AuthController::class, 'sendOtp'])->middleware('throttle:5,1')->name('password.email');
-Route::get('/verify-otp', [AuthController::class, 'showVerifyOtp'])->name('password.verify-otp');
-Route::post('/verify-otp', [AuthController::class, 'verifyOtp'])->middleware('throttle:10,1')->name('password.verify-otp.post');
-Route::post('/resend-otp', [AuthController::class, 'resendOtp'])->middleware('throttle:5,1')->name('password.resend-otp');
-Route::get('/reset-password', [AuthController::class, 'showResetPassword'])->name('password.reset');
-Route::post('/reset-password', [AuthController::class, 'resetPassword'])->middleware('throttle:5,1')->name('password.update');
-Route::get('/reset-password/success', [AuthController::class, 'showResetSuccess'])->name('password.reset-success');
+    // Password Reset (OTP Flow matching Figma)
+    Route::get('/forgot-password', [AuthController::class, 'showForgotPassword'])->name('password.request');
+    Route::post('/forgot-password', [AuthController::class, 'sendOtp'])->middleware('throttle:5,1')->name('password.email');
+    Route::get('/verify-otp', [AuthController::class, 'showVerifyOtp'])->name('password.verify-otp');
+    Route::post('/verify-otp', [AuthController::class, 'verifyOtp'])->middleware('throttle:10,1')->name('password.verify-otp.post');
+    Route::post('/resend-otp', [AuthController::class, 'resendOtp'])->middleware('throttle:5,1')->name('password.resend-otp');
+    Route::get('/reset-password', [AuthController::class, 'showResetPassword'])->name('password.reset');
+    Route::post('/reset-password', [AuthController::class, 'resetPassword'])->middleware('throttle:5,1')->name('password.update');
+    Route::get('/reset-password/success', [AuthController::class, 'showResetSuccess'])->name('password.reset-success');
+});
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // User routes
 Route::middleware(['auth', 'user'])->group(function () {

@@ -15,6 +15,9 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->trustProxies(at: '*');
 
+        // 'guest' routes (login, register, password reset) send signed-in users back to the site
+        $middleware->redirectUsersTo('/');
+
         $middleware->alias([
             'admin' => AdminMiddleware::class,
             'user' => UserMiddleware::class,

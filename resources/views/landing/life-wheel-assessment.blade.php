@@ -123,7 +123,6 @@
     </div>
 
   @include('landing.partials.footer')
-  @include('landing.partials.login-modal')
 
 
 

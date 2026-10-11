@@ -108,7 +108,6 @@
   </main>
 
   @include('landing.partials.footer')
-  @include('landing.partials.login-modal')
 
   <script>
     window.PERCEPTUAL_QUESTIONS = {!! json_encode($questions ?? [], JSON_UNESCAPED_UNICODE) !!};

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\File;
  * محتوى صفحات الموقع اللي بيتحكم فيه الأدمن.
  *
  * كل نص أو صورة أو رابط في الصفحات مكتوب كده:  cms('home.hero.title', 'النص الأصلي')  (و cms_image / cms_url)
+ * والإعدادات:  cms_flag (تشغيل/إيقاف '1'/'0')  و cms_number (رقم)  و cms_list (قايمة خيارات)
  * وفي الـ JS:  cms('key', 'النص الأصلي')  من resources/landing/js/cms.js
  * - الصفحة بتعرض تعديل الأدمن لو موجود، وإلا النص الأصلي (فالتصميم مايتغيرش).
  * - لوحة الإدارة بتقرا الحقول من الملفات نفسها (registry)، فمفيش قايمة حقول منفصلة لازم تتحدّث.
@@ -23,12 +24,15 @@ class SiteContentService
     private const SOURCES = [
         'resources/views/landing' => 'blade.php',
         'resources/views/auth' => 'blade.php',
+        'resources/views/layouts' => 'blade.php',
         'resources/data' => 'php',
         'resources/landing/js' => 'js',
         'app/Services/Assessments' => 'php',
+        'app/Services/Auth' => 'php',
+        'app/Http' => 'php',
     ];
 
-    private const PATTERN = "/\\bcms(_image|_url)?\\(\\s*'([a-z0-9_.\\-]+)'\\s*,\\s*'((?:[^'\\\\]|\\\\.)*)'\\s*\\)/u";
+    private const PATTERN = "/\\bcms(_image|_url|_flag|_number|_list)?\\(\\s*'([a-z0-9_.\\-]+)'\\s*,\\s*'((?:[^'\\\\]|\\\\.)*)'\\s*\\)/u";
 
     private ?array $overrides = null;
 
@@ -82,7 +86,10 @@ class SiteContentService
                     $default = str_replace(["\\'", '\\\\'], ["'", '\\'], $default);
                     $fields[$key] = [
                         'key' => $key,
-                        'type' => match ($kind) { '_image' => 'image', '_url' => 'url', default => mb_strlen($default) > 90 || str_contains($default, "\n") ? 'textarea' : 'text' },
+                        'type' => match ($kind) {
+                            '_image' => 'image', '_url' => 'url', '_flag' => 'toggle', '_number' => 'number', '_list' => 'list',
+                            default => mb_strlen($default) > 90 || str_contains($default, "\n") ? 'textarea' : 'text',
+                        },
                         'default' => $default,
                         'source' => str_ends_with($file, '.js') ? 'js' : 'php',
                         'file' => str_replace('\\', '/', substr($file, strlen(base_path()) + 1)),
@@ -107,15 +114,27 @@ class SiteContentService
      */
     public function save(array $values): int
     {
-        $defaults = collect($this->registry())->flatten(2)->pluck('default', 'key');
+        $fields = collect($this->registry())->flatten(2)->keyBy('key');
+        $defaults = $fields->pluck('default', 'key');
         $changed = 0;
 
-        DB::transaction(function () use ($values, $defaults, &$changed) {
+        DB::transaction(function () use ($values, $fields, $defaults, &$changed) {
             foreach ($values as $key => $value) {
                 if (! $defaults->has($key)) {
                     continue;
                 }
                 $value = is_string($value) ? str_replace("\r\n", "\n", trim($value)) : null;
+                // الإعدادات: المفتاح '1'/'0' بس، والرقم أرقام بس (غير كده يرجع للأصل)
+                $type = $fields[$key]['type'];
+                if ($type === 'toggle' && $value !== null) {
+                    $value = $value === '1' ? '1' : '0';
+                } elseif ($type === 'number' && $value !== null && ! ctype_digit($value)) {
+                    $value = null;
+                } elseif ($type === 'list' && $value !== null) {
+                    // نفس الخيارات بترتيبها = الأصل، حتى لو اتكتبت بسطور بدل الفواصل
+                    $list = fn (string $v) => implode("\n", array_filter(array_map('trim', preg_split('/[\n,،]+/u', $v)), 'strlen'));
+                    $value = $list($value) === $list($defaults[$key]) ? null : $list($value);
+                }
                 if ($value === null || $value === '' || $value === $defaults[$key]) {
                     $changed += SiteContent::where('key', $key)->delete();
                 } else {

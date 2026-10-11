@@ -27,7 +27,7 @@ class LifeWheelLoginRedirectTest extends TestCase
         $this->post(route('login.post'), $this->credentials())->assertRedirect(route('home'));
     }
 
-    public function test_login_from_the_report_button_modal_continues_to_the_details_page(): void
+    public function test_login_with_next_life_wheel_continues_to_the_details_page(): void
     {
         $this->makeUser();
 
@@ -92,7 +92,7 @@ class LifeWheelLoginRedirectTest extends TestCase
             ->assertDontSee('data-details-url', false)
             ->assertSee(route('login', ['next' => 'life-wheel']), false)
             ->assertSee(route('register', ['next' => 'life-wheel']), false)
-            ->assertSee('name="next" value="life-wheel"', false);
+            ->assertDontSee('id="login-modal"', false);
 
         $this->actingAs($this->makeUser())
             ->get(route('life-wheel.result'))
@@ -128,13 +128,89 @@ class LifeWheelLoginRedirectTest extends TestCase
             ->assertOk();
     }
 
-    public function test_landing_page_renders_login_modal_with_create_quick_account_link(): void
+    public function test_landing_page_has_no_login_modal_and_links_to_the_login_route(): void
     {
         $this->get(route('home'))
             ->assertOk()
-            ->assertSee('إذا لم يكن لديك حساب،')
-            ->assertSee('أنشئ حساباً سريعاً الآن')
-            ->assertSee('openLoginModal');
+            ->assertDontSee('id="login-modal"', false)
+            ->assertDontSee('openLoginModal')
+            ->assertSee('href="' . e(route('login', ['next' => '/'])) . '"', false)
+            ->assertSee('href="' . e(route('login', ['next' => '/#challenge'])) . '"', false)
+            ->assertSee('href="' . route('life-wheel.assessment') . '"', false);
+    }
+
+    public function test_sign_in_returns_the_user_to_the_page_they_were_on(): void
+    {
+        $this->makeUser();
+
+        $this->get(route('login', ['next' => '/life-wheel.html']))->assertOk();
+        $this->post(route('login.post'), $this->credentials())->assertRedirect(url('/life-wheel.html'));
+    }
+
+    public function test_start_button_on_home_returns_to_the_challenge_section_after_login(): void
+    {
+        $this->makeUser();
+
+        $this->post(route('login.post'), $this->credentials() + ['next' => '/#challenge'])->assertRedirect(url('/#challenge'));
+    }
+
+    public function test_guest_start_assessment_goes_to_login_and_back_to_the_assessment(): void
+    {
+        $this->makeUser();
+
+        $this->get(route('life-wheel.assessment'))->assertRedirect(route('login', ['next' => 'life-wheel-assessment']));
+        $this->get(route('login', ['next' => 'life-wheel-assessment']))->assertOk()->assertSee('يرجى تسجيل الدخول');
+        $this->post(route('login.post'), $this->credentials())->assertRedirect(route('life-wheel.assessment'));
+    }
+
+    public function test_registering_also_returns_to_the_intended_page(): void
+    {
+        $this->get(route('register', ['next' => '/perceptual-explore.html']))->assertOk();
+
+        $this->post(route('register.post'), [
+            'first_name' => 'محمد', 'father_name' => 'عبدالله', 'grandfather_name' => 'سليمان', 'last_name' => 'العتيبي',
+            'email' => 'new@example.test', 'phone' => '0555123456', 'identity_type' => 'سعودية', 'nationality' => 'سعودي',
+            'national_id' => '1098765432', 'national_id_confirmation' => '1098765432',
+            'password' => 'secret1234', 'password_confirmation' => 'secret1234',
+        ])->assertRedirect(url('/perceptual-explore.html'));
+    }
+
+    public function test_next_cannot_point_off_site_at_auth_pages_or_at_route_names(): void
+    {
+        $this->makeUser();
+
+        foreach (['//evil.example/x', '/\\evil.example/x', '/login', '/register?next=/', 'admin.users.show', 'logout'] as $next) {
+            $this->post(route('login.post'), $this->credentials() + ['next' => $next])->assertRedirect(route('home'));
+            $this->post(route('logout'));
+        }
+    }
+
+    public function test_admins_follow_an_intended_admin_page(): void
+    {
+        $this->makeUser('admin');
+
+        $this->get(route('admin.users.index'))->assertRedirect(route('login'));
+        $this->post(route('login.post'), $this->credentials('admin'))->assertRedirect(route('admin.users.index'));
+    }
+
+    public function test_signed_in_users_are_sent_away_from_the_auth_pages(): void
+    {
+        $this->actingAs($this->makeUser());
+
+        $this->get(route('login'))->assertRedirect('/');
+        $this->get(route('register'))->assertRedirect('/');
+        $this->get(route('password.request'))->assertRedirect('/');
+    }
+
+    public function test_login_is_rate_limited(): void
+    {
+        $this->makeUser();
+
+        for ($i = 0; $i < 10; $i++) {
+            $this->post(route('login.post'), ['email' => 'user@example.test', 'password' => 'wrong']);
+        }
+
+        $this->post(route('login.post'), $this->credentials())->assertStatus(429);
     }
 
     public function test_authenticated_user_sees_icon_and_name_in_dropdown_and_logout_redirects_to_home(): void

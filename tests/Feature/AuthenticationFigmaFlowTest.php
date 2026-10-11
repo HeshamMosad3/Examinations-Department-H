@@ -118,7 +118,7 @@ class AuthenticationFigmaFlowTest extends TestCase
             'password_reset_masked_email' => 'tes**@example.com',
         ])->get(route('password.verify-otp'));
         $response->assertStatus(200);
-        $response->assertSee('إدخال رمز التحقيق');
+        $response->assertSee('إدخال رمز التحقق');
 
         // 3. Submit valid OTP (as array from 4 input boxes)
         $digits = str_split($otpRecord->otp);
@@ -154,9 +154,46 @@ class AuthenticationFigmaFlowTest extends TestCase
         $user->refresh();
         $this->assertTrue(Hash::check('newSecret123', $user->password));
 
-        // 6. Check reset success page
-        $response = $this->get(route('password.reset-success'));
-        $response->assertStatus(200);
-        $response->assertSee('تم تغيير كلمة المرور!');
+        // 6. Check reset success page (only reachable right after a reset)
+        $this->followRedirects($response)->assertOk()->assertSee('تم تغيير كلمة المرور!');
+        $this->get(route('password.reset-success'))->assertRedirect(route('login'));
+    }
+
+    public function test_the_otp_is_burned_after_too_many_wrong_guesses(): void
+    {
+        User::create(['name' => 'Test user', 'email' => 'otp@example.com', 'password' => Hash::make('oldpassword'), 'role' => 'user']);
+        $this->post(route('password.email'), ['email' => 'otp@example.com']);
+        $otp = DB::table('password_reset_otps')->where('email', 'otp@example.com')->value('otp');
+        $wrong = $otp === '0000' ? '1111' : '0000';
+
+        for ($i = 0; $i < 5; $i++) {
+            $this->post(route('password.verify-otp.post'), ['otp' => str_split($wrong)])->assertSessionHasErrors('otp');
+        }
+
+        $this->assertDatabaseMissing('password_reset_otps', ['email' => 'otp@example.com']);
+        $this->post(route('password.verify-otp.post'), ['otp' => str_split($otp)])->assertSessionHasErrors('otp');
+    }
+
+    public function test_the_otp_is_not_shown_on_the_page_outside_local(): void
+    {
+        $this->app['env'] = 'production';
+        User::create(['name' => 'Test user', 'email' => 'prod@example.com', 'password' => Hash::make('oldpassword'), 'role' => 'user']);
+
+        $this->post(route('password.email'), ['email' => 'prod@example.com'])->assertSessionMissing('dev_otp');
+    }
+
+    public function test_register_normalises_phone_and_rejects_unknown_nationality(): void
+    {
+        $payload = [
+            'first_name' => 'محمد', 'father_name' => 'عبدالله', 'grandfather_name' => 'سليمان', 'last_name' => 'العتيبي',
+            'email' => 'a@example.com', 'phone' => '055 512-3456', 'identity_type' => 'سعودية', 'nationality' => 'مريخي',
+            'national_id' => '1098765432', 'national_id_confirmation' => '1098765432',
+            'password' => 'secret1234', 'password_confirmation' => 'secret1234',
+        ];
+
+        $this->post(route('register.post'), $payload)->assertSessionHasErrors('nationality');
+
+        $this->post(route('register.post'), ['nationality' => 'سعودي'] + $payload)->assertRedirect(route('home'));
+        $this->assertDatabaseHas('users', ['email' => 'a@example.com', 'phone' => '0555123456']);
     }
 }

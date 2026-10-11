@@ -250,6 +250,5 @@
     </div>
   </footer>
 
-  @include('landing.partials.login-modal')
 </body>
 </html>

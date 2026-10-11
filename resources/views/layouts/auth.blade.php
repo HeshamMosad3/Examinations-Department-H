@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'دار الرؤى للتدريب')</title>
+    <title>@yield('title', cms('auth.common.site_title', 'دار الرؤى للتدريب'))</title>
 
     <link rel="icon" type="image/png" href="/landing/images/logo.png" />
 
@@ -81,10 +81,10 @@
             <!-- Brand Side Banner (Figma: Full Height of the UI card area, 604px width, 30px rounded) -->
             <aside class="hidden lg:flex lg:col-span-5 w-full max-w-[560px] xl:max-w-[604px] min-h-[700px] h-full mx-auto shrink-0 rounded-[20px] xl:rounded-[30px] bg-[#204A7A] text-white p-6 xl:p-10 shadow-[0px_4px_7px_1px_rgba(0,0,0,0.21)] relative overflow-hidden flex-col items-center justify-between text-center select-none py-12 @yield('aside_class', '')">
                 <!-- Top Decorative Vector (Exact Figma coordinates: top left) -->
-                <img src="/images/auth/auth-decor-top.svg" alt="" aria-hidden="true" class="absolute top-[28px] left-[14px] w-[135px] xl:w-[148px] max-w-[148px] pointer-events-none select-none opacity-90" />
+                <img src="{{ cms_image('auth.common.decor_top_image', '/images/auth/auth-decor-top.svg') }}" alt="" aria-hidden="true" class="absolute top-[28px] left-[14px] w-[135px] xl:w-[148px] max-w-[148px] pointer-events-none select-none opacity-90" />
                 
                 <!-- Bottom Decorative Vector (Exact Figma coordinates: bottom right) -->
-                <img src="/images/auth/auth-decor-bottom.svg" alt="" aria-hidden="true" class="absolute bottom-[28px] right-[14px] w-[135px] xl:w-[148px] max-w-[148px] pointer-events-none select-none opacity-90" />
+                <img src="{{ cms_image('auth.common.decor_bottom_image', '/images/auth/auth-decor-bottom.svg') }}" alt="" aria-hidden="true" class="absolute bottom-[28px] right-[14px] w-[135px] xl:w-[148px] max-w-[148px] pointer-events-none select-none opacity-90" />
 
                 <!-- Top Spacer -->
                 <div class="h-4"></div>
@@ -92,21 +92,21 @@
                 <!-- Center Logo & Slogan (Figma: 169x171px logo, 36px bold title, 21px medium subtitle) -->
                 <div class="flex flex-col items-center my-auto z-10 max-w-[450px] px-2">
                     <div class="w-[140px] h-[140px] xl:w-[165px] xl:h-[165px] max-w-[169px] max-h-[171px] mb-6 flex items-center justify-center overflow-hidden">
-                        <img src="/images/auth/auth-logo.png" alt="دار الرؤى للتدريب" class="w-full h-full object-contain filter drop-shadow-md" />
+                        <img src="{{ cms_image('auth.common.panel_logo', '/images/auth/auth-logo.png') }}" alt="{{ cms('auth.common.site_title', 'دار الرؤى للتدريب') }}" class="w-full h-full object-contain filter drop-shadow-md" />
                     </div>
                     
                     <h2 class="text-white font-bold text-[30px] xl:text-[36px] leading-[1.3] mb-3">
-                        تعلّم اليوم، لتصنع غدك!
+                        {{ cms('auth.common.panel_title', 'تعلّم اليوم، لتصنع غدك!') }}
                     </h2>
                     
                     <p class="text-[#DDDDDD] font-medium text-[18px] xl:text-[21px] leading-[1.6]">
-                        مع دار الرؤى للتدريب... نصنع مستقبلك بخبرات علمية ومهارات عملية.
+                        {{ cms('auth.common.panel_text', 'مع دار الرؤى للتدريب... نصنع مستقبلك بخبرات علمية ومهارات عملية.') }}
                     </p>
                 </div>
 
                 <!-- Footer Badge -->
                 <div class="text-[#DDDDDD]/70 text-sm font-medium z-10 pb-1">
-                    دار الرؤى للتدريب © {{ date('Y') }}
+                    {{ cms('auth.common.copyright', 'دار الرؤى للتدريب') }} © {{ date('Y') }}
                 </div>
             </aside>
 

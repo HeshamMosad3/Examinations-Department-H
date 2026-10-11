@@ -98,12 +98,6 @@
             <div class="flex flex-col items-center lg:items-start gap-[16px] lg:gap-[55px] w-full">
               <a 
                 href="{{ $startUrl }}" 
-                @guest 
-                  role="button" 
-                  aria-haspopup="dialog" 
-                  aria-controls="login-modal" 
-                  onclick="event.preventDefault(); window.openLoginModal ? window.openLoginModal({ next: 'perceptual-test', prompt: 'يرجى تسجيل الدخول أو إنشاء حساب للبدء في اختبار أنماط الإدراك.' }) : (location.href = '{{ route('login', ['next' => 'perceptual-test']) }}');"
-                @endguest 
                 class="group w-[195px] lg:w-[271px] h-[45px] lg:h-[60px] rounded-[10px] lg:rounded-[15px] bg-[#204a7a] hover:bg-[#102744] text-[#e9edf2] font-semibold text-[14px] lg:text-[25px] leading-[1.5] flex items-center justify-center gap-[8px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#204a7a] focus-visible:ring-offset-2"
               >
                 <span>{{ cms('perceptual_explore.hero.start_button', 'ابدأ التقييم الآن') }}</span>
@@ -296,12 +290,6 @@
         </div>
         <a 
           href="{{ $startUrl }}" 
-          @guest 
-            role="button" 
-            aria-haspopup="dialog" 
-            aria-controls="login-modal" 
-            onclick="event.preventDefault(); window.openLoginModal ? window.openLoginModal({ next: 'perceptual-test', prompt: 'يرجى تسجيل الدخول أو إنشاء حساب للبدء في اختبار أنماط الإدراك.' }) : (location.href = '{{ route('login', ['next' => 'perceptual-test']) }}');"
-          @endguest 
           class="group w-[190px] lg:w-[271px] h-[45px] lg:h-[60px] rounded-[10px] lg:rounded-[15px] bg-[#204a7a] hover:bg-[#102744] text-[#e9edf2] font-semibold text-[14px] lg:text-[25px] leading-[1.5] flex items-center justify-center gap-[8px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#204a7a] focus-visible:ring-offset-2"
         >
           <span>{{ cms('perceptual_explore.cta.start_button', 'ابدأ التقييم الآن') }}</span>
@@ -312,6 +300,5 @@
   </section>
 
   @include('landing.partials.footer')
-  @include('landing.partials.login-modal')
 </body>
 </html>

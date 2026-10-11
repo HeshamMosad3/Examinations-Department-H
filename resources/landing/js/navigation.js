@@ -131,7 +131,7 @@ export function initNavigation() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       if (anchor.hasAttribute('data-nav')) return;
       const href = anchor.getAttribute('href');
-      if (!href || href === '#' || href === '#login') return;
+      if (!href || href === '#') return;
 
       anchor.addEventListener('click', (e) => {
         const targetId = href.substring(1);
@@ -166,58 +166,6 @@ export function initNavigation() {
       { id: 'assessments', nav: 'assessments' },
       { id: 'home', nav: 'home' }
     ];
-
-    // Handle Login Modal across pages
-    const loginLinks = document.querySelectorAll('a[href="#login"]');
-    const loginModal = document.getElementById('login-modal');
-    const closeLoginBtn = document.getElementById('close-login');
-    const loginError = document.getElementById('login-error');
-    let lastFocusedElement = null;
-
-    const openLoginModal = (triggerEl) => {
-      if (!loginModal) return;
-      lastFocusedElement = triggerEl || document.activeElement;
-      loginModal.classList.remove('hidden');
-      loginModal.setAttribute('aria-hidden', 'false');
-      const usernameInput = document.getElementById('login-username');
-      if (usernameInput) {
-        setTimeout(() => usernameInput.focus(), 50);
-      }
-    };
-
-    const closeLoginModal = () => {
-      if (!loginModal || loginModal.classList.contains('hidden')) return;
-      loginModal.classList.add('hidden');
-      loginModal.setAttribute('aria-hidden', 'true');
-      if (loginError) loginError.classList.add('hidden');
-      if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
-        lastFocusedElement.focus();
-      }
-    };
-    
-    if (loginLinks.length > 0 && loginModal) {
-      loginLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-          e.preventDefault();
-          openLoginModal(link);
-        });
-      });
-
-      closeLoginBtn?.addEventListener('click', closeLoginModal);
-
-      loginModal.addEventListener('click', (e) => {
-        if (e.target === loginModal) {
-          closeLoginModal();
-        }
-      });
-
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !loginModal.classList.contains('hidden')) {
-          closeLoginModal();
-        }
-      });
-
-    }
 
     // ScrollSpy: auto-highlight section as user scrolls (ordered from bottom to top)
     window.addEventListener('scroll', () => {
