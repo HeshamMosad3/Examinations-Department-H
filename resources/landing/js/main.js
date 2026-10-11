@@ -10,7 +10,7 @@ initTestimonialsSlider();
 
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize New Wheel
-  initNewLifeWheel();
+  initNewLifeWheel({ variant: 'home' });
 
   // Initialize Quiz
   initQuiz(window.challengeQuestions && window.challengeQuestions.length > 0 ? window.challengeQuestions : null);

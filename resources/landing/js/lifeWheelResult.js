@@ -1,8 +1,8 @@
-import Chart from 'chart.js/auto';
 import { CATEGORIES } from './lifeWheelAssessmentData.js';
 import { initNavigation } from './navigation.js';
 import { readStoredAnswers, saveLifeWheelAnswers } from './lifeWheelSave.js';
 import { cms } from './cms.js';
+import { AXES, axisIconUrl, initResultWheelChart } from './resultWheelChart.js';
 
 initNavigation();
 
@@ -48,150 +48,20 @@ function initResult() {
     overallScore = 84;
   }
 
-  // Figma Visual Order Mapping
+  // Figma Visual Order Mapping (نفس ترتيب AXES: الشخصي، الروحاني، الصحي، الاجتماعي، العائلي، الترفيهي، المالي، المهني)
   const visualOrderIndices = [2, 0, 1, 4, 3, 7, 6, 5];
-  const visualColors = [
-    '#7E48CC', // Personal
-    '#4C62D8', // Spiritual
-    '#20AD70', // Health
-    '#E33E5A', // Social
-    '#D58641', // Family
-    '#D4AE30', // Recreational
-    '#4DC6B8', // Financial
-    '#256699'  // Professional
-  ];
-
-  const visualIcons = [
-    '/landing/icons/wheel_of_life/personal.png',
-    '/landing/icons/wheel_of_life/spiritual.png',
-    '/landing/icons/wheel_of_life/health.png',
-    '/landing/icons/wheel_of_life/social.png',
-    '/landing/icons/wheel_of_life/family.png',
-    '/landing/icons/wheel_of_life/leisure.png',
-    '/landing/icons/wheel_of_life/financial.png',
-    '/landing/icons/wheel_of_life/career.png'
-  ];
 
   const visualData = visualOrderIndices.map((originalIndex, i) => ({
     label: CATEGORIES[originalIndex].label.replace('الجانب ', ''),
-    iconUrl: CATEGORIES[originalIndex].iconUrl,
-    solidIconUrl: visualIcons[i],
     score: categoryScores[originalIndex],
-    color: visualColors[i],
+    axis: AXES[i],
     originalIndex
   }));
 
-  // Draw Wheel SVG (Disabled to use newLifeWheel.js instead)
-  const svgNS = "http://www.w3.org/2000/svg";
-  const svg = document.getElementById("wheelSvg_disabled");
-  const wheelContainer = document.getElementById("wheel-container_disabled");
-  
-  if (svg && wheelContainer) {
-    // This block is skipped
-  }
+  // العجلة (الأحجام والمسافات بإحداثيات فيجما، شوف resultWheelChart.js)
+  initResultWheelChart(document.getElementById('wheelSvg'), visualData);
 
-  // Set overall score center text
-  const centerScoreEl = document.getElementById('center-score');
-  if (centerScoreEl) centerScoreEl.textContent = overallScore + '%';
-
-  // Render Gauge Chart
-  const gaugeCtx = document.getElementById('gaugeChart');
-  let gaugeColor = '#38833C';
-  let gaugeText = cms('wheel_result.gauge.excellent_title', 'مستوى متميز');
-  let gaugeDesc = cms('wheel_result.gauge.excellent_text', 'أنت تسير في الطريق الصحيح حافظ على توازنك واستمر في تطوير نفسك');
-
-  if (overallScore < 50) {
-    gaugeColor = '#9E1515';
-    gaugeText = cms('wheel_result.gauge.low_title', 'مستوى منخفض');
-    gaugeDesc = cms('wheel_result.gauge.low_text', 'لديك فرصة كبيرة للتحسن، وخطوات بسيطة قد تصنع فرقًا.');
-  } else if (overallScore < 70) {
-    gaugeColor = '#D4AE30';
-    gaugeText = cms('wheel_result.gauge.good_title', 'مستوى جيد');
-    gaugeDesc = cms('wheel_result.gauge.good_text', 'أداؤك جيد ولديك مساحة جيدة لتعزيز توازنك وتطوير مجالاتك.');
-  } else if (overallScore < 80) {
-    gaugeColor = '#20AD70';
-    gaugeText = cms('wheel_result.gauge.very_good_title', 'مستوى جيد جداً');
-    gaugeDesc = cms('wheel_result.gauge.very_good_text', 'أنت تسير في الطريق الصحيح حافظ على توازنك واستمر في تطوير نفسك');
-  }
-
-  if (gaugeCtx) {
-    // Custom plugin to draw both tracks perfectly aligned with rounded caps
-    const gaugeBackgroundPlugin = {
-      id: 'gaugeBackgroundPlugin',
-      beforeDraw(chart) {
-        const { ctx } = chart;
-        const meta = chart.getDatasetMeta(0);
-        const arc1 = meta.data[0];
-        const arc2 = meta.data[1];
-        if (!arc1 || !arc2) return;
-        
-        const radius = (arc1.outerRadius + arc1.innerRadius) / 2;
-        const thickness = arc1.outerRadius - arc1.innerRadius;
-
-        ctx.save();
-        
-        // Draw full background track (Gray)
-        ctx.beginPath();
-        ctx.arc(arc1.x, arc1.y, radius, arc1.startAngle, arc2.endAngle);
-        ctx.lineWidth = thickness;
-        ctx.strokeStyle = '#e2e8f0'; 
-        ctx.lineCap = 'round';
-        ctx.stroke();
-
-        // Draw foreground track (Color)
-        if (overallScore > 0) {
-          ctx.beginPath();
-          ctx.arc(arc1.x, arc1.y, radius, arc1.startAngle, arc1.endAngle);
-          ctx.lineWidth = thickness;
-          ctx.strokeStyle = gaugeColor; 
-          ctx.lineCap = 'round';
-          ctx.stroke();
-        }
-
-        ctx.restore();
-      }
-    };
-
-    new Chart(gaugeCtx, {
-      type: 'doughnut',
-      data: {
-        datasets: [{
-          data: [overallScore, 100 - overallScore],
-          backgroundColor: ['transparent', 'transparent'],
-          borderWidth: 0
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        cutout: '80%', 
-        circumference: 240, // Horseshoe shape
-        rotation: 240, // Start from bottom-left
-        plugins: {
-          legend: { display: false },
-          tooltip: { enabled: false }
-        },
-        events: [] // Disable interactions
-      },
-      plugins: [gaugeBackgroundPlugin]
-    });
-  }
-
-  // Set gauge texts
-  const gaugeScoreEl = document.getElementById('gauge-score');
-  if (gaugeScoreEl) gaugeScoreEl.textContent = overallScore + '%';
-  const gaugeLevelEl = document.getElementById('gauge-level');
-  if (gaugeLevelEl) {
-    gaugeLevelEl.textContent = gaugeText;
-    gaugeLevelEl.style.color = gaugeColor;
-  }
-  const gaugeDescEl = document.getElementById('gauge-desc');
-  if (gaugeDescEl) {
-    gaugeDescEl.textContent = gaugeDesc;
-  }
-
-  // Analysis & Highest/Lowest
-  // Find highest and lowest
+  // Highest / Lowest
   let highest = visualData[0];
   let lowest = visualData[0];
   visualData.forEach(d => {
@@ -199,33 +69,37 @@ function initResult() {
     if (d.score < lowest.score) lowest = d;
   });
 
-  const hCard = document.getElementById('highest-card');
-  const hIconBox = document.getElementById('highest-icon-box');
-  const hIcon = document.getElementById('highest-icon');
-  const hValue = document.getElementById('highest-value');
-  if (hCard) {
-    hCard.style.borderColor = highest.color;
-    hCard.style.background = `linear-gradient(to right, ${highest.color}15, #ffffff)`;
-    hIconBox.style.backgroundColor = highest.color + '20'; // 20% opacity
-    hIcon.style.setProperty('--icon-url', `url('${highest.solidIconUrl}')`);
-    hIcon.style.color = highest.color;
-    hValue.textContent = highest.label + ' ' + highest.score + '%';
-    hValue.style.color = highest.color;
-  }
+  // لون أغمق للنص لو الخلفية فاتحة (الأقل جانب)
+  const darken = (hex, amt) => {
+    const n = parseInt(hex.slice(1), 16);
+    const ch = (v) => Math.round(v * (1 - amt)).toString(16).padStart(2, '0');
+    return `#${ch((n >> 16) & 255)}${ch((n >> 8) & 255)}${ch(n & 255)}`;
+  };
+  const rgba = (hex, alpha) => {
+    const n = parseInt(hex.slice(1), 16);
+    return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${alpha})`;
+  };
+  const setText = (id, value) => { const node = document.getElementById(id); if (node) node.textContent = value; };
 
-  const lCard = document.getElementById('lowest-card');
-  const lIconBox = document.getElementById('lowest-icon-box');
-  const lIcon = document.getElementById('lowest-icon');
-  const lValue = document.getElementById('lowest-value');
-  if (lCard) {
-    lCard.style.borderColor = lowest.color;
-    lCard.style.background = `linear-gradient(to right, ${lowest.color}15, #ffffff)`;
-    lIconBox.style.backgroundColor = lowest.color + '20';
-    lIcon.style.setProperty('--icon-url', `url('${lowest.solidIconUrl}')`);
-    lIcon.style.color = lowest.color;
-    lValue.textContent = lowest.label + ' ' + lowest.score + '%';
-    lValue.style.color = lowest.color;
-  }
+  // أعلى جانب: لون النص + تدرج بنفس زاوية فيجما، وأقل جانب: لون التعبئة
+  const fillCard = (prefix, item, { border, tint, tintAlpha, whiteStop, angle, valueColor }) => {
+    const card = document.getElementById(`${prefix}-card`);
+    if (!card) return;
+    card.style.borderColor = border;
+    card.style.background = `linear-gradient(${angle}deg, ${rgba(tint, tintAlpha)} 0%, #ffffff ${whiteStop}%)`;
+    const iconBox = document.getElementById(`${prefix}-icon-box`);
+    if (iconBox) iconBox.style.backgroundColor = rgba(item.axis.text, 0.2);
+    const icon = document.getElementById(`${prefix}-icon`);
+    if (icon) icon.src = axisIconUrl(item.axis);
+    setText(`${prefix}-name`, item.label);
+    setText(`${prefix}-percent`, item.score + '%');
+    ['name', 'percent'].forEach((part) => {
+      const node = document.getElementById(`${prefix}-${part}`);
+      if (node) node.style.color = valueColor;
+    });
+  };
+  fillCard('highest', highest, { border: highest.axis.text, tint: highest.axis.text, tintAlpha: 0.33, whiteStop: 71.284, angle: 224.88, valueColor: highest.axis.text });
+  fillCard('lowest', lowest, { border: lowest.axis.text, tint: lowest.axis.fill, tintAlpha: 0.5, whiteStop: 70, angle: 221.27, valueColor: darken(lowest.axis.text, 0.2) });
 
   const analysisText = document.getElementById('analysis-text');
   if (analysisText) {

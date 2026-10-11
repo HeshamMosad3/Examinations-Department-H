@@ -3,12 +3,13 @@
     بتتفتح من أي زر عليه data-auth-gate="<next>" (ابدأ التقييم / عرض التقرير): window.AuthDialogs.open('signup'|'signin', next).
     بعد النجاح بنروح للصفحة اللي كان رايحلها (?next= بيتعالج في AuthController). صفحتا /login و/register الكاملتان زي ما هما.
     المقاسات: موبايل 361px (قياس Figma) ← 460px (≥640) ← 640px بعمودين (≥768) ← 720px (≥1024)؛ الدخول أصغر دايماً.
+    التخطيط (الحجم والحقول والتمرير) CSS عادي في الـ <style> تحت عشان يشتغل حتى لو ملف Tailwind المبني قديم؛ الألوان/الخطوط بس من Tailwind.
 --}}
 @php
     $img = '/images/auth/quick';
 
     $signup = [
-        ['name' => 'name', 'type' => 'text', 'auto' => 'name', 'span' => 'md:col-span-2', 'label' => cms('auth.quick.field_name.label', 'الاسم بالكامل (بالعربي)'), 'placeholder' => cms('auth.quick.field_name.placeholder', 'أدخل الاسم بالكامل')],
+        ['name' => 'name', 'type' => 'text', 'auto' => 'name', 'span' => 'ad-span-2', 'label' => cms('auth.quick.field_name.label', 'الاسم بالكامل (بالعربي)'), 'placeholder' => cms('auth.quick.field_name.placeholder', 'أدخل الاسم بالكامل')],
         ['name' => 'email', 'type' => 'email', 'auto' => 'email', 'label' => cms('auth.field_email.label', 'البريد الإلكتروني'), 'placeholder' => cms('auth.field_email.placeholder', 'user@gmail.com')],
         ['name' => 'phone', 'type' => 'tel', 'auto' => 'tel-national', 'label' => cms('auth.field_phone.label', 'رقم الجوال'), 'placeholder' => cms('auth.quick.field_phone.placeholder', '00000000'), 'prefix' => cms('auth.quick.field_phone.prefix', '+966')],
         ['name' => 'national_id', 'type' => 'tel', 'auto' => 'off', 'label' => cms('auth.field_national_id.label', 'رقم الهوية (الإقامة)'), 'placeholder' => cms('auth.field_national_id.placeholder', 'أدخل رقم الهوية')],
@@ -23,105 +24,188 @@
     ];
 
     $genericError = cms('auth.quick.generic_error', 'حدث خطأ، يرجى المحاولة مرة أخرى.');
-    $submitClass = 'w-full flex items-center justify-center px-6 py-3 rounded-[10px] bg-[#204A7A] hover:bg-[#163558] transition-colors font-semibold text-[14px] sm:text-[16px] leading-[1.5] text-[#F6F6F6] cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#204A7A] focus-visible:ring-offset-2';
     $rememberLabel = cms('auth.register.remember', 'تذكرني');
 @endphp
 
 <style>
+  .ad-overlay, .ad-overlay *, .ad-overlay *::before, .ad-overlay *::after { box-sizing: border-box; }
+
+  /* ===== Overlay + panel ===== */
+  .ad-overlay { position: fixed; inset: 0; z-index: 60; display: flex; align-items: center; justify-content: center; padding: 12px; font-family: 'El Messiri', 'Cairo', sans-serif; opacity: 0; pointer-events: none; transition: opacity .3s; }
+  .ad-overlay.is-open { opacity: 1; pointer-events: auto; }
+  .ad-backdrop { position: absolute; inset: 0; background: rgba(0, 0, 0, .6); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
+  .ad-panel { position: relative; width: 100%; max-width: 361px; background: #fff; border-radius: 15px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, .25); overflow: hidden; transform: scale(.95); transition: transform .3s, max-width .3s; }
+  .ad-overlay.is-open .ad-panel { transform: scale(1); }
+  /* الحاوية بتقص الزوايا، والتمرير جوّاها عشان الشريط ما يتقصش عند الحواف المدوّرة */
+  .ad-scroll { max-height: calc(100vh - 24px); max-height: calc(100dvh - 24px); overflow-y: auto; overscroll-behavior: contain; padding: 25px 16px; }
+  @media (min-width: 640px) {
+    .ad-overlay { padding: 24px; }
+    .ad-panel { max-width: 460px; border-radius: 20px; }
+    .ad-scroll { max-height: calc(100vh - 48px); max-height: calc(100dvh - 48px); padding: 32px; }
+  }
+  @media (min-width: 768px) {
+    .ad-panel[data-size="signup"] { max-width: 640px; }
+    .ad-panel[data-size="signin"] { max-width: 480px; }
+  }
+  @media (min-width: 1024px) {
+    .ad-panel[data-size="signup"] { max-width: 720px; }
+    .ad-scroll { padding: 36px 40px; }
+  }
+
   /* شريط التمرير بألوان الموقع (الأزرق الأساسي #204A7A على خلفية فاتحة) */
-  .auth-dialog-scroll { scrollbar-width: thin; scrollbar-color: #204A7A #EAF4FC; }
-  .auth-dialog-scroll::-webkit-scrollbar { width: 8px; }
-  .auth-dialog-scroll::-webkit-scrollbar-track { background: #EAF4FC; border-radius: 9999px; margin-block: 18px; }
-  .auth-dialog-scroll::-webkit-scrollbar-thumb { background: #204A7A; border-radius: 9999px; border: 2px solid #EAF4FC; }
-  .auth-dialog-scroll::-webkit-scrollbar-thumb:hover { background: #163558; }
-  @media (prefers-reduced-motion: reduce) { #authDialog, #authDialogPanel { transition: none !important; } }
+  .ad-scroll { scrollbar-width: thin; scrollbar-color: #204A7A #EAF4FC; }
+  .ad-scroll::-webkit-scrollbar { width: 8px; }
+  .ad-scroll::-webkit-scrollbar-track { background: #EAF4FC; border-radius: 9999px; margin-block: 18px; }
+  .ad-scroll::-webkit-scrollbar-thumb { background: #204A7A; border-radius: 9999px; border: 2px solid #EAF4FC; }
+  .ad-scroll::-webkit-scrollbar-thumb:hover { background: #163558; }
+
+  /* ===== Layout ===== */
+  .ad-stack { display: flex; flex-direction: column; gap: 14px; align-items: stretch; }
+  .ad-close { align-self: flex-start; width: 24px; height: 24px; flex-shrink: 0; cursor: pointer; border-radius: 4px; background: none; border: 0; padding: 0; }
+  .ad-close img { display: block; width: 100%; height: 100%; }
+  .ad-close:focus-visible, .ad-eye:focus-visible { outline: 2px solid #204A7A; outline-offset: 2px; }
+  .ad-section { display: flex; flex-direction: column; align-items: center; gap: 32px; }
+  .ad-section[hidden] { display: none; }
+  .ad-head { display: flex; flex-direction: column; align-items: center; gap: 17px; }
+  .ad-badge { display: flex; align-items: center; justify-content: center; width: 64px; height: 64px; border-radius: 9999px; background: #EAF4FC; }
+  .ad-badge img { display: block; width: 28px; height: 28px; }
+  .ad-form { width: 100%; display: flex; flex-direction: column; gap: 24px; }
+  .ad-fields { display: flex; flex-direction: column; gap: 16px; }
+  .ad-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px 16px; }
+  .ad-column { display: flex; flex-direction: column; gap: 20px; }
+  .ad-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  @media (min-width: 640px) {
+    .ad-badge { width: 72px; height: 72px; }
+    .ad-badge img { width: 32px; height: 32px; }
+  }
+  @media (min-width: 768px) {
+    .ad-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .ad-span-2 { grid-column: 1 / -1; }
+    .ad-panel[data-size="signup"] .ad-submit { max-width: 320px; margin-inline: auto; }
+  }
+  @media (min-width: 1024px) { .ad-grid { column-gap: 24px; } }
+
+  /* ===== Fields ===== */
+  .ad-group { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+  .ad-label { display: flex; align-items: flex-start; gap: 4px; font-weight: 500; font-size: 14px; line-height: 20px; color: #262626; }
+  .ad-label img { display: block; width: 10px; height: 10px; }
+  .ad-input-wrap { display: flex; align-items: center; height: 56px; width: 100%; overflow: hidden; background: #fff; border: 1px solid #DADADA; border-radius: 10px; padding: 12px 16px; transition: border-color .2s, background-color .2s, box-shadow .2s; }
+  .ad-input-wrap.has-prefix { padding: 0; }
+  .ad-input-wrap:focus-within { border-color: #4585CF; background: #F6F6F6; box-shadow: 0 0 0 4px rgba(69, 133, 207, .12); }
+  .ad-input-wrap.is-error { border-color: #E53935; background: #FFF5F5; }
+  .ad-input-wrap.is-error:focus-within { box-shadow: 0 0 0 4px rgba(229, 57, 53, .12); }
+  .ad-input { min-width: 0; flex: 1 1 auto; height: 100%; background: transparent; border: 0; outline: 0; box-shadow: none; padding: 0; text-align: right; font: inherit; font-weight: 400; font-size: 14px; color: #262626; }
+  .ad-input:focus { outline: 0; box-shadow: none; }
+  .ad-input::placeholder { color: #949494; opacity: 1; }
+  .ad-input-wrap.has-prefix .ad-input { padding: 0 16px; }
+  .ad-prefix { display: flex; align-items: center; justify-content: center; gap: 8px; height: 100%; width: 96px; flex-shrink: 0; padding: 0 16px; background: rgba(182, 182, 182, .1); border-left: 1px solid #DDDDDD; user-select: none; }
+  .ad-prefix span { font-weight: 600; font-size: 14px; color: #262626; white-space: nowrap; unicode-bidi: isolate; }
+  .ad-prefix img { display: block; width: 28px; height: 28px; }
+  .ad-eye { order: -1; flex-shrink: 0; width: 20px; height: 20px; padding: 0; background: none; border: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; border-radius: 4px; }
+  .ad-eye img { display: block; width: 20px; height: 20px; }
+  .ad-eye i { font-size: 18px; line-height: 20px; color: #949494; }
+  .ad-eye [hidden] { display: none; }
+  .ad-error { font-size: 13px; font-weight: 500; color: #E53935; margin: 0; }
+  .ad-error[hidden], .ad-form-error[hidden] { display: none; }
+  .ad-form-error { font-size: 13px; font-weight: 500; color: #E53935; text-align: center; margin: 0; }
+  .ad-check { display: flex; align-items: center; gap: 10px; width: fit-content; cursor: pointer; user-select: none; }
+  .ad-check input { width: 17px; height: 17px; margin: 0; accent-color: #204A7A; cursor: pointer; }
+  .ad-check span { font-weight: 500; font-size: 14px; color: #565656; }
+  .ad-link-btn { background: none; border: 0; padding: 0; cursor: pointer; font: inherit; font-weight: 600; color: #204A7A; border-bottom: .7px solid #204A7A; }
+  .ad-link { font-weight: 600; font-size: 14px; color: #204A7A; text-decoration: none; }
+  .ad-link:hover { text-decoration: underline; }
+  .ad-switch { display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 14px; line-height: 1.2; margin: 0; }
+  .ad-switch span { font-weight: 400; color: #515151; }
+  .ad-title { margin: 0; font-weight: 700; font-size: 17px; text-align: center; color: #1B436C; }
+  .ad-submit { width: 100%; display: flex; align-items: center; justify-content: center; padding: 12px 24px; border: 0; border-radius: 10px; background: #204A7A; color: #F6F6F6; font: inherit; font-weight: 600; font-size: 14px; line-height: 1.5; cursor: pointer; transition: background-color .2s; }
+  .ad-submit:hover { background: #163558; }
+  .ad-submit:focus-visible { outline: 2px solid #204A7A; outline-offset: 2px; }
+  .ad-submit:disabled { opacity: .7; cursor: not-allowed; }
+  @media (min-width: 640px) {
+    .ad-title { font-size: 20px; }
+    .ad-label, .ad-input, .ad-check span, .ad-link, .ad-switch { font-size: 15px; }
+    .ad-submit { font-size: 16px; }
+  }
+  @media (min-width: 1024px) { .ad-title { font-size: 22px; } }
+  @media (prefers-reduced-motion: reduce) { .ad-overlay, .ad-panel, .ad-input-wrap { transition: none; } }
 </style>
 
-<div id="authDialog" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="ad-title-signup" class="fixed inset-0 z-[60] flex items-center justify-center p-3 sm:p-6 opacity-0 pointer-events-none transition-opacity duration-300 font-messiri">
-  <div id="authDialogBackdrop" class="absolute inset-0 bg-[#000000]/60 backdrop-blur-sm" aria-hidden="true"></div>
+<div id="authDialog" class="ad-overlay" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="ad-title-signup">
+  <div id="authDialogBackdrop" class="ad-backdrop" aria-hidden="true"></div>
 
-  {{-- الحاوية بتقص الزوايا، والتمرير جوّاها عشان الشريط ما يتقصش عند الحواف المدوّرة --}}
-  <div id="authDialogPanel" data-size="signup" class="relative w-full max-w-[361px] sm:max-w-[460px] data-[size=signup]:md:max-w-[640px] data-[size=signup]:lg:max-w-[720px] data-[size=signin]:md:max-w-[480px] bg-white rounded-[15px] sm:rounded-[20px] shadow-2xl overflow-hidden scale-95 transition-[transform,max-width] duration-300">
-    <div class="auth-dialog-scroll max-h-[calc(100dvh-1.5rem)] sm:max-h-[calc(100dvh-3rem)] overflow-y-auto overscroll-contain px-4 py-[25px] sm:px-8 sm:py-8 lg:px-10 lg:py-9">
-      <div class="flex flex-col gap-[14px] items-stretch">
-        <button type="button" data-ad-close aria-label="{{ cms('auth.quick.close', 'إغلاق النافذة') }}" class="self-start size-[24px] shrink-0 cursor-pointer rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#204A7A]">
-          <img src="{{ $img }}/close.svg" alt="" class="block size-full" />
+  <div id="authDialogPanel" class="ad-panel" data-size="signup">
+    <div class="ad-scroll">
+      <div class="ad-stack">
+        <button type="button" data-ad-close class="ad-close" aria-label="{{ cms('auth.quick.close', 'إغلاق النافذة') }}">
+          <img src="{{ $img }}/close.svg" alt="" />
         </button>
 
         {{-- ===== التسجيل السريع ===== --}}
-        <section data-ad-panel="signup" class="flex flex-col gap-8 items-center">
-          <div class="flex flex-col gap-[17px] items-center">
-            <div class="bg-[#EAF4FC] flex items-center justify-center size-[64px] sm:size-[72px] rounded-full">
-              <img src="{{ $img }}/lock.svg" alt="" class="block size-[28px] sm:size-[32px]" />
-            </div>
-            <h2 id="ad-title-signup" class="font-bold text-[17px] sm:text-[20px] lg:text-[22px] text-[#1B436C] text-center">
-              {{ cms('auth.quick.title', 'إنشاء حساب جديد للوصول إلى تقريرك') }}
-            </h2>
+        <section data-ad-panel="signup" class="ad-section">
+          <div class="ad-head">
+            <div class="ad-badge"><img src="{{ $img }}/lock.svg" alt="" /></div>
+            <h2 id="ad-title-signup" class="ad-title">{{ cms('auth.quick.title', 'إنشاء حساب جديد للوصول إلى تقريرك') }}</h2>
           </div>
 
-          <form data-ad-form action="{{ route('quick-signup.post') }}" method="POST" novalidate class="w-full flex flex-col gap-6">
+          <form data-ad-form action="{{ route('quick-signup.post') }}" method="POST" novalidate class="ad-form">
             @csrf
             <input type="hidden" name="next" value="" data-ad-next>
-            <div class="flex flex-col gap-4">
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 lg:gap-x-6 gap-y-5">
+            <div class="ad-fields">
+              <div class="ad-grid">
                 @foreach ($signup as $f)
                   @include('landing.partials.auth-dialog-field', ['form' => 'su', 'f' => $f])
                 @endforeach
               </div>
-              <label class="flex items-center gap-[10px] cursor-pointer select-none w-fit">
-                <input type="checkbox" name="remember" value="1" class="size-[17px] rounded-[2px] border border-[#565656] text-[#204A7A] focus:ring-[#204A7A] cursor-pointer" />
-                <span class="font-medium text-[14px] sm:text-[15px] text-[#565656]">{{ $rememberLabel }}</span>
+              <label class="ad-check">
+                <input type="checkbox" name="remember" value="1" />
+                <span>{{ $rememberLabel }}</span>
               </label>
             </div>
 
-            <p data-ad-form-error role="alert" class="hidden text-[13px] font-medium text-[#E53935] text-center"></p>
+            <p data-ad-form-error role="alert" class="ad-form-error" hidden></p>
 
-            <button type="submit" data-ad-submit class="{{ $submitClass }} md:max-w-[320px] md:mx-auto">{{ cms('auth.register.submit', 'إنشاء حساب جديد') }}</button>
+            <button type="submit" data-ad-submit class="ad-submit">{{ cms('auth.register.submit', 'إنشاء حساب جديد') }}</button>
           </form>
 
-          <p class="flex items-center justify-center gap-1 text-[14px] sm:text-[15px] leading-[1.2]">
-            <span class="font-normal text-[#515151]">{{ cms('auth.register.have_account', 'هل لديك حساب؟') }}</span>
-            <button type="button" data-ad-switch="signin" class="font-semibold text-[#204A7A] border-b-[0.7px] border-[#204A7A] cursor-pointer">{{ cms('auth.register.login_link', 'تسجيل دخول') }}</button>
+          <p class="ad-switch">
+            <span>{{ cms('auth.register.have_account', 'هل لديك حساب؟') }}</span>
+            <button type="button" data-ad-switch="signin" class="ad-link-btn">{{ cms('auth.register.login_link', 'تسجيل دخول') }}</button>
           </p>
         </section>
 
         {{-- ===== الدخول السريع ===== --}}
-        <section data-ad-panel="signin" class="hidden flex-col gap-8 items-center">
-          <div class="flex flex-col gap-[17px] items-center">
-            <div class="bg-[#EAF4FC] flex items-center justify-center size-[64px] sm:size-[72px] rounded-full">
-              <img src="{{ $img }}/lock.svg" alt="" class="block size-[28px] sm:size-[32px]" />
-            </div>
-            <h2 id="ad-title-signin" class="font-bold text-[17px] sm:text-[20px] lg:text-[22px] text-[#1B436C] text-center">
-              {{ cms('auth.quick.signin_title', 'سجّل الدخول للوصول إلى تقريرك') }}
-            </h2>
+        <section data-ad-panel="signin" class="ad-section" hidden>
+          <div class="ad-head">
+            <div class="ad-badge"><img src="{{ $img }}/lock.svg" alt="" /></div>
+            <h2 id="ad-title-signin" class="ad-title">{{ cms('auth.quick.signin_title', 'سجّل الدخول للوصول إلى تقريرك') }}</h2>
           </div>
 
-          <form data-ad-form action="{{ route('quick-login.post') }}" method="POST" novalidate class="w-full flex flex-col gap-6">
+          <form data-ad-form action="{{ route('quick-login.post') }}" method="POST" novalidate class="ad-form">
             @csrf
             <input type="hidden" name="next" value="" data-ad-next>
-            <div class="flex flex-col gap-4">
-              <div class="flex flex-col gap-5">
+            <div class="ad-fields">
+              <div class="ad-column">
                 @foreach ($signin as $f)
                   @include('landing.partials.auth-dialog-field', ['form' => 'si', 'f' => $f])
                 @endforeach
               </div>
-              <div class="flex items-center justify-between gap-4">
-                <label class="flex items-center gap-[10px] cursor-pointer select-none w-fit">
-                  <input type="checkbox" name="remember" value="1" class="size-[17px] rounded-[2px] border border-[#565656] text-[#204A7A] focus:ring-[#204A7A] cursor-pointer" />
-                  <span class="font-medium text-[14px] sm:text-[15px] text-[#565656]">{{ $rememberLabel }}</span>
+              <div class="ad-row">
+                <label class="ad-check">
+                  <input type="checkbox" name="remember" value="1" />
+                  <span>{{ $rememberLabel }}</span>
                 </label>
-                <a href="{{ route('password.request') }}" class="font-semibold text-[14px] sm:text-[15px] text-[#204A7A] hover:underline">{{ cms('auth.login.forgot_password', 'هل نسيت كلمة المرور؟') }}</a>
+                <a href="{{ route('password.request') }}" class="ad-link">{{ cms('auth.login.forgot_password', 'هل نسيت كلمة المرور؟') }}</a>
               </div>
             </div>
 
-            <p data-ad-form-error role="alert" class="hidden text-[13px] font-medium text-[#E53935] text-center"></p>
+            <p data-ad-form-error role="alert" class="ad-form-error" hidden></p>
 
-            <button type="submit" data-ad-submit class="{{ $submitClass }}">{{ cms('auth.login.submit', 'تسجيل دخول') }}</button>
+            <button type="submit" data-ad-submit class="ad-submit">{{ cms('auth.login.submit', 'تسجيل دخول') }}</button>
           </form>
 
-          <p class="flex items-center justify-center gap-1 text-[14px] sm:text-[15px] leading-[1.2]">
-            <span class="font-normal text-[#515151]">{{ cms('auth.login.no_account', 'ليس لديك حساب؟') }}</span>
-            <button type="button" data-ad-switch="signup" class="font-semibold text-[#204A7A] border-b-[0.7px] border-[#204A7A] cursor-pointer">{{ cms('auth.login.register_link', 'إنشاء حساب جديد') }}</button>
+          <p class="ad-switch">
+            <span>{{ cms('auth.login.no_account', 'ليس لديك حساب؟') }}</span>
+            <button type="button" data-ad-switch="signup" class="ad-link-btn">{{ cms('auth.login.register_link', 'إنشاء حساب جديد') }}</button>
           </p>
         </section>
       </div>
@@ -133,42 +217,38 @@
   (() => {
     const dialog = document.getElementById('authDialog');
     const panel = document.getElementById('authDialogPanel');
+    const scroller = panel.querySelector('.ad-scroll');
     const sections = [...dialog.querySelectorAll('[data-ad-panel]')];
     const genericError = @json($genericError);
     const confirmedTemplate = @json(cms('auth.validation.confirmed', 'تأكيد :attribute غير متطابق.'));
     let next = '';
     let trigger = null;
-    let current = 'signup';
 
-    const isOpen = () => !dialog.classList.contains('pointer-events-none');
+    const isOpen = () => dialog.classList.contains('is-open');
     const focusable = () => [...dialog.querySelectorAll('a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"])')]
       .filter((el) => !el.disabled && el.offsetParent !== null);
 
     function show(which) {
-      current = which;
       panel.dataset.size = which;
-      sections.forEach((s) => { const active = s.dataset.adPanel === which; s.classList.toggle('hidden', !active); s.classList.toggle('flex', active); });
+      sections.forEach((s) => { s.hidden = s.dataset.adPanel !== which; });
       dialog.setAttribute('aria-labelledby', `ad-title-${which}`);
       dialog.querySelectorAll('[data-ad-next]').forEach((i) => { i.value = next; });
-      dialog.querySelectorAll('[data-ad-panel]').forEach((s) => s.scrollTop = 0);
-      panel.firstElementChild.scrollTop = 0;
+      scroller.scrollTop = 0;
     }
 
     function open(which = 'signup', nextValue = '') {
       if (!isOpen()) trigger = document.activeElement;
       next = nextValue || next;
       show(which);
-      dialog.classList.remove('opacity-0', 'pointer-events-none');
+      dialog.classList.add('is-open');
       dialog.setAttribute('aria-hidden', 'false');
-      panel.classList.replace('scale-95', 'scale-100');
       document.documentElement.style.overflow = 'hidden';
       setTimeout(() => dialog.querySelector(`[data-ad-panel="${which}"] input:not([type=hidden])`)?.focus(), 60);
     }
 
     function close() {
-      dialog.classList.add('opacity-0', 'pointer-events-none');
+      dialog.classList.remove('is-open');
       dialog.setAttribute('aria-hidden', 'true');
-      panel.classList.replace('scale-100', 'scale-95');
       document.documentElement.style.overflow = '';
       if (trigger && typeof trigger.focus === 'function') trigger.focus();
     }
@@ -207,28 +287,26 @@
       const submitBtn = form.querySelector('[data-ad-submit]');
       const formError = form.querySelector('[data-ad-form-error]');
 
-      const box = (name) => form.querySelector(`[data-ad-error="${name}"]`);
       function setError(name, message) {
-        const b = box(name);
+        const box = form.querySelector(`[data-ad-error="${name}"]`);
         const wrapper = form.querySelector(`[data-ad-group="${name}"] [data-ad-wrapper]`);
-        if (!b) return;
-        b.textContent = message;
-        b.classList.toggle('hidden', !message);
-        wrapper?.classList.toggle('!border-[#E53935]', !!message);
-        wrapper?.classList.toggle('bg-[#FFF5F5]', !!message);
+        if (!box) return;
+        box.textContent = message;
+        box.hidden = !message;
+        wrapper?.classList.toggle('is-error', !!message);
       }
       const clearErrors = () => {
         form.querySelectorAll('[data-ad-error]').forEach((b) => setError(b.dataset.adError, ''));
-        formError.classList.add('hidden');
+        formError.hidden = true;
       };
-      const focusFirstError = () => form.querySelector('[data-ad-error]:not(.hidden)')?.closest('[data-ad-group]')?.querySelector('input')?.focus();
+      const focusFirstError = () => form.querySelector('[data-ad-error]:not([hidden])')?.closest('[data-ad-group]')?.querySelector('input')?.focus();
 
       form.querySelectorAll('[data-ad-toggle]').forEach((btn) => btn.addEventListener('click', () => {
         const input = btn.closest('[data-ad-wrapper]').querySelector('input');
         const reveal = input.type === 'password';
         input.type = reveal ? 'text' : 'password';
-        btn.querySelector('[data-ad-eye-closed]').classList.toggle('hidden', reveal);
-        btn.querySelector('[data-ad-eye-open]').classList.toggle('hidden', !reveal);
+        btn.querySelector('[data-ad-eye-closed]').hidden = reveal;
+        btn.querySelector('[data-ad-eye-open]').hidden = !reveal;
       }));
 
       form.addEventListener('input', (e) => { if (e.target.name) setError(e.target.name, ''); });
@@ -266,11 +344,11 @@
             focusFirstError();
           } else {
             formError.textContent = res.status === 419 ? genericError : (data.message || genericError);
-            formError.classList.remove('hidden');
+            formError.hidden = false;
           }
         } catch (err) {
           formError.textContent = genericError;
-          formError.classList.remove('hidden');
+          formError.hidden = false;
         }
         submitBtn.disabled = false;
       });
