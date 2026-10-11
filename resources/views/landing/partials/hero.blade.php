@@ -2,7 +2,7 @@
     <div class="absolute top-[40px] sm:top-[64px] left-1/2 -translate-x-1/2 w-[90%] max-w-[720px] h-[320px] sm:h-[371px] rounded-full bg-gradient-to-b from-[#D6DFEA]/50 to-[#D6DFEA]/20 blur-[60px] sm:blur-[72px] pointer-events-none -z-10"></div>
 
     <!-- ==================== 2. HERO SECTION: اختبار عجلة الحياة (#937:4162) ==================== -->
-    <section id="hero-section" aria-labelledby="hero-title" class="pt-8 sm:pt-12 md:pt-16 pb-[25px] md:pb-[64px] px-0 sm:px-6 md:px-12 relative flex flex-col items-center">
+    <section id="hero-section" aria-labelledby="hero-title" class="max-sm:min-h-[calc(100svh_-_74px)] max-sm:justify-between pt-8 sm:pt-12 md:pt-16 pb-[25px] md:pb-[64px] px-0 sm:px-6 md:px-12 relative flex flex-col items-center">
 
       <!-- Main Section Header (Figma Mobile: 312x32 Title, 240x44 Subtitle, Gap 10-12px) -->
       <div class="text-center w-full max-w-[340px] sm:max-w-none mx-auto mb-0 relative flex flex-col items-center gap-2 px-4 sm:px-0">
@@ -34,7 +34,7 @@
       <div class="w-full max-w-[800px] mx-auto relative flex flex-col items-center justify-center -mt-[2px] md:-mt-[15px] mb-0 md:mb-[40px] px-0">
 
         <!-- Outer Radial Wheel Graphic (Figma: Mobile 319.08x332.58, Desktop 834.43x869.75) -->
-        <div class="relative w-full max-w-[305px] min-[390px]:max-w-[325px] min-[410px]:max-w-[335px] sm:max-w-[593px] mx-auto flex items-center justify-center overflow-visible aspect-[319.08/332.58] sm:aspect-[834.43/869.75]">
+        <div class="relative w-full min-w-[200px] sm:min-w-0 max-w-[min(460px,calc(100vw_-_16px),calc((100svh_-_415px)_*_0.96))] sm:max-w-[593px] mx-auto flex items-center justify-center overflow-visible aspect-[319.08/332.58] sm:aspect-[834.43/869.75]">
           <div id="wheel-wrap" class="w-full h-full relative z-10">
             <svg id="wheelSvg" viewBox="0 0 834.43 869.75" xmlns="http://www.w3.org/2000/svg" class="w-full h-full overflow-visible" style="overflow: visible;"></svg>
           </div>

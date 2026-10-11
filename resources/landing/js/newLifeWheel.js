@@ -2,11 +2,25 @@ import { cms } from './cms.js';
 
 export function initNewLifeWheel(options = {}) {
 const isResultPage = options.isResultPage || false;
+// شكل الصفحة الرئيسية الجديد (Figma #3403:8899): قطاع ملوّن واحد لكل محور فوق خلفية فاتحة بنفس لونه، والأسماء ثابتة حوالين العجلة
+const isHomeDesign = options.variant === "home";
 
 /* ============================================================
    إعدادات عامة للعجلة
    ============================================================ */
-const SETTINGS = {
+const SETTINGS = isHomeDesign ? {
+  center: { x: 417.215, y: 434.875 },
+  centerImageRadius: 52, // البوصلة (Figma: 104px)
+  innerRadius: 62,       // الدائرة الفاتحة حوالين البوصلة (Figma: 124px)
+  outerRadius: 305,      // الخلفية الفاتحة (Figma: 610px)
+  numRings: 1,
+  gapWidth: 0,
+  showLabels: true,
+  labelRadius: 372,      // مكان الاسم والأيقونة الثابت حوالين العجلة
+  gridStrokeColor: "#2c3e50",
+  emptyGridStrokeOpacity: 0,
+  filledGridStrokeOpacity: 0
+} : {
   center: { x: 417.215, y: 434.875 }, // تم التعديل لتتناسب مع أبعاد figma
   centerImageRadius: 60, // نصف قطر صورة البوصلة
   innerRadius: 74,       // الفاصل الدائري 14px بنفس مقاس الفاصل بين المحاور تماماً (74 - 60 = 14px)
@@ -57,6 +71,23 @@ let axesState = [
   { label: AXIS_LABELS.financial, color: "#3CB1B3", percent: 35, direction: "dark-to-light", icon: "custom", customIconUrl: "/landing/icons/wheel_of_life/financial.png" },
   { label: AXIS_LABELS.career, color: "#4474D0", percent: 45, direction: "dark-to-light", icon: "custom", customIconUrl: "/landing/icons/wheel_of_life/career.png" }
 ];
+
+// ألوان وأيقونات تصميم الرئيسية الجديد بنفس ترتيب axesState (fill: القطاع، bg: الخلفية الفاتحة، text: لون الاسم)
+const HOME_AXIS_STYLE = [
+  { fill: "#693CC7", bg: "#D9D0ED", text: "#5C3E9B", icon: "personal", iconW: 55, iconH: 55 },
+  { fill: "#6262E0", bg: "#D7DBF9", text: "#5B6ECC", icon: "spiritual", iconW: 48, iconH: 39 },
+  { fill: "#328C65", bg: "#D1EBE0", text: "#489674", icon: "health", iconW: 48, iconH: 48 },
+  { fill: "#C73269", bg: "#F8D1DF", text: "#963056", icon: "social", iconW: 48, iconH: 38 },
+  { fill: "#D87F3C", bg: "#FDE5D2", text: "#BC7B4A", icon: "family", iconW: 48, iconH: 48 },
+  { fill: "#DACB5E", bg: "#F5F1D3", text: "#B8AA44", icon: "leisure", iconW: 48, iconH: 48 },
+  { fill: "#59CFD6", bg: "#D2F2F4", text: "#27797E", icon: "financial", iconW: 48, iconH: 48 },
+  { fill: "#244973", bg: "#CDDAED", text: "#21487B", icon: "career", iconW: 48, iconH: 48 }
+];
+if (isHomeDesign) {
+  axesState.forEach((axis, i) => {
+    axis.customIconUrl = `/landing/icons/wheel_of_life/home/${HOME_AXIS_STYLE[i].icon}.svg`;
+  });
+}
 
 /* حالة الدوران والصورة في المنتصف */
 let rotationAngle = 0;      // بالدرجات - قيمة معروضة محصورة 0-360
@@ -240,6 +271,14 @@ function getMetrics() {
       iconYOffset: 0
     };
   }
+  if (isHomeDesign) {
+    // Figma: El Messiri Bold 26px وتحته الأيقونة بمسافة 6px، وبنكبرهم على الموبايل عشان العجلة بتصغر
+    return {
+      effectiveFontSize: isMobile ? 34 : 26,
+      iconScale: isMobile ? 1.25 : 1,
+      labelGap: 6
+    };
+  }
   return {
     effectiveFontSize: isMobile ? 31 : 24,
     effectiveIconSize: isMobile ? 62 : 42,
@@ -289,7 +328,20 @@ function buildWheelDom() {
   centerCircle.setAttribute("class", "center-circle");
   centerCircle.setAttribute("stroke", gridStrokeColor);
   centerCircle.setAttribute("stroke-opacity", filledGridStrokeOpacity);
+  if (isHomeDesign) centerCircle.style.fill = "#F8FAFC"; // نفس خلفية الصفحة
   rotatableGroup.appendChild(centerCircle);
+
+  // خلفية فاتحة كاملة لكل محور (تصميم الرئيسية)
+  if (isHomeDesign) {
+    const sectorAngle = 360 / n;
+    axesState.forEach((axis, i) => {
+      const bg = document.createElementNS(svgNS, "path");
+      bg.setAttribute("class", "bg-cell");
+      bg.setAttribute("fill", HOME_AXIS_STYLE[i].bg);
+      bg.setAttribute("d", ringSectorPath(cx, cy, innerRadius, outerRadius, i * sectorAngle, (i + 1) * sectorAngle, 0));
+      rotatableGroup.appendChild(bg);
+    });
+  }
 
   // Axis sector elements
   const axisElements = [];
@@ -301,7 +353,7 @@ function buildWheelDom() {
 
     for (let k = 0; k < numRings; k++) {
       const t = numRings > 1 ? k / (numRings - 1) : 0;
-      const shade = lerpColor(colorStart, colorEnd, t);
+      const shade = isHomeDesign ? HOME_AXIS_STYLE[i].fill : lerpColor(colorStart, colorEnd, t);
 
       // Filled cell path
       const pathColored = document.createElementNS(svgNS, "path");
@@ -358,7 +410,7 @@ function buildWheelDom() {
       // Label Text
       const text = document.createElementNS(svgNS, "text");
       text.setAttribute("class", "axis-label");
-      text.setAttribute("fill", getAxisAccentColor(axis, 0.38));
+      text.setAttribute("fill", isHomeDesign ? HOME_AXIS_STYLE[i].text : getAxisAccentColor(axis, 0.38));
       text.setAttribute("font-family", "'El Messiri', sans-serif");
       text.setAttribute("font-size", `${metrics.effectiveFontSize}px`);
       text.setAttribute("font-weight", "bold");
@@ -548,6 +600,28 @@ function updateWheelGeometry() {
         el.percentText.setAttribute("font-size", `${percentSize}px`);
         el.percentText.setAttribute("dominant-baseline", "central");
         el.percentText.textContent = `${Math.round(axis.percent || 0)}%`;
+      }
+    } else if (isHomeDesign) {
+      // الاسم والأيقونة ثابتين على دائرة حوالين العجلة (مش بيتحركوا مع النسبة)، والأيقونة تحت الاسم
+      const pos = polarToCartesian(cx, cy, SETTINGS.labelRadius, mid);
+      const style = HOME_AXIS_STYLE[i];
+      const iconW = style.iconW * metrics.iconScale;
+      const iconH = style.iconH * metrics.iconScale;
+      const lineH = metrics.effectiveFontSize * 1.5;
+      const top = pos.y - (lineH + metrics.labelGap + iconH) / 2;
+
+      if (el.text) {
+        el.text.setAttribute("x", pos.x);
+        el.text.setAttribute("y", top + lineH / 2);
+        el.text.setAttribute("font-size", `${metrics.effectiveFontSize}px`);
+        el.text.setAttribute("dominant-baseline", "central");
+      }
+
+      if (el.icon) {
+        el.icon.setAttribute("x", pos.x - iconW / 2);
+        el.icon.setAttribute("y", top + lineH + metrics.labelGap);
+        el.icon.setAttribute("width", iconW);
+        el.icon.setAttribute("height", iconH);
       }
     } else {
       if (el.text) {
