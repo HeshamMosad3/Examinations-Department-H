@@ -89,7 +89,8 @@
               </div>
 
               @if ($i === 0)
-                <div class="flex flex-col gap-5 lg:gap-[40px]">
+                {{-- التذكير ودليل الدرجات: في أول شاشة بس (زي اختبار عجلة الحياة) --}}
+                <div data-pk-intro class="flex flex-col gap-5 lg:gap-[40px]">
                   {{-- تذكّر --}}
                   <div class="flex items-start gap-3 rounded-[16px] border border-[#ce9d42] bg-[#fffaf8] p-4">
                     <span class="flex size-[36px] lg:size-[50px] shrink-0 items-center justify-center rounded-[12px] bg-[#fef9ec]" aria-hidden="true"><img src="{{ $dir }}/bulb.svg" alt="" class="block size-[18px] lg:size-[24px]" /></span>

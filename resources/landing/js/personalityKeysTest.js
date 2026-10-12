@@ -49,7 +49,14 @@ if (app) {
 
   function render({ scroll = false } = {}) {
     // classes (not the hidden attribute): these elements also carry flex utilities that would override it
-    sections.forEach((section, i) => section.classList.toggle('hidden', i !== index));
+    sections.forEach((section, i) => {
+      section.classList.toggle('hidden', i !== index);
+      section.style.display = i === index ? '' : 'none'; // also inline, so a stale CSS build can never show two keys at once
+    });
+    // The reminder + answer legend belong to the very first screen only
+    app.querySelectorAll('[data-pk-intro]').forEach((intro) => {
+      intro.style.display = index === 0 ? '' : 'none';
+    });
 
     steps.forEach((step, i) => {
       const on = i <= index;
