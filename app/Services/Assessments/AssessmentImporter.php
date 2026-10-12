@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\DB;
  *   options:    [[label, score], ...]          الاختيارات الافتراضية لكل الأسئلة
  *   dimensions: [{code, name_ar, description_ar, reverse_in_total, questions: [نص | {text, reversed, options}], children: [...], levels: [...]}]
  *   levels:     [{code, title_ar, min, max, summary_ar, description_ar, strengths, development_areas, how_to_learn,
- *                 practical_tips, programs_intro_ar, programs: [نص | {title, subtitle, icon}], programs_outro_ar}]
+ *                 practical_tips, strategies_title_ar, remember_ar, programs_intro_ar, programs: [نص | {title, subtitle, icon}], programs_outro_ar}]
  */
 class AssessmentImporter
 {
@@ -97,6 +97,8 @@ class AssessmentImporter
                 'development_areas' => $level['development_areas'] ?? null,
                 'how_to_learn' => $level['how_to_learn'] ?? null,
                 'practical_tips' => $level['practical_tips'] ?? null,
+                'strategies_title_ar' => $level['strategies_title_ar'] ?? null,
+                'remember_ar' => $level['remember_ar'] ?? null,
                 'programs_intro_ar' => $level['programs_intro_ar'] ?? null,
                 'programs' => isset($level['programs'])
                     ? array_map(fn ($p) => is_array($p) ? $p : ['title' => $p], $level['programs'])

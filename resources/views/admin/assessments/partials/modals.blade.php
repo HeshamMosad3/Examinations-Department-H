@@ -124,15 +124,36 @@
                     <div class="col-md-2"><label class="form-label">من {{ $assessment->level_basis === 'percent' ? '(%)' : '' }}</label><input type="number" name="min_score" class="form-control" dir="ltr"></div>
                     <div class="col-md-2"><label class="form-label">إلى {{ $assessment->level_basis === 'percent' ? '(%)' : '' }}</label><input type="number" name="max_score" class="form-control" dir="ltr"></div>
                     <div class="col-md-4"><label class="form-label">الكود</label><input name="code" class="form-control" dir="ltr" maxlength="60" placeholder="low / medium / high"></div>
-                    <div class="col-md-8"><label class="form-label">الوصف المختصر</label><input name="summary_ar" class="form-control"></div>
-                    <div class="col-12"><label class="form-label">التفسير التفصيلي</label><textarea name="description_ar" rows="3" class="form-control"></textarea></div>
-
-                    @foreach (\App\Models\ResultLevel::LISTS as $field => $label)
-                        <div class="col-md-6">
-                            <label class="form-label">{{ $label }} <span class="text-muted small">(سطر لكل عنصر)</span></label>
-                            <textarea name="{{ $field }}_raw" rows="4" class="form-control"></textarea>
+                    @if ($assessment->scoring_type === 'dominant_style')
+                        {{-- تقرير النمط الغالب (الشكل الجديد): كل حقل بيظهر في كارت معين --}}
+                        <div class="col-12"><hr class="my-1"><div class="small text-muted">الحقول دي بتظهر في كروت تقرير النتيجة بنفس الترتيب.</div></div>
+                        <div class="col-12">
+                            <label class="form-label">ملخص نتيجتك <span class="text-muted small">(أول جملة = العنوان الكبير، وكل جملة بعدها = نقطة في الملخص)</span></label>
+                            <textarea name="summary_ar" rows="3" class="form-control"></textarea>
                         </div>
-                    @endforeach
+                        <div class="col-12"><label class="form-label">نص كارت النمط الغالب <span class="text-muted small">(الفقرة تحت اسم النمط ونسبته)</span></label><textarea name="description_ar" rows="3" class="form-control"></textarea></div>
+
+                        @foreach (\App\Models\ResultLevel::LISTS as $field => $label)
+                            <div class="col-md-6">
+                                <label class="form-label">{{ \App\Models\ResultLevel::REPORT_LIST_LABELS[$field] }} <span class="text-muted small">(سطر لكل جملة)</span></label>
+                                <textarea name="{{ $field }}_raw" rows="4" class="form-control"></textarea>
+                            </div>
+                            @if ($field === 'how_to_learn')
+                                <div class="col-md-6"><label class="form-label">عنوان كارت الاستراتيجيات <span class="text-muted small">(مثال: كيف تستفيد من نمطك السمعي؟)</span></label><input name="strategies_title_ar" class="form-control" maxlength="255"></div>
+                            @endif
+                        @endforeach
+                        <div class="col-12"><label class="form-label">تذكّر <span class="text-muted small">(نص كارت «تذكّر»)</span></label><textarea name="remember_ar" rows="3" class="form-control"></textarea></div>
+                    @else
+                        <div class="col-md-8"><label class="form-label">الوصف المختصر</label><input name="summary_ar" class="form-control"></div>
+                        <div class="col-12"><label class="form-label">التفسير التفصيلي</label><textarea name="description_ar" rows="3" class="form-control"></textarea></div>
+
+                        @foreach (\App\Models\ResultLevel::LISTS as $field => $label)
+                            <div class="col-md-6">
+                                <label class="form-label">{{ $label }} <span class="text-muted small">(سطر لكل عنصر)</span></label>
+                                <textarea name="{{ $field }}_raw" rows="4" class="form-control"></textarea>
+                            </div>
+                        @endforeach
+                    @endif
 
                     <div class="col-12"><hr class="my-1"></div>
                     <div class="col-12"><label class="form-label">مقدمة البرامج التدريبية</label><input name="programs_intro_ar" class="form-control"></div>

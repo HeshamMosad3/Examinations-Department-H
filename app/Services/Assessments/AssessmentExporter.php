@@ -53,6 +53,8 @@ class AssessmentExporter
             'development_areas' => $l->development_areas,
             'how_to_learn' => $l->how_to_learn,
             'practical_tips' => $l->practical_tips,
+            'strategies_title_ar' => $l->strategies_title_ar,
+            'remember_ar' => $l->remember_ar,
             'programs_intro_ar' => $l->programs_intro_ar,
             'programs' => $l->programs,
             'programs_outro_ar' => $l->programs_outro_ar,

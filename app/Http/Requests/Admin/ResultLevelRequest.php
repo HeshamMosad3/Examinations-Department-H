@@ -53,6 +53,8 @@ class ResultLevelRequest extends FormRequest
             'development_areas' => 'nullable|array',
             'how_to_learn' => 'nullable|array',
             'practical_tips' => 'nullable|array',
+            'strategies_title_ar' => 'nullable|string|max:255',
+            'remember_ar' => 'nullable|string',
             'programs_intro_ar' => 'nullable|string',
             'programs' => 'nullable|array',
             'programs_outro_ar' => 'nullable|string',

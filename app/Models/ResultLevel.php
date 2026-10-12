@@ -17,9 +17,17 @@ class ResultLevel extends Model
         'practical_tips' => 'إرشادات وتوجيهات عملية',
     ];
 
+    // أسماء القوائم في مقاييس النمط الغالب (تقرير الأنماط الإدراكية): نفس عناوين الكروت في التقرير
+    public const REPORT_LIST_LABELS = [
+        'strengths' => 'نقاط قوتك',
+        'development_areas' => 'جوانب يمكنك تطويرها',
+        'how_to_learn' => 'كيف تستفيد من نمطك',
+        'practical_tips' => 'إرشادات وتوجيهات عملية (غير معروضة في التقرير الجديد)',
+    ];
+
     protected $fillable = [
         'assessment_id', 'dimension_id', 'code', 'title_ar', 'min_score', 'max_score', 'summary_ar', 'description_ar',
-        'strengths', 'development_areas', 'how_to_learn', 'practical_tips', 'programs_intro_ar', 'programs', 'programs_outro_ar', 'order_index',
+        'strengths', 'development_areas', 'how_to_learn', 'strategies_title_ar', 'practical_tips', 'remember_ar', 'programs_intro_ar', 'programs', 'programs_outro_ar', 'order_index',
     ];
 
     protected $casts = [
