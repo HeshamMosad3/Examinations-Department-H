@@ -9,6 +9,7 @@
             'min_score' => $l->min_score, 'max_score' => $l->max_score, 'summary_ar' => $l->summary_ar, 'description_ar' => $l->description_ar,
             'strengths_raw' => implode("\n", $l->strengths ?? []), 'development_areas_raw' => implode("\n", $l->development_areas ?? []),
             'how_to_learn_raw' => implode("\n", $l->how_to_learn ?? []), 'practical_tips_raw' => implode("\n", $l->practical_tips ?? []),
+            'strategies_title_ar' => $l->strategies_title_ar, 'remember_ar' => $l->remember_ar,
             'programs_intro_ar' => $l->programs_intro_ar, 'programs_outro_ar' => $l->programs_outro_ar,
             'programs_raw' => implode("\n", array_map(fn ($p) => trim(($p['title'] ?? '') . (! empty($p['subtitle']) ? ' | ' . $p['subtitle'] : '')), $l->programs ?? [])),
         ],
@@ -68,7 +69,7 @@
                                     @if ($level->description_ar)<div class="small text-muted mt-1 pre-line">{{ \Illuminate\Support\Str::limit($level->description_ar, 260) }}</div>@endif
                                     <div class="d-flex flex-wrap gap-1 mt-2">
                                         @foreach (\App\Models\ResultLevel::LISTS as $field => $label)
-                                            @if (! empty($level->{$field}))<span class="badge text-bg-light fw-normal">{{ $label }}: {{ count($level->{$field}) }}</span>@endif
+                                            @if (! empty($level->{$field}))<span class="badge text-bg-light fw-normal">{{ $assessment->scoring_type === 'dominant_style' ? (\App\Models\ResultLevel::REPORT_LIST_LABELS[$field] ?? $label) : $label }}: {{ count($level->{$field}) }}</span>@endif
                                         @endforeach
                                         @if (! empty($level->programs))<span class="badge text-bg-light fw-normal">برامج تدريبية: {{ count($level->programs) }}</span>@endif
                                     </div>

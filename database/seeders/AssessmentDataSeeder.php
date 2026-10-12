@@ -16,10 +16,16 @@ abstract class AssessmentDataSeeder extends Seeder
 
     public function run(AssessmentImporter $importer): void
     {
-        $data = require database_path("data/assessments/{$this->code}.php");
+        $data = $this->data();
         $data['created_by'] = User::where('role', 'admin')->value('id');
 
         $assessment = $importer->import($data);
         $this->command?->info("  {$assessment->title_ar}");
+    }
+
+    /** بيانات المقياس من ملفه (ممكن السيدر الفرعي يضيف عليها) */
+    protected function data(): array
+    {
+        return require database_path("data/assessments/{$this->code}.php");
     }
 }
