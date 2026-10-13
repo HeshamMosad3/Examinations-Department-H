@@ -1,9 +1,32 @@
 import { cms } from './cms.js';
+import { generateFiveYearJourney, sampleKeyframes, easeProgress } from './lifeJourney.js';
 
 export function initNewLifeWheel(options = {}) {
 const isResultPage = options.isResultPage || false;
 // شكل الصفحة الرئيسية الجديد (Figma #3403:8899): قطاع ملوّن واحد لكل محور فوق خلفية فاتحة بنفس لونه، والأسماء ثابتة حوالين العجلة
 const isHomeDesign = options.variant === "home";
+
+// حركة العجلة من لوحة الإدارة (window.LIFE_WHEEL_JOURNEY): محاكاة سنين من المستوى الحالي لنطاق النهاية بحركة سلسة متصلة.
+// لو اتقفلت من الأدمن، أو العجلة مش بتاعة الرئيسية، أو الصفحة (المختبر) محددة حركتها بنفسها: بتشتغل الحركة القديمة زي ما هي.
+const adminJourney = !isResultPage && !options.journeyFactory && typeof window !== "undefined" ? window.LIFE_WHEEL_JOURNEY : null;
+if (adminJourney && adminJourney.enabled) {
+  const randInt = (a, b) => Math.round(a + Math.random() * (b - a));
+  options = {
+    ...options,
+    continuousJourney: true,
+    journeyMs: adminJourney.durationMs,
+    maxPercent: adminJourney.finalMax,
+    startValues: adminJourney.startMode === "fixed"
+      ? adminJourney.startValues
+      : Array.from({ length: 8 }, () => randInt(adminJourney.startMin, adminJourney.startMax)),
+    journeyFactory: (startVals, influence) => generateFiveYearJourney(startVals, influence, {
+      range: [adminJourney.finalMin, adminJourney.finalMax],
+      years: adminJourney.years,
+      setbackLevel: adminJourney.setbackLevel,
+      priority: adminJourney.priorityAxes
+    })
+  };
+}
 
 /* ============================================================
    إعدادات عامة للعجلة
@@ -164,9 +187,9 @@ const ICON_LABELS = {
    كود الرسم والتحكم
    ============================================================ */
 const svgNS = "http://www.w3.org/2000/svg";
-const svg = document.getElementById("wheelSvg");
+const svg = document.getElementById(options.svgId || "wheelSvg");
 const controlsEl = document.getElementById("controls");
-const wheelWrap = document.getElementById("wheel-wrap");
+const wheelWrap = document.getElementById(options.wrapId || "wheel-wrap");
 const spinResultEl = document.getElementById("spinResult");
 
 function polarToCartesian(cx, cy, r, angleDeg) {
@@ -815,7 +838,8 @@ let isWheelVisible = true;
 let isTabVisible = true;
 let breathingLoopId = null;
 
-const JOURNEY_TOTAL_MS = 5000; // حياة الشخص كلها (من العشرينات لحد 45-60 سنة) مضغوطة في 5 ثواني
+let JOURNEY_TOTAL_MS = options.journeyMs || 5000; // حياة الشخص كلها (من العشرينات لحد 45-60 سنة) مضغوطة في 5 ثواني (أو مدة المختبر)
+const CONTINUOUS_JOURNEY = !!options.continuousJourney; // حركة متصلة من غير قفزات (بتتحسب من منحنى سلس بدل ملاحقة أهداف)
 const SETTLE_JITTER_RANGE = 2.5;   // تذبذب صغير جداً حول القيمة النهائية بعد الاستقرار
 const SETTLE_DURATION_MIN = 1000;
 const SETTLE_DURATION_MAX = 2000;
@@ -931,7 +955,30 @@ function generatePersonaJourney() {
   return simulateLife();
 }
 
-const AXIS_JOURNEY = generatePersonaJourney();
+// خيارات اختيارية (بيستخدمها المختبر): options.journeyFactory(startVals, INFLUENCE) بتبني رحلة من المستوى الحالي،
+// وoptions.startValues المستوى الحالي، وoptions.maxPercent السقف، وoptions.autoPlay=false عشان الرحلة ماتبدأش لوحدها.
+// من غير الخيارات دي العجلة بتشتغل زي ما هي (رحلة عشوائية بتبدأ مع فتح الصفحة).
+let AXIS_JOURNEY = [];
+let JOURNEY_SEGMENTS = 0; // عدد أحداث الحياة (LIFE_EVENTS)
+let JOURNEY_SEGMENT_MS = JOURNEY_TOTAL_MS;
+const MAX_AUTO_PERCENT = options.maxPercent || 90; // سقف صارم: مفيش جانب بيوصل له تلقائيًا (مفيش بني آدم "كامل")
+let holdJourney = options.autoPlay === false; // الرحلة واقفة لحد ما play() تتندهي
+let journeyStartedAt = performance.now();
+let journeyClockStarted = !(CONTINUOUS_JOURNEY && !holdJourney); // الحركة التلقائية بتبدأ ساعتها لما العجلة تبان فعلًا على الشاشة
+
+function loadJourney(startVals) {
+  if (typeof options.journeyFactory === "function") {
+    const journey = options.journeyFactory(startVals || axesState.map((a) => a.percent), INFLUENCE);
+    AXIS_JOURNEY = journey.keyframes;
+    LIFE_SOURCES.length = 0;
+    (journey.sources || []).forEach((src) => LIFE_SOURCES.push(src));
+  } else {
+    AXIS_JOURNEY = generatePersonaJourney();
+  }
+  JOURNEY_SEGMENTS = AXIS_JOURNEY[0].length - 1;
+  JOURNEY_SEGMENT_MS = JOURNEY_TOTAL_MS / JOURNEY_SEGMENTS;
+}
+loadJourney(options.startValues);
 
 // مزامنة النسب الابتدائية للعجلة مع السنة صفر لهذه الشخصية
 if (!isResultPage) {
@@ -939,10 +986,6 @@ if (!isResultPage) {
     axis.percent = AXIS_JOURNEY[i][0];
   });
 }
-
-const JOURNEY_SEGMENTS = AXIS_JOURNEY[0].length - 1; // عدد أحداث الحياة (LIFE_EVENTS)
-const JOURNEY_SEGMENT_MS = JOURNEY_TOTAL_MS / JOURNEY_SEGMENTS;
-const MAX_AUTO_PERCENT = 90; // سقف صارم: مفيش جانب بيوصل له تلقائيًا (مفيش بني آدم "كامل")
 
 function settleValueFor(i) {
   const kf = AXIS_JOURNEY[i];
@@ -986,20 +1029,23 @@ function delayIfRipple(anim, i, eventIndex) {
   anim.duration -= RIPPLE_DELAY_MS;
 }
 
-let axisAnimState = axesState.map((axis, i) => {
-  const kf = AXIS_JOURNEY[i];
-  const anim = {
-    current: kf[0],
-    target: kf[1],
-    segmentsCompleted: 0,
-    journeyDone: false,
-    pausing: false,
-    segmentStartTime: performance.now() + Math.random() * AXIS_STAGGER_MAX_MS,
-    duration: JOURNEY_SEGMENT_MS
-  };
-  delayIfRipple(anim, i, 0);
-  return anim;
-});
+function buildAnimState() {
+  return axesState.map((axis, i) => {
+    const kf = AXIS_JOURNEY[i];
+    const anim = {
+      current: kf[0],
+      target: kf[1],
+      segmentsCompleted: 0,
+      journeyDone: false,
+      pausing: false,
+      segmentStartTime: performance.now() + Math.random() * AXIS_STAGGER_MAX_MS,
+      duration: JOURNEY_SEGMENT_MS
+    };
+    delayIfRipple(anim, i, 0);
+    return anim;
+  });
+}
+let axisAnimState = buildAnimState();
 
 let lastBreathingTime = performance.now();
 let lastFrameTime = performance.now();
@@ -1008,13 +1054,31 @@ function breathingStep(now) {
   const dt = Math.max(0, Math.min(now - lastFrameTime, MAX_FRAME_DT_MS));
   lastFrameTime = now;
 
-  if (dynamicBreathingOn && isWheelVisible && isTabVisible && !isSpinning) {
+  if (typeof options.onProgress === "function" && !holdJourney) {
+    options.onProgress(Math.min(1, (now - journeyStartedAt) / JOURNEY_TOTAL_MS));
+  }
+
+  if (dynamicBreathingOn && isWheelVisible && isTabVisible && !isSpinning && !holdJourney) {
     let changed = false;
 
     // تم إلغاء حركة الدوران رايح جاي تماماً بناءً على طلب التصميم (العجلة ثابتة الاتجاه)
     idleWobbleDeg = 0;
 
+    // الحركة المتصلة: كل جانب بيمشي على منحنى سلس واحد طول الرحلة (مفيش وقفات ولا قفزات ولا تذبذب عشوائي)
+    if (CONTINUOUS_JOURNEY) {
+      if (!journeyClockStarted) { journeyStartedAt = now; journeyClockStarted = true; }
+      const eased = easeProgress((now - journeyStartedAt) / JOURNEY_TOTAL_MS);
+      AXIS_JOURNEY.forEach((keys, i) => {
+        const value = Math.max(10, Math.min(100, sampleKeyframes(keys, eased)));
+        if (Math.abs(axesState[i].percent - value) > 0.01) {
+          axesState[i].percent = value;
+          changed = true;
+        }
+      });
+    }
+
     axisAnimState.forEach((anim, i) => {
+      if (CONTINUOUS_JOURNEY) return;
       if (now < anim.segmentStartTime) return;
 
       // ملاحقة ناعمة ومستمرة للهدف الحالي (بدل قفزة/إيزنج منفصلة لكل قطعة)
@@ -1554,6 +1618,31 @@ drawWheel(true);
 if (autoSpinOn) {
   startAutoSpin();
 }
+
+// واجهة التحكم من برّه: تشغيل الرحلة من مستوى حالي (startVals) أو الرجوع للمستوى الحالي من غير تشغيل
+return {
+  play(startVals, durationMs) {
+    if (durationMs) JOURNEY_TOTAL_MS = durationMs;
+    loadJourney(startVals);
+    axesState.forEach((axis, i) => { axis.percent = AXIS_JOURNEY[i][0]; });
+    axisAnimState = buildAnimState();
+    isWheelVisible = true;
+    holdJourney = false;
+    journeyClockStarted = true;
+    journeyStartedAt = lastFrameTime = performance.now();
+    drawWheel();
+  },
+  setStart(startVals) {
+    holdJourney = true;
+    loadJourney(startVals);
+    axesState.forEach((axis, i) => { axis.percent = AXIS_JOURNEY[i][0]; });
+    axisAnimState = buildAnimState();
+    drawWheel();
+  },
+  values() {
+    return axesState.map((axis) => axis.percent);
+  }
+};
 
 }
 
