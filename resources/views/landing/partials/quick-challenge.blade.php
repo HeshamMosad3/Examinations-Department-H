@@ -10,9 +10,6 @@
 
         <!-- Title pill -->
         <div class="flex items-center justify-center gap-[8px] md:gap-[12px] h-[32px] md:h-[60px] px-[16px] md:px-[32px] rounded-full bg-white/15 border border-white/25">
-          <h2 id="challenge-title" class="text-[#FCD34D] font-bold font-messiri text-[16px] md:text-[24px] leading-none m-0">
-            {{ cms('home.challenge.title', 'التحدي السريع') }}
-          </h2>
           <svg class="w-[16px] h-[16px] md:w-[22px] md:h-[22px] text-[#FCD34D]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/>
             <path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/>
@@ -24,15 +21,18 @@
             <path d="M6 18a4 4 0 0 1-1.967-.516"/>
             <path d="M19.967 17.484A4 4 0 0 1 18 18"/>
           </svg>
+          <h2 id="challenge-title" class="text-[#FCD34D] font-bold font-messiri text-[16px] md:text-[24px] leading-none m-0">
+            {{ cms('home.challenge.title', 'التحدي السريع') }}
+          </h2>
           <span class="w-[6px] h-[6px] md:w-[10px] md:h-[10px] rounded-full bg-[#FCD34D]" aria-hidden="true"></span>
         </div>
 
         <!-- Subtitle -->
         <div class="flex items-center justify-center gap-[8px] md:gap-[10px] mt-[20px] md:mt-[48px] text-center">
+          <i class="fa-solid fa-bolt text-[#FCD34D] text-[14px] md:text-[20px]" aria-hidden="true"></i>
           <h3 class="font-bold font-messiri text-[16px] md:text-[26px] text-white m-0 leading-normal">
             {{ cms('home.challenge.subtitle', 'تحدّ ذكاءك واكتشف النمط') }}
           </h3>
-          <i class="fa-solid fa-bolt text-[#FCD34D] text-[14px] md:text-[20px]" aria-hidden="true"></i>
         </div>
 
         <!-- Gold divider -->
@@ -59,7 +59,6 @@
       <!-- Action Button -->
       <div class="flex justify-center w-full mt-[32px] md:mt-[48px]">
         <button id="quiz-action-btn" type="button" disabled>
-          <span id="quiz-btn-text">ابدأ التحدي</span>
           <svg class="w-[16px] h-[16px] md:w-[20px] md:h-[20px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/>
             <path d="M20 3v4"/>
@@ -67,6 +66,7 @@
             <path d="M4 17v2"/>
             <path d="M5 18H3"/>
           </svg>
+          <span id="quiz-btn-text">ابدأ التحدي</span>
         </button>
       </div>
     </div>

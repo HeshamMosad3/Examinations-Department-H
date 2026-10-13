@@ -7,7 +7,7 @@ export const ANSWER_SCALE = [
   { value: 4, label: cms('wheel_test.answers.always', 'دائماً'), bg: '#dcfce7', text: '#16a34a' },
   { value: 3, label: cms('wheel_test.answers.often', 'غالباً'), bg: '#e3d8ef', text: '#735297' },
   { value: 2, label: cms('wheel_test.answers.sometimes', 'أحياناً'), bg: '#d7def7', text: '#204a7a' },
-  { value: 1, label: cms('wheel_test.answers.rarely', 'نادراً'), bg: '#ffedd5', text: '#e24949' },
+  { value: 1, label: cms('wheel_test.answers.rarely', 'نادراً'), bg: '#ffedd5', text: '#ea580c' },
   { value: 0, label: cms('wheel_test.answers.never', 'لا تنطبق'), bg: '#fee2e2', text: '#e24949' }
 ];
 

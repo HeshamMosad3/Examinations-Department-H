@@ -60,7 +60,7 @@
     </div>
 
     <!-- Reminder box (#3083:14997 / #3080:12224) -->
-    <div class="bg-[#fffaf8] border border-[#ce9d42] rounded-[16px] p-[16px] flex items-start gap-[12px] min-h-[76px] md:min-h-[91px] mb-[32px] md:mb-[45px]">
+    <div id="pt-reminder" class="bg-[#fffaf8] border border-[#ce9d42] rounded-[16px] p-[16px] flex items-start gap-[12px] min-h-[76px] md:min-h-[91px] mb-[32px] md:mb-[45px]">
       <div class="bg-[#fef9ec] rounded-[12px] size-[36px] md:size-[50px] flex items-center justify-center shrink-0" aria-hidden="true">
         <img src="/landing/images/perceptual-test/lightbulb.svg" alt="" width="24" height="24" class="size-[18px] md:size-[24px]" />
       </div>

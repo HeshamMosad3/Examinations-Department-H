@@ -198,9 +198,9 @@ function renderProgressRow() {
 
 function applySelectedStyle(btn, val) {
   const s = scaleFor(val);
-  btn.style.background = s.bg;
-  btn.style.borderColor = s.bg;
-  btn.style.color = s.text;
+  btn.style.background = s.text;
+  btn.style.borderColor = s.text;
+  btn.style.color = '#ffffff';
   btn.setAttribute('aria-checked', 'true');
 }
 
@@ -225,8 +225,8 @@ function renderQuestions() {
     <div class="flex flex-col md:flex-row md:items-center gap-3.5 md:gap-8 py-5 md:py-6" data-q="${qIdx}">
       <div class="flex items-center justify-center md:justify-start w-full md:w-auto mx-auto md:mx-0 gap-4 min-[360px]:gap-[18px] min-[375px]:gap-[22px] min-[390px]:gap-[26px] md:gap-4 lg:gap-6 order-2 shrink-0 py-1" role="radiogroup" aria-labelledby="lw-q-text-${qIdx}">
         ${circleOrder.map((s) => `
-          <button type="button" role="radio" aria-checked="false" aria-label="الدرجة ${s.value}" class="lw-answer-btn w-[36px] h-[36px] min-[360px]:w-[38px] min-[360px]:h-[38px] min-[390px]:w-[40px] min-[390px]:h-[40px] md:w-[50px] md:h-[50px] rounded-full border-2 flex items-center justify-center font-messiri font-bold text-[14px] min-[360px]:text-[15px] md:text-[17px] transition-all cursor-pointer select-none active:scale-95 shadow-sm"
-            data-value="${s.value}" style="border-color:${s.bg};color:${s.text};background:transparent">${s.value}</button>
+          <button type="button" role="radio" aria-checked="false" aria-label="الدرجة ${s.value}" class="lw-answer-btn w-[36px] h-[36px] min-[360px]:w-[38px] min-[360px]:h-[38px] min-[390px]:w-[40px] min-[390px]:h-[40px] md:w-[50px] md:h-[50px] rounded-full border-2 border-solid flex items-center justify-center font-messiri font-bold text-[14px] min-[360px]:text-[15px] md:text-[17px] transition-colors duration-150 cursor-pointer select-none active:scale-95 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+            data-value="${s.value}" style="--bg:${s.bg};--c:${s.text};border-color:${s.bg};color:${s.text};background:transparent">${s.value}</button>
         `).join('')}
       </div>
       <div class="flex items-start md:items-center justify-start text-right w-full gap-2.5 order-1 flex-1 min-w-0">
@@ -243,6 +243,18 @@ function renderQuestions() {
     row.querySelectorAll('.lw-answer-btn').forEach((btn) => {
       const val = Number(btn.dataset.value);
       if (saved === val) applySelectedStyle(btn, val);
+
+      btn.addEventListener('mouseenter', () => {
+        if (btn.getAttribute('aria-checked') !== 'true') {
+          const s = scaleFor(val);
+          btn.style.background = s.bg;
+        }
+      });
+      btn.addEventListener('mouseleave', () => {
+        if (btn.getAttribute('aria-checked') !== 'true') {
+          btn.style.background = 'transparent';
+        }
+      });
 
       btn.addEventListener('click', () => {
         answers[currentCategoryIndex][qIdx] = val;

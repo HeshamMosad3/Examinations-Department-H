@@ -78,6 +78,8 @@ function renderQuestion() {
       el('pt-options').querySelector(`[data-index="${btn.dataset.index}"]`)?.focus();
     });
   });
+  // التذكير يظهر في أول سؤال فقط
+  el('pt-reminder').style.display = current === 0 ? '' : 'none';
   renderProgress();
   renderNav();
 }

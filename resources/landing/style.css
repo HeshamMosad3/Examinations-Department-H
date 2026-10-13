@@ -331,3 +331,19 @@
   .aspect-x-wrap { width: auto !important; flex: 1 1 0% !important; min-width: 0 !important; }
   .aspect-x-col { width: auto !important; flex: 1 1 0% !important; min-width: 0 !important; }
 }
+
+/* Life Wheel Assessment — Answer Options styling matching Personality Keys Test */
+.lw-answer-btn {
+  border-color: var(--bg);
+  color: var(--c);
+  background-color: transparent;
+  transition: all 0.15s ease;
+}
+.lw-answer-btn:hover:not([aria-checked="true"]) {
+  background-color: var(--bg) !important;
+}
+.lw-answer-btn[aria-checked="true"] {
+  border-color: var(--c) !important;
+  background-color: var(--c) !important;
+  color: #ffffff !important;
+}
