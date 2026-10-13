@@ -40,8 +40,9 @@
         <div>
             <h1 class="h4 mb-1">إدارة عجلة الحياة</h1>
             <p class="text-muted small mb-0" style="max-width: 760px">
-                العجلة اللي في الصفحة الرئيسية بتعرض حياة شخص عشوائي في حوالي 5 ثواني: ليه جانب أساسي بيكبر، وكل جانب تاني
-                بيكبر معاه بنسبة عشوائية من نموه جوه نطاق المستوى اللي في الجدول ده (صف الجانب الأساسي).
+                العجلة اللي في الصفحة الرئيسية بتحاكي سنين من حياة شخص: كل جانب بيكبر بيجر معاه الجوانب المرتبطة بيه بنسبة من نموه
+                جوه نطاق المستوى اللي في الجدول ده (صف الجانب اللي بيكبر). مدة الحركة والمستوى الحالي والنهاية بتتظبط من
+                <a href="#journey">إعدادات حركة العجلة</a> تحت.
             </p>
         </div>
     </div>
@@ -144,6 +145,167 @@
         <button type="submit" class="btn btn-brand px-4"><i class="bi bi-save me-1"></i>حفظ التعديلات</button>
     </div>
 </form>
+
+{{-- ======================= حركة العجلة في الصفحة الرئيسية ======================= --}}
+@php
+    $j = $journey;
+    $jv = fn ($key, $default = null) => old($key, data_get($j, $key, $default));
+    $axisKeys = array_keys($axes);
+    $startValues = array_values($j['start_values']);
+    $priority = old('priority_axes', $j['priority_axes'] ?? []);
+@endphp
+<form method="POST" action="{{ route('admin.life-wheel-influence.journey') }}" id="journey" class="mt-4">
+    @csrf
+    @method('PUT')
+
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-header bg-white py-3 d-flex justify-content-between align-items-start flex-wrap gap-2">
+            <div>
+                <h6 class="m-0 fw-bold">حركة العجلة في الصفحة الرئيسية</h6>
+                <small class="text-muted">
+                    العجلة بتبدأ من «المستوى الحالي» وبتحاكي سنين من حياة شخص بحركة سلسة متصلة: جوانب بتنمو، وجوانب بتتراجع شوية، وفي الآخر
+                    كل الجوانب بتقفل جوه نطاق النهاية. النمو والتأثير بين الجوانب بيمشوا على جدول التأثير اللي فوق.
+                </small>
+            </div>
+            <div class="form-check form-switch fs-6 m-0">
+                <input type="hidden" name="enabled" value="0">
+                <input class="form-check-input" type="checkbox" role="switch" id="journey-enabled" name="enabled" value="1" @checked((bool) $jv('enabled', true))>
+                <label class="form-check-label fw-semibold" for="journey-enabled">تفعيل المحاكاة</label>
+                <div class="small text-muted">لو اتقفلت العجلة بترجع للحركة القديمة</div>
+            </div>
+        </div>
+
+        <div class="card-body">
+            @if ($errors->hasAny(['duration_seconds', 'years', 'start_mode', 'start_min', 'start_max', 'start_values.*', 'final_min', 'final_max', 'setback_level', 'priority_axes.*']))
+                <div class="alert alert-danger py-2 small">
+                    <ul class="mb-0 ps-3">
+                        @foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <div class="row g-4">
+                {{-- المدة والسنين --}}
+                <div class="col-lg-4">
+                    <label class="form-label fw-semibold" for="journey-duration">مدة الحركة كلها (بالثواني)</label>
+                    <div class="input-group">
+                        <input type="number" class="form-control" id="journey-duration" name="duration_seconds" min="3" max="20" step="1" required value="{{ $jv('duration_seconds', 7) }}">
+                        <span class="input-group-text">ثانية</span>
+                    </div>
+                    <div class="form-text">من 3 لـ 20. كل ما زادت المدة الحركة بتبقى أهدى وأنعم (الافتراضي 7).</div>
+                </div>
+                <div class="col-lg-4">
+                    <label class="form-label fw-semibold" for="journey-years">عدد السنين اللي بتتحاكى</label>
+                    <div class="input-group">
+                        <input type="number" class="form-control" id="journey-years" name="years" min="3" max="8" step="1" required value="{{ $jv('years', 5) }}">
+                        <span class="input-group-text">سنين</span>
+                    </div>
+                    <div class="form-text">من 3 لـ 8. السنين بتتوزع على المدة، وكل سنة فيها جوانب في الصدارة.</div>
+                </div>
+                <div class="col-lg-4">
+                    <label class="form-label fw-semibold" for="journey-setback">شدة التراجع في الطريق</label>
+                    <select class="form-select" id="journey-setback" name="setback_level">
+                        @foreach ($setbackLevels as $level => $label)
+                            <option value="{{ $level }}" @selected((int) $jv('setback_level', 2) === $level)>{{ $label }}</option>
+                        @endforeach
+                    </select>
+                    <div class="form-text">تراجع جوانب مشغولة عنها الاهتمام، وإرهاق جانب بعد نجاحه ثم تعافيه.</div>
+                </div>
+
+                {{-- المستوى الحالي --}}
+                <div class="col-12">
+                    <hr class="my-0">
+                </div>
+                <div class="col-lg-5">
+                    <div class="fw-semibold mb-2">المستوى الحالي (نقطة البداية)</div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="start_mode" id="journey-start-random" value="random" @checked($jv('start_mode', 'random') === 'random')>
+                        <label class="form-check-label" for="journey-start-random">عشوائي في كل زيارة (جوه نطاق)</label>
+                    </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="radio" name="start_mode" id="journey-start-fixed" value="fixed" @checked($jv('start_mode', 'random') === 'fixed')>
+                        <label class="form-check-label" for="journey-start-fixed">ثابت لكل جانب (القيم على اليمين)</label>
+                    </div>
+                    <div class="row g-2" data-start-random>
+                        <div class="col-6">
+                            <label class="form-label small mb-1" for="journey-start-min">من (%)</label>
+                            <input type="number" class="form-control" id="journey-start-min" name="start_min" min="5" max="100" step="1" required value="{{ $jv('start_min', 30) }}">
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label small mb-1" for="journey-start-max">إلى (%)</label>
+                            <input type="number" class="form-control" id="journey-start-max" name="start_max" min="5" max="100" step="1" required value="{{ $jv('start_max', 60) }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7" data-start-fixed>
+                    <div class="row g-2">
+                        @foreach ($axes as $key => $label)
+                            <div class="col-6 col-md-3">
+                                <label class="form-label small mb-1" for="journey-start-{{ $key }}">{{ $label }}</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="number" class="form-control" id="journey-start-{{ $key }}" name="start_values[{{ $key }}]" min="5" max="100" step="1" required value="{{ old("start_values.$key", $startValues[$loop->index] ?? 50) }}">
+                                    <span class="input-group-text">%</span>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
+                {{-- النهاية --}}
+                <div class="col-12">
+                    <hr class="my-0">
+                </div>
+                <div class="col-lg-5">
+                    <div class="fw-semibold mb-2">نطاق النهاية (كل الجوانب بتقفل جواه)</div>
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <label class="form-label small mb-1" for="journey-final-min">من (%)</label>
+                            <input type="number" class="form-control" id="journey-final-min" name="final_min" min="20" max="100" step="1" required value="{{ $jv('final_min', 75) }}">
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label small mb-1" for="journey-final-max">إلى (%)</label>
+                            <input type="number" class="form-control" id="journey-final-max" name="final_max" min="20" max="100" step="1" required value="{{ $jv('final_max', 95) }}">
+                        </div>
+                    </div>
+                    <div class="form-text">كل ما النطاق أضيق العجلة بتبقى أقرب لدايرة كاملة.</div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="fw-semibold mb-2">الجوانب اللي غالبًا بتنمو الأول</div>
+                    <div class="d-flex flex-wrap gap-3">
+                        @foreach ($axes as $key => $label)
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="priority_axes[]" id="journey-priority-{{ $key }}" value="{{ $key }}" @checked(in_array($key, (array) $priority, true))>
+                                <label class="form-check-label" for="journey-priority-{{ $key }}">{{ $label }}</label>
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="form-text">دي بتتقدم في أول السنين، والباقي بيلحق بيها بعد كده. سيبها فاضية لو عايزها عشوائية.</div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer bg-white d-flex justify-content-between align-items-center py-3">
+            <small class="text-muted">التعديل بيظهر في الصفحة الرئيسية وصفحة «اكتشف عجلة الحياة» بعد الحفظ.</small>
+            <button type="submit" class="btn btn-success px-4"><i class="bi bi-check2-circle me-1"></i> حفظ إعدادات الحركة</button>
+        </div>
+    </div>
+</form>
+
+@push('scripts')
+<script>
+(function () {
+    const radios = document.querySelectorAll('input[name="start_mode"]');
+    const randomBox = document.querySelector('[data-start-random]');
+    const fixedBox = document.querySelector('[data-start-fixed]');
+    function syncStartMode() {
+        const fixed = document.getElementById('journey-start-fixed').checked;
+        fixedBox.style.opacity = fixed ? '1' : '.45';
+        randomBox.style.opacity = fixed ? '.45' : '1';
+    }
+    radios.forEach((radio) => radio.addEventListener('change', syncStartMode));
+    syncStartMode();
+})();
+</script>
+@endpush
 @endsection
 
 @push('scripts')

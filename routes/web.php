@@ -107,4 +107,5 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     // إدارة عجلة الحياة (تأثير الجوانب على بعضها في عجلة الصفحة الرئيسية)
     Route::get('/life-wheel-influence', [Admin\LifeWheelInfluenceController::class, 'index'])->name('life-wheel-influence.index');
     Route::put('/life-wheel-influence', [Admin\LifeWheelInfluenceController::class, 'update'])->name('life-wheel-influence.update');
+    Route::put('/life-wheel-influence/journey', [Admin\LifeWheelInfluenceController::class, 'updateJourney'])->name('life-wheel-influence.journey');
 });

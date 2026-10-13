@@ -1,4 +1,6 @@
 import { cms } from './cms.js';
+import { initNewLifeWheel } from './newLifeWheel.js';
+import { generateFiveYearJourney, sampleKeyframes, easeProgress } from './lifeJourney.js';
 
 /* ============================================================
    Wheel Geometry & Color Constants (Matching Figma & newLifeWheel.js)
@@ -733,7 +735,7 @@ export class LifeWheelLabInstance {
        * Smooth hydrodynamic transition (like water in a glass)
        * Zero harsh stops, C2 smootherstep continuous acceleration
        * Staggered arrival: leaders lock at the top early, laggards
-         catch up only at the very end; ALL settle in 80% - 95%
+         catch up only at the very end; ALL settle in 75% - 95% (5 years in 5 seconds)
      ============================================================ */
   runRealisticLifeJourney(duration = null) {
     if (this.isFluidAnimating) {
@@ -744,32 +746,17 @@ export class LifeWheelLabInstance {
 
     const animDuration = duration !== null ? duration : (this.animationDuration || 6000);
     const startVals = this.axes.map(a => a.percent);
-    const journey = generateRealisticLifeJourney(startVals, [80, 95]);
-    const { tracks, finals, phases } = journey;
+    const journey = generateFiveYearJourney(startVals, getInfluenceConfig(), { range: [75, 95], labels: this.axes.map((a) => a.label) });
+    const { keyframes, finals, phases } = journey;
     const startTime = performance.now();
     const waterStatus = this.cardEl?.querySelector('[data-water-status]');
-
-    // Smootherstep C2 polynomial: 6u^5 - 15u^4 + 10u^3 (smooth zero acceleration at boundaries)
-    const smootherstep = (u) => u * u * u * (u * (6 * u - 15) + 10);
-    const sampleTrack = (track, p) => {
-      for (let k = 0; k < track.length - 1; k++) {
-        const a = track[k];
-        const b = track[k + 1];
-        if (p <= b.t) {
-          const span = b.t - a.t;
-          const u = span > 0 ? Math.max(0, Math.min(1, (p - a.t) / span)) : 1;
-          return a.v + (b.v - a.v) * smootherstep(u);
-        }
-      }
-      return track[track.length - 1].v;
-    };
 
     const step = (now) => {
       let progress = (now - startTime) / animDuration;
       if (progress > 1) progress = 1;
 
       this.axes.forEach((axis, i) => {
-        const currentVal = sampleTrack(tracks[i], progress);
+        const currentVal = sampleKeyframes(keyframes[i], easeProgress(progress));
         axis.percent = currentVal;
 
         // Sync slider & readout live
@@ -783,7 +770,7 @@ export class LifeWheelLabInstance {
 
       // Update narrative status live
       if (waterStatus) {
-        const phase = [...phases].reverse().find((ph) => progress >= ph.t);
+        const phase = [...phases].reverse().find((ph) => easeProgress(progress) >= ph.t);
         if (phase) waterStatus.textContent = phase.title;
       }
 
@@ -796,7 +783,7 @@ export class LifeWheelLabInstance {
         this.currentFluidDirection = 'up';
 
         if (waterStatus) {
-          waterStatus.textContent = 'استقرار واكتمال شامل لجميع الجوانب (80% - 95%) 💧';
+          waterStatus.textContent = 'اكتملت الخمس سنين: كل الجوانب بين 75% و95% 💧';
         }
       }
     };
@@ -1140,6 +1127,130 @@ export class LifeWheelLabInstance {
 /* ============================================================
    Global Testing Lab Controller
    ============================================================ */
+/**
+ * النسخة 5: نفس عجلة الرئيسية الحالية (محرك newLifeWheel بشكل فيجما) + محاكاة 5 سنين في 5 ثواني.
+ * بتبدأ من المستوى الحالي (السلايدرز) وبتخلص كل الجوانب بين 75% و95%.
+ */
+function initJourneyWheel() {
+  const card = document.getElementById('card-wheel-5');
+  if (!card || !document.getElementById('wheelSvg-5')) return null;
+
+  const labels = BASE_AXES.map((a) => a.label);
+  const startInputs = [...card.querySelectorAll('input[data-j-start]')];
+  const q = (sel) => card.querySelector(sel);
+  const bar = q('[data-j-bar]');
+  const yearEl = q('[data-j-year]');
+  const textEl = q('[data-j-text]');
+  const resultEl = q('[data-j-result]');
+  const readStart = () => startInputs.map((input) => Number(input.value));
+  const durationSelect = q('[data-j-duration]');
+  const readMs = () => Number(durationSelect?.value || 7000);
+  const hint = q('[data-j-hint]');
+  const syncHint = () => { if (hint) hint.textContent = `5 سنين = ${readMs() / 1000} ثواني`; };
+  let journey = null;
+  let running = false;
+
+  const showResults = () => {
+    const finals = wheel.values().map((v) => Math.round(v));
+    const starts = readStart();
+    const min = Math.min(...finals);
+    const max = Math.max(...finals);
+    resultEl.innerHTML = `
+      <div class="font-bold text-[#173357] mb-2">النتيجة بعد 5 سنين: أقل جانب ${min}% وأعلى جانب ${max}% ${min >= 75 && max <= 95 ? '✅' : '⚠️'}</div>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+        ${labels.map((label, i) => {
+          const delta = finals[i] - starts[i];
+          return `<div class="bg-white border border-gray-200 rounded-xl px-2.5 py-1.5 flex items-center justify-between gap-2">
+            <span class="font-bold text-gray-700">${label}</span>
+            <span class="font-bold ${delta >= 0 ? 'text-emerald-700' : 'text-rose-600'}" dir="ltr">${starts[i]}% → ${finals[i]}%</span>
+          </div>`;
+        }).join('')}
+      </div>`;
+    resultEl.classList.remove('hidden');
+  };
+
+  const updateUi = (p) => {
+    if (!running) return;
+    const year = Math.min(5, Math.floor(easeProgress(p) * 5) + 1);
+    if (bar) bar.style.width = `${Math.round(p * 100)}%`;
+    if (yearEl) yearEl.textContent = p >= 1 ? 'اكتملت الخمس سنين' : `السنة ${year} من 5`;
+    if (textEl && journey) textEl.textContent = journey.narrative[year - 1];
+    if (p >= 1) {
+      running = false;
+      showResults();
+    }
+  };
+
+  const wheel = initNewLifeWheel({
+    variant: 'home',
+    svgId: 'wheelSvg-5',
+    wrapId: 'wheel-wrap-5',
+    autoPlay: false,
+    startValues: readStart(),
+    maxPercent: 95,
+    continuousJourney: true,
+    journeyMs: readMs(),
+    journeyFactory: (startVals, influence) => {
+      journey = generateFiveYearJourney(startVals, influence, { range: [75, 95], labels });
+      return journey;
+    },
+    onProgress: updateUi
+  });
+
+  const resetUi = () => {
+    running = false;
+    if (bar) bar.style.width = '0%';
+    if (yearEl) yearEl.textContent = 'المستوى الحالي';
+    if (textEl) textEl.textContent = 'اضغط «تشغيل» لمحاكاة 5 سنين من حياة شخص يبدأ من هذا المستوى.';
+    resultEl?.classList.add('hidden');
+  };
+
+  const reset = () => {
+    wheel.setStart(readStart());
+    resetUi();
+  };
+
+  const play = () => {
+    resetUi();
+    running = true;
+    wheel.play(readStart(), readMs());
+  };
+
+  startInputs.forEach((input, i) => {
+    input.addEventListener('input', () => {
+      const out = q(`[data-j-start-val="${i}"]`);
+      if (out) out.textContent = `${input.value}%`;
+      reset();
+    });
+  });
+  durationSelect?.addEventListener('change', syncHint);
+  syncHint();
+  q('[data-j-play]')?.addEventListener('click', play);
+  q('[data-j-reset]')?.addEventListener('click', reset);
+  q('[data-j-random]')?.addEventListener('click', () => {
+    startInputs.forEach((input, i) => {
+      input.value = String(30 + Math.round(Math.random() * 30));
+      const out = q(`[data-j-start-val="${i}"]`);
+      if (out) out.textContent = `${input.value}%`;
+    });
+    reset();
+  });
+  resetUi();
+
+  // نفس واجهة نسخ المختبر عشان التبويبات والأزرار العامة تتعامل معاها
+  return {
+    id: 'wheel-5',
+    cardEl: card,
+    axes: labels.map((label, i) => ({ key: BASE_AXES[i].key, label, get percent() { return wheel.values()[i]; } })),
+    updateGeometry() {},
+    spinWheelRandom() {},
+    toggleAutoSpin() {},
+    replayStartupAnimation() { play(); },
+    play,
+    onShow() { reset(); setTimeout(play, 350); }
+  };
+}
+
 function initTestingLab() {
   if (!document.getElementById('wheel-test-lab')) return;
 
@@ -1187,7 +1298,8 @@ function initTestingLab() {
     svgId: 'wheelSvg-4',
     cardId: 'card-wheel-4',
     initialPercents: [38, 54, 44, 58, 48, 36, 52, 42], // All strictly between 30% and 60%
-    targetPercents: [90, 94, 88, 85, 93, 84, 89, 92],  // All strictly between 80% and 95%
+    targetPercents: [90, 94, 88, 85, 93, 84, 89, 92],  // All strictly between 75% and 95%
+    animationDuration: 7000, // 5 سنين بحركة سلسة
     uiApproach: 'explore', // Exactly typical to homepage
     centerType: 'compass', // Center compass illustration
     showPercents: false,
@@ -1197,12 +1309,16 @@ function initTestingLab() {
     whiteSeparators: true
   });
 
-  const wheels = [wheel1, wheel2, wheel3, wheel4];
+  const wheel5 = initJourneyWheel() || { cardEl: null, updateGeometry() {}, spinWheelRandom() {}, toggleAutoSpin() {}, replayStartupAnimation() {}, play() {}, onShow() {}, axes: [] };
+
+  const wheels = [wheel1, wheel2, wheel3, wheel4, wheel5];
+  window.__lifeWheelLab = { wheel5 }; // للفحص من الكونسول (صفحة المختبر بس)
 
   // 2. Global Actions
   document.getElementById('btn-global-replay-all')?.addEventListener('click', () => {
     wheels.slice(0, 3).forEach(w => w.replayStartupAnimation());
-    wheel4.fluidWaterAnimation('up', 4800);
+    wheel4.fluidWaterAnimation('up', 7000);
+    wheel5.play();
   });
 
   document.getElementById('btn-global-spin-all')?.addEventListener('click', () => {
@@ -1216,7 +1332,7 @@ function initTestingLab() {
   });
 
   // 3. Tab & Display Controller (Centered on Screen, Full Size Matching Homepage)
-  let currentActiveTab = 3; // Default to Variant 4 (Homepage Water Wheel)
+  let currentActiveTab = 4; // Default to Variant 5 (الرئيسية الحالية + محاكاة 5 سنين)
   let isStackMode = false;
 
   const viewSingleBtn = document.getElementById('view-mode-single');
@@ -1240,6 +1356,7 @@ function initTestingLab() {
         if (idx === activeIdx) {
           w.cardEl?.classList.remove('hidden');
           w.updateGeometry();
+          if (idx === 4) w.onShow();
         } else {
           w.cardEl?.classList.add('hidden');
         }
@@ -1331,7 +1448,7 @@ function initTestingLab() {
   });
 
   // Initialize with Variant 4 active by default in full homepage size centered on screen!
-  setActiveTab(3);
+  setActiveTab(4);
 
   // Handle window resize
   window.addEventListener('resize', () => {

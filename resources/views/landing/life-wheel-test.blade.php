@@ -93,6 +93,10 @@
           <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
           <span>النسخة 4: واجهة الرئيسية (خط فاصل أبيض + حركة واقعية)</span>
         </button>
+        <button data-tab-idx="4" class="px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl font-messiri font-bold text-xs sm:text-sm bg-white text-gray-700 hover:bg-gray-50 transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap">
+          <span class="w-2.5 h-2.5 rounded-full bg-[#204a7a]"></span>
+          <span>النسخة 5: عجلة الرئيسية الحالية + محاكاة 5 سنين</span>
+        </button>
       </div>
     </div>
 
@@ -179,7 +183,7 @@
           <div class="flex flex-wrap sm:flex-nowrap items-center justify-center gap-2 max-w-full">
             <button data-action-water-up class="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white font-messiri font-bold text-xs sm:text-sm py-2 px-3.5 rounded-xl transition-all shadow-sm flex items-center gap-1.5 cursor-pointer whitespace-nowrap" title="حركة واقعية: صعود بعض الجوانب وتراجع أخرى حسب مصفوفة التأثير ثم استقرار الجميع بين 80% و 95%">
               <i class="fa-solid fa-arrow-trend-up text-amber-200"></i>
-              <span>رحلة واقعية (صعود وهبوط ← 80%-95%)</span>
+              <span>محاكاة 5 سنين (نمو وتراجع ← 75%-95%)</span>
             </button>
             <button data-action-water-down class="bg-white hover:bg-cyan-50 text-cyan-800 border border-cyan-300 font-messiri font-bold text-xs sm:text-sm py-2 px-3.5 rounded-xl transition-all shadow-sm flex items-center gap-1.5 cursor-pointer whitespace-nowrap" title="انسياب الماء إلى الأسفل (30%-60%)">
               <i class="fa-solid fa-arrow-down-left-dots text-cyan-600"></i>
@@ -219,7 +223,9 @@
             <select data-action-duration class="bg-cyan-50 text-cyan-900 rounded-lg px-2 py-0.5 border border-cyan-200 cursor-pointer font-cairo text-xs font-bold focus:outline-none">
               <option value="3000">3 ثوانٍ (سريع)</option>
               <option value="4500">4.5 ثوانٍ</option>
-              <option value="6000" selected>6 ثوانٍ (افتراضي)</option>
+              <option value="5000">5 ثوانٍ</option>
+              <option value="6000">6 ثوانٍ</option>
+              <option value="7000" selected>7 ثوانٍ (افتراضي: 5 سنين بسلاسة)</option>
               <option value="8000">8 ثوانٍ (هادئ)</option>
               <option value="10000">10 ثوانٍ (بطيء)</option>
             </select>
@@ -285,6 +291,89 @@
             </div>
           </div>
         </details>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- VARIANT 5: عجلة الرئيسية الحالية + محاكاة 5 سنين من المستوى الحالي (75%-95%) -->
+      <!-- ========================================== -->
+      <section id="card-wheel-5" class="wheel-canvas-card w-full max-w-[960px] mx-auto bg-gradient-to-b from-[#f2f6fb] to-white rounded-3xl p-6 sm:p-8 shadow-sm border-2 border-[#bed1e6] flex flex-col items-center text-center gap-6 hidden">
+
+        <div class="w-full border-b border-[#dbe5f1] pb-4 flex flex-col items-center">
+          <span class="px-3 py-1 rounded-full text-xs font-bold bg-[#d9eaff] text-[#204a7a] border border-[#bed1e6] mb-2">
+            النسخة 5 &bull; عجلة الرئيسية الحالية + محاكاة 5 سنين
+          </span>
+          <h2 class="text-xl sm:text-2xl font-bold font-messiri text-[#173357] flex items-center justify-center gap-2">
+            <span>خمس سنين من حياة شخص بحركة سلسة</span>
+            <i class="fa-solid fa-hourglass-half text-[#204a7a]"></i>
+          </h2>
+          <p class="text-xs sm:text-sm text-gray-500 leading-relaxed font-messiri mt-1 max-w-2xl">
+            نفس عجلة الصفحة الرئيسية بالظبط. بتبدأ من <strong>المستوى الحالي</strong> اللي بتحدده تحت، والحركة متصلة وسلسة (من غير قفزات): جوانب بتنمو، وجوانب بتتراجع لأن الاهتمام مشغول بغيرها،
+            وجانب ممكن يتعب بعد نجاحه ثم يتعافى، وبتقفل كل الجوانب بين <strong>75% و95%</strong> (شبه دايرة). كل ضغطة «تشغيل» بتطلع قصة مختلفة.
+          </p>
+        </div>
+
+        <!-- Wheel: exactly the homepage wheel (same markup/size as hero.blade.php) -->
+        <div class="relative w-full max-w-[305px] min-[390px]:max-w-[325px] min-[410px]:max-w-[335px] sm:max-w-[593px] mx-auto flex items-center justify-center overflow-visible aspect-[319.08/332.58] sm:aspect-[834.43/869.75] my-2">
+          <div id="wheel-wrap-5" class="w-full h-full relative z-10">
+            <svg id="wheelSvg-5" viewBox="0 0 834.43 869.75" xmlns="http://www.w3.org/2000/svg" class="w-full h-full overflow-visible" style="overflow: visible;" role="img" aria-label="عجلة الحياة بجوانبها الثمانية"></svg>
+          </div>
+        </div>
+
+        <!-- Year progress -->
+        <div class="w-full max-w-[620px] flex flex-col items-center gap-2">
+          <div class="w-full flex items-center justify-between text-sm font-bold font-messiri text-[#173357]">
+            <span data-j-year>المستوى الحالي</span>
+            <span data-j-hint class="text-xs text-gray-500 font-semibold">5 سنين = 7 ثواني</span>
+          </div>
+          <div class="w-full h-2.5 rounded-full bg-[#dbe5f1] overflow-hidden" role="progressbar" aria-label="تقدم المحاكاة">
+            <div data-j-bar class="h-full w-0 rounded-full bg-gradient-to-l from-[#204a7a] to-[#59cfd6]" style="transition: width 120ms linear;"></div>
+          </div>
+          <p data-j-text class="text-sm font-semibold font-messiri text-[#262626] min-h-[22px]"></p>
+        </div>
+
+        <!-- Actions -->
+        <div class="w-full flex flex-wrap items-center justify-center gap-2 select-none">
+          <button data-j-play class="bg-[#204a7a] hover:bg-[#1a3b62] text-white font-messiri font-bold text-sm py-2.5 px-5 rounded-xl transition-all shadow-sm flex items-center gap-2 cursor-pointer whitespace-nowrap">
+            <i class="fa-solid fa-play text-amber-200"></i>
+            <span>تشغيل محاكاة 5 سنين</span>
+          </button>
+          <button data-j-reset class="bg-white hover:bg-blue-50 text-[#173357] border border-gray-200 font-messiri font-bold text-sm py-2.5 px-4 rounded-xl transition-all shadow-sm flex items-center gap-2 cursor-pointer whitespace-nowrap">
+            <i class="fa-solid fa-rotate-left"></i>
+            <span>الرجوع للمستوى الحالي</span>
+          </button>
+          <label class="bg-white border border-gray-200 text-[#173357] font-messiri font-bold text-sm py-2 px-3 rounded-xl shadow-sm flex items-center gap-2 whitespace-nowrap">
+            <i class="fa-solid fa-stopwatch text-[#204a7a]"></i>
+            <span>المدة:</span>
+            <select data-j-duration class="bg-[#eef4fb] text-[#173357] rounded-lg px-2 py-0.5 border border-[#bed1e6] cursor-pointer font-cairo text-xs font-bold focus:outline-none">
+              <option value="5000">5 ثواني</option>
+              <option value="7000" selected>7 ثواني (سلس)</option>
+              <option value="9000">9 ثواني (هادئ)</option>
+              <option value="12000">12 ثانية</option>
+            </select>
+          </label>
+          <button data-j-random class="bg-white hover:bg-blue-50 text-[#173357] border border-gray-200 font-messiri font-bold text-sm py-2.5 px-4 rounded-xl transition-all shadow-sm flex items-center gap-2 cursor-pointer whitespace-nowrap">
+            <i class="fa-solid fa-dice"></i>
+            <span>مستوى حالي عشوائي (30%-60%)</span>
+          </button>
+        </div>
+
+        <!-- Current level (start) -->
+        <details class="w-full max-w-[760px] bg-white border border-[#dbe5f1] rounded-2xl p-4 text-right" open>
+          <summary class="cursor-pointer font-messiri font-bold text-[#173357] text-sm flex items-center gap-2"><i class="fa-solid fa-sliders text-[#204a7a]"></i> المستوى الحالي (نقطة البداية)</summary>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 mt-4 text-xs">
+            @foreach ([['الشخصي', '#7844D0', 38], ['الروحاني', '#5875E5', 54], ['الصحي', '#43A074', 44], ['الاجتماعي', '#C53664', 58], ['العائلي', '#D98344', 48], ['الترفيهي', '#C9B642', 36], ['المالي', '#3CB1B3', 52], ['المهني', '#4474D0', 42]] as $i => [$name, $color, $value])
+              <label class="flex items-center gap-2.5">
+                <span class="size-2.5 rounded-full shrink-0" style="background: {{ $color }}"></span>
+                <span class="w-[62px] font-bold text-gray-700 shrink-0">{{ $name }}</span>
+                <input data-j-start type="range" min="5" max="100" step="1" value="{{ $value }}" class="custom-slider flex-1 h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer" aria-label="المستوى الحالي: {{ $name }}">
+                <span data-j-start-val="{{ $i }}" class="w-10 text-left font-bold text-gray-700" dir="ltr">{{ $value }}%</span>
+              </label>
+            @endforeach
+          </div>
+        </details>
+
+        <!-- Result after the 5 years -->
+        <div data-j-result class="hidden w-full max-w-[760px] bg-[#f6fbff] border border-[#bed1e6] rounded-2xl p-4 text-right"></div>
       </section>
 
       <!-- ========================================== -->
