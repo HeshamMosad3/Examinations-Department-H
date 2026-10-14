@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Assessment;
+use App\Models\ResultLevel;
 use App\Models\ChallengeQuestion;
 use App\Services\Assessments\AssessmentData;
 use App\Services\Assessments\PerceptualReportBuilder;
@@ -44,7 +45,17 @@ class LandingController extends Controller
 
     public function lifeWheelResult(LifeWheelService $lifeWheel): View
     {
-        return view('landing.result', ['categories' => $lifeWheel->categories()]);
+        // «ماذا تعني هذه النتيجة؟»: نص مستوى النتيجة الكلية (بالنسبة المئوية) من مستويات المقياس المحفوظة، والصفحة بتختار المستوى المناسب
+        $levels = ResultLevel::query()
+            ->whereIn('assessment_id', Assessment::where('code', Assessment::WHEEL_OF_LIFE)->select('id'))
+            ->whereNull('dimension_id')
+            ->orderBy('min_score')
+            ->get(['min_score', 'max_score', 'title_ar', 'description_ar'])
+            ->filter(fn ($level) => filled($level->description_ar))
+            ->map(fn ($level) => ['min' => (int) $level->min_score, 'max' => (int) $level->max_score, 'title' => $level->title_ar, 'text' => $level->description_ar])
+            ->values();
+
+        return view('landing.result', ['categories' => $lifeWheel->categories(), 'overallLevels' => $levels]);
     }
 
     public function wheelTest(LifeWheelService $lifeWheel): View

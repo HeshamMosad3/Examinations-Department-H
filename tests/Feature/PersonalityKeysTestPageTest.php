@@ -89,8 +89,17 @@ class PersonalityKeysTestPageTest extends TestCase
 
         $this->actingAs($user)->get(route('keys.result'))
             ->assertOk()
-            ->assertSee('ملفك الشخصي في المفاتيح السبعة')
-            ->assertSee('مفتاح البصيرة');
+            ->assertSee('نتيجة التقييم')
+            ->assertSee('أبرز مفاتيح شخصيتك')
+            ->assertSee('المفتاح الأقل حضوراً')
+            ->assertSee('ماذا تعني هذه النتيجة؟')
+            ->assertSee(route('keys.details'), false);
+
+        $this->actingAs($user)->get(route('keys.details'))
+            ->assertOk()
+            ->assertSee('تفاصيل المفاتيح')
+            ->assertSee('(K1)', false)
+            ->assertSee('data-key-card', false);
     }
 
     public function test_incomplete_or_invalid_answers_are_rejected(): void
@@ -127,5 +136,28 @@ class PersonalityKeysTestPageTest extends TestCase
 
         $this->assertStringContainsString('data-auth-gate="/personality-keys-test.html"', $html);
         $this->assertStringContainsString('personality-keys-test.html', $html);
+    }
+
+    public function test_the_result_explanation_follows_the_total_score_band_and_is_editable_data(): void
+    {
+        $this->seed(SevenPersonalityKeysSeeder::class);
+        $data = AssessmentData::load(Assessment::byCode(Assessment::SEVEN_PERSONALITY_KEYS));
+        $user = $this->user();
+
+        // أعلى اختيار في كل العبارات (336 درجة): المستوى المرتفع جدًا
+        $this->actingAs($user)->postJson(route('keys.results.store'), ['answers' => $this->allAnswers()])->assertOk();
+        $this->actingAs($user)->get(route('keys.result'))->assertOk()->assertSee('حضورًا مرتفعًا جدًا')->assertSee('data-more-toggle', false)
+            ->assertDontSee('ما الذي ننصحك بالتركيز عليه؟')->assertDontSee('القيادة التحويلية المتقدمة')->assertDontSee('رسالتنا لك');
+
+        // أقل اختيار في كل العبارات (0 درجة): المستوى المنخفض جدًا
+        $lowest = $data->questions->mapWithKeys(fn ($q) => [$q->id => collect($q->options)->sortBy('score_value')->first()->id])->all();
+        $this->actingAs($user)->postJson(route('keys.results.store'), ['answers' => $lowest])->assertOk();
+        $this->actingAs($user)->get(route('keys.result'))->assertOk()->assertSee('منخفض جدًا وفق معايير التصنيف')->assertDontSee('حضورًا مرتفعًا جدًا');
+
+        // النص محفوظ في قاعدة البيانات: تعديله بيظهر فوراً
+        \App\Models\ResultLevel::where('assessment_id', $data->assessment->id)->whereNull('dimension_id')->where('code', 'level_1')
+            ->update(['description_ar' => "نص معدّل من الأدمن
+فقرة تانية"]);
+        $this->actingAs($user)->get(route('keys.result'))->assertSee('نص معدّل من الأدمن')->assertSee('فقرة تانية');
     }
 }

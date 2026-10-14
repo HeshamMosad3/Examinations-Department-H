@@ -103,7 +103,13 @@ function initResult() {
 
   const analysisText = document.getElementById('analysis-text');
   if (analysisText) {
-    analysisText.textContent = `${cms('wheel_result.analysis.part_1', 'تشير نتيجتك إلى توازن بنسبة')} ${overallScore}% ${cms('wheel_result.analysis.part_2', 'في حياتك بشكل عام. وهناك بعض الجوانب التي تحتاج إلى مزيد من الاهتمام خاصة الجانب')} ${lowest.label}${cms('wheel_result.analysis.part_3', '، بينما تتميز بقوة في الجانب')} ${highest.label}.`;
+    // نص مستوى النتيجة الكلية من قاعدة البيانات (بيتعدل من لوحة الإدارة)، ولو مفيش مستوى مناسب بنرجع للجملة العامة
+    let levels = [];
+    try { levels = JSON.parse(analysisText.dataset.levels || '[]'); } catch (e) { levels = []; }
+    const level = levels.find((l) => overallScore >= l.min && overallScore <= l.max);
+    if (level) {
+      analysisText.textContent = level.text;
+    } else analysisText.textContent = `${cms('wheel_result.analysis.part_1', 'تشير نتيجتك إلى توازن بنسبة')} ${overallScore}% ${cms('wheel_result.analysis.part_2', 'في حياتك بشكل عام. وهناك بعض الجوانب التي تحتاج إلى مزيد من الاهتمام خاصة الجانب')} ${lowest.label}${cms('wheel_result.analysis.part_3', '، بينما تتميز بقوة في الجانب')} ${highest.label}.`;
   }
 }
 

@@ -237,10 +237,10 @@ class ProfileTest extends TestCase
 
         foreach ([$this->quickUser(), $this->completeUser()] as $i => $user) {
             $this->actingAs($user)->postJson(route('keys.results.store'), ['answers' => $answers])->assertOk();
-            $page = $this->get(route('keys.result'))->assertOk()->assertSee('مفتاح البصيرة');
+            $page = $this->get(route('keys.details'))->assertOk()->assertSee('البصيرة (K1)', false);
 
             if ($i === 0) {
-                $page->assertSee('data-profile-gate', false)->assertSee(route('profile.edit', ['next' => '/personality-keys-result.html']), false);
+                $page->assertSee('data-profile-gate', false)->assertSee(route('profile.edit', ['next' => '/personality-keys-details.html']), false);
             } else {
                 $page->assertDontSee('data-profile-gate', false);
             }

@@ -167,7 +167,7 @@
                   <span class="whitespace-nowrap">{{ cms('wheel_result.summary.analysis_badge', 'تحليل ذكي') }}</span>
                 </span>
               </div>
-              <p id="analysis-text" class="w-full lg:max-w-[455px] text-[#565656] text-[11px] lg:text-[20px] font-medium leading-[17.88px] lg:leading-[1.5] text-right">
+              <p id="analysis-text" data-levels="{{ json_encode($overallLevels, JSON_UNESCAPED_UNICODE) }}" class="w-full lg:max-w-[455px] text-[#565656] text-[11px] lg:text-[20px] font-medium leading-[17.88px] lg:leading-[1.5] text-right">
                 جاري تحليل النتيجة...
               </p>
             </div>

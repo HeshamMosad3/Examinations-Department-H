@@ -23,11 +23,13 @@ Route::get('/perceptual-test.html', [LandingController::class, 'perceptualTest']
 Route::get('/perceptual-result.html', [LandingController::class, 'perceptualResult'])->middleware(['auth', 'profile.complete'])->name('perceptual.result');
 
 // مقياس مفاتيح الشخصية السبعة: الصفحة نفسها للمسجلين بس (الزائر بيروح لتسجيل الدخول ويرجع لها)، والنتيجة بتتحفظ للمستخدم
+Route::view('/personality-keys.html', 'landing.personality-keys-explore')->name('keys.explore');
 Route::get('/personality-keys-test.html', [PersonalityKeysController::class, 'test'])->name('keys.test');
 
 Route::middleware('auth')->group(function () {
     Route::post('/personality-keys/results', [PersonalityKeysController::class, 'store'])->middleware('throttle:20,1')->name('keys.results.store');
     Route::get('/personality-keys-result.html', [PersonalityKeysController::class, 'result'])->name('keys.result');
+    Route::get('/personality-keys-details.html', [PersonalityKeysController::class, 'details'])->name('keys.details');
     // التقرير المفصّل: بعد اكتمال الملف الشخصي بس
     Route::get('/life-wheel-details.html', [LifeWheelController::class, 'details'])->middleware('profile.complete')->name('life-wheel.details');
     Route::post('/life-wheel/results', [LifeWheelController::class, 'store'])->middleware('throttle:20,1')->name('life-wheel.results.store');

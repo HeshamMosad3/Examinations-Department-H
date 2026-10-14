@@ -153,6 +153,7 @@
                                 <textarea name="{{ $field }}_raw" rows="4" class="form-control"></textarea>
                             </div>
                         @endforeach
+                        <div class="col-12"><label class="form-label">رسالتنا لك <span class="text-muted small">(نص ختامي، بيظهر في نتيجة المقياس كله)</span></label><textarea name="remember_ar" rows="2" class="form-control"></textarea></div>
                     @endif
 
                     <div class="col-12"><hr class="my-1"></div>

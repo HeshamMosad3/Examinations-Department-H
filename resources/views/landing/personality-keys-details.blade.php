@@ -1,0 +1,109 @@
+@php
+  $img = '/landing/images/keys-details';
+  // ألوان كل مفتاح (Figma: تفاصيل الجوانب — ديسكتوب #3551:8587 / موبايل #3551:9670)
+  $themes = [
+    'K1' => ['accent' => '#204a7a', 'outer' => '#95b2d4', 'name' => '#204a7a', 'chipBg' => '#ecf4fe', 'chipBd' => '#bbd4f0', 'subChipBd' => '#bbd4f0', 'chipTx' => '#204a7a', 'subBg' => '#f5f8fc', 'subBd' => '#cddded', 'badgeBg' => '#e0eaf5', 'badgeBd' => '#b5cce6', 'track' => 'rgba(226,232,240,0.8)', 'fill' => '#204a7a'],
+    'K2' => ['accent' => '#64748b', 'outer' => '#cecfd1', 'name' => '#465770', 'chipBg' => '#fbfbfb', 'chipBd' => '#bbc6d6', 'subChipBd' => '#bbc6d6', 'chipTx' => '#465770', 'subBg' => '#fbfdff', 'subBd' => '#c2c6cb', 'badgeBg' => '#fbfbfb', 'badgeBd' => '#bbc6d6', 'track' => '#e7edf3', 'fill' => '#465770'],
+    'K3' => ['accent' => '#5fae7d', 'outer' => '#cdebd8', 'name' => '#227f45', 'chipBg' => '#f6fff9', 'chipBd' => '#9be1b5', 'subChipBd' => '#9be1b5', 'chipTx' => '#227f45', 'subBg' => '#f7fffa', 'subBd' => '#b2e8c7', 'badgeBg' => '#f6fff9', 'badgeBd' => '#9be1b5', 'track' => '#d7e5dc', 'fill' => '#227f45'],
+    'K4' => ['accent' => '#735297', 'outer' => '#e7d5fa', 'name' => '#5d3589', 'chipBg' => '#fcf9ff', 'chipBd' => '#cbb3e5', 'subChipBd' => '#cbb3e5', 'chipTx' => '#5d3589', 'subBg' => '#f9f6fb', 'subBd' => '#d2bfe8', 'badgeBg' => '#fcf9ff', 'badgeBd' => '#cbb3e5', 'track' => '#d8c9e7', 'fill' => '#5d3589'],
+    'K5' => ['accent' => '#ccab3e', 'outer' => '#f0e2c3', 'name' => '#b89336', 'chipBg' => '#fffcf5', 'chipBd' => '#fbeecf', 'subChipBd' => '#f2e0b5', 'chipTx' => '#b89336', 'subBg' => '#fffdf9', 'subBd' => '#f3e4b9', 'badgeBg' => '#fffcf5', 'badgeBd' => '#f2e0b5', 'track' => '#f1eed7', 'fill' => '#b89336'],
+    'K6' => ['accent' => '#b35769', 'outer' => '#fbd1d9', 'name' => '#b35769', 'chipBg' => '#fff5f7', 'chipBd' => 'rgba(238,204,187,0.86)', 'subChipBd' => '#ecbdc6', 'chipTx' => '#b35769', 'subBg' => '#fffafb', 'subBd' => '#f2cad2', 'badgeBg' => '#fff5f7', 'badgeBd' => '#ecbdc6', 'track' => '#ebcbd1', 'fill' => '#b35769'],
+    'K7' => ['accent' => '#8640c9', 'outer' => '#dbc8ed', 'name' => '#752fb7', 'chipBg' => '#f8f2ff', 'chipBd' => '#c59ceb', 'subChipBd' => '#c59ceb', 'chipTx' => '#752fb7', 'subBg' => '#fcfaff', 'subBd' => '#d2bfe8', 'badgeBg' => '#f8f2ff', 'badgeBd' => '#c59ceb', 'track' => '#e4dbee', 'fill' => '#752fb7'],
+  ];
+  $themeOf = fn ($key) => $themes[$key->code] ?? $themes['K1'];
+  // ديسكتوب: 3 أعمدة مستقلة (المفتاح رقم i في العمود i % 3 من اليمين)، وكل عمود بيطول لوحده لما الكروت تتفتح
+  $columns = [[], [], []];
+  foreach ($keys as $i => $key) { $columns[$i % 3][] = $key; }
+@endphp
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ cms('keys_details.seo.title', 'تفاصيل مفاتيح الشخصية السبعة | دار الرؤى للتدريب') }}</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#204A7A" />
+  <link rel="icon" type="image/png" href="/landing/images/logo.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=El+Messiri:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    @media print {
+      .kd-no-print { display: none !important; }
+      .kd-list { display: flex !important; }
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+
+  @include('landing.partials.cms-script'){{ (clone app(\Illuminate\Foundation\Vite::class))->useHotFile(public_path('landing.hot'))->useBuildDirectory('landing/build')->withEntryPoints(['resources/landing/style.css', 'resources/landing/js/personalityKeysDetails.js']) }}
+</head>
+<body class="bg-brand-bg text-[#262626] min-h-screen font-cairo antialiased selection:bg-brand-primary selection:text-white relative page-wide-header">
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:right-4 focus:z-[999] focus:px-5 focus:py-3 focus:bg-brand-primary focus:text-white focus:rounded-xl focus:shadow-xl focus:outline-none">تخطي إلى المحتوى</a>
+
+  @include('landing.partials.navbar')
+
+  <!-- Figma: Desktop #3551:8587 / Mobile #3551:9670 (الديسكتوب من 1280 وطالع) -->
+  <main id="main-content" class="w-full max-w-[393px] min-[1280px]:max-w-[1243px] mx-auto px-4 min-[1280px]:px-0 pt-[16px] min-[1280px]:pt-[48px] pb-[39px] md:pb-[13px] min-[1280px]:pb-[77px] font-messiri">
+
+    <!-- Breadcrumb (ديسكتوب بس) -->
+    <nav class="hidden min-[1280px]:flex items-center h-[32px] mb-[64px] text-[21px] leading-[1.5]" aria-label="مسار التنقل">
+      @foreach ([[cms('keys_details.page.breadcrumb_home', 'الرئيسية'), route('home')], [cms('keys_details.page.breadcrumb_test', 'اختبار مفاتيح الشخصية السبعة'), route('keys.test')], [cms('keys_details.page.breadcrumb_result', 'نتيجة التقييم'), route('keys.result')]] as [$label, $href])
+        <span class="flex items-center gap-[4px] pr-[4px]">
+          <a href="{{ $href }}" class="text-[#6f6f6f] hover:text-brand-primary transition-colors">{{ $label }}</a>
+          <i class="fa-solid fa-chevron-left text-[12px] text-[#6f6f6f] mx-[4px]" aria-hidden="true"></i>
+        </span>
+      @endforeach
+      <span class="text-[#204a7a] pr-[4px]">{{ cms('keys_details.page.title', 'تفاصيل المفاتيح') }}</span>
+    </nav>
+
+    <h1 class="text-center text-[#204a7a] font-bold min-[1280px]:font-semibold text-[21px] leading-[28px] tracking-[-0.5px] min-[1280px]:tracking-normal min-[1280px]:text-[36px] min-[1280px]:leading-[1.5] min-[1280px]:h-[70px] min-[1280px]:flex min-[1280px]:items-center min-[1280px]:justify-center mb-[32px] min-[1280px]:mb-[64px]">{{ cms('keys_details.page.title', 'تفاصيل المفاتيح') }}</h1>
+
+    @unless ($profileComplete)
+      <div data-profile-gate class="kd-no-print mb-6 min-[1280px]:mb-8 flex flex-col gap-4 rounded-[16px] border border-[#acc7e6] bg-[#eef4fb] p-5 min-[1280px]:flex-row min-[1280px]:items-center min-[1280px]:justify-between min-[1280px]:p-6">
+        <div class="flex items-start gap-3">
+          <span class="flex size-[40px] shrink-0 items-center justify-center rounded-[12px] bg-[#204a7a] text-white" aria-hidden="true"><i class="fa-solid fa-lock text-[16px]"></i></span>
+          <div>
+            <h2 class="font-semibold text-[16px] min-[1280px]:text-[19px] text-[#204a7a]">{{ cms('keys_details.gate.title', 'أكمل ملفك الشخصي لعرض التقرير التفصيلي') }}</h2>
+            <p class="mt-1 font-medium min-[1280px]:font-normal text-[13px] min-[1280px]:text-[16px] leading-[1.7] text-[#565656]">{{ cms('keys_details.gate.text', 'درجاتك ظاهرة أمامك، ومستوى كل مفتاح وتفسيره يظهر بعد اكتمال بياناتك.') }}</p>
+          </div>
+        </div>
+        <a href="{{ route('profile.edit', ['next' => '/personality-keys-details.html']) }}" data-profile-gate-link class="flex h-[45px] shrink-0 items-center justify-center rounded-[10px] bg-[#204a7a] px-6 font-semibold text-[15px] min-[1280px]:text-[17px] text-white hover:bg-[#102744] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#204a7a] focus-visible:ring-offset-2">{{ cms('keys_details.gate.button', 'إكمال الملف الشخصي') }}</a>
+      </div>
+    @endunless
+
+    <!-- الكروت: ديسكتوب 3 أعمدة / موبايل عمود واحد -->
+    <section aria-label="{{ cms('keys_details.page.title', 'تفاصيل المفاتيح') }}">
+      <div class="hidden min-[1280px]:flex items-start gap-[14px]">
+        @foreach ($columns as $column)
+          <div class="flex-1 min-w-0 flex flex-col gap-[32px]">
+            @foreach ($column as $key)
+              @include('landing.partials.keys-detail-card', ['key' => $key, 't' => $themeOf($key), 'v' => 'd', 'showDetails' => $profileComplete])
+            @endforeach
+          </div>
+        @endforeach
+      </div>
+      <div class="min-[1280px]:hidden flex flex-col gap-[24px]">
+        @foreach ($keys as $key)
+          @include('landing.partials.keys-detail-card', ['key' => $key, 't' => $themeOf($key), 'v' => 'm', 'showDetails' => $profileComplete])
+        @endforeach
+      </div>
+    </section>
+
+    <!-- الأزرار -->
+    <div class="kd-no-print mt-[48px] min-[1280px]:mt-[128px] flex items-center justify-between min-[1280px]:justify-center gap-[20px]">
+      <button type="button" onclick="window.print()" class="w-[170px] min-[1280px]:w-[312px] h-[45px] min-[1280px]:h-[60px] rounded-[10px] min-[1280px]:rounded-[15px] border border-[#204a7a] text-[#204a7a] font-semibold text-[14px] min-[1280px]:text-[21px] leading-[1.5] flex items-center justify-center gap-[8px] hover:bg-[#204a7a] hover:text-white transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#204a7a] focus-visible:ring-offset-2 group">
+        <span>{{ cms('keys_details.page.download', 'تحميل التقرير') }}</span>
+        <img src="{{ $img }}/download.svg" alt="" class="w-[18px] h-[16px] min-[1280px]:w-[22px] min-[1280px]:h-[20px] group-hover:brightness-0 group-hover:invert transition" />
+      </button>
+      <a href="{{ route('keys.test') }}" class="w-[170px] min-[1280px]:w-[312px] h-[45px] min-[1280px]:h-[60px] rounded-[10px] min-[1280px]:rounded-[15px] bg-[#204a7a] hover:bg-[#102744] text-[#f6f6f6] font-semibold text-[14px] min-[1280px]:text-[21px] leading-[1.5] flex items-center justify-center gap-[8px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#204a7a] focus-visible:ring-offset-2">
+        <span>{{ cms('keys_details.page.retake', 'اعاده التقييم') }}</span>
+        <img src="{{ $img }}/refresh.svg" alt="" class="size-[12px] min-[1280px]:w-[27px] min-[1280px]:h-[24px]" />
+      </a>
+    </div>
+  </main>
+
+  @include('landing.partials.footer')
+</body>
+</html>

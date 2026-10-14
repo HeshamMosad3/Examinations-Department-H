@@ -177,7 +177,7 @@
         </a>
 
         <!-- Explore Button -->
-        <a href="{{ cms_url('home.keys.explore_url', '#personality-keys') }}" class="group flex-1 h-[40px] sm:h-[56px] border-2 border-brand-primary text-brand-primary rounded-[10px] sm:rounded-[12px] font-semibold text-[13.5px] sm:text-[17px] flex items-center justify-center hover:bg-brand-primary hover:text-white transition-all duration-200 shadow-sm hover:shadow-md cursor-pointer whitespace-nowrap font-messiri">
+        <a href="{{ cms_url('home.keys.explore_url', '/personality-keys.html') }}" class="group flex-1 h-[40px] sm:h-[56px] border-2 border-brand-primary text-brand-primary rounded-[10px] sm:rounded-[12px] font-semibold text-[13.5px] sm:text-[17px] flex items-center justify-center hover:bg-brand-primary hover:text-white transition-all duration-200 shadow-sm hover:shadow-md cursor-pointer whitespace-nowrap font-messiri">
           <span class="leading-none">{{ cms('home.keys.explore_button', 'اكتشف سمات الشخصية') }}</span>
         </a>
       </div>
