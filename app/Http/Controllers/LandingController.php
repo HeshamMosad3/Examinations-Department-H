@@ -116,6 +116,7 @@ class LandingController extends Controller
             'styles' => $styles,
             'reportCode' => $data->assessment->report_code,
             'beneficiary' => auth()->user()?->name ?? 'زائر',
+            'pdf' => $request->boolean('pdf'),
         ]);
     }
 

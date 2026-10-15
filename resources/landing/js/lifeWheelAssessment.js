@@ -45,7 +45,7 @@ function renderStepper() {
         return `
           <button type="button" class="lw-step-btn flex flex-col items-center gap-1 md:gap-2 flex-1 min-w-0 max-w-[42px] sm:max-w-[48px] md:max-w-none transition-transform cursor-pointer" data-index="${i}" ${i > currentCategoryIndex ? 'disabled' : ''} aria-label="${cat.label} (الخطوة ${i + 1})">
             <div class="relative flex items-center justify-center rounded-full w-[26px] h-[26px] min-[360px]:w-[28px] min-[360px]:h-[28px] md:w-[54px] md:h-[54px] border-[0.6px] md:border-[1.6px] ${circleClass} transition-colors z-10 shadow-sm">
-              <span class="lw-icon-mask w-[13px] h-[13px] min-[360px]:w-[14px] min-[360px]:h-[14px] md:w-[22px] md:h-[22px] ${iconColorClass}" style="--icon-url:url('${cat.solidIconUrl}')"></span>
+              <span class="lw-icon-mask w-[13px] h-[13px] min-[360px]:w-[14px] min-[360px]:h-[14px] md:w-[22px] md:h-[22px] ${iconColorClass}" style="--icon-url:url('${cat.iconUrl || cat.solidIconUrl}')"></span>
             </div>
             <div class="flex flex-col items-center leading-tight w-full pointer-events-none">
               <span class="font-messiri text-[8px] min-[360px]:text-[9px] md:text-[14px] ${labelColorClass}">${i + 1}</span>
@@ -165,7 +165,7 @@ function renderCategoryHeader() {
       <span class="font-messiri font-semibold text-[#ce9d42] text-[13px] sm:text-[14px] md:text-[18px] whitespace-nowrap">${cms('wheel_test.js.counter_aspect', 'الجانب')} ${currentCategoryIndex + 1} ${cms('wheel_test.js.counter_of', 'من')} ${TOTAL_CATEGORIES}</span>
       <div class="flex items-center gap-2.5 md:gap-3">
         <div class="w-[38px] h-[38px] md:w-[54px] md:h-[54px] rounded-full bg-brand-primary flex items-center justify-center shrink-0 shadow-sm">
-          <span class="lw-icon-mask w-[18px] h-[18px] md:w-[24px] md:h-[24px] text-white" style="--icon-url:url('${cat.solidIconUrl}')"></span>
+          <span class="lw-icon-mask w-[18px] h-[18px] md:w-[24px] md:h-[24px] text-white" style="--icon-url:url('${cat.iconUrl || cat.solidIconUrl}')"></span>
         </div>
         <h2 class="font-messiri font-bold text-brand-primary text-[20px] sm:text-[22px] md:text-[28px]">${titleLabel}</h2>
       </div>

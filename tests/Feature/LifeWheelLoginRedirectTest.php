@@ -42,14 +42,6 @@ class LifeWheelLoginRedirectTest extends TestCase
         $this->post(route('login.post'), $this->credentials())->assertRedirect(route('life-wheel.details'));
     }
 
-    public function test_opening_the_details_page_as_a_guest_returns_to_it_after_login(): void
-    {
-        $this->makeUser();
-
-        $this->get(route('life-wheel.details'))->assertRedirect(route('login'));
-        $this->post(route('login.post'), $this->credentials())->assertRedirect(route('life-wheel.details'));
-    }
-
     public function test_a_failed_login_keeps_the_typed_email(): void
     {
         $this->makeUser();
@@ -188,8 +180,8 @@ class LifeWheelLoginRedirectTest extends TestCase
     {
         $this->makeUser('admin');
 
-        $this->get(route('admin.users.index'))->assertRedirect(route('login'));
-        $this->post(route('login.post'), $this->credentials('admin'))->assertRedirect(route('admin.users.index'));
+        $this->get(route('admin.users.index'))->assertUnauthorized();
+        $this->post(route('login.post'), $this->credentials('admin') + ['next' => '/admin/users'])->assertRedirect(route('admin.users.index'));
     }
 
     public function test_signed_in_users_are_sent_away_from_the_auth_pages(): void

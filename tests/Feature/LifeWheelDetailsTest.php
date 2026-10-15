@@ -41,7 +41,7 @@ class LifeWheelDetailsTest extends TestCase
 
     public function test_guests_cannot_open_the_details_page_or_save_results(): void
     {
-        $this->get(route('life-wheel.details'))->assertRedirect(route('login'));
+        $this->get(route('life-wheel.details'))->assertUnauthorized();
         $this->postJson(route('life-wheel.results.store'), ['answers' => $this->uniformAnswers(2)])->assertUnauthorized();
     }
 

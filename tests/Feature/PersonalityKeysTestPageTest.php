@@ -121,7 +121,7 @@ class PersonalityKeysTestPageTest extends TestCase
         $this->seed(SevenPersonalityKeysSeeder::class);
 
         $this->postJson(route('keys.results.store'), ['answers' => []])->assertUnauthorized();
-        $this->get(route('keys.result'))->assertRedirect(route('login'));
+        $this->get(route('keys.result'))->assertUnauthorized();
         $this->actingAs($this->user())->get(route('keys.result'))->assertRedirect(route('keys.test'));
     }
 

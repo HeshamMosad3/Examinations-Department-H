@@ -30,8 +30,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/personality-keys/results', [PersonalityKeysController::class, 'store'])->middleware('throttle:20,1')->name('keys.results.store');
     Route::get('/personality-keys-result.html', [PersonalityKeysController::class, 'result'])->name('keys.result');
     Route::get('/personality-keys-details.html', [PersonalityKeysController::class, 'details'])->name('keys.details');
+    // تقرير الـ PDF (ملخص + تقرير كامل): بعد اكتمال الملف الشخصي لأنه بيحمل بيانات المستخدم والتفاصيل
+    Route::get('/personality-keys-report.html', [PersonalityKeysController::class, 'report'])->middleware('profile.complete')->name('keys.report');
     // التقرير المفصّل: بعد اكتمال الملف الشخصي بس
     Route::get('/life-wheel-details.html', [LifeWheelController::class, 'details'])->middleware('profile.complete')->name('life-wheel.details');
+    // تقرير الـPDF (صفحة واحدة طويلة)
+    Route::get('/life-wheel-report.html', [LifeWheelController::class, 'report'])->middleware('profile.complete')->name('life-wheel.report');
     Route::post('/life-wheel/results', [LifeWheelController::class, 'store'])->middleware('throttle:20,1')->name('life-wheel.results.store');
 });
 

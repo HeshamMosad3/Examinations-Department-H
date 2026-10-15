@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AuthController extends Controller
 {
@@ -408,12 +410,47 @@ class AuthController extends Controller
         return view('auth.reset-success');
     }
 
+    /**
+     * Deliberate logout: from a page that needs an account the user goes to the login form;
+     * from a public page they simply stay where they are.
+     */
     public function logout(Request $request): RedirectResponse
     {
+        $previous = $this->previousPageOnThisSite($request);
+
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('home');
+        if ($previous === null) {
+            return redirect()->route('home');
+        }
+
+        return $this->pageRequiresLogin($previous) ? redirect()->route('login') : redirect()->to($previous);
+    }
+
+    /** The page the logout button was clicked on (Referer), only if it belongs to this site */
+    private function previousPageOnThisSite(Request $request): ?string
+    {
+        $previous = url()->previous(false);
+        if (! is_string($previous) || $previous === '' || parse_url($previous, PHP_URL_HOST) !== $request->getHost()) {
+            return null;
+        }
+
+        return $previous;
+    }
+
+    /** True when the URL belongs to a route behind the 'auth' middleware (profile, results, admin...) */
+    private function pageRequiresLogin(string $url): bool
+    {
+        try {
+            $route = app('router')->getRoutes()->match(Request::create($url));
+        } catch (NotFoundHttpException|MethodNotAllowedHttpException) {
+            return false;
+        }
+
+        return collect($route->gatherMiddleware())->contains(
+            fn ($middleware) => is_string($middleware) && ($middleware === 'auth' || str_starts_with($middleware, 'auth:'))
+        );
     }
 }

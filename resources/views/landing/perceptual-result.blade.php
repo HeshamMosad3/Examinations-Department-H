@@ -1,4 +1,6 @@
 @php
+  // وضع الـPDF (?pdf=1): نفس الصفحة بعرض 1440px كصفحة واحدة طويلة من غير أزرار، والنصوص مفتوحة كاملة
+  $pdf = $pdf ?? false;
   $img = '/landing/images/perceptual-report';
   $res = $img . '/result';
   $top = $styles->first();
@@ -52,7 +54,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=El+Messiri:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+  @unless ($pdf)
   {{ (clone app(\Illuminate\Foundation\Vite::class))->useHotFile(public_path('landing.hot'))->useBuildDirectory('landing/build')->withEntryPoints(['resources/landing/style.css']) }}
+  @endunless
   <style>
     @media print {
       .pr-no-print { display: none !important; }
@@ -60,11 +64,17 @@
       .pr-clamp { -webkit-line-clamp: unset !important; display: block !important; }
     }
   </style>
+  @if ($pdf)
+    @include('landing.partials.pdf-head')
+  @endif
 </head>
 <!-- Figma: Desktop #3509:8526 (+ عرض المزيد #3509:8442 / #3509:8403 / #3509:8481) / Mobile #3509:6488 -->
-<body class="pt-0 bg-white lg:bg-[#f6f6f6] text-[#262626] min-h-screen font-messiri antialiased">
+<body class="pt-0 bg-white lg:bg-[#f6f6f6] text-[#262626] min-h-screen font-messiri antialiased {{ $pdf ? 'pdf-mode' : '' }}">
+@if ($pdf)
+  @include('landing.partials.pdf-bar', ['back' => request()->fullUrlWithoutQuery(['pdf', 'print']), 'backLabel' => 'رجوع للنتيجة'])
+@endif
 
-<main class="w-full max-w-[393px] sm:max-w-[720px] lg:max-w-[1440px] mx-auto px-4 lg:px-[100px] pb-[48px] lg:pb-[112px] flex flex-col items-center gap-6 lg:gap-16">
+<main id="pdf-root" class="w-full max-w-[393px] sm:max-w-[720px] lg:max-w-[1440px] mx-auto px-4 lg:px-[100px] pb-[48px] lg:pb-[112px] flex flex-col items-center gap-6 lg:gap-16">
 
   <!-- Logo -->
   <a href="/" class="bg-[#204a7a] w-[77px] h-[79px] lg:w-[156px] lg:h-[138px] flex items-center justify-center shrink-0 px-[14px] py-[29px] lg:p-[14px]" aria-label="دار الرؤى للتدريب - الرئيسية">
@@ -219,10 +229,10 @@
 
     <!-- Actions (Figma #3509:8665 / #3509:6635) -->
     <div class="pr-no-print w-full max-w-[346px] lg:max-w-none flex items-center justify-between lg:justify-center gap-3 lg:gap-[75px]">
-      <button type="button" onclick="window.print()" class="w-[165px] lg:w-[290px] h-[45px] lg:h-[60px] rounded-[10px] lg:rounded-[15px] bg-[#204a7a] text-[#e9edf2] font-semibold text-[14px] lg:text-[21px] leading-[1.5] flex items-center justify-center gap-2 hover:bg-[#102744] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#204a7a] focus-visible:ring-offset-2 cursor-pointer">
+      <a href="{{ request()->fullUrlWithQuery(['pdf' => 1, 'print' => 1]) }}" target="_blank" rel="noopener" class="w-[165px] lg:w-[290px] h-[45px] lg:h-[60px] rounded-[10px] lg:rounded-[15px] bg-[#204a7a] text-[#e9edf2] font-semibold text-[14px] lg:text-[21px] leading-[1.5] flex items-center justify-center gap-2 hover:bg-[#102744] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#204a7a] focus-visible:ring-offset-2 cursor-pointer">
         <img src="{{ $img }}/download.svg" alt="" class="w-[18px] h-[16px] lg:w-[22px] lg:h-[20px]" />
         <span>{{ cms('perceptual_result.sections.download_button', 'تحميل التقرير') }}</span>
-      </button>
+      </a>
       <a href="/" class="w-[165px] lg:w-[290px] h-[45px] lg:h-[60px] rounded-[10px] lg:rounded-[15px] border border-[#204a7a] text-[#204a7a] font-semibold text-[14px] lg:text-[21px] leading-[1.5] flex items-center justify-center gap-2 hover:bg-[#e9edf2] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#204a7a] focus-visible:ring-offset-2">
         <img src="{{ $img }}/home.svg" alt="" class="size-[18px] lg:size-[24px]" />
         <span>{{ cms('perceptual_result.sections.home_button', 'العودة إلى الرئيسية') }}</span>
@@ -247,5 +257,8 @@
     });
   });
 </script>
+@if ($pdf)
+  @include('landing.partials.pdf-body')
+@endif
 </body>
 </html>

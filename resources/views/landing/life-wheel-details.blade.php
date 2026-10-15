@@ -103,7 +103,7 @@
           <img alt="" class="absolute block inset-0 max-w-none size-full" src="{{ $d }}/restart-icon.svg" />
         </span>
       </a>
-      <button type="button" class="border border-[#204a7a] border-solid cursor-pointer flex h-[45px] md:h-[60px] items-center justify-center px-[12px] md:px-[24px] py-[12px] relative rounded-[10px] md:rounded-[15px] shrink-0 flex-1 max-w-[170px] md:flex-none md:max-w-none md:w-[312px]">
+      <a href="{{ route('life-wheel.report', ['print' => 1]) }}" target="_blank" rel="noopener" class="border border-[#204a7a] border-solid cursor-pointer flex h-[45px] md:h-[60px] items-center justify-center px-[12px] md:px-[24px] py-[12px] relative rounded-[10px] md:rounded-[15px] shrink-0 flex-1 max-w-[170px] md:flex-none md:max-w-none md:w-[312px]">
         <span class="flex gap-[8px] items-center relative shrink-0">
           <span class="flex items-center relative shrink-0">
             <span class="[word-break:break-word] font-messiri font-semibold leading-[1.5] relative top-px shrink-0 text-[#204a7a] text-[14px] md:text-[21px] whitespace-nowrap" dir="auto">{{ cms('wheel_details.page.download_button', 'تحميل التقرير') }}</span>
@@ -112,7 +112,7 @@
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="{{ $d }}/download-icon.svg" />
           </span>
         </span>
-      </button>
+      </a>
     </div>
     @endif
   </main>

@@ -42,8 +42,8 @@ class ProfileTest extends TestCase
 
     public function test_guests_are_sent_to_sign_in_and_admins_to_their_dashboard(): void
     {
-        $this->get(route('profile.edit'))->assertRedirect(route('login'));
-        $this->put(route('profile.update'), $this->payload())->assertRedirect(route('login'));
+        $this->get(route('profile.edit'))->assertUnauthorized();
+        $this->put(route('profile.update'), $this->payload())->assertUnauthorized();
 
         $admin = User::create(['name' => 'Admin', 'email' => 'admin@example.test', 'password' => bcrypt('password'), 'role' => 'admin']);
         $this->actingAs($admin)->get(route('profile.edit'))->assertRedirect(route('admin.dashboard'));
@@ -207,7 +207,7 @@ class ProfileTest extends TestCase
 
     public function test_the_perceptual_report_needs_a_signed_in_user_with_a_complete_profile(): void
     {
-        $this->get(route('perceptual.result'))->assertRedirect(route('login'));
+        $this->get(route('perceptual.result'))->assertUnauthorized();
         $this->actingAs($this->quickUser())->get(route('perceptual.result', ['answers' => '0,1']))->assertRedirect(route('profile.edit'));
     }
 

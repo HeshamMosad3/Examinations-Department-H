@@ -16,6 +16,7 @@ export const CATEGORIES = (typeof window !== 'undefined' && window.WHEEL_OF_LIFE
     key: 'spiritual',
     label: 'الجانب الروحاني',
     iconUrl: '/landing/icons/wheel_of_life_line/mosque.svg',
+    solidIconUrl: '/landing/icons/wheel_of_life_line/mosque.svg',
     description: 'يقيس مدى التزام الفرد بالعبادات والممارسات الإيمانية، وانعكاس القيم الروحية على سلوكه بما يمنحه السكينة والاستقرار النفسي.',
     questions: [
       'أحرص على أداء الصلوات المفروضة في أوقاتها.',
@@ -34,6 +35,7 @@ export const CATEGORIES = (typeof window !== 'undefined' && window.WHEEL_OF_LIFE
     key: 'health',
     label: 'الجانب الصحي',
     iconUrl: '/landing/icons/wheel_of_life_line/heart-pulse.svg',
+    solidIconUrl: '/landing/icons/wheel_of_life_line/heart-pulse.svg',
     description: 'يقيس مدى تبني الفرد لعادات صحية متكاملة تشمل التغذية، النشاط البدني، كفاية النوم، والتدابير الوقائية لدعم العافية الجسدية.',
     questions: [
       'أحرص على تناول وجبات غذائية متوازنة في معظم أيام الأسبوع.',
@@ -52,6 +54,7 @@ export const CATEGORIES = (typeof window !== 'undefined' && window.WHEEL_OF_LIFE
     key: 'personal',
     label: 'الجانب الشخصي',
     iconUrl: '/landing/icons/wheel_of_life_line/user.svg',
+    solidIconUrl: '/landing/icons/wheel_of_life_line/user.svg',
     description: 'يقيس مستوى سعي الفرد للتعلم المستمر، وفاعليته في تنظيم وقته، ووضع الأهداف الشخصية والعمل على تحقيقها.',
     questions: [
       'أخصص وقتًا منتظمًا لتعلم مهارة أو معرفة جديدة.',
@@ -70,6 +73,7 @@ export const CATEGORIES = (typeof window !== 'undefined' && window.WHEEL_OF_LIFE
     key: 'family',
     label: 'الجانب العائلي',
     iconUrl: '/landing/icons/wheel_of_life_line/family.svg',
+    solidIconUrl: '/landing/icons/wheel_of_life_line/family.svg',
     description: 'يقيس جودة التواصل الأسري، ومستوى تحمل المسؤوليات، والدعم المتبادل، والقدرة على إدارة الخلافات العائلية بحوار وإيجابية.',
     questions: [
       'أحرص على التواصل المنتظم مع أفراد أسرتي.',
@@ -88,6 +92,7 @@ export const CATEGORIES = (typeof window !== 'undefined' && window.WHEEL_OF_LIFE
     key: 'social',
     label: 'الجانب الاجتماعي',
     iconUrl: '/landing/icons/wheel_of_life_line/users.svg',
+    solidIconUrl: '/landing/icons/wheel_of_life_line/users.svg',
     description: 'يقيس مدى اهتمام الفرد بصلة الأرحام وبناء علاقات إيجابية مع المحيط، والمشاركة الفاعلة في المناسبات والمبادرات المجتمعية.',
     questions: [
       'أحرص على التواصل مع الأقارب والأصدقاء بصورة منتظمة.',
@@ -106,6 +111,7 @@ export const CATEGORIES = (typeof window !== 'undefined' && window.WHEEL_OF_LIFE
     key: 'career',
     label: 'الجانب المهني',
     iconUrl: '/landing/icons/wheel_of_life_line/work.svg',
+    solidIconUrl: '/landing/icons/wheel_of_life_line/work.svg',
     description: 'يقيس انضباط الفرد والتزامه بأنظمة العمل، وجودة أدائه المهني، وسعيه لتطوير مهاراته وبناء علاقات عمل إيجابية.',
     questions: [
       'ألتزم بإنجاز مسؤولياتي المهنية في الوقت المحدد.',
@@ -124,6 +130,7 @@ export const CATEGORIES = (typeof window !== 'undefined' && window.WHEEL_OF_LIFE
     key: 'financial',
     label: 'الجانب المالي',
     iconUrl: '/landing/icons/wheel_of_life_line/coins.svg',
+    solidIconUrl: '/landing/icons/wheel_of_life_line/coins.svg',
     description: 'يقيس مدى كفاءة الفرد في التخطيط المالي، وإدارة الدخل والمصروفات، والقدرة على الادخار والاستثمار والوفاء بالالتزامات المالية.',
     questions: [
       'أضع خطة أو ميزانية تساعدني على تنظيم مصروفاتي.',
@@ -142,6 +149,7 @@ export const CATEGORIES = (typeof window !== 'undefined' && window.WHEEL_OF_LIFE
     key: 'leisure',
     label: 'الجانب الترفيهي',
     iconUrl: '/landing/icons/wheel_of_life_line/gamepad.svg',
+    solidIconUrl: '/landing/icons/wheel_of_life_line/gamepad.svg',
     description: 'يقيس قدرة الفرد على التوازن بين العمل والحياة، وممارسة الهوايات والأنشطة الترفيهية لتجديد الطاقة وتخفيف ضغوط الحياة.',
     questions: [
       'أخصص وقتًا منتظمًا للراحة بعيدًا عن مسؤوليات العمل أو الدراسة.',

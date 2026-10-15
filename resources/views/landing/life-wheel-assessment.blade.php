@@ -49,6 +49,13 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
+  <script>
+    window.WHEEL_OF_LIFE_DB = {!! json_encode($categories ?? []) !!};
+    @auth
+    window.LW_SAVE_URL = @json(route('life-wheel.results.store'));
+    @endauth
+  </script>
+
   @include('landing.partials.cms-script'){{ (clone app(\Illuminate\Foundation\Vite::class))->useHotFile(public_path('landing.hot'))->useBuildDirectory('landing/build')->withEntryPoints(['resources/landing/style.css', 'resources/landing/js/lifeWheelAssessment.js']) }}
 </head>
 <body class="bg-[#F8FAFC] text-brand-dark min-h-screen font-cairo antialiased selection:bg-brand-primary selection:text-white relative page-wide-header">
@@ -126,12 +133,6 @@
 
 
 
-<script>
-    window.WHEEL_OF_LIFE_DB = {!! json_encode($categories ?? []) !!};
-    @auth
-    window.LW_SAVE_URL = @json(route('life-wheel.results.store'));
-    @endauth
-</script>
 
 <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
 </body>

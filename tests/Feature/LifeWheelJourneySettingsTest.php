@@ -129,7 +129,7 @@ class LifeWheelJourneySettingsTest extends TestCase
 
     public function test_only_admins_can_change_the_settings(): void
     {
-        $this->put(route('admin.life-wheel-influence.journey'), $this->validPayload())->assertRedirect();
+        $this->put(route('admin.life-wheel-influence.journey'), $this->validPayload())->assertUnauthorized();
         $this->actingAs($this->user('user'))
             ->put(route('admin.life-wheel-influence.journey'), $this->validPayload());
 

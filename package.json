@@ -4,7 +4,9 @@
     "type": "module",
     "scripts": {
         "build": "vite build --config vite.landing.config.js",
-        "dev": "vite --config vite.landing.config.js"
+        "watch": "vite build --watch --config vite.landing.config.js",
+        "dev": "vite --config vite.landing.config.js",
+        "dev:all": "concurrently -k -n \"laravel,vite\" -c \"cyan,magenta\" \"php artisan serve\" \"npm run dev\""
     },
     "devDependencies": {
         "@tailwindcss/vite": "^4.0.0",

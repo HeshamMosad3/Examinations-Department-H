@@ -93,10 +93,10 @@
 
     <!-- الأزرار -->
     <div class="kd-no-print mt-[48px] min-[1280px]:mt-[128px] flex items-center justify-between min-[1280px]:justify-center gap-[20px]">
-      <button type="button" onclick="window.print()" class="w-[170px] min-[1280px]:w-[312px] h-[45px] min-[1280px]:h-[60px] rounded-[10px] min-[1280px]:rounded-[15px] border border-[#204a7a] text-[#204a7a] font-semibold text-[14px] min-[1280px]:text-[21px] leading-[1.5] flex items-center justify-center gap-[8px] hover:bg-[#204a7a] hover:text-white transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#204a7a] focus-visible:ring-offset-2 group">
+      <a href="{{ route('keys.report', ['print' => 1]) }}" target="_blank" rel="noopener" class="w-[170px] min-[1280px]:w-[312px] h-[45px] min-[1280px]:h-[60px] rounded-[10px] min-[1280px]:rounded-[15px] border border-[#204a7a] text-[#204a7a] font-semibold text-[14px] min-[1280px]:text-[21px] leading-[1.5] flex items-center justify-center gap-[8px] hover:bg-[#204a7a] hover:text-white transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#204a7a] focus-visible:ring-offset-2 group">
         <span>{{ cms('keys_details.page.download', 'تحميل التقرير') }}</span>
         <img src="{{ $img }}/download.svg" alt="" class="w-[18px] h-[16px] min-[1280px]:w-[22px] min-[1280px]:h-[20px] group-hover:brightness-0 group-hover:invert transition" />
-      </button>
+      </a>
       <a href="{{ route('keys.test') }}" class="w-[170px] min-[1280px]:w-[312px] h-[45px] min-[1280px]:h-[60px] rounded-[10px] min-[1280px]:rounded-[15px] bg-[#204a7a] hover:bg-[#102744] text-[#f6f6f6] font-semibold text-[14px] min-[1280px]:text-[21px] leading-[1.5] flex items-center justify-center gap-[8px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#204a7a] focus-visible:ring-offset-2">
         <span>{{ cms('keys_details.page.retake', 'اعاده التقييم') }}</span>
         <img src="{{ $img }}/refresh.svg" alt="" class="size-[12px] min-[1280px]:w-[27px] min-[1280px]:h-[24px]" />

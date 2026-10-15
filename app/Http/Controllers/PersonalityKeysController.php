@@ -86,25 +86,46 @@ class PersonalityKeysController extends Controller
             return $loaded;
         }
 
-        $keys = $loaded['keys'];
-        $overall = (int) round($keys->avg('percent'));
+        return view('landing.personality-keys-result', $this->summary($loaded));
+    }
 
-        // التفسير الإجمالي (ماذا تعني هذه النتيجة؟): مستوى المقياس كله اللي مجموع درجات المستخدم واقع في نطاقه، ومخزن في قاعدة البيانات
+    /**
+     * ملخص النتيجة (أبرز المفاتيح + التفسير الإجمالي) المشترك بين صفحة النتيجة وتقرير الـ PDF.
+     * التفسير الإجمالي: مستوى المقياس كله اللي مجموع درجات المستخدم واقع في نطاقه، ومخزن في قاعدة البيانات.
+     */
+    private function summary(array $loaded): array
+    {
+        $keys = $loaded['keys'];
+
         $overallLevel = \App\Models\ResultLevel::where('assessment_id', $loaded['assessmentId'])
             ->whereNull('dimension_id')
             ->where('min_score', '<=', $loaded['total'])
             ->where('max_score', '>=', $loaded['total'])
             ->first();
 
-        return view('landing.personality-keys-result', $loaded + [
+        return $loaded + [
             'overallLevel' => $overallLevel,
             'top' => $keys->first(),
             'next' => $keys->get(1),
             'lowest' => $keys->last(),
-            'overall' => $overall,
+            'overall' => (int) round($keys->avg('percent')),
             // عدد الأبعاد الفرعية اللي اتحسبت منها المفاتيح
             'subCount' => $keys->sum(fn ($key) => $key->subs->count()),
-        ]);
+        ];
+    }
+
+    /**
+     * تقرير الـ PDF (A4 أفقي): صفحة الملخص السريع ثم صفحة التقرير الكامل، بدون هيدر أو فوتر الموقع.
+     * بيتفتح من زرار "تحميل التقرير" وبيطبع نفسه (?print=1) فيحفظه المستخدم PDF من نافذة الطباعة.
+     */
+    public function report(Request $request): View|\Illuminate\Http\RedirectResponse
+    {
+        $loaded = $this->loadResult($request);
+        if ($loaded instanceof \Illuminate\Http\RedirectResponse) {
+            return $loaded;
+        }
+
+        return view('landing.personality-keys-report', $this->summary($loaded) + ['user' => $request->user()]);
     }
 
     /** تفاصيل المفاتيح: كارت لكل مفتاح بمستواه ومحاوره الفرعية */
@@ -164,6 +185,7 @@ class PersonalityKeysController extends Controller
             'title' => $data->assessment->title_ar,
             'assessmentId' => $data->assessment->id,
             'total' => (int) $attempt->total_score,
+            'completedAt' => $attempt->completed_at ?? $attempt->created_at ?? null,
             // مستوى كل مفتاح ونصه التفصيلي بيظهروا بعد اكتمال الملف الشخصي (الدرجات بتظهر للكل)
             'profileComplete' => app(ProfileForm::class)->isComplete($request->user()),
         ];

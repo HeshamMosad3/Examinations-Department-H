@@ -121,9 +121,9 @@ function renderDotContent(dotType, isOption = false) {
 }
 
 // Shared classes (Figma: mobile #3403:8558, desktop #3403:9849)
-const BTN_BASE = 'w-full md:max-w-[671px] h-[40px] md:h-[70px] rounded-[10px] md:rounded-[12px] bg-white text-[#193D66] font-bold font-messiri text-[14px] md:text-[20px] flex items-center justify-center gap-[8px] md:gap-[10px] transition-all duration-200';
+const BTN_BASE = 'w-full md:max-w-[671px] h-[40px] md:h-[70px] rounded-[10px] md:rounded-[12px] bg-[#FCD34D] text-[#132C49] font-bold font-messiri text-[14px] md:text-[20px] flex items-center justify-center gap-[8px] md:gap-[10px] transition-all duration-200';
 const BTN_DISABLED = `${BTN_BASE} opacity-50 cursor-not-allowed`;
-const BTN_ENABLED = `${BTN_BASE} cursor-pointer hover:bg-[#EEF2F7] shadow-[0px_4px_12px_rgba(0,0,0,0.16)]`;
+const BTN_ENABLED = `${BTN_BASE} cursor-pointer hover:bg-[#FBBF24] shadow-[0px_4px_12px_rgba(0,0,0,0.16)]`;
 const SELECTED_BADGE = '<span class="quiz-option-badge absolute top-[6px] left-[6px] md:top-[7px] md:left-[7px] w-[12px] h-[12px] md:w-[15px] md:h-[15px] rounded-full bg-[#4A7FC1] text-white flex items-center justify-center" aria-hidden="true"><i class="fa-solid fa-check text-[7px] md:text-[9px]"></i></span>';
 
 export function initQuiz(customQuestions = null) {

@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Assessment;
+use App\Models\Attempt;
+use App\Models\ResultLevel;
 use App\Services\LifeWheelService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -56,6 +60,63 @@ class LifeWheelController extends Controller
         return view('landing.life-wheel-details', [
             'aspects' => $aspects,
             'hasResult' => $result !== null,
+        ]);
+    }
+
+    /**
+     * تقرير الـPDF (صفحة واحدة طويلة): عجلة الحياة + أعلى/أقل جانب + التفسير الإجمالي + تفاصيل الجوانب الثمانية بأجزائها الفرعية.
+     * بيتفتح من "تحميل التقرير" (?print=1) وبيفتح نافذة الطباعة لحفظه PDF.
+     */
+    public function report(Request $request): View|RedirectResponse
+    {
+        $result = $this->lifeWheel->resultFor($request->user());
+        if (! $result) {
+            return redirect()->route('life-wheel.assessment');
+        }
+
+        $aspectsData = collect(require resource_path('data/life-wheel-aspects.php'))->keyBy('key');
+
+        // الجوانب بترتيب العجلة (من الشخصي مع عقارب الساعة) مع ألوانها ونسبها ونسب أجزائها الفرعية
+        $aspects = collect(require resource_path('data/life-wheel-report-theme.php'))->map(function (array $theme) use ($aspectsData, $result) {
+            $aspect = $aspectsData[$theme['key']];
+            $mine = $result['aspects'][$theme['key']] ?? ['percent' => 0, 'subs' => []];
+
+            return $theme + [
+                'label' => $aspect['dimension'],
+                'name' => $aspect['name'],
+                'desc' => $aspect['desc'],
+                'percent' => $mine['percent'],
+                'subs' => collect($aspect['subs'])->map(fn (array $sub, int $i) => [
+                    'title' => $sub['title'],
+                    'desc' => $sub['desc'],
+                    'value' => $mine['subs'][$i] ?? 0,
+                    'icon' => $theme['key'] . '-' . ($i + 1) . '.svg',
+                ])->all(),
+            ];
+        });
+
+        $overall = (int) $result['overall'];
+
+        // «ماذا تعني هذه النتيجة؟»: نص مستوى النتيجة الكلية (بالنسبة المئوية) من قاعدة البيانات، وإلا الجملة العامة
+        $level = ResultLevel::query()
+            ->whereIn('assessment_id', Assessment::where('code', Assessment::WHEEL_OF_LIFE)->select('id'))
+            ->whereNull('dimension_id')
+            ->where('min_score', '<=', $overall)
+            ->where('max_score', '>=', $overall)
+            ->first(['title_ar', 'description_ar']);
+
+        $attempt = Attempt::find($result['attempt_id']);
+
+        return view('landing.life-wheel-report', [
+            'aspects' => $aspects,
+            'highest' => $aspects->sortByDesc('percent')->first(),
+            'lowest' => $aspects->sortBy('percent')->first(),
+            'overall' => $overall,
+            'levelTitle' => $level?->title_ar,
+            'levelText' => filled($level?->description_ar) ? $level->description_ar : null,
+            'completedAt' => $attempt?->completed_at ?? $attempt?->created_at ?? now(),
+            'reportCode' => $this->lifeWheel->data()?->assessment->report_code ?: 'REP-WHEEL',
+            'beneficiary' => $request->user()->name,
         ]);
     }
 }
