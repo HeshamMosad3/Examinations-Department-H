@@ -190,7 +190,7 @@
       </section>
 
       <!-- Four cards (Figma #3509:8645 / #3509:6619) -->
-      <div class="w-full max-w-[361px] lg:max-w-none flex flex-col lg:grid lg:grid-cols-2 gap-6 lg:gap-x-[46px] lg:gap-y-16 items-start -mt-6 lg:mt-0">
+      <div class="w-full max-w-[361px] lg:max-w-none flex flex-col lg:grid lg:grid-cols-2 gap-6 lg:gap-x-[46px] lg:gap-y-16 items-start lg:items-stretch -mt-6 lg:mt-0">
         @foreach ($cards as $card)
           <article class="relative border-r-[3px] lg:border-r-[5px] rounded-[17px] lg:rounded-[30px] w-full flex flex-col" style="background:{{ $card['bg'] }};border-right-color:{{ $card['edge'] }}" @if ($card['expandable']) data-expandable @endif>
             <div class="rounded-[17px] lg:rounded-[30px] border lg:border-2 pt-[15px] pb-[17px] pr-[17px] pl-6 lg:pt-[25px] lg:pb-[26px] lg:pr-[30px] lg:pl-[40px] min-h-[174px] lg:min-h-[289px] flex-1 flex flex-col justify-between" style="border-color:{{ $card['ring'] }}">
