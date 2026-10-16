@@ -125,7 +125,10 @@ class PersonalityKeysController extends Controller
             return $loaded;
         }
 
-        return view('landing.personality-keys-report', $this->summary($loaded) + ['user' => $request->user()]);
+        return view('landing.personality-keys-report', $this->summary($loaded) + [
+            'beneficiary' => $request->user()->name,
+            'reportCode' => $this->data()->assessment->report_code ?: 'REP-KEYS',
+        ]);
     }
 
     /** تفاصيل المفاتيح: كارت لكل مفتاح بمستواه ومحاوره الفرعية */

@@ -98,7 +98,7 @@ class PersonalityKeysReportTest extends TestCase
         }
     }
 
-    public function test_only_the_name_test_time_and_age_are_shown_as_personal_data(): void
+    public function test_the_header_card_matches_the_other_reports_name_date_and_report_code_without_age(): void
     {
         $user = $this->user(['birth_date' => now()->subYears(30)->subDay()->toDateString()]);
         $this->finish($user);
@@ -106,8 +106,11 @@ class PersonalityKeysReportTest extends TestCase
         $this->actingAs($user)->get(route('keys.report'))
             ->assertOk()
             ->assertSee('أحمد محمد علي الشامسي')
-            ->assertSee('وقت إجراء الاختبار')
-            ->assertSee('30 سنة')
+            ->assertSee('تاريخ التنفيذ')
+            ->assertSee('رقم التقرير المعتمد')
+            ->assertSee(now()->format('d M Y'))
+            ->assertDontSee('30 سنة')
+            ->assertDontSee('العمر')
             ->assertDontSee('report@example.test')
             ->assertDontSee('0501234567')
             ->assertDontSee('البريد الإلكتروني')

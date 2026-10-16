@@ -57,10 +57,10 @@
   $hasMore = count($paragraphs) > 1 || mb_strlen($paragraphs[0]) > 330;
   $chartNote = str_replace(':count', $subCount, cms('keys_result.chart.note', 'تم احتساب المفاتيح بالاعتماد على :count بعداً فرعياً'));
 @endphp
-    <div class="flex flex-col min-[1280px]:flex-row min-[1280px]:items-stretch gap-[24px] min-[1280px]:gap-[27px]">
+    <div class="flex flex-col min-[1280px]:flex-row min-[1280px]:items-start gap-[24px] min-[1280px]:gap-[27px]">
 
       <!-- مخطط المفاتيح -->
-      <section class="relative bg-white overflow-clip border border-[#d6e6f8] min-[1280px]:border-0 rounded-[20px] min-[1280px]:rounded-[30px] shadow-[0px_0.8px_0px_rgba(91,89,89,0.25)] min-[1280px]:shadow-[0px_5px_11.8px_rgba(0,0,0,0.03)] w-full min-[1280px]:w-[630px] h-[455px] min-[1280px]:h-auto min-[1280px]:min-h-[699px] shrink-0" aria-labelledby="kr-chart">
+      <section class="relative bg-white overflow-clip border border-[#d6e6f8] min-[1280px]:border-0 rounded-[20px] min-[1280px]:rounded-[30px] shadow-[0px_0.8px_0px_rgba(91,89,89,0.25)] min-[1280px]:shadow-[0px_5px_11.8px_rgba(0,0,0,0.03)] w-full min-[1280px]:w-[630px] h-[455px] min-[1280px]:h-[699px] shrink-0" aria-labelledby="kr-chart">
         <div class="absolute left-1/2 -translate-x-1/2 top-[19px] min-[1280px]:top-[24px] w-[320px] min-[1280px]:w-[582px] max-w-[calc(100%-24px)] h-[33px] min-[1280px]:h-[48px] flex items-center justify-between border-b border-[#f1f5f9] pb-[13px]">
           <h2 id="kr-chart" class="flex items-center gap-[2px] min-[1280px]:gap-[8px] font-semibold min-[1280px]:font-bold text-[14px] min-[1280px]:text-[21px] leading-[1.5] min-[1280px]:leading-[normal] text-[#262626]">
             <span>{{ cms('keys_result.chart.title', 'مخطط مفاتيح شخصيتك السبعة') }}</span>

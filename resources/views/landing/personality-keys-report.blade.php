@@ -3,7 +3,7 @@
   الشعار + العنوان + كارت بيانات التقرير (الاسم ووقت الاختبار والعمر)، ثم نفس مكونات صفحة النتيجة (المخطط وأبرز المفاتيح والتفسير كاملاً)،
   ثم نفس كروت صفحة التفاصيل مفتوحة كاملة (7 مفاتيح بصورها ومحاورها الفرعية). من غير أي اختصار ولا هيدر/فوتر الموقع.
   بيتفتح من «تحميل التقرير» (?print=1) وبيفتح نافذة الطباعة لحفظه PDF. الستايل من App\Support\PdfStyles (ديسكتوب ثابت).
-  يحتاج نفس بيانات الصفحتين: $keys, $top, $next, $lowest, $overall, $overallLevel, $subCount, $title, $completedAt, $user
+  يحتاج نفس بيانات الصفحتين: $keys, $top, $next, $lowest, $overall, $overallLevel, $subCount, $title, $completedAt, $beneficiary, $reportCode
 --}}
 @php
   $img = '/landing/images/keys-result';
@@ -15,21 +15,20 @@
   $columns = [[], [], []];
   foreach ($keys as $i => $key) { $columns[$i % 3][] = $key; }
 
+  // نفس بيانات هيدر تقريري الأنماط الإدراكية وعجلة الحياة: المستفيد + تاريخ التنفيذ + رقم التقرير المعتمد
   $when = $completedAt ? \Illuminate\Support\Carbon::parse($completedAt) : now();
-  $months = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
-  $whenText = $when->day . ' ' . $months[$when->month - 1] . ' ' . $when->year . ' · ' . $when->format('h:i') . ' ' . ($when->hour < 12 ? 'ص' : 'م');
-  $infoItems = array_values(array_filter([
-    ['icon' => 'user-check.svg', 'label' => 'المستفيد', 'value' => trim((string) $user->name)],
-    ['icon' => 'date.svg', 'label' => 'وقت إجراء الاختبار', 'value' => $whenText],
-    ['icon' => 'info.svg', 'label' => 'العمر', 'value' => $user->birth_date ? $user->birth_date->age . ' سنة' : ''],
-  ], fn ($item) => $item['value'] !== ''));
+  $infoItems = [
+    ['icon' => 'user-check.svg', 'label' => cms('perceptual_result.info.beneficiary', 'المستفيد'), 'value' => $beneficiary],
+    ['icon' => 'date.svg', 'label' => cms('perceptual_result.info.date', 'تاريخ التنفيذ'), 'value' => $when->format('d M Y')],
+    ['icon' => 'report.svg', 'label' => cms('perceptual_result.info.report_code', 'رقم التقرير المعتمد'), 'value' => $reportCode],
+  ];
 @endphp
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=1440" />
-  <title>تقرير مفاتيح الشخصية السبعة{{ $user->name ? ' - ' . $user->name : '' }}</title>
+  <title>تقرير مفاتيح الشخصية السبعة{{ $beneficiary ? ' - ' . $beneficiary : '' }}</title>
   <meta name="robots" content="noindex, nofollow" />
   <meta name="theme-color" content="#204A7A" />
   <link rel="icon" type="image/png" href="/landing/images/logo.png" />
@@ -38,10 +37,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=El+Messiri:wght@400;500;600;700&display=swap" rel="stylesheet">
   @include('landing.partials.pdf-head')
-  <style>
-    /* المخطط في منتصف الكارت (الكارت بيطول مع نص التفسير الكامل) */
-    .pdf-mode [data-chart-diagram] { top: calc(50% + 24px) !important; transform: translate(-50%, -50%) !important; }
-  </style>
 </head>
 <body class="pdf-mode pt-0 bg-[#f6f6f6] text-[#262626] min-h-screen font-messiri antialiased">
 @include('landing.partials.pdf-bar', ['back' => route('keys.details'), 'backLabel' => 'رجوع للتفاصيل'])
