@@ -14,6 +14,10 @@
   body.pdf-mode { height: auto !important; min-height: 0 !important; width: 1440px; min-width: 1440px; margin-inline: auto !important; padding-top: 0 !important; overflow: hidden; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   /* الأزرار والتحكم مش بتتطبع، والنصوص المطوية بتتفتح كاملة */
   .pdf-mode .pr-no-print, .pdf-mode [data-no-pdf] { display: none !important; }
+  .pdf-mode .kd-no-print, .pdf-mode [data-more-toggle], .pdf-mode [data-toggle] { display: none !important; }
+  .pdf-mode .kd-list { display: flex !important; }
+  .pdf-mode [data-more] { display: flex !important; }
+  .pdf-mode .line-clamp-5, .pdf-mode .line-clamp-2 { -webkit-line-clamp: unset !important; display: block !important; }
   .pdf-mode .pr-clamp { -webkit-line-clamp: unset !important; display: block !important; }
 
   .pdf-bar { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; padding: 10px 16px; background: #fff; border-bottom: 1px solid #dde4ed; box-shadow: 0 2px 10px rgba(20, 48, 79, .08); font-family: 'Cairo', sans-serif; }

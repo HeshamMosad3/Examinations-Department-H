@@ -49,35 +49,35 @@ class PersonalityKeysReportTest extends TestCase
         $this->actingAs($this->user())->get(route('keys.report'))->assertRedirect(route('keys.test'));
     }
 
-    public function test_the_report_has_the_quick_pages_then_the_full_report_with_nothing_shortened(): void
+    public function test_the_report_is_one_tall_page_with_the_same_components_as_the_result_and_details_pages(): void
     {
         $user = $this->user();
         $this->finish($user);
 
         $html = $this->actingAs($user)->get(route('keys.report'))
             ->assertOk()
-            ->assertSee('size: A4 landscape', false)
-            ->assertSee('الملخص السريع')
-            ->assertSee('التقرير الكامل')
-            ->assertSee('ماذا تعني هذه النتيجة؟')
+            ->assertSee('pdf-mode', false)
+            ->assertSee('id="pdf-root"', false)
+            ->assertSee('width=1440', false)
+            ->assertSee('تقرير نتائج مقياس مفاتيح الشخصية السبعة')
+            ->assertSee('حفظ التقرير كملف PDF')
+            // صفحة النتيجة: المخطط وأبرز المفاتيح والتفسير
             ->assertSee('مخطط مفاتيح شخصيتك السبعة')
+            ->assertSee('أبرز مفاتيح شخصيتك')
+            ->assertSee('ماذا تعني هذه النتيجة؟')
+            // صفحة التفاصيل: 7 كروت بصورها ومحاورها الفرعية
+            ->assertSee('تفاصيل المفاتيح')
             ->getContent();
 
-        // الملخص السريع الأول ثم التقرير الكامل
-        $this->assertLessThan(strpos($html, 'aria-label="التقرير الكامل"'), strpos($html, 'aria-label="الملخص السريع"'));
-
-        // 7 مفاتيح و21 محور فرعي، وكل واحد بوصفه كامل
         foreach (range(1, 7) as $n) {
             $this->assertStringContainsString("(K{$n})", $html);
+            $this->assertStringContainsString('/landing/images/keys-details/k' . $n . '.webp', $html);
         }
-        $this->assertSame(7, substr_count($html, 'class="rp-wk"'));
-        $this->assertSame(21, substr_count($html, 'class="rp-sub-row"'));
-        $this->assertSame(21, substr_count($html, 'class="rp-sub-sum"'));
-        $this->assertSame(7, substr_count($html, 'class="rp-wk-sum"'));
-
-        // صفحتا الملخص + صفحتان للتقرير الكامل (4 مفاتيح ثم 3)
-        $this->assertSame(4, substr_count($html, 'class="rp-page"'));
-        $this->assertStringContainsString('4 / 4', $html);
+        $this->assertSame(7, substr_count($html, 'data-key-card'));
+        $this->assertSame(21, substr_count($html, 'role="progressbar"'));
+        // ورقة واحدة طويلة: مفيش A4 ولا صفحات متعددة
+        $this->assertStringNotContainsString('A4 landscape', $html);
+        $this->assertSame(1, substr_count($html, '<main id="pdf-root"'));
     }
 
     public function test_the_overall_explanation_is_printed_in_full(): void
@@ -85,18 +85,16 @@ class PersonalityKeysReportTest extends TestCase
         $user = $this->user();
         $this->finish($user);
 
-        $html = $this->actingAs($user)->get(route('keys.report'))->assertOk()->getContent();
-        preg_match_all('/<div class="rp-text">(.*?)<\/div>/su', $html, $m);
-        $printed = html_entity_decode(strip_tags($m[1][0]));
+        $html = html_entity_decode($this->actingAs($user)->get(route('keys.report'))->assertOk()->getContent());
 
         $level = \App\Models\ResultLevel::whereNull('dimension_id')
             ->where('assessment_id', Assessment::byCode(Assessment::SEVEN_PERSONALITY_KEYS)->id)
             ->get()
-            ->first(fn ($l) => str_contains($printed, mb_substr(trim($l->description_ar), 0, 60)));
+            ->first(fn ($l) => str_contains($html, mb_substr(trim($l->description_ar), 0, 60)));
 
         $this->assertNotNull($level);
         foreach (preg_split('/\R+/u', trim($level->description_ar)) as $paragraph) {
-            $this->assertStringContainsString(trim($paragraph), $printed);
+            $this->assertStringContainsString(trim($paragraph), $html);
         }
     }
 

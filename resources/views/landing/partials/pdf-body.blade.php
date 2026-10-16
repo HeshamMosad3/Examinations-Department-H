@@ -5,6 +5,9 @@
 --}}
 <script>
   (function () {
+    // الصور الكسولة (loading=lazy) لازم تتحمّل كلها قبل الطباعة
+    document.querySelectorAll('img[loading="lazy"]').forEach(function (img) { img.loading = 'eager'; });
+
     var styleTag = document.createElement('style');
     document.head.appendChild(styleTag);
 
