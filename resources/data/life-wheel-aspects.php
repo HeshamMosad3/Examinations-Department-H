@@ -31,7 +31,7 @@ $subDefaults = [
 
 return [
     [
-        'key' => 'spiritual', 'dimension' => 'الروحي', 'name' => cms('wheel_details.spiritual.name', 'الجانب الروحاني'), 'icon' => 'spiritual.svg',
+        'key' => 'spiritual', 'dimension' => 'الروحاني', 'name' => cms('wheel_details.spiritual.name', 'الجانب الروحاني'), 'icon' => 'spiritual.svg',
         'text' => 'text-[#5963d9]', 'border' => 'border-[#5963d9]', 'badge' => 'bg-[#e6e9ff] border-[rgba(169,176,255,0.87)]',
         'descWidth' => 'w-full whitespace-pre-wrap', 'desc' => cms('wheel_details.spiritual.description', ' يقيس مدى التزام الفرد بالعبادات  والممارسات الإيمانية، وانعكاس القيم الروحية على سلوكه'),
         'order' => 'order-1',

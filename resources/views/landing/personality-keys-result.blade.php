@@ -92,10 +92,10 @@
 
     <h1 class="text-center text-[#204a7a] font-bold min-[1280px]:font-semibold text-[21px] leading-[28px] tracking-[-0.5px] min-[1280px]:tracking-normal min-[1280px]:text-[36px] min-[1280px]:leading-[1.5] min-[1280px]:h-[70px] min-[1280px]:flex min-[1280px]:items-center min-[1280px]:justify-center mb-[32px] min-[1280px]:mb-[64px]">{{ cms('keys_result.page.title', 'نتيجة التقييم') }}</h1>
 
-    <div class="flex flex-col min-[1280px]:flex-row min-[1280px]:items-start gap-[24px] min-[1280px]:gap-[27px]">
+    <div class="flex flex-col min-[1280px]:flex-row min-[1280px]:items-stretch gap-[24px] min-[1280px]:gap-[27px]">
 
       <!-- مخطط المفاتيح -->
-      <section class="relative bg-white overflow-clip border border-[#d6e6f8] min-[1280px]:border-0 rounded-[20px] min-[1280px]:rounded-[30px] shadow-[0px_0.8px_0px_rgba(91,89,89,0.25)] min-[1280px]:shadow-[0px_5px_11.8px_rgba(0,0,0,0.03)] w-full min-[1280px]:w-[630px] h-[455px] min-[1280px]:h-[699px] shrink-0" aria-labelledby="kr-chart">
+      <section class="relative bg-white overflow-clip border border-[#d6e6f8] min-[1280px]:border-0 rounded-[20px] min-[1280px]:rounded-[30px] shadow-[0px_0.8px_0px_rgba(91,89,89,0.25)] min-[1280px]:shadow-[0px_5px_11.8px_rgba(0,0,0,0.03)] w-full min-[1280px]:w-[630px] h-[455px] min-[1280px]:h-auto min-[1280px]:min-h-[699px] shrink-0" aria-labelledby="kr-chart">
         <div class="absolute left-1/2 -translate-x-1/2 top-[19px] min-[1280px]:top-[24px] w-[320px] min-[1280px]:w-[582px] max-w-[calc(100%-24px)] h-[33px] min-[1280px]:h-[48px] flex items-center justify-between border-b border-[#f1f5f9] pb-[13px]">
           <h2 id="kr-chart" class="flex items-center gap-[2px] min-[1280px]:gap-[8px] font-semibold min-[1280px]:font-bold text-[14px] min-[1280px]:text-[21px] leading-[1.5] min-[1280px]:leading-[normal] text-[#262626]">
             <span>{{ cms('keys_result.chart.title', 'مخطط مفاتيح شخصيتك السبعة') }}</span>
@@ -115,10 +115,10 @@
           </div>
         </div>
 
-        <p class="absolute left-0 right-0 text-center font-normal text-[11px] min-[1280px]:text-[20px] leading-[normal] text-[#565656] top-[417px] min-[1280px]:top-[640px]">{{ $chartNote }}</p>
+        <p class="absolute left-0 right-0 text-center font-normal text-[11px] min-[1280px]:text-[20px] leading-[normal] text-[#565656] top-[417px] min-[1280px]:top-auto min-[1280px]:bottom-[29px]">{{ $chartNote }}</p>
       </section>
 
-      <div class="flex flex-col gap-[24px] min-[1280px]:gap-[28px] min-[1280px]:w-[581px] min-[1280px]:shrink-0">
+      <div class="flex flex-col gap-[24px] min-[1280px]:gap-[28px] min-[1280px]:w-[581px] min-[1280px]:shrink-0 min-[1280px]:flex-1 min-[1280px]:min-h-[699px]">
 
         <!-- أبرز مفاتيحك -->
         <section class="bg-white border border-[#e2e8f0] rounded-[16px] shadow-[0px_2px_8px_-2px_rgba(15,23,42,0.04)] min-[1280px]:shadow-none p-[16px] min-[1280px]:px-[30px] min-[1280px]:py-[26px] flex flex-col gap-[12px] min-[1280px]:gap-[18px]" aria-labelledby="kr-highlights">
@@ -170,21 +170,21 @@
         </section>
 
         <!-- ماذا تعني هذه النتيجة؟ -->
-        <section class="rounded-[16px] min-[1280px]:rounded-[20px] border border-[#a3c0e2] px-[15px] py-[19px] min-[1280px]:px-[18px] min-[1280px]:pt-[40px] min-[1280px]:pb-[36px] min-[1280px]:min-h-[306px]" style="background-image: linear-gradient(79deg, #fff 1%, #d2dfef 99%)" aria-labelledby="kr-insight">
-          <div class="flex items-start gap-[8px] min-[1280px]:gap-[12px]">
+        <section class="rounded-[16px] min-[1280px]:rounded-[20px] border border-[#a3c0e2] px-[15px] py-[19px] min-[1280px]:px-[18px] min-[1280px]:pt-[40px] min-[1280px]:pb-[36px] min-[1280px]:flex-1 flex flex-col justify-between" style="background-image: linear-gradient(79deg, #fff 1%, #d2dfef 99%)" aria-labelledby="kr-insight">
+          <div class="flex items-start gap-[8px] min-[1280px]:gap-[12px] w-full">
             <span class="flex size-[41px] min-[1280px]:size-[56px] shrink-0 items-center justify-center rounded-[12px] bg-[#204a7a]"><img src="{{ $img }}/lightbulb.svg" alt="" class="size-[22px] min-[1280px]:size-[32px]" /></span>
-            <div class="flex min-w-0 flex-1 flex-col gap-[10px] min-[1280px]:gap-[40px]">
-              <div class="flex items-center justify-between min-[1280px]:items-start">
-                <h2 id="kr-insight" class="font-bold text-[14px] min-[1280px]:text-[25px] leading-[normal] text-[#172554]">{{ cms('keys_result.insight.title', 'ماذا تعني هذه النتيجة؟') }}</h2>
-                <span class="flex items-center gap-[4px] rounded-full bg-white min-[1280px]:bg-[#e9edf2] px-[12px] py-[4px] font-medium min-[1280px]:font-semibold text-[10px] min-[1280px]:text-[14px] leading-[16px] text-[#204a7a] min-[1280px]:h-[33px] min-[1280px]:items-center">
+            <div class="flex min-w-0 flex-1 flex-col gap-[10px] min-[1280px]:gap-[24px]">
+              <div class="flex items-center justify-between min-[1280px]:items-start w-full">
+                <h2 id="kr-insight" class="font-bold text-[14px] min-[1280px]:text-[25px] leading-[normal] text-[#172554] whitespace-nowrap">{{ cms('keys_result.insight.title', 'ماذا تعني هذه النتيجة؟') }}</h2>
+                <span class="flex items-center gap-[4px] rounded-full bg-white min-[1280px]:bg-[#e9edf2] px-[12px] py-[4px] font-medium min-[1280px]:font-semibold text-[10px] min-[1280px]:text-[14px] leading-[16px] text-[#204a7a] min-[1280px]:h-[33px] min-[1280px]:items-center shrink-0">
                   <span>{{ cms('keys_result.insight.badge', 'تحليل ذكي') }}</span>
                   <img src="{{ $img }}/sparkle.svg" alt="" class="size-[11px] min-[1280px]:size-[13px]" />
                 </span>
               </div>
-              <div class="font-medium text-[11px] min-[1280px]:text-[20px] leading-[17.88px] min-[1280px]:leading-[1.5] text-[#565656] min-[1280px]:w-[455px]">
-                <p data-first class="{{ $hasMore ? 'line-clamp-5' : '' }}">{{ $paragraphs[0] }}</p>
+              <div class="w-full font-medium text-[11px] min-[1280px]:text-[20px] leading-[17.88px] min-[1280px]:leading-[1.6] text-[#565656] text-right">
+                <p data-first class="{{ $hasMore ? 'line-clamp-5' : '' }} w-full text-right">{{ $paragraphs[0] }}</p>
                 @if ($hasMore)
-                  <div data-more class="hidden flex-col gap-[10px] mt-[10px]">
+                  <div data-more class="hidden flex-col gap-[10px] mt-[10px] w-full text-right">
                     @foreach (array_slice($paragraphs, 1) as $paragraph)
                       <p>{{ $paragraph }}</p>
                     @endforeach

@@ -147,12 +147,12 @@
               </div>
             </div>
 
-            <div class="flex flex-col items-end gap-[9px] lg:gap-[10px] w-full">
+            <div class="flex flex-col gap-[9px] lg:gap-[10px] w-full">
               <div class="flex items-start justify-between w-full lg:min-h-[70px] gap-3">
                 <h2 class="font-bold text-[25px] lg:text-[36px] leading-[32px] lg:leading-[1.2] tracking-[-0.6px] lg:tracking-[-0.6655px] lg:max-w-[390px]" style="{{ $t['title_css'] }}">{!! preg_replace('/\s+\(/u', '<br>(', e($report['title'])) !!}</h2>
                 <p class="bg-[#f2f6fa] lg:bg-transparent rounded-[8px] px-1 lg:px-0 font-bold lg:font-semibold text-[20px] lg:text-[36px] leading-[32px] lg:leading-[35.492px] tracking-[-0.6px] lg:tracking-[-0.6655px] whitespace-nowrap lg:self-start" dir="ltr"><span style="{{ $t['pct_css'] }}">{{ $percent }}%</span></p>
               </div>
-              <p class="w-full lg:max-w-[538px] font-medium lg:font-normal text-[12px] lg:text-[20px] leading-[19.5px] lg:leading-[1.5] text-[#262626] text-right">{{ $report['summary'] }}</p>
+              <p class="w-full font-medium lg:font-normal text-[12px] lg:text-[20px] leading-[19.5px] lg:leading-[1.6] text-[#262626] text-right">{{ $report['summary'] }}</p>
             </div>
           </div>
         </section>
@@ -190,12 +190,12 @@
       </section>
 
       <!-- Four cards (Figma #3509:8645 / #3509:6619) -->
-      <div class="w-full max-w-[361px] lg:max-w-none flex flex-col lg:grid lg:grid-cols-2 gap-6 lg:gap-x-[46px] lg:gap-y-16 lg:items-start -mt-6 lg:mt-0">
+      <div class="w-full max-w-[361px] lg:max-w-none flex flex-col lg:grid lg:grid-cols-2 gap-6 lg:gap-x-[46px] lg:gap-y-16 items-start -mt-6 lg:mt-0">
         @foreach ($cards as $card)
-          <article class="relative border-r-[3px] lg:border-r-[5px] rounded-[17px] lg:rounded-[30px]" style="background:{{ $card['bg'] }};border-right-color:{{ $card['edge'] }}" @if ($card['expandable']) data-expandable @endif>
-            <div class="rounded-[17px] lg:rounded-[30px] border lg:border-2 pt-[15px] pb-[17px] pr-[17px] pl-6 lg:pt-[25px] lg:pb-[26px] lg:pr-[30px] lg:pl-[40px] {{ $card['expandable'] ? 'min-h-[174px]' : 'min-h-[138px]' }} lg:min-h-[289px] flex flex-col justify-center" style="border-color:{{ $card['ring'] }}">
-              <div class="flex flex-col gap-[18px] lg:gap-[30px]">
-                <div class="flex flex-col {{ $card['expandable'] ? 'gap-6 lg:gap-10' : 'gap-4 lg:gap-[50px]' }}">
+          <article class="relative border-r-[3px] lg:border-r-[5px] rounded-[17px] lg:rounded-[30px] w-full flex flex-col" style="background:{{ $card['bg'] }};border-right-color:{{ $card['edge'] }}" @if ($card['expandable']) data-expandable @endif>
+            <div class="rounded-[17px] lg:rounded-[30px] border lg:border-2 pt-[15px] pb-[17px] pr-[17px] pl-6 lg:pt-[25px] lg:pb-[26px] lg:pr-[30px] lg:pl-[40px] min-h-[174px] lg:min-h-[289px] flex-1 flex flex-col justify-between" style="border-color:{{ $card['ring'] }}">
+              <div class="flex-1 flex flex-col justify-between gap-[18px] lg:gap-[24px]">
+                <div class="flex flex-col gap-4 lg:gap-6">
                   <div class="flex items-start justify-between gap-3">
                     <div class="flex items-center gap-[10px] lg:gap-[18px] min-w-0">
                       <div class="rounded-[12px] lg:rounded-[20px] border lg:border-[1.658px] size-[32px] lg:size-[54px] flex items-center justify-center shrink-0 p-px lg:p-[1.658px]" style="background:{{ $card['icon_bg'] }};border-color:{{ $card['icon_border'] }}">

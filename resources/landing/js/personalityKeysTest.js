@@ -60,15 +60,20 @@ if (app) {
 
     steps.forEach((step, i) => {
       const on = i <= index;
-      step.querySelector('[data-icon-on]').hidden = !on;
-      step.querySelector('[data-icon-off]').hidden = on;
+      step.style.cursor = on ? 'pointer' : 'default';
+      // المحور اللي اتجاوب كله بياخد شكل «مكتمل» (أيقونة ممتلئة)، وغير كده المفتاح الحالي والسابق عليه بالشكل المفعّل
+      const done = isComplete(sections[i]);
+      step.querySelector('[data-icon-done]').hidden = !done;
+      step.querySelector('[data-icon-on]').hidden = !on || done;
+      step.querySelector('[data-icon-off]').hidden = on || done;
       const label = step.querySelector('[data-pk-step-label]');
-      label.classList.toggle('text-[#204a7a]', on);
-      label.classList.toggle('font-bold', on);
-      label.classList.toggle('text-[#565656]', !on);
+      const lit = on || done;
+      label.classList.toggle('text-[#204a7a]', lit);
+      label.classList.toggle('font-bold', lit);
+      label.classList.toggle('text-[#565656]', !lit);
       if (i === index) step.setAttribute('aria-current', 'step'); else step.removeAttribute('aria-current');
     });
-    bar.style.width = `${total > 1 ? (index / (total - 1)) * 100 : 0}%`;
+    requestAnimationFrame(updateStepperLine);
 
     back.classList.toggle('hidden', index !== 0);
     prevBtn.classList.toggle('hidden', index === 0);
@@ -81,6 +86,43 @@ if (app) {
     updateProgress(sections[index]);
     if (scroll) top.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
+
+  function updateStepperLine() {
+    const stepper = document.getElementById('pk-stepper');
+    const baseLine = document.getElementById('pk-base-line');
+    if (!stepper || !baseLine || !bar || steps.length < 2) return;
+
+    const containerRect = stepper.getBoundingClientRect();
+    const firstCircle = steps[0].querySelector('[data-pk-step-icon]');
+    const lastCircle = steps[steps.length - 1].querySelector('[data-pk-step-icon]');
+    const activeCircle = steps[index].querySelector('[data-pk-step-icon]');
+
+    if (firstCircle && lastCircle && activeCircle) {
+      const firstRect = firstCircle.getBoundingClientRect();
+      const lastRect = lastCircle.getBoundingClientRect();
+      const activeRect = activeCircle.getBoundingClientRect();
+
+      const firstCenter = firstRect.left + firstRect.width / 2;
+      const lastCenter = lastRect.left + lastRect.width / 2;
+      const activeCenter = activeRect.left + activeRect.width / 2;
+
+      const centerY = (firstRect.top + firstRect.height / 2) - containerRect.top;
+
+      baseLine.style.top = `${centerY}px`;
+      baseLine.style.transform = 'translateY(-50%)';
+
+      const rightOffset = Math.max(0, containerRect.right - firstCenter);
+      const leftOffset = Math.max(0, lastCenter - containerRect.left);
+
+      baseLine.style.right = `${rightOffset}px`;
+      baseLine.style.left = `${leftOffset}px`;
+
+      const activeWidth = Math.max(0, firstCenter - activeCenter);
+      bar.style.width = `${activeWidth}px`;
+    }
+  }
+
+  window.addEventListener('resize', updateStepperLine);
 
   // ----- restore -----
   const stored = load();
@@ -97,11 +139,20 @@ if (app) {
   render();
 
   // ----- events -----
+  steps.forEach((step, i) => {
+    step.addEventListener('click', () => {
+      if (i <= index) {
+        index = i;
+        save();
+        render({ scroll: true });
+      }
+    });
+  });
+
   app.addEventListener('change', (event) => {
     if (!event.target.matches('[data-pk-choice]')) return;
     save();
-    updateProgress(sections[index]);
-    nextBtn.disabled = submitting || !isComplete(sections[index]);
+    render(); // بيحدّث التقدم والزرار وشكل خطوات المفاتيح (المحور المكتمل بياخد الأيقونة الممتلئة)
   });
 
   prevBtn.addEventListener('click', () => {

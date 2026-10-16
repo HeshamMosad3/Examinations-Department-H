@@ -26,7 +26,7 @@ function renderProgress() {
 function renderOption(option, index) {
   const selected = answers[current] === index;
   const stateClass = selected
-    ? 'bg-[#eff6ff] md:bg-white border-[#4c7cb2] border-t-[0.5px] border-l-[0.5px] border-r-4 border-b-4 shadow-[0px_0px_3.5px_0px_rgba(202,218,237,0.5)]'
+    ? 'bg-[#eff6ff] border-[#4c7cb2] border-t-[0.5px] border-l-[0.5px] border-r-4 border-b-4 md:border-t md:border-l md:border-r-[6px] md:border-b-[6px] shadow-[0px_0px_3.5px_0px_rgba(202,218,237,0.5)]'
     : 'bg-white border-[0.6px] border-[#c1c1c1] hover:border-[#4c7cb2]';
   return `
     <button type="button" role="radio" aria-checked="${selected}" data-index="${index}"
@@ -68,7 +68,7 @@ function renderNav() {
 function renderQuestion() {
   const q = QUESTIONS[current];
   el('pt-question-number').textContent = `${current + 1}.`;
-  el('pt-question-number').setAttribute('dir', 'ltr');
+  el('pt-question-number').removeAttribute('dir');
   el('pt-question-text').textContent = q.text;
   el('pt-options').innerHTML = q.options.map(renderOption).join('');
   el('pt-options').querySelectorAll('.pt-option').forEach((btn) => {

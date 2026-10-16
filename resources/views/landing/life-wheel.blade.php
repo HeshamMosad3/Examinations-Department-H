@@ -110,7 +110,7 @@
       <!-- ==================== 2. جوانب الحياة التي ستقيمها (#3083:16877 / #3080:10857) ==================== -->
       @php
         $aspects = [
-          ['title' => cms('life_wheel.aspects.spiritual_title', 'الروحي'),    'desc' => cms('life_wheel.aspects.spiritual_text', 'التزام الفرد بالعبادات والممارسات الإيمانية.'), 'icon' => 'spiritual', 'bg' => 'bg-[#eff1ff]', 'border' => 'border-[#5963d9]', 'color' => 'text-[#5963d9]'],
+          ['title' => cms('life_wheel.aspects.spiritual_title', 'الروحاني'),    'desc' => cms('life_wheel.aspects.spiritual_text', 'التزام الفرد بالعبادات والممارسات الإيمانية.'), 'icon' => 'spiritual', 'bg' => 'bg-[#eff1ff]', 'border' => 'border-[#5963d9]', 'color' => 'text-[#5963d9]'],
           ['title' => cms('life_wheel.aspects.health_title', 'الصحي'),     'desc' => cms('life_wheel.aspects.health_text', 'مدى تبني الفرد لعادات صحية متكاملة.'),          'icon' => 'health',    'bg' => 'bg-[#f4fff9]', 'border' => 'border-[#488c70]', 'color' => 'text-[#488c70]'],
           ['title' => cms('life_wheel.aspects.personal_title', 'الشخصي'),    'desc' => cms('life_wheel.aspects.personal_text', 'مستوى سعي الفرد للتعلم المستمر.'),              'icon' => 'personal',  'bg' => 'bg-[#f6f1ff]', 'border' => 'border-[#5c3e9b]', 'color' => 'text-[#5c3e9b]'],
           ['title' => cms('life_wheel.aspects.family_title', 'العائلي'),   'desc' => cms('life_wheel.aspects.family_text', 'مستوى جودة التواصل الأسري.'),                   'icon' => 'family',    'bg' => 'bg-[#fff8f3]', 'border' => 'border-[#d87f3c]', 'color' => 'text-[#d87f3c]'],

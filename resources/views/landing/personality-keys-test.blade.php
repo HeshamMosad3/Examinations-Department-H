@@ -55,15 +55,16 @@
 
       <div id="pk-top" class="flex flex-col gap-8 lg:gap-[64px] scroll-mt-[90px]">
         {{-- ===== الخطوات K1 ← K7 ===== --}}
-        <ol class="relative mx-auto flex w-full items-start justify-center gap-[22px] md:max-w-[1022px] md:justify-between md:gap-0" aria-label="{{ cms('keys_test.steps_label', 'مفاتيح الاختبار') }}">
-          <li class="absolute inset-x-[13px] top-[13px] md:inset-x-[40px] md:top-[26px] h-px md:h-[2px] bg-[#dedede]" aria-hidden="true">
-            <span id="pk-bar" class="absolute inset-y-0 right-0 bg-[#204a7a] transition-[width] duration-300" style="width: 0%"></span>
+        <ol id="pk-stepper" class="relative mx-auto flex w-full items-start justify-center gap-[22px] md:max-w-[1022px] md:justify-between md:gap-0" aria-label="{{ cms('keys_test.steps_label', 'مفاتيح الاختبار') }}">
+          <li id="pk-base-line" class="absolute inset-x-[13px] top-[13px] md:inset-x-[40px] md:top-[26px] h-px md:h-[2px] bg-[#dedede] pointer-events-none z-0" aria-hidden="true">
+            <span id="pk-bar" class="absolute inset-y-0 right-0 bg-[#204a7a] transition-all duration-300 pointer-events-none" style="width: 0%"></span>
           </li>
           @foreach ($keys as $i => $key)
-            <li data-pk-step="{{ $i }}" class="relative flex w-[26px] md:w-[80px] flex-col items-center gap-[6px] md:gap-[8px]">
+            <li data-pk-step="{{ $i }}" class="relative z-10 flex w-[26px] md:w-[80px] flex-col items-center gap-[6px] md:gap-[8px] select-none transition-transform cursor-pointer">
               <span data-pk-step-icon data-state="off">
                 <span data-icon-off>@include('landing.partials.keys-icon', ['code' => $key['code'], 'on' => false, 'circle' => 'size-[26px] md:size-[54px]', 'glyph' => 'size-[13px] md:size-[28px]'])</span>
                 <span data-icon-on hidden>@include('landing.partials.keys-icon', ['code' => $key['code'], 'on' => true, 'circle' => 'size-[26px] md:size-[54px]', 'glyph' => 'size-[13px] md:size-[28px]'])</span>
+                <span data-icon-done hidden>@include('landing.partials.keys-icon', ['code' => $key['code'], 'on' => true, 'done' => true, 'circle' => 'size-[26px] md:size-[54px]', 'glyph' => 'size-[13px] md:size-[28px]'])</span>
               </span>
               <span data-pk-step-label class="flex flex-col items-center text-center text-[8px] md:text-[14px] leading-[1.5] md:leading-[normal] text-[#565656] md:text-[#6f6f6f] font-semibold">
                 <span>{{ $key['code'] }}</span>

@@ -2,14 +2,26 @@
     أيقونة مفتاح (K1..K7) داخل دايرة، من أصول Figma (public/landing/images/keys-test).
     $code: K1..K7 — $on: مفعّلة (دايرة زرقا وأيقونة بيضا) أو عادية (دايرة رمادية) — $circle: مقاس الدايرة — $glyph: مقاس الأيقونة جواها
     $ring: كلاس حدود الدايرة العادية (اختياري)
+    $done: المحور اتجاوب كله (Figma #3396:9891): دايرة زرقا وأيقونة بيضا ممتلئة
 --}}
 @php
     $dir = '/landing/images/keys-test';
     $on = $on ?? false;
+    $done = $done ?? false;
     $ring = $ring ?? 'border-[0.6px] md:border-[1.6px] border-[#565656] md:border-[#6f6f6f]';
     $white = $on ? '[filter:brightness(0)_invert(1)]' : '';
 @endphp
-@if ($code === 'K2')
+@if ($done && $code !== 'K2')
+  <span aria-hidden="true" class="flex shrink-0 items-center justify-center rounded-full bg-[#204a7a] {{ $circle }}">
+    <span class="relative block {{ $glyph }}">
+      @if ($code === 'K6')
+        <span class="absolute" style="inset: 5.56% 9.73% 9.73% 5.56%"><img src="{{ $dir }}/k6-filled.svg" alt="" class="absolute block max-w-none size-full" /></span>
+      @else
+        <img src="{{ $dir }}/{{ ['K1' => 'k1-eye-filled', 'K3' => 'k3-filled', 'K4' => 'k4-filled', 'K5' => 'k5-filled', 'K7' => 'k7-filled'][$code] }}.svg" alt="" class="block size-full" />
+      @endif
+    </span>
+  </span>
+@elseif ($code === 'K2')
   {{-- K2 جاية من Figma كدايرة كاملة (عادية / مفعّلة) --}}
   <img src="{{ $dir }}/{{ $on ? 'k2-active' : 'k2' }}.svg" alt="" aria-hidden="true" class="block shrink-0 {{ $circle }}" />
 @else

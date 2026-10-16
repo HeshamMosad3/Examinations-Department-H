@@ -42,10 +42,11 @@ function renderStepper() {
         const iconColorClass = reached ? 'text-white' : 'text-[#565656] md:text-[#6f6f6f]';
         const labelColorClass = reached ? 'text-brand-primary font-bold' : 'text-[#565656] md:text-[#6f6f6f] font-semibold';
         const shortLabel = cat.label.replace('الجانب ', '');
+        const iconUrl = reached ? (cat.solidIconUrl || cat.iconUrl) : cat.iconUrl;
         return `
           <button type="button" class="lw-step-btn flex flex-col items-center gap-1 md:gap-2 flex-1 min-w-0 max-w-[42px] sm:max-w-[48px] md:max-w-none transition-transform cursor-pointer" data-index="${i}" ${i > currentCategoryIndex ? 'disabled' : ''} aria-label="${cat.label} (الخطوة ${i + 1})">
             <div class="relative flex items-center justify-center rounded-full w-[26px] h-[26px] min-[360px]:w-[28px] min-[360px]:h-[28px] md:w-[54px] md:h-[54px] border-[0.6px] md:border-[1.6px] ${circleClass} transition-colors z-10 shadow-sm">
-              <span class="lw-icon-mask w-[13px] h-[13px] min-[360px]:w-[14px] min-[360px]:h-[14px] md:w-[22px] md:h-[22px] ${iconColorClass}" style="--icon-url:url('${cat.iconUrl || cat.solidIconUrl}')"></span>
+              <span class="lw-icon-mask w-[13px] h-[13px] min-[360px]:w-[14px] min-[360px]:h-[14px] md:w-[22px] md:h-[22px] ${iconColorClass}" style="--icon-url:url('${iconUrl}')"></span>
             </div>
             <div class="flex flex-col items-center leading-tight w-full pointer-events-none">
               <span class="font-messiri text-[8px] min-[360px]:text-[9px] md:text-[14px] ${labelColorClass}">${i + 1}</span>
@@ -89,16 +90,6 @@ function updateStepperLine() {
     const lastCenter = lastRect.left + lastRect.width / 2;
     const activeCenter = activeRect.left + activeRect.width / 2;
 
-    let targetCenter = activeCenter;
-    if (currentCategoryIndex < btns.length - 1) {
-      const nextCircle = btns[currentCategoryIndex + 1].querySelector('.rounded-full');
-      if (nextCircle) {
-        const nextRect = nextCircle.getBoundingClientRect();
-        const nextCenter = nextRect.left + nextRect.width / 2;
-        targetCenter = (activeCenter + nextCenter) / 2;
-      }
-    }
-
     const centerY = (firstRect.top + firstRect.height / 2) - containerRect.top;
 
     baseLine.style.top = centerY + 'px';
@@ -113,8 +104,10 @@ function updateStepperLine() {
     baseLine.style.right = rightOffset + 'px';
     baseLine.style.left = leftOffset + 'px';
 
+    // Active line: anchored at first circle (right side in RTL), width grows leftward to active circle
     activeLine.style.right = rightOffset + 'px';
-    const activeWidth = Math.max(0, firstCenter - targetCenter);
+    activeLine.style.left = '';
+    const activeWidth = Math.max(0, firstCenter - activeCenter);
     activeLine.style.width = activeWidth + 'px';
   }
 }
@@ -165,7 +158,7 @@ function renderCategoryHeader() {
       <span class="font-messiri font-semibold text-[#ce9d42] text-[13px] sm:text-[14px] md:text-[18px] whitespace-nowrap">${cms('wheel_test.js.counter_aspect', 'الجانب')} ${currentCategoryIndex + 1} ${cms('wheel_test.js.counter_of', 'من')} ${TOTAL_CATEGORIES}</span>
       <div class="flex items-center gap-2.5 md:gap-3">
         <div class="w-[38px] h-[38px] md:w-[54px] md:h-[54px] rounded-full bg-brand-primary flex items-center justify-center shrink-0 shadow-sm">
-          <span class="lw-icon-mask w-[18px] h-[18px] md:w-[24px] md:h-[24px] text-white" style="--icon-url:url('${cat.iconUrl || cat.solidIconUrl}')"></span>
+          <span class="lw-icon-mask w-[18px] h-[18px] md:w-[24px] md:h-[24px] text-white" style="--icon-url:url('${cat.solidIconUrl || cat.iconUrl}')"></span>
         </div>
         <h2 class="font-messiri font-bold text-brand-primary text-[20px] sm:text-[22px] md:text-[28px]">${titleLabel}</h2>
       </div>
