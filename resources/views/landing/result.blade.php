@@ -103,7 +103,7 @@
     <h2 class="hidden md:flex items-center justify-center h-[70px] mb-16 text-[36px] font-semibold text-[#204a7a] leading-[1.5] text-center">{{ cms('wheel_result.header.title', 'نتيجة التقييم') }}</h2>
 
     <!-- Result row. Desktop: wheel card 630 + 27 gap + 581 column | Mobile: stacked with 32px gaps -->
-    <div class="flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-[27px] max-w-[480px] mx-auto lg:max-w-none">
+    <div class="flex flex-col gap-8 lg:flex-row lg:items-stretch lg:gap-[27px] max-w-[480px] mx-auto lg:max-w-none">
 
       <!-- Wheel card (Figma #3414:6413 / #3418:6302) -->
       <section class="relative w-full lg:w-[50.81%] lg:shrink-0 aspect-[361/450] lg:aspect-[630/698] bg-white rounded-[20px] lg:rounded-[30px] shadow-[0px_5px_11.8px_0px_rgba(0,0,0,0.03)] overflow-hidden" aria-labelledby="wheel-card-title">
@@ -118,7 +118,7 @@
         <svg id="wheelSvg" viewBox="0 0 361 450" xmlns="http://www.w3.org/2000/svg" class="absolute inset-0 size-full" preserveAspectRatio="xMidYMid meet"></svg>
       </section>
 
-      <div class="flex flex-col gap-8 lg:gap-[28px] lg:flex-1 lg:min-w-0">
+      <div class="flex flex-col gap-8 lg:gap-[24px] lg:flex-1 lg:min-w-0">
 
         <!-- Highest / Lowest (Figma #3414:6380 / #3418:6448): mobile عمودين ارتفاع 84، desktop فوق بعض ارتفاع 155 ومسافة 24 -->
         <div class="grid grid-cols-2 gap-3 lg:grid-cols-1 lg:gap-6">
@@ -154,20 +154,20 @@
         </div>
 
         <!-- AI Insight (Figma #3414:6399 / #3418:6470) -->
-        <div class="rounded-[16px] lg:rounded-[20px] border border-[#acc7e6] px-[15px] py-4 lg:pt-10 lg:pb-[58px] lg:px-[18px] min-h-[147px] lg:min-h-0 flex items-center lg:items-start" style="background-image: linear-gradient(-70.4deg, #d0e2fb 30.374%, #ffffff 93.014%);">
-          <div class="flex items-start justify-between gap-2 lg:gap-3 w-full lg:min-h-[229px]">
+        <div class="rounded-[16px] lg:rounded-[20px] border border-[#acc7e6] px-[15px] py-4 lg:pt-10 lg:pb-8 lg:px-[18px] min-h-[147px] flex items-start lg:flex-1" style="background-image: linear-gradient(-70.4deg, #d0e2fb 30.374%, #ffffff 93.014%);">
+          <div class="flex items-start gap-2.5 lg:gap-3.5 w-full">
             <div class="bg-[#204a7a] rounded-[12px] size-[41px] lg:size-[56px] flex items-center justify-center shrink-0" aria-hidden="true">
               <img src="/landing/icons/result/lightbulb.svg" alt="" width="32" height="32" class="size-[22px] lg:size-[32px]" />
             </div>
-            <div class="flex flex-col items-end gap-[14px] lg:gap-10 flex-1 min-w-0 lg:max-w-[473px]">
-              <div class="w-full flex items-center justify-between gap-3 lg:gap-[116px]">
+            <div class="flex flex-col gap-[14px] lg:gap-6 flex-1 min-w-0">
+              <div class="w-full flex items-center justify-between gap-3">
                 <h3 class="text-[#172554] text-[14px] lg:text-[25px] font-bold leading-normal whitespace-nowrap">{{ cms('wheel_result.summary.analysis_title', 'ماذا تعني هذه النتيجة؟') }}</h3>
                 <span class="bg-white border border-[#b4cce6] rounded-full h-[22px] lg:h-[33px] px-3 py-1 flex items-center gap-1 shrink-0 text-[#204a7a] text-[10px] lg:text-[14px] font-medium lg:font-semibold leading-[16px]">
                   <img src="/landing/icons/result/sparkle.svg" alt="" width="13" height="13" class="size-[11px] lg:size-[13px]" aria-hidden="true" />
                   <span class="whitespace-nowrap">{{ cms('wheel_result.summary.analysis_badge', 'تحليل ذكي') }}</span>
                 </span>
               </div>
-              <p id="analysis-text" data-levels="{{ json_encode($overallLevels, JSON_UNESCAPED_UNICODE) }}" class="w-full lg:max-w-[455px] text-[#565656] text-[11px] lg:text-[20px] font-medium leading-[17.88px] lg:leading-[1.5] text-right">
+              <p id="analysis-text" data-levels="{{ json_encode($overallLevels, JSON_UNESCAPED_UNICODE) }}" class="w-full text-[#565656] text-[11px] lg:text-[20px] font-medium leading-[17.88px] lg:leading-[1.6] text-right">
                 جاري تحليل النتيجة...
               </p>
             </div>

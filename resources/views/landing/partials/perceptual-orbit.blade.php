@@ -57,7 +57,7 @@
           </div>
           <p class="{{ $labelCls }}" style="color:{{ $badgeStyle['kin']['text'] }};font-size:{{ $u($s['label']) }}">{{ $labels['kin'][0] }}</p>
         </div>
-        <p class="{{ $captionCls }}" style="font-size:{{ $u($s['caption']) }};width:{{ $u($s['kin_w']) }}">{{ $labels['kin'][1] }}</p>
+        <p class="{{ $captionCls }}" style="position:relative;z-index:10;font-size:{{ $u($s['caption']) }};width:{{ $u($s['kin_w']) }}">{{ $labels['kin'][1] }}</p>
       </div>
 
       <!-- Auditory (سمعي) -->
@@ -68,7 +68,7 @@
           </div>
           <p class="{{ $labelCls }}" style="color:{{ $badgeStyle['aud']['text'] }};font-size:{{ $u($s['label']) }}">{{ $labels['aud'][0] }}</p>
         </div>
-        <p class="{{ $captionCls }}" style="font-size:{{ $u($s['caption']) }};width:{{ $u($s['aud_cap']) }}">{{ $labels['aud'][1] }}</p>
+        <p class="{{ $captionCls }}" style="position:relative;z-index:10;font-size:{{ $u($s['caption']) }};width:{{ $u($s['aud_cap']) }}">{{ $labels['aud'][1] }}</p>
       </div>
 
       <!-- Dots on the orbit -->
@@ -96,7 +96,7 @@
           </div>
           <p class="absolute {{ $labelCls }}" style="left:{{ $u($s['vis']['lx']) }};top:{{ $u($s['vis']['ly']) }};color:{{ $badgeStyle['vis']['text'] }};font-size:{{ $u($s['label']) }}">{{ $labels['vis'][0] }}</p>
         </div>
-        <p class="absolute {{ $captionCls }}" style="left:{{ $u($s['vis']['cx']) }};top:{{ $u($s['vis']['cy']) }};width:{{ $u($s['vis']['cw']) }};font-size:{{ $u($s['caption']) }};transform:translateX(-50%)">{{ $labels['vis'][1] }}</p>
+        <p class="absolute {{ $captionCls }}" style="left:{{ $u($s['vis']['cx']) }};top:{{ $u($s['vis']['cy']) }};width:{{ $u($s['vis']['cw']) }};z-index:10;font-size:{{ $u($s['caption']) }};transform:translateX(-50%)">{{ $labels['vis'][1] }}</p>
       </div>
     </div>
   </div>

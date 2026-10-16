@@ -121,6 +121,7 @@ function renderDotContent(dotType, isOption = false) {
 }
 
 // Shared classes (Figma: mobile #3403:8558, desktop #3403:9849)
+const TEXT_SELECTED_BADGE = '<span class="quiz-option-badge absolute top-[7px] left-[10px] md:top-[12px] md:left-[18px] w-[16px] h-[16px] md:w-[26px] md:h-[26px] rounded-full bg-[#4A7FC1] text-white flex items-center justify-center" aria-hidden="true"><i class="fa-solid fa-check text-[9px] md:text-[14px]"></i></span>';
 const BTN_BASE = 'w-full md:max-w-[671px] h-[40px] md:h-[70px] rounded-[10px] md:rounded-[12px] bg-[#FCD34D] text-[#132C49] font-bold font-messiri text-[14px] md:text-[20px] flex items-center justify-center gap-[8px] md:gap-[10px] transition-all duration-200';
 const BTN_DISABLED = `${BTN_BASE} opacity-50 cursor-not-allowed`;
 const BTN_ENABLED = `${BTN_BASE} cursor-pointer hover:bg-[#FBBF24] shadow-[0px_4px_12px_rgba(0,0,0,0.16)]`;
@@ -222,8 +223,8 @@ export function initQuiz(customQuestions = null) {
       // 4 dice in a row (Mobile: 73x58 filling the row, Desktop: 99x99 across 588px)
       optionsContainer.className = 'flex items-center justify-between gap-[12px] md:gap-0 w-full md:max-w-[588px] md:mx-auto mt-[24px] md:mt-[64px]';
 
-      const normalClass = 'quiz-option relative flex-1 md:flex-none min-w-0 h-[58px] md:w-[99px] md:h-[99px] rounded-[14px] bg-[#EEF2F7] border-[1.5px] border-[#DDE4ED] flex items-center justify-center hover:border-[#4A7FC1] transition-all duration-200 cursor-pointer';
-      const selectedClass = 'quiz-option relative flex-1 md:flex-none min-w-0 h-[58px] md:w-[99px] md:h-[99px] rounded-[14px] bg-[#F4F8FD] border-2 border-[#4A7FC1] flex items-center justify-center shadow-md transition-all duration-200 cursor-pointer';
+      const normalClass = 'quiz-option relative flex-1 md:flex-none min-w-0 h-[58px] md:w-[99px] md:h-[99px] rounded-[14px] bg-[#EEF2F7] border-[1.5px] border-[#DDE4ED] flex items-center justify-center hover:border-[#4A7FC1] outline-none transition-all duration-200 cursor-pointer';
+      const selectedClass = 'quiz-option relative flex-1 md:flex-none min-w-0 h-[58px] md:w-[99px] md:h-[99px] rounded-[14px] bg-white border-[3px] border-[#FCD34D] ring-4 ring-[#FCD34D]/40 scale-[1.06] outline-none flex items-center justify-center shadow-[0_6px_18px_rgba(0,0,0,0.35)] transition-all duration-200 cursor-pointer';
 
       q.options.forEach((optType, optIdx) => {
         const btn = document.createElement('button');
@@ -264,8 +265,8 @@ export function initQuiz(customQuestions = null) {
       // 2x2 Grid for Text Questions (Mobile: 155x47, Desktop: 313x95)
       optionsContainer.className = 'grid grid-cols-2 gap-[12px] md:gap-[40px] mt-[28px] md:mt-[48px] w-full md:max-w-[671px] md:mx-auto';
 
-      const normalClass = 'quiz-option w-full h-[47px] md:h-[95px] rounded-[14px] md:rounded-[32.34px] bg-[#EFF3F8] border-[1.6px] md:border-[3.23px] border-[#DDE4ED] text-[#262626] text-[14px] md:text-[28.3px] font-bold font-cairo flex items-center justify-center cursor-pointer transition-all duration-200 hover:bg-[#F8FAFC] hover:border-brand-primary hover:text-brand-primary shadow-sm';
-      const selectedClass = 'quiz-option w-full h-[47px] md:h-[95px] rounded-[14px] md:rounded-[32.34px] bg-[#F0F5FA] border-[1.6px] md:border-[3.23px] border-brand-primary text-brand-primary text-[14px] md:text-[28.3px] font-bold font-cairo flex items-center justify-center cursor-pointer shadow-md transition-all duration-200';
+      const normalClass = 'quiz-option relative w-full h-[47px] md:h-[95px] rounded-[14px] md:rounded-[32.34px] bg-[#EFF3F8] border-[1.6px] md:border-[3.23px] border-[#DDE4ED] text-[#262626] text-[14px] md:text-[28.3px] font-bold font-cairo flex items-center justify-center cursor-pointer transition-all duration-200 hover:bg-[#F8FAFC] hover:border-brand-primary hover:text-brand-primary outline-none shadow-sm';
+      const selectedClass = 'quiz-option relative w-full h-[47px] md:h-[95px] rounded-[14px] md:rounded-[32.34px] bg-white border-[2.5px] md:border-[4px] border-[#FCD34D] ring-4 ring-[#FCD34D]/40 outline-none text-[#0B2A4A] text-[14px] md:text-[28.3px] font-bold font-cairo flex items-center justify-center cursor-pointer shadow-[0_6px_18px_rgba(0,0,0,0.35)] transition-all duration-200';
 
       q.options.forEach((optText, optIdx) => {
         const btn = document.createElement('button');
@@ -283,11 +284,13 @@ export function initQuiz(customQuestions = null) {
           optionsContainer.querySelectorAll('.quiz-option').forEach(b => {
             b.className = normalClass;
             b.setAttribute('aria-checked', 'false');
+            b.querySelector('.quiz-option-badge')?.remove();
           });
 
           // Selected
           btn.className = selectedClass;
           btn.setAttribute('aria-checked', 'true');
+          btn.insertAdjacentHTML('beforeend', TEXT_SELECTED_BADGE);
 
           // Enable button
           actionBtn.disabled = false;

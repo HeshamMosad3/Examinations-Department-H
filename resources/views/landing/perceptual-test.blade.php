@@ -71,8 +71,8 @@
     </div>
 
     <!-- Progress (#3083:15007 / #3080:12235) -->
-    <div class="flex items-center gap-0 md:gap-[8px] h-[16px] md:h-[20px] mb-[16px] md:mb-[48px]">
-      <span id="pt-progress-text" class="min-w-[36px] -ml-[4px] md:ml-0font-cairo md:font-messiri font-bold md:font-semibold text-[12px] md:text-[17px] leading-[16px] md:leading-[1.5] text-[#2b5788] whitespace-nowrap" aria-live="polite"></span>
+    <div class="flex items-center gap-3 md:gap-4 h-[16px] md:h-[20px] mb-[16px] md:mb-[48px]">
+      <span id="pt-progress-text" dir="ltr" class="shrink-0 font-cairo md:font-messiri font-bold md:font-semibold text-[12px] md:text-[17px] leading-[16px] md:leading-[1.5] text-[#2b5788] whitespace-nowrap" aria-live="polite"></span>
       <div class="flex-1 h-[8px] bg-[#e5e7eb] rounded-full overflow-hidden" role="progressbar" aria-label="تقدم الاختبار" aria-valuemin="0" id="pt-progress-bar">
         <div id="pt-progress-fill" class="h-full bg-[#2b5788] rounded-full transition-[width] duration-300 mr-0 ml-auto" style="width:0"></div>
       </div>
@@ -86,9 +86,9 @@
           <!-- Question box: border with a gap on top for the icon -->
           <div class="relative w-full max-w-[307px] md:max-w-[913px] pt-[8px] md:pt-[16px]">
             <div class="border border-[#bac7d6] rounded-[15px] min-h-[97px] md:min-h-[234px] flex items-center justify-center px-[8px] md:px-[40px] pt-[22px] pb-[14px] md:py-[40px]">
-              <p class="flex items-start justify-center gap-px md:gap-[8px] text-center max-w-[291px] md:max-w-[560px]">
-                <span id="pt-question-number" class="font-bold md:font-medium text-[21px] md:text-[30px] text-[#204a7a] leading-normal shrink-0"></span>
-                <span id="pt-question-text" class="font-medium text-[17px] md:text-[30px] text-[#262626] leading-[1.5] md:leading-normal"></span>
+              <p class="text-center max-w-[291px] md:max-w-[780px] leading-[1.5] md:leading-normal">
+                <span id="pt-question-number" class="font-bold md:font-medium text-[21px] md:text-[30px] text-[#204a7a] inline-block ms-1.5 md:ms-2.5"></span>
+                <span id="pt-question-text" class="font-medium text-[17px] md:text-[30px] text-[#262626]"></span>
               </p>
             </div>
             <div class="absolute top-0 left-1/2 -translate-x-1/2 bg-white px-[12px] md:px-[35px]" aria-hidden="true">

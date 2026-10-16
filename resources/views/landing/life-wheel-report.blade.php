@@ -94,7 +94,7 @@
   </section>
 
   <!-- Wheel + highest / lowest + analysis -->
-  <div class="w-full flex flex-row items-center gap-[27px]">
+  <div class="w-full flex flex-row items-stretch gap-[27px]">
 
     <section class="relative w-[630px] h-[698px] shrink-0 bg-white rounded-[30px] shadow-[0px_5px_11.8px_0px_rgba(0,0,0,0.03)] overflow-hidden" aria-labelledby="wheel-card-title">
       <div class="absolute left-1/2 -translate-x-1/2 top-[27px] w-[582px] h-[48px] pb-[13px] flex items-center justify-between border-b border-[#f1f5f9] text-[#262626]">
@@ -149,12 +149,12 @@
         @endforeach
       </div>
 
-      <div class="rounded-[20px] border border-[#acc7e6] pt-10 pb-[58px] px-[18px] flex items-start" style="background-image: linear-gradient(-70.4deg, #d0e2fb 30.374%, #ffffff 100%)">
-        <div class="flex items-start justify-between gap-3 w-full">
+      <div class="rounded-[20px] border border-[#acc7e6] pt-10 pb-8 px-[18px] flex items-start flex-1" style="background-image: linear-gradient(-70.4deg, #d0e2fb 30.374%, #ffffff 100%)">
+        <div class="flex items-start gap-3.5 w-full">
           <div class="bg-[#204a7a] rounded-[12px] size-[56px] flex items-center justify-center shrink-0" aria-hidden="true">
             <img src="/landing/icons/result/lightbulb.svg" alt="" width="32" height="32" class="size-[32px]" />
           </div>
-          <div class="flex flex-col items-end gap-8 flex-1 min-w-0">
+          <div class="flex flex-col gap-6 flex-1 min-w-0">
             <div class="w-full flex items-center justify-between gap-3">
               <h3 class="text-[#172554] text-[25px] font-bold leading-normal whitespace-nowrap">{{ cms('wheel_result.summary.analysis_title', 'ماذا تعني هذه النتيجة؟') }}</h3>
               <span class="bg-white border border-[#b4cce6] rounded-full h-[33px] px-3 py-1 flex items-center gap-1 shrink-0 text-[#204a7a] text-[14px] font-semibold leading-[16px]">
