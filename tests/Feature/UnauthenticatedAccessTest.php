@@ -25,6 +25,18 @@ class UnauthenticatedAccessTest extends TestCase
             ->assertSee('noindex', false);
     }
 
+    public function test_unauthorized_user_on_admin_page_gets_the_friendly_403_page(): void
+    {
+        $this->actingAs($this->makeUser())
+            ->get(route('admin.dashboard'))
+            ->assertForbidden()
+            ->assertSee('غير مصرح لك بالوصول')
+            ->assertSee('403')
+            ->assertSee('href="' . route('home') . '"', false)
+            ->assertSee('data-go-back', false)
+            ->assertSee('noindex', false);
+    }
+
     public function test_an_expired_session_gets_the_same_401_page(): void
     {
         $this->actingAs($this->makeUser())->get(route('profile.edit'))->assertOk();
