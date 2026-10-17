@@ -106,9 +106,18 @@ const HOME_AXIS_STYLE = [
   { fill: "#59CFD6", bg: "#D2F2F4", text: "#27797E", icon: "financial", iconW: 48, iconH: 48 },
   { fill: "#244973", bg: "#CDDAED", text: "#21487B", icon: "career", iconW: 48, iconH: 48 }
 ];
+// ألوان وأيقونات المحاور وصورة البوصلة من لوحة الإدارة (window.LIFE_WHEEL_STYLE)، ولو مش متاحة بتفضل الافتراضية
+const adminStyle = typeof window !== "undefined" ? window.LIFE_WHEEL_STYLE : null;
 if (isHomeDesign) {
   axesState.forEach((axis, i) => {
-    axis.customIconUrl = `/landing/icons/wheel_of_life/home/${HOME_AXIS_STYLE[i].icon}.svg`;
+    const key = HOME_AXIS_STYLE[i].icon;
+    const custom = adminStyle && adminStyle.axes ? adminStyle.axes[key] : null;
+    if (custom) {
+      HOME_AXIS_STYLE[i].fill = custom.fill || HOME_AXIS_STYLE[i].fill;
+      HOME_AXIS_STYLE[i].bg = custom.bg || HOME_AXIS_STYLE[i].bg;
+      HOME_AXIS_STYLE[i].text = custom.text || HOME_AXIS_STYLE[i].text;
+    }
+    axis.customIconUrl = (custom && custom.icon) || `/landing/icons/wheel_of_life/home/${key}.svg`;
   });
 }
 
@@ -117,7 +126,7 @@ let rotationAngle = 0;      // بالدرجات - قيمة معروضة محصو
 let autoSpinOn = typeof window !== "undefined" && localStorage.getItem("dar_alruya_wheel_auto_spin_360") === "true";
 let autoSpinSpeed = 20;     // درجة/ثانية
 let spinDirection = (typeof window !== "undefined" && localStorage.getItem("dar_alruya_wheel_spin_direction")) || "cw";
-let centerImageDataUrl = "/landing/images/Frame%202147238562.png";
+let centerImageDataUrl = (typeof window !== "undefined" && window.LIFE_WHEEL_STYLE && window.LIFE_WHEEL_STYLE.compass) || "/landing/images/Frame%202147238562.png";
 let autoSpinTimer = null;
 let isSpinning = false;     // true أثناء تشغيل أنيميشن السبين العشوائي
 let audioCtx = null;

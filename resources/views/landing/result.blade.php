@@ -107,15 +107,16 @@
 
       <!-- Wheel card (Figma #3414:6413 / #3418:6302) -->
       <section class="relative w-full lg:w-[50.81%] lg:shrink-0 aspect-[361/450] lg:aspect-[630/698] bg-white rounded-[20px] lg:rounded-[30px] shadow-[0px_5px_11.8px_0px_rgba(0,0,0,0.03)] overflow-hidden" aria-labelledby="wheel-card-title">
-        <div class="absolute left-1/2 -translate-x-1/2 top-[6.44%] lg:top-[3.87%] w-[88.64%] lg:w-[92.38%] h-[33px] lg:h-[48px] pb-[13px] flex items-center justify-between border-b border-[#f1f5f9] text-[#262626]">
+        <div class="absolute left-1/2 -translate-x-1/2 top-[20px] lg:top-[3.87%] w-[88.64%] lg:w-[92.38%] h-[33px] lg:h-[48px] pb-[13px] flex items-center justify-between border-b border-[#f1f5f9] text-[#262626]">
           <div class="flex items-center gap-2">
-            <img src="/landing/icons/result/chart-pie.svg" alt="" width="21" height="20" class="h-[20px] w-auto" aria-hidden="true" />
-            <h3 id="wheel-card-title" class="text-[17px] lg:text-[21px] font-semibold lg:font-bold leading-[1.5] lg:leading-normal whitespace-nowrap">{{ cms('wheel_result.summary.wheel_title', 'مخطط عجلة الحياة') }}</h3>
+            <img src="/landing/icons/result/chart-pie.svg" alt="" width="21" height="20" class="h-[18px] lg:h-[28px] w-auto" aria-hidden="true" />
+            <h3 id="wheel-card-title" class="text-[14px] lg:text-[21px] font-semibold lg:font-bold leading-[1.5] lg:leading-normal whitespace-nowrap">{{ cms('wheel_result.summary.wheel_title', 'مخطط عجلة الحياة') }}</h3>
           </div>
           <span class="bg-[#f1f5f9] rounded-full px-3 py-1 text-[12px] lg:text-[14px] font-medium text-[#565656] leading-[1.5] lg:leading-normal whitespace-nowrap">{{ cms('wheel_result.summary.dimensions_badge', '8 أبعاد رئيسية') }}</span>
         </div>
 
-        <svg id="wheelSvg" viewBox="0 0 361 450" xmlns="http://www.w3.org/2000/svg" class="absolute inset-0 size-full" preserveAspectRatio="xMidYMid meet"></svg>
+        <svg id="wheelSvg" viewBox="0 0 361 450" xmlns="http://www.w3.org/2000/svg" class="absolute inset-0 size-full origin-top translate-y-[1%] scale-[.83] lg:translate-y-[0.7%] lg:scale-[.885]" preserveAspectRatio="xMidYMid meet"></svg>
+        <p class="absolute left-1/2 top-[90.8%] -translate-x-1/2 -translate-y-1/2 w-full px-4 text-center text-[12px] lg:text-[20px] font-normal text-[#565656] leading-normal">{{ cms('wheel_result.summary.wheel_note', 'تم تقييم توازنك وفقًا لإجاباتك عن الجوانب الثمانية.') }}</p>
       </section>
 
       <div class="flex flex-col gap-8 lg:gap-[24px] lg:flex-1 lg:min-w-0">

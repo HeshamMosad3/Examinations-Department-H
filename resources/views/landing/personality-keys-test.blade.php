@@ -166,6 +166,15 @@
     </div>
   </main>
 
+  <!-- رسالة التحفيز بعد كل مفتاح (نفس تصميم اختبار عجلة الحياة) -->
+  <div id="pk-milestone-overlay" role="status" aria-live="polite" class="fixed inset-0 z-[200] hidden items-center justify-center bg-black/40 px-4">
+    <div class="bg-brand-primary rounded-[16px] md:rounded-[24px] shadow-2xl px-5 py-4 md:px-10 md:py-6 w-[95%] sm:w-auto max-w-[352px] md:max-w-[650px] flex items-center justify-center gap-[8px] md:gap-[16px]">
+      <div id="pk-milestone-icon" class="shrink-0 w-[44px] h-[44px] md:w-[65px] md:h-[65px] lg:w-[75px] lg:h-[75px] flex items-center justify-center"></div>
+      <p id="pk-milestone-text" class="font-messiri font-semibold text-white text-[14px] md:text-[22px] lg:text-[26px] leading-snug text-right m-0"></p>
+    </div>
+  </div>
+
   @include('landing.partials.footer')
+  <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
 </body>
 </html>

@@ -43,18 +43,10 @@
   @include('landing.partials.navbar')
 
 
-  <!-- ==================== اكتشف عجلة الحياة (Desktop #3083:16731 / Mobile #3080:10714) ==================== -->
-  <main id="main-content" class="w-full max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-0 pt-4 lg:pt-[48px] pb-[39px] lg:pb-[77px] relative font-messiri">
+  <!-- ==================== اكتشف عجلة الحياة (Desktop #3615:7582 / Mobile #3615:7963) ==================== -->
+  <main id="main-content" class="w-full max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-0 pt-6 lg:pt-[48px] pb-[39px] lg:pb-[77px] relative font-messiri">
 
-    <!-- Mobile header: back button + title (#3080:10725) -->
-    <div class="lg:hidden relative h-[32px] flex items-center justify-center mb-[24px]">
-      <a href="{{ route('home') }}" class="absolute right-0 top-0 size-[32px] p-[8px] rounded-full bg-[#e9edf2] flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary" aria-label="الرجوع للرئيسية">
-        <img src="/landing/images/life-wheel-explore/back-arrow.svg" alt="" width="18" height="18" class="size-[18px] -scale-x-100" />
-      </a>
-      <h1 class="text-[21px] font-bold text-[#204a7a] leading-[28px] tracking-[-0.5px] text-center">{{ cms('life_wheel.intro.title', 'ما هي عجلة الحياة؟') }}</h1>
-    </div>
-
-    <!-- Desktop breadcrumb (#3083:16736) -->
+    <!-- Desktop breadcrumb (#3615:7587) -->
     <nav class="hidden lg:flex items-center justify-start gap-1 h-[33px] mb-[64px]" aria-label="مسار التنقل">
       <a href="{{ route('home') }}" class="text-[#6f6f6f] hover:text-brand-primary transition-colors text-[21px] font-normal leading-[1.5]">{{ cms('life_wheel.breadcrumb.home', 'الرئيسية') }}</a>
       <span class="w-[18px] h-[18px] flex items-center justify-center shrink-0" aria-hidden="true">
@@ -63,44 +55,54 @@
       <span class="text-[#204a7a] text-[21px] font-medium leading-normal" aria-current="page">{{ cms('life_wheel.breadcrumb.current', 'عجلة الحياة') }}</span>
     </nav>
 
-    <div class="flex flex-col gap-[40px] lg:gap-[128px]">
+    <div class="flex flex-col gap-[48px] lg:gap-[112px]">
 
-      <!-- ==================== 1. ما هي عجلة الحياة؟ (#3083:16749 / #3080:10731) ==================== -->
-      <section aria-label="ما هي عجلة الحياة؟" class="flex flex-col lg:grid lg:grid-cols-[500px_707px] lg:grid-rows-[auto_1fr] lg:gap-x-[33px] lg:h-[499px]">
+      <!-- ==================== 1. ما هي عجلة الحياة؟ (#3615:7602 / #3615:7977) ==================== -->
+      <section aria-label="ما هي عجلة الحياة؟" class="flex flex-col items-center gap-[48px] lg:flex-row lg:justify-between lg:gap-[214px]">
 
-        <!-- Heading -->
-        <div class="order-1 lg:col-start-1 lg:row-start-1 flex flex-col lg:gap-[64px] lg:text-right">
-          <h1 class="hidden lg:block text-[36px] font-semibold text-[#204a7a] leading-[1.5]">{{ cms('life_wheel.intro.title', 'ما هي عجلة الحياة؟') }}</h1>
-          <p class="w-full max-w-[329px] lg:max-w-none mx-auto text-center lg:text-right text-[14px] lg:text-[25px] font-medium text-[#565656] leading-[22px] lg:leading-normal lg:h-[156px]">
-            {{ cms('life_wheel.intro.line_1', 'أداة تقيس درجة التوازن الذي يحققه الفرد') }}<br class="hidden lg:block" />
-            {{ cms('life_wheel.intro.line_2', 'بين الجوانب الرئيسة في حياته، من خلال') }}<br class="hidden lg:block" />
-            {{ cms('life_wheel.intro.line_3', 'تقييم ممارساته وعاداته وإدراكه لمدى') }}<br class="hidden lg:block" />
-            {{ cms('life_wheel.intro.line_4', 'اهتمامه بكل جانب.') }}
-          </p>
-        </div>
+        <!-- Text + CTA + pills -->
+        <div class="w-full lg:w-[501px] lg:shrink-0 flex flex-col items-center lg:items-start gap-[32px] lg:gap-[48px]">
+          <div class="w-full flex flex-col items-center lg:items-start gap-[24px] text-center lg:text-right">
+            <h1 class="text-[21px] lg:text-[36px] font-bold lg:font-semibold text-[#204a7a] leading-[28px] lg:leading-[1.5] tracking-[-0.5px] lg:tracking-normal">{{ cms('life_wheel.intro.title', 'ما هي عجلة الحياة؟') }}</h1>
+            <p class="w-full max-w-[329px] lg:max-w-none text-[14px] lg:text-[25px] font-medium text-[#565656] leading-normal">
+              {{ cms('life_wheel.intro.line_1', 'أداة تقيس درجة التوازن الذي يحققه الفرد') }}<br class="hidden lg:block" />
+              {{ cms('life_wheel.intro.line_2', 'بين الجوانب الرئيسة في حياته، من خلال') }}<br class="hidden lg:block" />
+              {{ cms('life_wheel.intro.line_3', 'تقييم ممارساته وعاداته وإدراكه لمدى') }}<br class="hidden lg:block" />
+              {{ cms('life_wheel.intro.line_4', 'اهتمامه بكل جانب.') }}
+            </p>
+          </div>
 
-        <!-- Wheel Card (#3083:16750 / #3080:10735) — same wheel as the home page -->
-        <div class="order-2 mt-[24px] lg:mt-0 lg:col-start-2 lg:row-start-1 lg:row-span-2 relative w-full h-[407px] px-4 py-6 sm:p-0 sm:h-[499px] lg:w-[707px] flex items-center justify-center rounded-[12px] lg:rounded-[30px] overflow-hidden shadow-[0px_5px_11.8px_0px_rgba(0,0,0,0.03)] bg-gradient-to-b from-[#ebf3fc] to-white lg:from-[#fbfbfb] lg:to-[#edf4fc]">
-          <div class="hidden lg:block absolute bottom-0 left-[-49px] w-[293px] h-[568px] rounded-full blur-[12px] pointer-events-none" style="background-image: linear-gradient(62.71deg, rgba(197, 223, 241, 0.4) 0%, #ffffff 100%);" aria-hidden="true"></div>
+          <div class="w-full flex flex-col items-center lg:items-start gap-[16px] lg:gap-[48px]">
+            <a href="{{ route('life-wheel.assessment') }}" @guest data-auth-gate="life-wheel-assessment" @endguest
+               class="group w-[195px] lg:w-[271px] h-[45px] lg:h-[60px] px-6 py-3 bg-[#204a7a] rounded-[10px] lg:rounded-[15px] flex items-center justify-center gap-2 text-[#e9edf2] text-[14px] lg:text-[25px] font-semibold leading-[1.5] whitespace-nowrap hover:bg-[#102744] hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2">
+              <span>{{ cms('life_wheel.steps.start_button', 'ابدأ التقييم الآن') }}</span>
+              <img src="/landing/images/life-wheel-explore/m-arrow-left.svg" alt="" aria-hidden="true" width="12" height="12" class="lg:hidden size-[12px] group-hover:-translate-x-1 transition-transform duration-200" />
+              <img src="/landing/images/life-wheel-explore/arrow-left.svg" alt="" aria-hidden="true" width="24" height="24" class="hidden lg:block size-[24px] group-hover:-translate-x-1 transition-transform duration-200" />
+            </a>
 
-          @include('landing.partials.life-wheel-influence-config')
-          <!-- Home-page wheel: mobile uses the exact hero sizing (landing/partials/hero.blade.php); desktop fits the whole wheel (incl. labels at max size) inside the Figma wheel frame 412.25x463 -->
-          <div class="relative mx-auto w-full max-w-[305px] min-[390px]:max-w-[325px] min-[410px]:max-w-[335px] aspect-[319.08/332.58] sm:absolute sm:left-[calc(50%-0.38px)] sm:top-[calc(50%+1px)] sm:-translate-x-1/2 sm:-translate-y-1/2 sm:w-[412.25px] sm:max-w-none sm:h-[463px] sm:aspect-auto flex items-center justify-center overflow-visible">
-            <div id="wheel-wrap" class="w-full h-full relative z-10">
-              <svg id="wheelSvg" viewBox="0 0 834.43 869.75" xmlns="http://www.w3.org/2000/svg" class="w-full h-full overflow-visible" style="overflow: visible;" role="img" aria-label="عجلة الحياة بجوانبها الثمانية"></svg>
-            </div>
+            <ul class="flex flex-wrap items-center justify-center lg:justify-start gap-[6px] lg:gap-[20px]">
+              @foreach ([
+                ['key' => 'pie',     'text' => cms('life_wheel.intro.pill_aspects', '8 جوانب')],
+                ['key' => 'check',   'text' => cms('life_wheel.intro.pill_no_wrong', 'لا توجد إجابات صحيحة أو خاطئة')],
+                ['key' => 'instant', 'text' => cms('life_wheel.intro.pill_instant', 'نتائج فورية')],
+              ] as $pill)
+                <li class="h-[25px] lg:h-auto px-[13px] py-[7px] bg-white border border-[rgba(226,232,240,0.7)] rounded-full flex items-center justify-center gap-[6px] text-[#334155] text-[10px] lg:text-[14px] font-medium leading-[1.5] whitespace-nowrap">
+                  <img src="/landing/images/life-wheel-explore/m-pill-{{ $pill['key'] }}.svg" alt="" width="11" height="11" class="lg:hidden h-[11px] w-auto shrink-0" aria-hidden="true" />
+                  <img src="/landing/images/life-wheel-explore/pill-{{ $pill['key'] }}.svg" alt="" width="16" height="16" class="hidden lg:block size-[16px] shrink-0" aria-hidden="true" />
+                  <span>{{ $pill['text'] }}</span>
+                </li>
+              @endforeach
+            </ul>
           </div>
         </div>
 
-        <!-- AI Insight (#3083:16869 / #3080:10849) -->
-        <div class="order-3 mt-[20px] lg:mt-0 lg:col-start-1 lg:row-start-2 lg:self-end w-full lg:h-[174px] flex flex-col items-center justify-center p-4 rounded-[16px] border border-[#dbeafe] drop-shadow-[0px_4px_3.6px_rgba(0,0,0,0.07)]" style="background-image: linear-gradient(83deg, #ffffff 0.5%, #dbeafe 104.96%);">
-          <div class="flex flex-col items-center gap-[14px] w-full">
-            <div class="bg-[#204a7a] rounded-[12px] size-[48px] flex items-center justify-center shrink-0" aria-hidden="true">
-              <img src="/landing/images/life-wheel-explore/bulb.svg" alt="" width="32" height="32" class="size-[32px]" />
+        <!-- Wheel (#3615:7603 / #3615:8003) — same wheel as the home page, no card behind it -->
+        <div class="relative w-full lg:w-[521px] h-[348px] lg:h-[494px] lg:shrink-0 flex items-center justify-center">
+          @include('landing.partials.life-wheel-influence-config')
+          <div class="relative w-[334px] h-[348px] lg:w-[474px] lg:h-[494px] flex items-center justify-center overflow-visible">
+            <div id="wheel-wrap" class="w-full h-full relative z-10">
+              <svg id="wheelSvg" viewBox="0 0 834.43 869.75" xmlns="http://www.w3.org/2000/svg" class="w-full h-full overflow-visible" style="overflow: visible;" role="img" aria-label="عجلة الحياة بجوانبها الثمانية"></svg>
             </div>
-            <p class="w-full max-w-[327px] lg:max-w-[426px] text-center text-[17px] lg:text-[21px] font-semibold text-[#172554] leading-[27px] lg:leading-[1.5]">
-              {{ cms('life_wheel.intro.insight', 'تمنحك العجلة نظرة شاملة على حياتك وتساعدك على إتخاذ قرارات أكثر وعياً وتوازناً.') }}
-            </p>
           </div>
         </div>
       </section>
@@ -110,7 +112,7 @@
       <!-- ==================== 2. جوانب الحياة التي ستقيمها (#3083:16877 / #3080:10857) ==================== -->
       @php
         $aspects = [
-          ['title' => cms('life_wheel.aspects.spiritual_title', 'الروحاني'),    'desc' => cms('life_wheel.aspects.spiritual_text', 'التزام الفرد بالعبادات والممارسات الإيمانية.'), 'icon' => 'spiritual', 'bg' => 'bg-[#eff1ff]', 'border' => 'border-[#5963d9]', 'color' => 'text-[#5963d9]'],
+          ['title' => cms('life_wheel.aspects.spiritual_title', 'الروحي'),    'desc' => cms('life_wheel.aspects.spiritual_text', 'التزام الفرد بالعبادات والممارسات الإيمانية.'), 'icon' => 'spiritual', 'bg' => 'bg-[#eff1ff]', 'border' => 'border-[#5963d9]', 'color' => 'text-[#5963d9]'],
           ['title' => cms('life_wheel.aspects.health_title', 'الصحي'),     'desc' => cms('life_wheel.aspects.health_text', 'مدى تبني الفرد لعادات صحية متكاملة.'),          'icon' => 'health',    'bg' => 'bg-[#f4fff9]', 'border' => 'border-[#488c70]', 'color' => 'text-[#488c70]'],
           ['title' => cms('life_wheel.aspects.personal_title', 'الشخصي'),    'desc' => cms('life_wheel.aspects.personal_text', 'مستوى سعي الفرد للتعلم المستمر.'),              'icon' => 'personal',  'bg' => 'bg-[#f6f1ff]', 'border' => 'border-[#5c3e9b]', 'color' => 'text-[#5c3e9b]'],
           ['title' => cms('life_wheel.aspects.family_title', 'العائلي'),   'desc' => cms('life_wheel.aspects.family_text', 'مستوى جودة التواصل الأسري.'),                   'icon' => 'family',    'bg' => 'bg-[#fff8f3]', 'border' => 'border-[#d87f3c]', 'color' => 'text-[#d87f3c]'],
@@ -120,9 +122,9 @@
           ['title' => cms('life_wheel.aspects.leisure_title', 'الترفيهي'),  'desc' => cms('life_wheel.aspects.leisure_text', 'قدرة الفرد على التوازن بين العمل والحياة.'),    'icon' => 'leisure',   'bg' => 'bg-[#fdfcf3]', 'border' => 'border-[#b8aa44]', 'color' => 'text-[#b8aa44]'],
         ];
       @endphp
-      <section aria-labelledby="aspects-title" class="flex flex-col items-center gap-[24px] lg:gap-[64px]">
+      <section aria-labelledby="aspects-title" class="flex flex-col items-center gap-[24px] lg:gap-[60px]">
         <div class="flex flex-col items-center gap-[16px] lg:gap-[21px] text-center w-full max-w-[767px]">
-          <h2 id="aspects-title" class="text-[21px] lg:text-[36px] font-bold lg:font-semibold text-[#204a7a] leading-[28px] lg:leading-[1.5] tracking-[-0.5px] lg:tracking-normal">{{ cms('life_wheel.aspects.title', 'جوانب الحياة التي ستقيمها') }}</h2>
+          <h2 id="aspects-title" class="text-[21px] lg:text-[36px] font-semibold text-[#262626] leading-[28px] lg:leading-[1.5] tracking-[-0.5px] lg:tracking-normal">{{ cms('life_wheel.aspects.title', 'جوانب الحياة التي ستقيمها') }}</h2>
           <p class="text-[14px] lg:text-[25px] font-medium text-[#565656] leading-[22px] lg:leading-[39px]">{{ cms('life_wheel.aspects.subtitle', 'ثمانية جوانب رئيسية تساعدك على رؤية حياتك بشكل متكامل') }}</p>
         </div>
 
@@ -143,9 +145,9 @@
       </section>
 
       <!-- ==================== 3. كيف يعمل التقييم؟ (#3083:16940 / #3080:10922) ==================== -->
-      <section aria-labelledby="how-title" class="mt-[20px] lg:mt-0 flex flex-col items-center gap-[48px] lg:gap-[128px] w-full lg:w-[953px] mx-auto">
-        <div class="flex flex-col items-center gap-[24px] lg:gap-[64px] w-full h-[399px] lg:h-auto">
-          <h2 id="how-title" class="w-full h-[24px] lg:h-auto flex items-center justify-center lg:block text-center text-[21px] lg:text-[36px] font-bold lg:font-semibold text-[#204a7a] leading-[28px] lg:leading-[1.5] tracking-[-0.5px] lg:tracking-normal">{{ cms('life_wheel.steps.title', 'كيف يعمل التقييم؟') }}</h2>
+      <section aria-labelledby="how-title" class="flex flex-col items-center w-full lg:w-[953px] mx-auto">
+        <div class="flex flex-col items-center gap-[24px] lg:gap-[60px] w-full h-[399px] lg:h-auto">
+          <h2 id="how-title" class="w-full h-[24px] lg:h-auto flex items-center justify-center lg:block text-center text-[21px] lg:text-[36px] font-semibold text-[#262626] leading-[28px] lg:leading-[1.5] tracking-[-0.5px] lg:tracking-normal">{{ cms('life_wheel.steps.title', 'كيف يعمل التقييم؟') }}</h2>
 
           <!-- Timeline (#3083:16943 / #3080:10925): card & step positions are the same percentages on both designs -->
           <div class="relative shrink-0 self-stretch -ml-[13px] -mr-[18px] h-[335px] lg:self-auto lg:mx-0 lg:w-[953px] lg:h-[741px]">
@@ -203,18 +205,30 @@
             </div>
           </div>
         </div>
-
-        <!-- Primary Button (#3083:16979 / #3080:10961) -->
-        <a 
-          href="{{ route('life-wheel.assessment') }}" @guest data-auth-gate="life-wheel-assessment" @endguest
-          class="group w-[300px] lg:w-[400px] max-w-full h-[45px] lg:h-[60px] px-6 py-3 bg-[#204a7a] rounded-[10px] lg:rounded-[15px] flex items-center justify-center gap-2 text-[#e9edf2] lg:text-[#f6f6f6] text-[14px] lg:text-[21px] font-semibold leading-[1.5] whitespace-nowrap hover:bg-[#102744] hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
-        >
-          <span>{{ cms('life_wheel.steps.start_button', 'ابدأ التقييم الآن') }}</span>
-          <img src="/landing/images/life-wheel-explore/m-arrow-left.svg" alt="" aria-hidden="true" width="12" height="12" class="lg:hidden size-[12px] group-hover:-translate-x-1 transition-transform duration-200" />
-          <img src="/landing/images/life-wheel-explore/arrow-left.svg" alt="" aria-hidden="true" width="24" height="24" class="hidden lg:block size-[24px] group-hover:-translate-x-1 transition-transform duration-200" />
-        </a>
       </section>
 
+
+      <!-- ==================== 4. اكتشف توازن حياتك — Bottom CTA (#3615:7840 / #3615:8218) ==================== -->
+      <section aria-labelledby="cta-title" class="w-full overflow-hidden bg-gradient-to-r from-[rgba(248,251,255,0.7)] via-[#f0f9ff] to-[rgba(238,242,255,0.7)] px-4 py-8 lg:px-[121px] lg:py-[40px] flex flex-col-reverse items-center justify-between gap-[20px] lg:flex-row lg:justify-center lg:gap-[90px]">
+        <div class="w-full lg:w-[589px] flex flex-col items-center lg:items-start gap-[20px] lg:gap-[48px] text-center lg:text-right">
+          <div class="flex flex-col items-center lg:items-start gap-[8px] lg:gap-[20px] w-full">
+            <h2 id="cta-title" class="text-[24px] lg:text-[36px] font-bold text-[#204a7a] lg:text-[#11254d] leading-[32px] lg:leading-normal pt-[8px] lg:pt-0">{{ cms('life_wheel.cta.title', 'اكتشف توازن حياتك') }}</h2>
+            <p class="w-full max-w-[274px] lg:max-w-none text-[12px] lg:text-[21px] font-normal text-[#565656] leading-[19.5px] lg:leading-[1.5]">{{ cms('life_wheel.cta.text', 'أجب عن الأسئلة لتتعرف على مستوى توازنك في جوانب حياتك المختلفة، وتحدد نقاط قوتك والجوانب التي تحتاج إلى مزيد من الاهتمام والتطوير.') }}</p>
+          </div>
+          <a href="{{ route('life-wheel.assessment') }}" @guest data-auth-gate="life-wheel-assessment" @endguest
+             class="group w-[190px] lg:w-[271px] h-[45px] lg:h-[60px] px-6 py-3 bg-[#204a7a] rounded-[10px] lg:rounded-[15px] flex items-center justify-center gap-2 text-[#e9edf2] text-[14px] lg:text-[25px] font-semibold leading-[1.5] whitespace-nowrap hover:bg-[#102744] hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2">
+            <span>{{ cms('life_wheel.steps.start_button', 'ابدأ التقييم الآن') }}</span>
+            <img src="/landing/images/life-wheel-explore/m-arrow-left.svg" alt="" aria-hidden="true" width="12" height="12" class="lg:hidden size-[12px] group-hover:-translate-x-1 transition-transform duration-200" />
+            <img src="/landing/images/life-wheel-explore/arrow-left.svg" alt="" aria-hidden="true" width="24" height="24" class="hidden lg:block size-[24px] group-hover:-translate-x-1 transition-transform duration-200" />
+          </a>
+        </div>
+
+        <!-- Illustration: character + plants, mirrored like the Figma frame -->
+        <div class="relative shrink-0 w-[130px] h-[95px] lg:w-[320px] lg:h-[222px]" aria-hidden="true">
+          <img src="/landing/images/life-wheel-explore/cta-character.svg" alt="" width="268" height="222" class="absolute -scale-x-100 left-0 top-0 w-[84.6%] h-full lg:left-[-3px] lg:w-[268px] lg:h-[222px]" />
+          <img src="/landing/images/life-wheel-explore/cta-plants.svg" alt="" width="63" height="85" class="absolute -scale-x-100 right-0 top-[34.87%] w-[19.5%] h-[35.9%] lg:top-[68.7px] lg:w-[63px] lg:h-[84.6px]" />
+        </div>
+      </section>
     </div>
   </main>
 

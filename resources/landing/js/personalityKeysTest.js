@@ -1,9 +1,44 @@
 // اختبار مفاتيح الشخصية السبعة: مفتاح في كل خطوة، والإجابات محفوظة في المتصفح لحد ما تتبعت في آخر مفتاح
+import confetti from 'canvas-confetti';
 import { initNavigation } from './navigation.js';
+import { cms } from './cms.js';
 
 initNavigation();
 
 const app = document.getElementById('pk-app');
+
+// رسائل التحفيز بعد كل مفتاح (نفس رسائل وأنيميشن اختبار عجلة الحياة) — 7 مفاتيح فبنتخطى رسالة «منتصف الطريق» الزايدة
+const milestones = [
+  { text: cms('keys_test.milestones.after_1', 'خطوة جديدة اكتملت! كمّل رحلتك.'), lottie: 'aspect-1.json' },
+  { text: cms('keys_test.milestones.after_2', 'رائع! أنت تتقدم خطوة بخطوة، استمر.'), lottie: 'aspect-2.json' },
+  { text: cms('keys_test.milestones.after_3', 'ممتاز! تقدّمك واضح، خلّينا نكمل.'), lottie: 'aspect-3.json' },
+  { text: cms('keys_test.milestones.after_4', 'أنت في منتصف الطريق! كمّل بنفس الحماس.'), lottie: 'aspect-4.json' },
+  { text: cms('keys_test.milestones.after_5', 'أحسنت! مفتاح جديد اكتمل، ورحلتك بتكبر.'), lottie: 'aspect-5.json' },
+  { text: cms('keys_test.milestones.after_6', 'باقي خطوة واحدة! أنت قريب من النهاية.'), lottie: 'aspect-7.json' },
+  { text: cms('keys_test.milestones.after_7', 'أحسنت! اكتملت رحلتك، اكتشف نتيجتك.'), lottie: 'aspect-8.json' },
+];
+
+function showMilestone(i) {
+  const overlay = document.getElementById('pk-milestone-overlay');
+  const text = document.getElementById('pk-milestone-text');
+  const icon = document.getElementById('pk-milestone-icon');
+  if (!overlay || !text || !icon) return Promise.resolve();
+
+  const item = milestones[Math.min(i, milestones.length - 1)];
+  text.textContent = item.text;
+  icon.innerHTML = `<dotlottie-player src="/landing/lotties/${item.lottie}" background="transparent" speed="1" style="width: 100%; height: 100%;" loop autoplay></dotlottie-player>`;
+  overlay.classList.remove('hidden');
+  overlay.classList.add('flex');
+  confetti({ particleCount: 90, spread: 75, origin: { y: 0.5 }, colors: ['#204A7A', '#FFD700', '#3B82F6', '#10B981'], zIndex: 9999 });
+
+  return new Promise((resolve) => setTimeout(resolve, 2500));
+}
+
+function hideMilestone() {
+  const overlay = document.getElementById('pk-milestone-overlay');
+  overlay?.classList.add('hidden');
+  overlay?.classList.remove('flex');
+}
 
 if (app) {
   const total = Number(app.dataset.total);
@@ -166,16 +201,20 @@ if (app) {
     if (nextBtn.disabled) return;
 
     if (index < total - 1) {
+      nextBtn.disabled = true;
+      await showMilestone(index);
+      hideMilestone();
       index += 1;
       save();
       render({ scroll: true });
       return;
     }
 
-    // Last key: send everything
+    // Last key: send everything (the final message shows while the answers are saved)
     submitting = true;
     nextBtn.disabled = true;
     errorBox.classList.add('hidden');
+    const celebration = showMilestone(index);
 
     try {
       const response = await fetch(app.dataset.storeUrl, {
@@ -192,12 +231,14 @@ if (app) {
       const data = await response.json().catch(() => ({}));
 
       if (response.ok && data.redirect) {
+        await celebration;
         try { localStorage.removeItem(storageKey); } catch { /* ignore */ }
         window.location.href = data.redirect;
         return;
       }
       throw new Error(data.message || 'failed');
     } catch (error) {
+      hideMilestone();
       errorBox.textContent = app.dataset.error;
       errorBox.classList.remove('hidden');
       submitting = false;
