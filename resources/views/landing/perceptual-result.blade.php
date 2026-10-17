@@ -249,6 +249,17 @@
     if (!button || !text) return;
     button.addEventListener('click', () => {
       const open = button.getAttribute('aria-expanded') !== 'true';
+
+      // المربع اللي جنبه في نفس الصف يفضل بطوله اللي كان عليه، والمربع المفتوح بس هو اللي يكبر (لازم يتقاس قبل ما النص يتفتح)
+      const mates = [...document.querySelectorAll('article')].filter((other) => other !== card && Math.abs(other.offsetTop - card.offsetTop) < 4);
+      if (open) {
+        card.style.height = '';
+        card.style.alignSelf = '';
+        mates.forEach((mate) => { mate.style.height = `${mate.offsetHeight}px`; mate.style.alignSelf = 'start'; });
+      } else {
+        mates.forEach((mate) => { mate.style.height = ''; mate.style.alignSelf = ''; });
+      }
+
       button.setAttribute('aria-expanded', String(open));
       text.classList.toggle('line-clamp-2', !open);
       button.querySelector('[data-label-more]').classList.toggle('hidden', open);

@@ -154,10 +154,10 @@
         <div class="flex items-center justify-between">
           <button type="button" id="pk-prev" class="hidden flex h-[45px] lg:h-[60px] w-[151px] lg:w-[255px] items-center justify-center gap-2 rounded-[10px] lg:rounded-[15px] border border-[#204a7a] px-6 py-3 font-semibold text-[17px] lg:text-[21px] text-[#204a7a] transition-colors hover:bg-[#204a7a] hover:text-white cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#204a7a] focus-visible:ring-offset-2 group">
             <img src="{{ $dir }}/arrow-prev.svg" alt="" aria-hidden="true" class="block size-[16px] lg:size-[24px] rotate-180 group-hover:[filter:brightness(0)_invert(1)]" />
-            <span>{{ cms('keys_test.buttons.prev', 'المفتاح السابق') }}</span>
+            <span class="whitespace-nowrap leading-[normal]">{{ cms('keys_test.buttons.prev', 'المفتاح السابق') }}</span>
           </button>
           <button type="button" id="pk-next" disabled class="ms-auto flex h-[45px] lg:h-[60px] w-[151px] lg:w-[255px] items-center justify-center gap-2 rounded-[10px] lg:rounded-[15px] bg-[#204a7a] px-6 py-3 font-semibold text-[17px] lg:text-[21px] text-[#f6f6f6] transition-colors enabled:hover:bg-[#102744] enabled:cursor-pointer disabled:bg-[#204a7a]/50 disabled:text-[#f6f6f6]/70 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#204a7a] focus-visible:ring-offset-2 group">
-            <span id="pk-next-label">{{ cms('keys_test.buttons.next', 'المفتاح التالي') }}</span>
+            <span id="pk-next-label" class="whitespace-nowrap leading-[normal]">{{ cms('keys_test.buttons.next', 'المفتاح التالي') }}</span>
             <img src="{{ $dir }}/arrow-next.svg" alt="" aria-hidden="true" class="block size-[16px] lg:size-[24px] group-enabled:[filter:brightness(0)_invert(1)]" />
           </button>
         </div>

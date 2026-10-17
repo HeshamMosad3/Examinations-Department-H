@@ -63,8 +63,8 @@
       <section data-kr-chart class="relative bg-white overflow-clip border border-[#d6e6f8] min-[1280px]:border-0 rounded-[20px] min-[1280px]:rounded-[30px] shadow-[0px_0.8px_0px_rgba(91,89,89,0.25)] min-[1280px]:shadow-[0px_5px_11.8px_rgba(0,0,0,0.03)] w-full min-[1280px]:w-[630px] h-[455px] min-[1280px]:h-auto min-[1280px]:min-h-[699px] shrink-0" aria-labelledby="kr-chart">
         <div class="absolute left-1/2 -translate-x-1/2 top-[19px] min-[1280px]:top-[24px] w-[320px] min-[1280px]:w-[582px] max-w-[calc(100%-24px)] h-[33px] min-[1280px]:h-[48px] flex items-center justify-between border-b border-[#f1f5f9] pb-[13px]">
           <h2 id="kr-chart" class="flex items-center gap-[2px] min-[1280px]:gap-[8px] font-semibold min-[1280px]:font-bold text-[14px] min-[1280px]:text-[21px] leading-[1.5] min-[1280px]:leading-[normal] text-[#262626]">
+            <span class="flex size-[17px] min-[1280px]:size-[28px] shrink-0 items-center justify-center rotate-90" aria-hidden="true"><img src="{{ $img }}/share.svg" alt="" class="max-w-none w-[12.83px] h-[14.25px] min-[1280px]:w-[20.67px] min-[1280px]:h-[23px]" /></span>
             <span>{{ cms('keys_result.chart.title', 'مخطط مفاتيح شخصيتك السبعة') }}</span>
-            <img src="{{ $img }}/share.svg" alt="" class="size-[17px] min-[1280px]:size-[28px] rotate-90" />
           </h2>
           <span class="rounded-full bg-[#f1f5f9] px-[12px] py-[4px] font-medium text-[12px] min-[1280px]:text-[14px] leading-[1.5] min-[1280px]:leading-[normal] text-[#565656] whitespace-pre">{{ cms('keys_result.chart.badge', '7 أبعاد رئيسية') }}</span>
         </div>

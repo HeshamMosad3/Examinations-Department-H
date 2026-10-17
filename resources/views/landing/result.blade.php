@@ -106,7 +106,7 @@
     <div class="flex flex-col gap-8 lg:flex-row lg:items-stretch lg:gap-[27px] max-w-[480px] mx-auto lg:max-w-none">
 
       <!-- Wheel card (Figma #3414:6413 / #3418:6302) -->
-      <section class="relative w-full lg:w-[50.81%] lg:shrink-0 aspect-[361/450] lg:aspect-[630/698] bg-white rounded-[20px] lg:rounded-[30px] shadow-[0px_5px_11.8px_0px_rgba(0,0,0,0.03)] overflow-hidden" aria-labelledby="wheel-card-title">
+      <section class="relative w-full lg:w-[50.81%] lg:shrink-0 aspect-[361/487] lg:aspect-[630/698] bg-white rounded-[20px] lg:rounded-[30px] shadow-[0px_5px_11.8px_0px_rgba(0,0,0,0.03)] overflow-hidden" aria-labelledby="wheel-card-title">
         <div class="absolute left-1/2 -translate-x-1/2 top-[20px] lg:top-[3.87%] w-[88.64%] lg:w-[92.38%] h-[33px] lg:h-[48px] pb-[13px] flex items-center justify-between border-b border-[#f1f5f9] text-[#262626]">
           <div class="flex items-center gap-2">
             <img src="/landing/icons/result/chart-pie.svg" alt="" width="21" height="20" class="h-[18px] lg:h-[28px] w-auto" aria-hidden="true" />
@@ -115,8 +115,8 @@
           <span class="bg-[#f1f5f9] rounded-full px-3 py-1 text-[12px] lg:text-[14px] font-medium text-[#565656] leading-[1.5] lg:leading-normal whitespace-nowrap">{{ cms('wheel_result.summary.dimensions_badge', '8 أبعاد رئيسية') }}</span>
         </div>
 
-        <svg id="wheelSvg" viewBox="0 0 361 450" xmlns="http://www.w3.org/2000/svg" class="absolute inset-0 size-full origin-top translate-y-[1%] scale-[.83] lg:translate-y-[0.7%] lg:scale-[.885]" preserveAspectRatio="xMidYMid meet"></svg>
-        <p class="absolute left-1/2 top-[90.8%] -translate-x-1/2 -translate-y-1/2 w-full px-4 text-center text-[12px] lg:text-[20px] font-normal text-[#565656] leading-normal">{{ cms('wheel_result.summary.wheel_note', 'تم تقييم توازنك وفقًا لإجاباتك عن الجوانب الثمانية.') }}</p>
+        <svg id="wheelSvg" viewBox="0 0 361 450" xmlns="http://www.w3.org/2000/svg" class="absolute inset-0 size-full origin-top translate-x-[1%] -translate-y-[0.6%] lg:-translate-x-[0.6%] lg:translate-y-[1.1%] lg:scale-[.8956]" preserveAspectRatio="xMidYMid meet"></svg>
+        <p class="absolute left-1/2 bottom-[20px] lg:bottom-[23px] -translate-x-1/2 w-full px-4 text-center text-[11px] leading-[17px] lg:text-[20px] lg:leading-[27px] font-normal text-[#565656]">{{ cms('wheel_result.summary.wheel_note', 'تم تقييم توازنك وفقًا لإجاباتك عن الجوانب الثمانية.') }}</p>
       </section>
 
       <div class="flex flex-col gap-8 lg:gap-[24px] lg:flex-1 lg:min-w-0">
@@ -126,9 +126,9 @@
 
           <!-- Highest (right in RTL) -->
           <div id="highest-card" class="h-[84px] lg:h-[155px] rounded-[16px] lg:rounded-[20px] border border-[#5c3e9b] px-4 lg:py-5 flex items-center justify-between bg-white">
-            <div class="flex flex-col items-end gap-[6px] lg:gap-4 text-right">
+            <div class="flex flex-col items-start gap-[6px] lg:gap-4 text-right">
               <span class="text-[10px] lg:text-[22px] font-semibold text-[#0d0d0d] lg:text-[#111] leading-[15px]">{{ cms('wheel_result.summary.highest', 'أعلى جانب') }}</span>
-              <span class="flex flex-col items-end gap-[2px] lg:block font-bold leading-[1.5]">
+              <span class="flex flex-col items-start gap-[2px] lg:block font-bold leading-[1.5]">
                 <span id="highest-name" class="block lg:inline text-[14px] lg:text-[24px]">--</span>
                 <span id="highest-percent" class="block lg:inline text-[17px] lg:text-[24px] leading-[17px] lg:leading-[1.5]"></span>
               </span>
@@ -140,9 +140,9 @@
 
           <!-- Lowest (left in RTL) -->
           <div id="lowest-card" class="h-[84px] lg:h-[155px] rounded-[16px] lg:rounded-[20px] border border-[#b8aa43] px-4 lg:py-5 flex items-center justify-between bg-white">
-            <div class="flex flex-col items-end gap-[6px] lg:gap-4 text-right">
+            <div class="flex flex-col items-start gap-[6px] lg:gap-4 text-right">
               <span class="text-[10px] lg:text-[22px] font-semibold text-[#111] leading-[15px]">{{ cms('wheel_result.summary.lowest', 'أقل جانب') }}</span>
-              <span class="flex flex-col items-end gap-[2px] lg:block font-bold leading-[1.5]">
+              <span class="flex flex-col items-start gap-[2px] lg:block font-bold leading-[1.5]">
                 <span id="lowest-name" class="block lg:inline text-[14px] lg:text-[24px]">--</span>
                 <span id="lowest-percent" class="block lg:inline text-[16px] lg:text-[24px] leading-[17px] lg:leading-[1.5]"></span>
               </span>

@@ -286,26 +286,27 @@
         </div>
       </section>
 
-      <!-- ===== Bottom CTA ===== -->
-      <section class="-mx-4 min-[1280px]:mx-0 mb-[39px] md:mb-[13px] min-[1280px]:mb-[41px] bg-gradient-to-r from-[rgba(248,251,255,0.7)] via-[#f0f9ff] to-[rgba(238,242,255,0.7)] px-4 py-[32px] min-[1280px]:px-[121px] min-[1280px]:py-[40px] flex flex-col min-[1280px]:flex-row items-center justify-center gap-[20px] min-[1280px]:gap-[90px]" aria-labelledby="pk-cta">
-        <div class="order-1 min-[1280px]:order-2 relative shrink-0 w-[130px] h-[95px] min-[1280px]:w-[320px] min-[1280px]:h-[222px]" aria-hidden="true">
-          <img src="{{ $img }}/cta-character.svg" alt="" class="absolute left-0 top-0 h-full w-[83.8%] object-contain -scale-x-100" />
-          <img src="{{ $img }}/cta-plants.svg" alt="" class="absolute -scale-x-100" style="left: 80.3%; width: 19.7%; top: 31%; height: 38.1%" />
-        </div>
-        <div class="order-2 min-[1280px]:order-1 flex flex-col items-center min-[1280px]:items-start min-[1280px]:w-[589px] min-[1280px]:gap-[48px]">
-          <div class="flex flex-col items-center min-[1280px]:items-start gap-[8px] min-[1280px]:gap-[20px] text-center min-[1280px]:text-right">
-            <h2 id="pk-cta" class="font-bold text-[24px] leading-[32px] pt-[8px] min-[1280px]:pt-0 min-[1280px]:text-[36px] min-[1280px]:leading-[56px] text-[#204a7a] min-[1280px]:text-[#11254d]">{{ cms('keys_explore.cta.title', 'اكتشف مفاتيح شخصيتك') }}</h2>
-            <p class="font-normal text-[12px] leading-[19.5px] min-[1280px]:text-[21px] min-[1280px]:leading-[1.5] text-[#565656] w-[320px] max-w-full min-[1280px]:w-auto min-[1280px]:max-w-none min-[1280px]:min-h-[64px]">{{ cms('keys_explore.cta.text', 'أجب عن أسئلة المقياس لتتعرف على أبرز سمات شخصيتك، وتكتشف نقاط قوتك والجوانب التي يمكنك تطويرها.') }}</p>
-          </div>
-          <a href="{{ $startHref }}" @guest data-auth-gate="{{ $startPath }}" @endguest
-             class="group mt-[34px] min-[1280px]:mt-0 w-[190px] min-[1280px]:w-[271px] h-[45px] min-[1280px]:h-[60px] rounded-[10px] min-[1280px]:rounded-[15px] bg-[#204a7a] hover:bg-[#102744] text-[#e9edf2] font-semibold text-[14px] min-[1280px]:text-[25px] leading-[1.5] flex items-center justify-center gap-[8px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#204a7a] focus-visible:ring-offset-2">
-            <span>{{ $startLabel }}</span>
-            <img src="{{ $img }}/arrow-left.svg" alt="" class="size-[12px] min-[1280px]:size-[24px] group-hover:-translate-x-1 transition-transform" />
-          </a>
-        </div>
-      </section>
     </div>
   </main>
+
+  <!-- ===== Bottom CTA (Figma #3615:7840): بعرض الصفحة كله ===== -->
+  <section class="w-full mt-[48px] min-[1280px]:mt-[112px] mb-[64px] min-[1280px]:mb-[128px] overflow-hidden bg-gradient-to-r from-[rgba(248,251,255,0.7)] via-[#f0f9ff] to-[rgba(238,242,255,0.7)] px-4 py-[32px] min-[1280px]:px-[121px] min-[1280px]:py-[40px] flex flex-col items-center justify-center gap-[20px] min-[1280px]:flex-row min-[1280px]:gap-[90px]" aria-labelledby="pk-cta">
+    <div class="order-1 relative shrink-0 w-[130px] h-[95px] min-[1280px]:w-[320px] min-[1280px]:h-[222px]" aria-hidden="true">
+      <img src="{{ $img }}/cta-character.svg" alt="" class="absolute left-0 min-[1280px]:left-[-3.2px] top-0 h-full w-[83.8%] min-[1280px]:w-[268.2px] object-contain -scale-x-100" />
+      <img src="{{ $img }}/cta-plants.svg" alt="" class="absolute -scale-x-100" style="left: 80.3%; width: 19.7%; top: 31%; height: 38.1%" />
+    </div>
+    <div class="order-2 flex flex-col items-center min-[1280px]:items-start min-[1280px]:w-[589px] min-[1280px]:gap-[48px]">
+      <div class="flex flex-col items-center min-[1280px]:items-start gap-[8px] min-[1280px]:gap-[20px] text-center min-[1280px]:text-right">
+        <h2 id="pk-cta" class="font-bold text-[24px] leading-[32px] pt-[8px] min-[1280px]:pt-0 min-[1280px]:text-[36px] min-[1280px]:leading-[56px] text-[#204a7a] min-[1280px]:text-[#11254d]">{{ cms('keys_explore.cta.title', 'اكتشف مفاتيح شخصيتك') }}</h2>
+        <p class="font-normal text-[12px] leading-[19.5px] min-[1280px]:text-[21px] min-[1280px]:leading-[1.5] text-[#565656] w-[320px] max-w-full min-[1280px]:w-auto min-[1280px]:max-w-none min-[1280px]:min-h-[64px]">{{ cms('keys_explore.cta.text', 'أجب عن أسئلة المقياس لتتعرف على أبرز سمات شخصيتك، وتكتشف نقاط قوتك والجوانب التي يمكنك تطويرها.') }}</p>
+      </div>
+      <a href="{{ $startHref }}" @guest data-auth-gate="{{ $startPath }}" @endguest
+         class="group mt-[34px] min-[1280px]:mt-0 w-[190px] min-[1280px]:w-[271px] h-[45px] min-[1280px]:h-[60px] rounded-[10px] min-[1280px]:rounded-[15px] bg-[#204a7a] hover:bg-[#102744] text-[#e9edf2] font-semibold text-[14px] min-[1280px]:text-[25px] leading-[1.5] flex items-center justify-center gap-[8px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#204a7a] focus-visible:ring-offset-2">
+        <span>{{ $startLabel }}</span>
+        <img src="{{ $img }}/arrow-left.svg" alt="" class="size-[12px] min-[1280px]:size-[24px] group-hover:-translate-x-1 transition-transform" />
+      </a>
+    </div>
+  </section>
 
   @include('landing.partials.footer')
   @guest

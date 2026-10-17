@@ -44,7 +44,7 @@
 
 
   <!-- ==================== اكتشف عجلة الحياة (Desktop #3615:7582 / Mobile #3615:7963) ==================== -->
-  <main id="main-content" class="w-full max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-0 pt-6 lg:pt-[48px] pb-[39px] lg:pb-[77px] relative font-messiri">
+  <main id="main-content" class="w-full max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-0 pt-6 lg:pt-[48px] relative font-messiri">
 
     <!-- Desktop breadcrumb (#3615:7587) -->
     <nav class="hidden lg:flex items-center justify-start gap-1 h-[33px] mb-[64px]" aria-label="مسار التنقل">
@@ -207,30 +207,30 @@
         </div>
       </section>
 
-
-      <!-- ==================== 4. اكتشف توازن حياتك — Bottom CTA (#3615:7840 / #3615:8218) ==================== -->
-      <section aria-labelledby="cta-title" class="w-full overflow-hidden bg-gradient-to-r from-[rgba(248,251,255,0.7)] via-[#f0f9ff] to-[rgba(238,242,255,0.7)] px-4 py-8 lg:px-[121px] lg:py-[40px] flex flex-col-reverse items-center justify-between gap-[20px] lg:flex-row lg:justify-center lg:gap-[90px]">
-        <div class="w-full lg:w-[589px] flex flex-col items-center lg:items-start gap-[20px] lg:gap-[48px] text-center lg:text-right">
-          <div class="flex flex-col items-center lg:items-start gap-[8px] lg:gap-[20px] w-full">
-            <h2 id="cta-title" class="text-[24px] lg:text-[36px] font-bold text-[#204a7a] lg:text-[#11254d] leading-[32px] lg:leading-normal pt-[8px] lg:pt-0">{{ cms('life_wheel.cta.title', 'اكتشف توازن حياتك') }}</h2>
-            <p class="w-full max-w-[274px] lg:max-w-none text-[12px] lg:text-[21px] font-normal text-[#565656] leading-[19.5px] lg:leading-[1.5]">{{ cms('life_wheel.cta.text', 'أجب عن الأسئلة لتتعرف على مستوى توازنك في جوانب حياتك المختلفة، وتحدد نقاط قوتك والجوانب التي تحتاج إلى مزيد من الاهتمام والتطوير.') }}</p>
-          </div>
-          <a href="{{ route('life-wheel.assessment') }}" @guest data-auth-gate="life-wheel-assessment" @endguest
-             class="group w-[190px] lg:w-[271px] h-[45px] lg:h-[60px] px-6 py-3 bg-[#204a7a] rounded-[10px] lg:rounded-[15px] flex items-center justify-center gap-2 text-[#e9edf2] text-[14px] lg:text-[25px] font-semibold leading-[1.5] whitespace-nowrap hover:bg-[#102744] hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2">
-            <span>{{ cms('life_wheel.steps.start_button', 'ابدأ التقييم الآن') }}</span>
-            <img src="/landing/images/life-wheel-explore/m-arrow-left.svg" alt="" aria-hidden="true" width="12" height="12" class="lg:hidden size-[12px] group-hover:-translate-x-1 transition-transform duration-200" />
-            <img src="/landing/images/life-wheel-explore/arrow-left.svg" alt="" aria-hidden="true" width="24" height="24" class="hidden lg:block size-[24px] group-hover:-translate-x-1 transition-transform duration-200" />
-          </a>
-        </div>
-
-        <!-- Illustration: character + plants, mirrored like the Figma frame -->
-        <div class="relative shrink-0 w-[130px] h-[95px] lg:w-[320px] lg:h-[222px]" aria-hidden="true">
-          <img src="/landing/images/life-wheel-explore/cta-character.svg" alt="" width="268" height="222" class="absolute -scale-x-100 left-0 top-0 w-[84.6%] h-full lg:left-[-3px] lg:w-[268px] lg:h-[222px]" />
-          <img src="/landing/images/life-wheel-explore/cta-plants.svg" alt="" width="63" height="85" class="absolute -scale-x-100 right-0 top-[34.87%] w-[19.5%] h-[35.9%] lg:top-[68.7px] lg:w-[63px] lg:h-[84.6px]" />
-        </div>
-      </section>
     </div>
   </main>
+
+  <!-- ==================== 4. اكتشف توازن حياتك — Bottom CTA (#3615:7840 / #3615:8218): عرض الصفحة كله، الرسمة يمين والنص شمال ==================== -->
+  <section aria-labelledby="cta-title" class="w-full mt-[48px] lg:mt-[112px] mb-[64px] lg:mb-[128px] overflow-hidden bg-gradient-to-r from-[rgba(248,251,255,0.7)] via-[#f0f9ff] to-[rgba(238,242,255,0.7)] px-4 py-8 lg:px-[121px] lg:py-[40px] flex flex-col items-center justify-center gap-[20px] lg:flex-row lg:gap-[90px]">
+    <!-- Illustration: character + plants, mirrored like the Figma frame -->
+    <div class="relative shrink-0 w-[130px] h-[95px] lg:w-[320px] lg:h-[222px]" aria-hidden="true">
+      <img src="/landing/images/life-wheel-explore/cta-character.svg" alt="" width="268" height="222" class="absolute -scale-x-100 left-0 top-0 w-[84.6%] h-full lg:left-[-3px] lg:w-[268px] lg:h-[222px]" />
+      <img src="/landing/images/life-wheel-explore/cta-plants.svg" alt="" width="63" height="85" class="absolute -scale-x-100 right-0 top-[34.87%] w-[19.5%] h-[35.9%] lg:top-[68.7px] lg:w-[63px] lg:h-[84.6px]" />
+    </div>
+
+    <div class="w-full lg:w-[589px] lg:shrink-0 flex flex-col items-center lg:items-start gap-[20px] lg:gap-[48px] text-center lg:text-right">
+      <div class="flex flex-col items-center lg:items-start gap-[8px] lg:gap-[20px] w-full">
+        <h2 id="cta-title" class="text-[24px] lg:text-[36px] font-bold text-[#204a7a] lg:text-[#11254d] leading-[32px] lg:leading-[56px] pt-[8px] lg:pt-0">{{ cms('life_wheel.cta.title', 'اكتشف توازن حياتك') }}</h2>
+        <p class="w-full max-w-[274px] lg:max-w-none text-[12px] lg:text-[21px] font-normal text-[#565656] leading-[19.5px] lg:leading-[1.5]">{{ cms('life_wheel.cta.text', 'أجب عن الأسئلة لتتعرف على مستوى توازنك في جوانب حياتك المختلفة، وتحدد نقاط قوتك والجوانب التي تحتاج إلى مزيد من الاهتمام والتطوير.') }}</p>
+      </div>
+      <a href="{{ route('life-wheel.assessment') }}" @guest data-auth-gate="life-wheel-assessment" @endguest
+         class="group w-[190px] lg:w-[271px] h-[45px] lg:h-[60px] px-6 py-3 bg-[#204a7a] rounded-[10px] lg:rounded-[15px] flex items-center justify-center gap-2 text-[#e9edf2] text-[14px] lg:text-[25px] font-semibold leading-[1.5] whitespace-nowrap hover:bg-[#102744] hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2">
+        <span>{{ cms('life_wheel.steps.start_button', 'ابدأ التقييم الآن') }}</span>
+        <img src="/landing/images/life-wheel-explore/m-arrow-left.svg" alt="" aria-hidden="true" width="12" height="12" class="lg:hidden size-[12px] group-hover:-translate-x-1 transition-transform duration-200" />
+        <img src="/landing/images/life-wheel-explore/arrow-left.svg" alt="" aria-hidden="true" width="24" height="24" class="hidden lg:block size-[24px] group-hover:-translate-x-1 transition-transform duration-200" />
+      </a>
+    </div>
+  </section>
 
   @include('landing.partials.footer')
   @guest
