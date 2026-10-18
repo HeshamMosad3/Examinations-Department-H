@@ -7,6 +7,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 /** @type {import('tailwindcss').Config} */
 export default {
+  // الـhover يشتغل بس على الأجهزة اللي فيها ماوس: على الموبايل كان بيفضل الزرار بشكل الـhover بعد الضغط والرجوع للصفحة لحد ما المستخدم يلمس الشاشة
+  future: { hoverOnlyWhenSupported: true },
   content: [
     path.resolve(__dirname, '../views/**/*.blade.php'),
     path.resolve(__dirname, '../data/**/*.php'),

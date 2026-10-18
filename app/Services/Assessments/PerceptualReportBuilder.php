@@ -32,6 +32,7 @@ class PerceptualReportBuilder
         return [
             'title' => $level->title_ar,
             'summary' => $level->description_ar,
+            'summary_text' => trim((string) $level->summary_ar),
             'icon' => $design['icon'] ?? null,
             // التصميم الجديد (Figma #3509:8526): ملخص نتيجتك + أربع كروت قابلة للتوسيع، كلها من نفس بيانات المستوى
             // ملخص نتيجتك: أول جملة هي العنوان الكبير وباقي الجمل نقاط (لو الملخص فاضي بنكوّنه من نقاط القوة والتوصيات)

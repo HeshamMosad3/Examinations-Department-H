@@ -106,88 +106,118 @@
         @endforeach
       </section>
 
-      <!-- Dominant style card + orbit illustration (Figma #3509:8566 / #3509:6537 + #3509:6560): ألوان الكارت من ثيم المستوى -->
+      <!-- Chart + highlights + insight (Figma Desktop #3644:7944 / Mobile #3644:7795) -->
       @php
-        $t = $report['theme']['colors'];
-        $ta = $report['theme']['assets'];
-        $domIcons = $ta['dom_icons'];
+        $pctOf = fn ($code) => ($row = $styles->firstWhere('key', $code)) && $row['max'] ? (int) round($row['score'] / $row['max'] * 100) : 0;
+        $percents = ['vis' => $pctOf('visual'), 'aud' => $pctOf('auditory'), 'kin' => $pctOf('kinesthetic')];
+        // ألوان كارت «النمط الأكثر حضورًا» حسب النمط الأعلى في نتيجة المستخدم
+        $palettes = [
+          'visual' => ['short' => 'vis', 'name' => cms('perceptual_result.highlights.visual_name', 'النمط البصري'), 'icon' => $res . '/eye.svg', 'border' => '#3664e1', 'label' => '#224fcb', 'pct' => '#1e5af9', 'icon_bg' => '#ddebfe', 'from' => '#fcfdfe', 'via' => '#f1f6fe', 'to' => '#ecf1ff'],
+          'auditory' => ['short' => 'aud', 'name' => cms('perceptual_result.highlights.auditory_name', 'النمط السمعي'), 'icon' => $res . '/headphones.svg', 'border' => '#7c3aed', 'label' => '#6d2fd1', 'pct' => '#7c3aed', 'icon_bg' => '#f0e6ff', 'from' => '#fdfcff', 'via' => '#f7f3ff', 'to' => '#f1eaff'],
+          'kinesthetic' => ['short' => 'kin', 'name' => cms('perceptual_result.highlights.kinesthetic_name', 'النمط الحسي'), 'icon' => $res . '/heart.svg', 'border' => '#ec4899', 'label' => '#c2347e', 'pct' => '#db2777', 'icon_bg' => '#fdf2f8', 'from' => '#fffcfe', 'via' => '#fff5fa', 'to' => '#fdecf4'],
+        ];
+        $pal = $palettes[$top['key'] ?? 'visual'] ?? $palettes['visual'];
+        // ماذا تعني هذه النتيجة؟ = «ملخص نتيجتك» المخزن للمستوى في قاعدة البيانات
+        $insightText = trim((string) ($report['summary_text'] ?: $report['summary']));
       @endphp
-      <div class="w-full flex flex-col lg:flex-row lg:items-center lg:justify-center gap-12 lg:gap-7">
+      <div class="w-full flex flex-col lg:flex-row lg:items-start gap-6 lg:gap-[27px]">
 
-        <section class="relative overflow-hidden w-full max-w-[361px] lg:max-w-none lg:w-[635px] lg:shrink min-w-0 border lg:border-[1.109px] rounded-[16px] lg:rounded-[22.183px] drop-shadow-[0px_3px_3.05px_rgba(0,0,0,0.09)] p-4 lg:p-[26.619px] lg:min-h-[353px] flex flex-col justify-center gap-[19px] lg:gap-[21px]" style="border-color:{{ $t['dom_border'] }};background-image:{{ $t['dom_bg'] }}">
-          @if ($ta['watermark'] || $report['icon'])
-            <div class="absolute flex items-center justify-center pointer-events-none -bottom-[46.71px] -left-[40px] lg:-bottom-[27.82px] lg:-left-[21.11px] size-[196.708px]" aria-hidden="true">
-              <div class="-rotate-30 flex-none opacity-[0.03] lg:opacity-5">
-                <img src="{{ $ta['watermark'] ?: $report['icon'] }}" alt="" class="size-[144px] object-contain" />
-              </div>
-            </div>
-          @endif
-
-          <div class="relative flex flex-col gap-5 lg:gap-[22px] w-full">
-            <div class="flex items-center justify-between w-full">
-              <div class="h-[35px] lg:h-[44px] rounded-full px-3 lg:px-[14px] py-1 lg:py-[6px] flex items-center justify-center gap-[6px] lg:gap-2 lg:w-[306px]" style="background:{{ $t['pill_bg'] }}">
-                <img src="{{ $ta['star'] }}" alt="" class="size-[14px] lg:size-[17.746px]" />
-                <span class="font-bold text-[12px] lg:text-[20px] leading-[16px] lg:leading-[17.746px] whitespace-nowrap" style="color:{{ $t['pill_text'] }}">{{ cms('perceptual_result.sections.dominant_label', 'النمط الإدراكي الغالب لديك') }}</span>
-              </div>
-              <div class="flex flex-row-reverse items-center gap-[10px] lg:gap-[15px]" aria-hidden="true">
-                @forelse ($domIcons as $icon)
-                  <div class="w-[40px] h-[35px] lg:w-[var(--w)] lg:h-[var(--h)] rounded-[9px] lg:rounded-[10px] flex items-center justify-center" style="background:{{ $icon['bg'] }};--w:{{ $icon['w'] ?? 56 }}px;--h:{{ $icon['h'] ?? 50 }}px">
-                    @if (! empty($icon['inset']))
-                      @php [$it, $ir, $ib, $il] = array_map('trim', explode(' ', str_replace('%', '', $icon['inset']))); @endphp
-                      <span class="relative block size-[28px] lg:size-[34px]"><span class="absolute" style="top:{{ $it }}%;right:{{ $ir }}%;bottom:{{ $ib }}%;left:{{ $il }}%"><img src="{{ $icon['f'] }}" alt="" class="absolute inset-0 size-full max-w-none" /></span></span>
-                    @else
-                      <img src="{{ $icon['f'] }}" alt="" class="size-[28px] lg:size-[35px] object-contain" />
-                    @endif
-                  </div>
-                @empty
-                  <div class="w-[40px] h-[35px] lg:w-[56px] lg:h-[50px] rounded-[9px] lg:rounded-[10px] flex items-center justify-center" style="background:{{ $t['dom_icon_bg'] }}">
-                    @if ($report['icon'])<img src="{{ $report['icon'] }}" alt="" class="size-[28px] lg:size-[35px] object-contain" />@endif
-                  </div>
-                @endforelse
-              </div>
-            </div>
-
-            <div class="flex flex-col gap-[9px] lg:gap-[10px] w-full">
-              <div class="flex items-start justify-between w-full lg:min-h-[70px] gap-3">
-                <h2 class="font-bold text-[25px] lg:text-[36px] leading-[32px] lg:leading-[1.2] tracking-[-0.6px] lg:tracking-[-0.6655px] lg:max-w-[390px]" style="{{ $t['title_css'] }}">{!! preg_replace('/\s+\(/u', '<br>(', e($report['title'])) !!}</h2>
-                <p class="bg-[#f2f6fa] lg:bg-transparent rounded-[8px] px-1 lg:px-0 font-bold lg:font-semibold text-[20px] lg:text-[36px] leading-[32px] lg:leading-[35.492px] tracking-[-0.6px] lg:tracking-[-0.6655px] whitespace-nowrap lg:self-start" dir="ltr"><span style="{{ $t['pct_css'] }}">{{ $percent }}%</span></p>
-              </div>
-              <p class="w-full font-medium lg:font-normal text-[12px] lg:text-[20px] leading-[19.5px] lg:leading-[1.6] text-[#262626] text-right">{{ $report['summary'] }}</p>
-            </div>
+        <!-- توزيع الأنماط الإدراكية الثلاثة -->
+        <section class="relative bg-white overflow-clip border border-[#d6e6f8] lg:border-0 rounded-[20px] lg:rounded-[30px] shadow-[0px_0.8px_0px_rgba(91,89,89,0.25)] lg:shadow-[0px_5px_11.8px_rgba(0,0,0,0.03)] w-full max-w-[361px] lg:max-w-none lg:w-[630px] h-[455px] lg:h-[699px] shrink-0 self-center lg:self-auto" aria-labelledby="pr-chart">
+          <div class="absolute left-1/2 -translate-x-1/2 top-[19px] lg:top-[24px] w-[320px] lg:w-[582px] max-w-[calc(100%-24px)] h-[33px] lg:h-[48px] flex items-center justify-between border-b border-[#f1f5f9] pb-[13px]">
+            <h2 id="pr-chart" class="flex items-center gap-[6px] lg:gap-[8px] font-semibold lg:font-bold text-[14px] lg:text-[21px] leading-[1.5] lg:leading-[normal] text-[#262626]">
+              <img src="{{ $res }}/file-chart.svg" alt="" class="size-[16px] lg:size-[24px]" />
+              <span class="lg:hidden">{{ cms('perceptual_result.chart.title_mobile', 'توزيع أنماطك الإدراكية الثلاثة') }}</span>
+              <span class="hidden lg:inline">{{ cms('perceptual_result.chart.title', 'توزيع الأنماط الإدراكية الثلاثة') }}</span>
+            </h2>
+            <span class="rounded-full bg-[#f1f5f9] px-[12px] py-[4px] font-medium text-[12px] lg:text-[14px] leading-[1.5] lg:leading-[normal] text-[#565656] whitespace-nowrap">{{ cms('perceptual_result.chart.badge', '3 أنماط إدراك') }}</span>
           </div>
+
+          <div class="absolute top-[82px] left-[8px] right-[4.3px] lg:top-[101px] lg:left-[29px] lg:right-[29px]">
+            @include('landing.partials.perceptual-orbit', ['theme' => $report['theme'], 'percents' => $percents])
+          </div>
+
+          <p class="absolute left-0 right-0 text-center font-normal text-[11px] lg:text-[20px] leading-[normal] text-[#565656] top-[425.5px] -translate-y-1/2 lg:top-auto lg:translate-y-0 lg:bottom-[30px]">{{ cms('perceptual_result.chart.note', 'تكامل أنماطك يرسم بصمتك الخاصة في الفهم والتعلّم.') }}</p>
         </section>
 
-        <div class="w-[calc(100%+32px)] -mx-4 max-w-[393px] self-center lg:w-auto lg:mx-0 lg:max-w-[572px] lg:flex-1 lg:min-w-0">
-          @include('landing.partials.perceptual-orbit', ['theme' => $report['theme']])
+        <div class="flex flex-col gap-6 lg:gap-[57px] w-full max-w-[361px] lg:max-w-none lg:w-[581px] lg:shrink-0 lg:min-h-[699px] self-center lg:self-auto">
+
+          <!-- أبرز أنماط إدراكك -->
+          <section class="bg-white border border-[#e2e8f0] rounded-[16px] shadow-[0px_2px_8px_-2px_rgba(15,23,42,0.04)] lg:shadow-none p-[17px] lg:p-[30px] min-h-[198px] lg:min-h-[336px] flex flex-col gap-[30px] lg:gap-[39px]" aria-labelledby="pr-highlight">
+            <div class="flex items-center gap-[5px] lg:gap-[16px]">
+              <span class="flex size-[28px] lg:size-[32px] shrink-0 items-center justify-center rounded-[8px] lg:rounded-[7.429px] bg-[#eff6ff]"><img src="{{ $res }}/brain-outline.svg" alt="" class="size-[18px] lg:size-[24px]" /></span>
+              <h2 id="pr-highlight" class="font-semibold lg:font-bold text-[17px] lg:text-[21px] leading-[1.5] lg:leading-[normal] text-[#262626]">{{ cms('perceptual_result.highlights.title', 'أبرز أنماط إدراكك') }}</h2>
+            </div>
+
+            @php
+              // الأنماط اللي بتظهر في الكارت: النمط الغالب لوحده، أو النمطين في المستويات المزدوجة، أو الثلاثة في المتوازن (مرتّبين بنسبتهم)
+              $shown = $styles->filter(fn ($row) => in_array($row['key'], $report['active_styles'], true))->values();
+              if ($shown->isEmpty()) { $shown = $styles->take(1)->values(); }
+              $count = $shown->count();
+              $isBalanced = $count > 2;
+              $rankLabels = [
+                cms('perceptual_result.highlights.top_label', 'النمط الأكثر حضوراً لديك'),
+                cms('perceptual_result.highlights.second_label', 'النمط الثاني حضوراً لديك'),
+                cms('perceptual_result.highlights.third_label', 'النمط الثالث حضوراً لديك'),
+              ];
+              $balancedLabel = cms('perceptual_result.highlights.balanced_label', 'حضور متوازن');
+            @endphp
+
+            {{-- الموبايل (وكل الأحجام لو نمط واحد): كارت لكل نمط تحت بعض بنفس تصميم فيجما --}}
+            <div class="flex flex-col gap-3 lg:gap-4 {{ $count > 1 ? 'lg:hidden' : '' }}">
+              @foreach ($shown as $i => $row)
+                @php $pl = $palettes[$row['key']] ?? $palettes['visual']; $label = $isBalanced ? $balancedLabel : ($rankLabels[$i] ?? $rankLabels[0]); @endphp
+                <div class="rounded-[12px] border border-r-[5px] lg:border-r-[8px] h-[101px] lg:h-[172px] px-[12px] py-[14px] lg:px-[14px] lg:py-[11px] flex flex-col justify-center" style="border-color:{{ $pl['border'] }};background-image:linear-gradient(to right, {{ $pl['from'] }}, {{ $pl['via'] }} 37.572%, {{ $pl['to'] }})">
+                  <div class="flex flex-col gap-[5px] lg:gap-[21px] w-full">
+                    <div class="flex items-start justify-between w-full">
+                      <div class="flex flex-col items-start gap-[11px] lg:gap-[35px]">
+                        <span class="font-semibold text-[12px] lg:text-[21px] leading-[1.5] whitespace-nowrap" style="color:{{ $pl['label'] }}">{{ $label }}</span>
+                        <span class="font-bold lg:font-semibold text-[14px] lg:text-[25px] leading-[normal] lg:leading-[1.5] text-[#262626] whitespace-nowrap lg:h-[26px] lg:flex lg:items-center">{{ $pl['name'] }}</span>
+                      </div>
+                      <span class="flex h-[30px] w-[32px] lg:size-[36px] shrink-0 items-center justify-center rounded-[12px] lg:rounded-[7.429px]" style="background:{{ $pl['icon_bg'] }}"><img src="{{ $pl['icon'] }}" alt="" class="size-[20px] lg:size-[24px]" /></span>
+                    </div>
+                    <span class="flex items-center justify-start h-[24px] font-bold lg:font-semibold text-[21px] lg:text-[30px] leading-[normal] lg:leading-[1.5]" dir="ltr" style="color:{{ $pl['pct'] }}">{{ $percents[$pl['short']] }}%</span>
+                  </div>
+                </div>
+              @endforeach
+            </div>
+
+            {{-- الديسكتوب لو أكتر من نمط: الكروت جنب بعض بنفس الارتفاع (172) فالكارت الخارجي ما يطولش --}}
+            @if ($count > 1)
+              <div class="hidden lg:flex gap-[16px]">
+                @foreach ($shown as $i => $row)
+                  @php $pl = $palettes[$row['key']] ?? $palettes['visual']; $label = $isBalanced ? $balancedLabel : ($rankLabels[$i] ?? $rankLabels[0]); @endphp
+                  <div class="min-w-0 flex-1 rounded-[12px] border border-r-[8px] h-[172px] {{ $isBalanced ? 'px-[10px] py-[12px]' : 'px-[14px] py-[12px]' }} flex flex-col justify-between" style="border-color:{{ $pl['border'] }};background-image:linear-gradient(to right, {{ $pl['from'] }}, {{ $pl['via'] }} 37.572%, {{ $pl['to'] }})">
+                    <div class="flex flex-col gap-[10px] items-start">
+                      <span class="flex size-[36px] shrink-0 items-center justify-center rounded-[7.429px]" style="background:{{ $pl['icon_bg'] }}"><img src="{{ $pl['icon'] }}" alt="" class="size-[24px]" /></span>
+                      <div class="flex flex-col items-start gap-[2px]">
+                        <span class="font-semibold leading-[1.5] whitespace-nowrap {{ $isBalanced ? 'text-[13px]' : 'text-[16px]' }}" style="color:{{ $pl['label'] }}">{{ $label }}</span>
+                        <span class="font-semibold leading-[1.5] text-[#262626] whitespace-nowrap {{ $isBalanced ? 'text-[19px]' : 'text-[22px]' }}">{{ $pl['name'] }}</span>
+                      </div>
+                    </div>
+                    <span class="flex items-center justify-start h-[32px] font-semibold text-[28px] leading-[1.5]" dir="ltr" style="color:{{ $pl['pct'] }}">{{ $percents[$pl['short']] }}%</span>
+                  </div>
+                @endforeach
+              </div>
+            @endif
+          </section>
+
+          <!-- ماذا تعني هذه النتيجة؟ -->
+          <section class="rounded-[16px] lg:rounded-[20px] border border-[#a3c0e2] px-[15px] py-[19px] lg:px-[18px] lg:pt-[40px] lg:pb-[30px] lg:min-h-[306px] lg:flex-1 flex items-start gap-[8px] lg:gap-[12px]" style="background-image:linear-gradient(79deg, #fff 1%, #d2dfef 99%)" aria-labelledby="pr-insight">
+            <span class="flex size-[41px] lg:size-[56px] shrink-0 items-center justify-center rounded-[12px] bg-[#204a7a]"><img src="{{ $res }}/lightbulb-on.svg" alt="" class="size-[22px] lg:size-[32px]" /></span>
+            <div class="flex min-w-0 flex-1 flex-col gap-[10px] lg:gap-[40px]">
+              <div class="flex items-center justify-between w-full">
+                <h2 id="pr-insight" class="font-bold text-[14px] lg:text-[25px] leading-[normal] text-[#172554] whitespace-nowrap">{{ cms('perceptual_result.insight.title', 'ماذا تعني هذه النتيجة؟') }}</h2>
+                <span class="flex items-center gap-[4px] rounded-full bg-white lg:bg-[#e9edf2] px-[12px] py-[4px] font-medium lg:font-semibold text-[10px] lg:text-[14px] leading-[16px] text-[#204a7a] h-[22px] lg:h-[33px] shrink-0">
+                  <span>{{ cms('perceptual_result.insight.badge', 'تحليل ذكي') }}</span>
+                  <img src="{{ $res }}/sparkle-ai.svg" alt="" class="size-[11px] lg:size-[13px]" />
+                </span>
+              </div>
+              <p class="w-full font-medium text-[11px] lg:text-[20px] leading-[17.88px] lg:leading-[1.5] text-[#565656] text-right">{{ $insightText }}</p>
+            </div>
+          </section>
         </div>
       </div>
-
-      <!-- Summary card (Figma #3509:8620 / #3509:6593) -->
-      <section class="relative overflow-hidden w-full max-w-[361px] lg:max-w-[1184px] border lg:border-2 rounded-[16px] lg:rounded-[29.057px] shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] lg:shadow-[0px_1.816px_3.632px_0px_rgba(0,0,0,0.05)] p-[17px] lg:py-[41px] lg:px-0 flex flex-col gap-[10px] lg:gap-0" style="border-color:{{ $t['sum_border'] }};background-image:{{ $t['sum_bg'] }}">
-        <div class="absolute rounded-full -left-[40px] -top-[40px] size-[96px] blur-[12px] lg:-left-[72.64px] lg:-top-[72.64px] lg:size-[174.342px] lg:blur-[21.793px] pointer-events-none" style="background:{{ $t['sum_glow'] }}" aria-hidden="true"></div>
-
-        <div class="relative flex items-center gap-[9.99px] lg:gap-[18.142px] lg:pr-[78.68px]">
-          <div class="drop-shadow-[0px_1px_1px_rgba(0,0,0,0.05)] rounded-[12px] lg:rounded-[21.793px] size-[32px] lg:size-[60px] flex items-center justify-center shrink-0" style="background:{{ $t['sum_icon_bg'] }}">
-            <img src="{{ $ta['zap'] }}" alt="" class="size-[16px] lg:size-[32px]" />
-          </div>
-          <h2 class="font-semibold text-[17px] lg:text-[36px] leading-[1.5] text-[#262626] whitespace-nowrap">{{ cms('perceptual_result.sections.summary_title', 'ملخص نتيجتك') }}</h2>
-        </div>
-
-        <div class="relative flex flex-col gap-[10px] lg:gap-0">
-          <div class="border-r-2 lg:border-r-4 min-h-[38.5px] lg:min-h-[87px] flex items-center pr-3 lg:pr-[29.37px] lg:mt-[41px] lg:mr-[7.67%] lg:ml-[18.93%]" style="border-right-color:{{ $t['sum_line'] }}">
-            <p class="font-semibold text-[14px] lg:text-[30px] leading-[1.5] text-[#262626]">{{ $report['summary_headline'] }}</p>
-          </div>
-
-          <ul class="flex flex-col gap-2 lg:gap-[15px] lg:mt-[35px] lg:mr-[7.25%] lg:ml-[14.8%]">
-            @foreach ($report['summary_points'] as $i => $point)
-              <li class="bg-[rgba(255,255,255,0.6)] border lg:border-2 rounded-[12px] lg:rounded-[21.793px] p-[9px] lg:px-[45px] lg:py-[14px] lg:min-h-[125px] flex items-start lg:items-center gap-2 lg:gap-6" style="border-color:{{ $t['sum_bullet_border'] }}">
-                <span class="rounded-full size-[20px] lg:size-[60px] flex items-center justify-center shrink-0 mt-[2px] lg:mt-0" style="background:{{ $t['check_bg'][$i % 2] }}"><img src="{{ $ta['check'] }}" alt="" class="size-[12px] lg:size-[32px]" /></span>
-                <span class="font-medium text-[12px] lg:text-[25px] leading-[1.5] lg:leading-normal text-[#262626]">{{ $point }}</span>
-              </li>
-            @endforeach
-          </ul>
-        </div>
-      </section>
 
       <!-- Four cards (Figma #3509:8645 / #3509:6619) -->
       <div class="w-full max-w-[361px] lg:max-w-none flex flex-col lg:grid lg:grid-cols-2 gap-6 lg:gap-x-[46px] lg:gap-y-16 items-start lg:items-stretch -mt-6 lg:mt-0">
