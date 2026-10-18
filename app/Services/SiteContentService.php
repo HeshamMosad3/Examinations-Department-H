@@ -25,6 +25,7 @@ class SiteContentService
         'resources/views/landing' => 'blade.php',
         'resources/views/auth' => 'blade.php',
         'resources/views/layouts' => 'blade.php',
+        'resources/views/errors' => 'blade.php',
         'resources/data' => 'php',
         'resources/landing/js' => 'js',
         'app/Services/Assessments' => 'php',

@@ -4,15 +4,15 @@
     $id = "{$form}-{$f['name']}";
     $isPassword = $f['type'] === 'password';
 @endphp
-<div class="ad-group {{ $f['span'] ?? '' }}" data-ad-group="{{ $f['name'] }}">
-  <label for="{{ $id }}" class="ad-label">
+<div class="qa-group {{ $f['span'] ?? '' }}" data-ad-group="{{ $f['name'] }}">
+  <label for="{{ $id }}" class="qa-label">
     {{ $f['label'] }}
     <img src="{{ $img }}/asterisk.svg" alt="" aria-hidden="true" width="10" height="10" />
   </label>
 
-  <div data-ad-wrapper class="ad-input-wrap {{ isset($f['prefix']) ? 'has-prefix' : '' }}">
+  <div data-ad-wrapper class="qa-input-wrap {{ isset($f['prefix']) ? 'has-prefix' : '' }}">
     @isset($f['prefix'])
-      <div dir="ltr" class="ad-prefix">
+      <div dir="ltr" class="qa-prefix">
         <span dir="ltr">{{ $f['prefix'] }}</span>
         <img src="{{ $img }}/flag-sa.svg" alt="" width="28" height="28" />
       </div>
@@ -25,16 +25,16 @@
       placeholder="{{ $f['placeholder'] }}"
       autocomplete="{{ $f['auto'] }}"
       @if (in_array($f['type'], ['tel', 'email'])) dir="rtl" inputmode="{{ $f['type'] === 'tel' ? 'numeric' : 'email' }}" @endif
-      class="ad-input"
+      class="qa-input"
     />
 
     @if ($isPassword)
-      <button type="button" data-ad-toggle aria-label="{{ cms('auth.common.toggle_password', 'عرض أو إخفاء كلمة المرور') }}" class="ad-eye">
+      <button type="button" data-ad-toggle aria-label="{{ cms('auth.common.toggle_password', 'عرض أو إخفاء كلمة المرور') }}" class="qa-eye">
         <img data-ad-eye-closed src="{{ $img }}/eye-closed.svg" alt="" width="20" height="20" />
         <i data-ad-eye-open class="fa-regular fa-eye" hidden aria-hidden="true"></i>
       </button>
     @endif
   </div>
 
-  <p data-ad-error="{{ $f['name'] }}" role="alert" class="ad-error" hidden></p>
+  <p data-ad-error="{{ $f['name'] }}" role="alert" class="qa-error" hidden></p>
 </div>

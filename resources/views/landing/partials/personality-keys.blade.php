@@ -2,7 +2,7 @@
     <section id="personality-keys" aria-labelledby="personality-keys-title" class="pt-[25px] md:pt-[64px] pb-[25px] md:pb-[64px] px-0 sm:px-6 md:px-12 relative flex flex-col items-center w-full overflow-hidden">
 
       <!-- Seven Personality Keys radial diagram matching reference design (Figma Mobile Frame #934:4992: 392x340) -->
-      <div class="relative w-full max-w-[393px] sm:max-w-[666px] mx-auto mb-[16px] md:mb-[40px] aspect-[392/340] sm:aspect-[950/804] scale-[1.15] sm:scale-100 origin-center">
+      <div class="relative w-full max-w-[393px] sm:max-w-[666px] mx-auto mb-[16px] md:mb-[40px] aspect-[393/340] sm:aspect-[950/804] origin-center">
 
         <!-- Mobile SVG Connector Lines, Concentric Rings, and Colored Pin Nodes (Figma Mobile Frame #934:4992: 392 x 340) -->
         <svg class="absolute inset-0 w-full h-full pointer-events-none z-0 sm:hidden" viewBox="0 0 392 340" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
