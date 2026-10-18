@@ -2,7 +2,7 @@
     <section id="assessments" aria-labelledby="perceptual-title" class="pt-[19px] md:pt-[64px] pb-[25px] md:pb-[64px] px-0 sm:px-6 md:px-12 flex flex-col items-center w-full overflow-hidden">
 
       <!-- Perception orbital diagram matching reference image (Figma #875:6216 & Mobile Frame #943:4129) -->
-      <div class="relative w-full max-w-[393px] sm:max-w-[593px] mx-auto mb-[16px] md:mb-[40px] select-none aspect-[393/346] sm:aspect-[926/832]">
+      <div class="relative w-full max-w-[393px] sm:max-w-[593px] mx-auto mb-[16px] md:mb-[40px] select-none aspect-[393/346] sm:aspect-[926/832] max-sm:scale-[0.82] max-sm:origin-top max-sm:-mb-[44px]">
         
         <!-- Mobile Vector Orbit Background (Figma: 393 x 346) -->
         <svg viewBox="0 0 393 346" class="absolute inset-0 w-full h-full pointer-events-none sm:hidden" fill="none" aria-hidden="true">

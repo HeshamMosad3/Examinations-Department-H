@@ -55,7 +55,7 @@
     $paragraphs = ["تشير نتيجتك إلى أن مستوى حضور السمات التي يقيسها مقياس مفاتيح الشخصية السبعة لديك يقع ضمن المستوى {$level}."];
   }
   $hasMore = count($paragraphs) > 1 || mb_strlen($paragraphs[0]) > 330;
-  $chartNote = str_replace(':count', $subCount, cms('keys_result.chart.note', 'تم احتساب المفاتيح بالاعتماد على :count بعداً فرعياً'));
+  $chartNote = str_replace(':count', $subCount, cms('keys_result.chart.note', 'توضح النتائج مستويات مفاتيح شخصيتك السبعة.'));
 @endphp
     <div class="flex flex-col min-[1280px]:flex-row min-[1280px]:items-stretch gap-[24px] min-[1280px]:gap-[27px]">
 
