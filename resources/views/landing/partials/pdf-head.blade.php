@@ -28,6 +28,8 @@
   .pdf-btn.ghost:hover { background: #204a7a; color: #fff; }
   .pdf-hint { font-size: 12.5px; color: #6f7a8a; }
 
+  @media (pointer: coarse) { .pdf-hint { display: none; } }
+
   @media print {
     html { background: #fff; }
     .pdf-bar { display: none !important; }

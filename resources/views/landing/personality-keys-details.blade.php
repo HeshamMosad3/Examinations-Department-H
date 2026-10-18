@@ -52,33 +52,20 @@
 
     <h1 class="text-center text-[#204a7a] font-bold min-[1280px]:font-semibold text-[21px] leading-[28px] tracking-[-0.5px] min-[1280px]:tracking-normal min-[1280px]:text-[36px] min-[1280px]:leading-[1.5] min-[1280px]:h-[70px] min-[1280px]:flex min-[1280px]:items-center min-[1280px]:justify-center mb-[32px] min-[1280px]:mb-[64px]">{{ cms('keys_details.page.title', 'تفاصيل المفاتيح') }}</h1>
 
-    @unless ($profileComplete)
-      <div data-profile-gate class="kd-no-print mb-6 min-[1280px]:mb-8 flex flex-col gap-4 rounded-[16px] border border-[#acc7e6] bg-[#eef4fb] p-5 min-[1280px]:flex-row min-[1280px]:items-center min-[1280px]:justify-between min-[1280px]:p-6">
-        <div class="flex items-start gap-3">
-          <span class="flex size-[40px] shrink-0 items-center justify-center rounded-[12px] bg-[#204a7a] text-white" aria-hidden="true"><i class="fa-solid fa-lock text-[16px]"></i></span>
-          <div>
-            <h2 class="font-semibold text-[16px] min-[1280px]:text-[19px] text-[#204a7a]">{{ cms('keys_details.gate.title', 'أكمل ملفك الشخصي لعرض التقرير التفصيلي') }}</h2>
-            <p class="mt-1 font-medium min-[1280px]:font-normal text-[13px] min-[1280px]:text-[16px] leading-[1.7] text-[#565656]">{{ cms('keys_details.gate.text', 'درجاتك ظاهرة أمامك، ومستوى كل مفتاح وتفسيره يظهر بعد اكتمال بياناتك.') }}</p>
-          </div>
-        </div>
-        <a href="{{ route('profile.edit', ['next' => '/personality-keys-details.html']) }}" data-profile-gate-link class="flex h-[45px] shrink-0 items-center justify-center rounded-[10px] bg-[#204a7a] px-6 font-semibold text-[15px] min-[1280px]:text-[17px] text-white hover:bg-[#102744] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#204a7a] focus-visible:ring-offset-2">{{ cms('keys_details.gate.button', 'إكمال الملف الشخصي') }}</a>
-      </div>
-    @endunless
-
     <!-- الكروت: ديسكتوب 3 أعمدة / موبايل عمود واحد -->
     <section aria-label="{{ cms('keys_details.page.title', 'تفاصيل المفاتيح') }}">
       <div class="hidden min-[1280px]:flex items-start gap-[14px]">
         @foreach ($columns as $column)
           <div class="flex-1 min-w-0 flex flex-col gap-[32px]">
             @foreach ($column as $key)
-              @include('landing.partials.keys-detail-card', ['key' => $key, 't' => $themeOf($key), 'v' => 'd', 'showDetails' => $profileComplete])
+              @include('landing.partials.keys-detail-card', ['key' => $key, 't' => $themeOf($key), 'v' => 'd', 'showDetails' => true])
             @endforeach
           </div>
         @endforeach
       </div>
       <div class="min-[1280px]:hidden flex flex-col gap-[24px]">
         @foreach ($keys as $key)
-          @include('landing.partials.keys-detail-card', ['key' => $key, 't' => $themeOf($key), 'v' => 'm', 'showDetails' => $profileComplete])
+          @include('landing.partials.keys-detail-card', ['key' => $key, 't' => $themeOf($key), 'v' => 'm', 'showDetails' => true])
         @endforeach
       </div>
     </section>

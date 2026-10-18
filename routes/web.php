@@ -29,7 +29,8 @@ Route::get('/personality-keys-test.html', [PersonalityKeysController::class, 'te
 Route::middleware('auth')->group(function () {
     Route::post('/personality-keys/results', [PersonalityKeysController::class, 'store'])->middleware('throttle:20,1')->name('keys.results.store');
     Route::get('/personality-keys-result.html', [PersonalityKeysController::class, 'result'])->name('keys.result');
-    Route::get('/personality-keys-details.html', [PersonalityKeysController::class, 'details'])->name('keys.details');
+    // التفاصيل (زي عجلة الحياة): بعد اكتمال الملف الشخصي بس
+    Route::get('/personality-keys-details.html', [PersonalityKeysController::class, 'details'])->middleware('profile.complete')->name('keys.details');
     // تقرير الـ PDF (ملخص + تقرير كامل): بعد اكتمال الملف الشخصي لأنه بيحمل بيانات المستخدم والتفاصيل
     Route::get('/personality-keys-report.html', [PersonalityKeysController::class, 'report'])->middleware('profile.complete')->name('keys.report');
     // التقرير المفصّل: بعد اكتمال الملف الشخصي بس

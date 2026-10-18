@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Assessment;
 use App\Services\Assessments\AssessmentData;
 use App\Services\Assessments\AttemptService;
-use App\Services\Auth\ProfileForm;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -189,8 +188,6 @@ class PersonalityKeysController extends Controller
             'assessmentId' => $data->assessment->id,
             'total' => (int) $attempt->total_score,
             'completedAt' => $attempt->completed_at ?? $attempt->created_at ?? null,
-            // مستوى كل مفتاح ونصه التفصيلي بيظهروا بعد اكتمال الملف الشخصي (الدرجات بتظهر للكل)
-            'profileComplete' => app(ProfileForm::class)->isComplete($request->user()),
         ];
     }
 

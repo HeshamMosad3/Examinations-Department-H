@@ -57,7 +57,7 @@
   $hasMore = count($paragraphs) > 1 || mb_strlen($paragraphs[0]) > 330;
   $chartNote = str_replace(':count', $subCount, cms('keys_result.chart.note', 'توضح النتائج مستويات مفاتيح شخصيتك السبعة.'));
 @endphp
-    <div class="flex flex-col min-[1280px]:flex-row min-[1280px]:items-stretch gap-[24px] min-[1280px]:gap-[27px]">
+    <div class="flex flex-col min-[1280px]:flex-row min-[1280px]:items-stretch gap-[24px] min-[1280px]:gap-[27px] {{ ($pdf ?? false) ? 'min-[1280px]:flex-wrap' : '' }}">
 
       <!-- مخطط المفاتيح -->
       <section data-kr-chart class="relative bg-white overflow-clip border border-[#d6e6f8] min-[1280px]:border-0 rounded-[20px] min-[1280px]:rounded-[30px] shadow-[0px_0.8px_0px_rgba(91,89,89,0.25)] min-[1280px]:shadow-[0px_5px_11.8px_rgba(0,0,0,0.03)] w-full min-[1280px]:w-[630px] h-[455px] min-[1280px]:h-auto min-[1280px]:min-h-[699px] shrink-0" aria-labelledby="kr-chart">
@@ -83,21 +83,21 @@
         <p class="absolute left-0 right-0 text-center font-normal text-[11px] min-[1280px]:text-[20px] leading-[normal] text-[#565656] top-[417px] min-[1280px]:top-auto min-[1280px]:bottom-[29px]">{{ $chartNote }}</p>
       </section>
 
-      <div class="flex flex-col gap-[24px] min-[1280px]:gap-[28px] min-[1280px]:w-[581px] min-[1280px]:shrink-0 min-[1280px]:flex-1 min-[1280px]:min-h-[699px]">
+      <div class="{{ ($pdf ?? false) ? 'contents' : 'flex flex-col gap-[24px] min-[1280px]:gap-[28px] min-[1280px]:w-[581px] min-[1280px]:shrink-0 min-[1280px]:flex-1 min-[1280px]:min-h-[699px]' }}">
 
         <!-- أبرز مفاتيحك -->
-        <section class="bg-white border border-[#e2e8f0] rounded-[16px] shadow-[0px_2px_8px_-2px_rgba(15,23,42,0.04)] min-[1280px]:shadow-none p-[16px] min-[1280px]:px-[30px] min-[1280px]:py-[26px] flex flex-col gap-[12px] min-[1280px]:gap-[18px]" aria-labelledby="kr-highlights">
+        <section class="{{ ($pdf ?? false) ? 'min-[1280px]:flex-1 min-[1280px]:min-w-0' : '' }} bg-white border border-[#e2e8f0] rounded-[16px] shadow-[0px_2px_8px_-2px_rgba(15,23,42,0.04)] min-[1280px]:shadow-none p-[16px] min-[1280px]:px-[30px] min-[1280px]:py-[26px] flex flex-col gap-[12px] min-[1280px]:gap-[18px]" aria-labelledby="kr-highlights">
           <div class="flex items-center gap-[14px] min-[1280px]:gap-[16px] min-[1280px]:h-[33px]">
             <span class="flex size-[28px] min-[1280px]:size-[32px] shrink-0 items-center justify-center rounded-[8px] min-[1280px]:rounded-[7.429px] bg-[#eff6ff]"><img src="{{ $img }}/key-outline.svg" alt="" class="size-[18px] min-[1280px]:size-[24px]" /></span>
             <h2 id="kr-highlights" class="font-bold text-[17px] min-[1280px]:text-[21px] leading-[normal] text-[#262626]">{{ cms('keys_result.highlights.title', 'أبرز مفاتيح شخصيتك') }}</h2>
           </div>
 
-          <div class="flex flex-col gap-[10px] min-[1280px]:gap-[14px]">
-            <div class="flex items-start justify-center gap-[8px] min-[1280px]:gap-[19px] min-[1280px]:justify-start">
+          <div class="flex flex-col gap-[10px] {{ ($pdf ?? false) ? 'min-[1280px]:flex-1 min-[1280px]:gap-[28px]' : 'min-[1280px]:gap-[14px]' }}">
+            <div class="flex items-start justify-center gap-[8px] {{ ($pdf ?? false) ? 'min-[1280px]:contents' : 'min-[1280px]:gap-[19px] min-[1280px]:justify-start' }}">
               @foreach ([[$top, cms('keys_result.highlights.top', 'المفتاح الأعلى')], [$next, cms('keys_result.highlights.next', 'المفتاح التالي')]] as [$k, $label])
                 @if ($k)
                   @php $t = $themes[$k->code]; @endphp
-                  <div class="min-w-0 flex-1 min-[1280px]:flex-none min-[1280px]:w-[250px] flex flex-col justify-center rounded-[12px] border border-r-[4px] border-solid p-[12px] min-[1280px]:px-[14px] min-[1280px]:py-[11px] min-[1280px]:h-[126px]" style="border-color: {{ $t['accent'] }}; background: linear-gradient(to right, {{ $label === cms('keys_result.highlights.top', 'المفتاح الأعلى') ? '#fcfdfe' : '#fcfdfe' }}, {{ $t['end'] }})">
+                  <div class="min-w-0 flex-1 {{ ($pdf ?? false) ? 'min-[1280px]:basis-0 min-[1280px]:w-full min-[1280px]:h-auto' : 'min-[1280px]:flex-none min-[1280px]:w-[250px] min-[1280px]:h-[126px]' }} flex flex-col justify-center rounded-[12px] border border-r-[4px] border-solid p-[12px] min-[1280px]:px-[14px] min-[1280px]:py-[11px]" style="border-color: {{ $t['accent'] }}; background: linear-gradient(to right, {{ $label === cms('keys_result.highlights.top', 'المفتاح الأعلى') ? '#fcfdfe' : '#fcfdfe' }}, {{ $t['end'] }})">
                     <div class="flex flex-col gap-[14px] min-[1280px]:gap-[21px]">
                       <div class="flex items-start justify-between gap-[8px]">
                         <div class="flex flex-col gap-[5px] min-[1280px]:w-[104px]">
@@ -116,7 +116,7 @@
 
             @if ($lowest && $lowest !== $top)
               @php $t = $themes[$lowest->code]; @endphp
-              <div class="rounded-[12px] border border-r-[4px] border-solid px-[13px] py-[11px] min-[1280px]:p-[15px] min-[1280px]:h-[120px]" style="border-color: {{ $t['accent'] }}; background: linear-gradient(to right, #fff, {{ $t['end'] }})">
+              <div class="rounded-[12px] border border-r-[4px] border-solid px-[13px] py-[11px] min-[1280px]:p-[15px] {{ ($pdf ?? false) ? 'min-[1280px]:flex-1 min-[1280px]:basis-0 min-[1280px]:flex min-[1280px]:flex-col min-[1280px]:justify-center' : 'min-[1280px]:h-[120px]' }}" style="border-color: {{ $t['accent'] }}; background: linear-gradient(to right, #fff, {{ $t['end'] }})">
                 <div class="flex items-start justify-between gap-[8px] min-[1280px]:h-[64px]">
                   <div class="flex flex-col gap-[5px] min-w-0 flex-1 min-[1280px]:flex-none min-[1280px]:w-[285px]">
                     <div class="flex items-center gap-[16px] min-[1280px]:items-start">
@@ -135,7 +135,7 @@
         </section>
 
         <!-- ماذا تعني هذه النتيجة؟ -->
-        <section class="rounded-[16px] min-[1280px]:rounded-[20px] border border-[#a3c0e2] px-[15px] py-[19px] min-[1280px]:px-[18px] min-[1280px]:pt-[40px] min-[1280px]:pb-[36px] min-[1280px]:flex-1 flex flex-col justify-between" style="background-image: linear-gradient(79deg, #fff 1%, #d2dfef 99%)" aria-labelledby="kr-insight">
+        <section class="{{ ($pdf ?? false) ? 'min-[1280px]:basis-full min-[1280px]:w-full' : '' }} rounded-[16px] min-[1280px]:rounded-[20px] border border-[#a3c0e2] px-[15px] py-[19px] min-[1280px]:px-[18px] min-[1280px]:pt-[40px] min-[1280px]:pb-[36px] min-[1280px]:flex-1 flex flex-col justify-between" style="background-image: linear-gradient(79deg, #fff 1%, #d2dfef 99%)" aria-labelledby="kr-insight">
           <div class="flex items-start gap-[8px] min-[1280px]:gap-[12px] w-full">
             <span class="flex size-[41px] min-[1280px]:size-[56px] shrink-0 items-center justify-center rounded-[12px] bg-[#204a7a]"><img src="{{ $img }}/lightbulb.svg" alt="" class="size-[22px] min-[1280px]:size-[32px]" /></span>
             <div class="flex min-w-0 flex-1 flex-col gap-[10px] min-[1280px]:gap-[24px]">
@@ -147,11 +147,11 @@
                 </span>
               </div>
               <div class="w-full font-medium text-[11px] min-[1280px]:text-[20px] leading-[17.88px] min-[1280px]:leading-[1.6] text-[#565656] text-right">
-                <p data-first class="{{ $hasMore ? 'line-clamp-5' : '' }} w-full text-right">{{ $paragraphs[0] }}</p>
+                <div class="w-full relative before:content-['*'] before:absolute before:top-[0.4em] before:right-[-49px] before:w-[41px] min-[1280px]:before:right-[-68px] min-[1280px]:before:w-[56px] before:text-center before:text-[1.9em] before:font-bold before:leading-none before:text-[#204a7a]"><p data-first class="{{ $hasMore ? 'line-clamp-5' : '' }} w-full text-right">{{ $paragraphs[0] }}</p></div>
                 @if ($hasMore)
                   <div data-more class="hidden flex-col gap-[10px] mt-[10px] w-full text-right">
                     @foreach (array_slice($paragraphs, 1) as $paragraph)
-                      <p>{{ $paragraph }}</p>
+                      <p class="relative before:content-['*'] before:absolute before:top-[0.4em] before:right-[-49px] before:w-[41px] min-[1280px]:before:right-[-68px] min-[1280px]:before:w-[56px] before:text-center before:text-[1.9em] before:font-bold before:leading-none before:text-[#204a7a]">{{ $paragraph }}</p>
                     @endforeach
                   </div>
                   <button type="button" data-more-toggle data-label-more="{{ cms('keys_result.insight.more', 'عرض المزيد') }}" data-label-less="{{ cms('keys_result.insight.less', 'عرض أقل') }}" aria-expanded="false" class="mt-[10px] flex items-center gap-[6px] font-semibold text-[12px] min-[1280px]:text-[17px] leading-[1.5] text-[#204a7a] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#204a7a] focus-visible:ring-offset-2 rounded">

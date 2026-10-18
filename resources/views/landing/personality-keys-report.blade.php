@@ -71,15 +71,9 @@
   </section>
 
   <!-- Result: same components as the result page -->
-  <section class="w-full flex flex-col items-center gap-10" aria-labelledby="keys-result-title">
-    <div class="flex items-center gap-4">
-      <div class="rounded-[21.793px] size-[60px] flex items-center justify-center shrink-0 bg-[#e0efff]">
-        <img src="{{ $img }}/key-outline.svg" alt="" class="size-[30px]" aria-hidden="true" />
-      </div>
-      <h2 id="keys-result-title" class="font-semibold text-[36px] leading-[1.5] text-[#262626] whitespace-nowrap">{{ cms('keys_result.page.title', 'نتيجة التقييم') }}</h2>
-    </div>
+  <section class="w-full flex flex-col items-center gap-10" aria-label="{{ cms('keys_result.page.title', 'نتيجة التقييم') }}">
     <div class="w-full">
-      @include('landing.partials.keys-result-body')
+      @include('landing.partials.keys-result-body', ['pdf' => true])
     </div>
   </section>
 
