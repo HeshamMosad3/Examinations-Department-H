@@ -2,12 +2,14 @@
 // Kept separate from the app's Tailwind v4 setup so the design renders exactly as designed.
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import plugin from 'tailwindcss-v3/plugin';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  // الـhover يشتغل بس على الأجهزة اللي فيها ماوس: على الموبايل كان بيفضل الزرار بشكل الـhover بعد الضغط والرجوع للصفحة لحد ما المستخدم يلمس الشاشة
+  // الـhover الحقيقي بس على الأجهزة اللي فيها ماوس (على الموبايل كان بيفضل الزرار بشكل الـhover بعد الرجوع للصفحة)،
+  // وعلى اللمس نفس الشكل بيظهر وقت الضغط (:active) وبيرجع طبيعي أول ما تسيب الزرار.
   future: { hoverOnlyWhenSupported: true },
   content: [
     path.resolve(__dirname, '../views/**/*.blade.php'),
@@ -52,5 +54,11 @@ export default {
       }
     },
   },
-  plugins: [],
+  plugins: [
+    // نفس شكل الـhover وقت الضغط (:active) على اللمس، ويرجع طبيعي أول ما تسيب الزرار
+    plugin(({ addVariant }) => {
+      addVariant('hover', ['@media (hover: hover) and (pointer: fine) { &:hover }', '&:active']);
+      addVariant('group-hover', ['@media (hover: hover) and (pointer: fine) { :merge(.group):hover & }', ':merge(.group):active &']);
+    }),
+  ],
 }
