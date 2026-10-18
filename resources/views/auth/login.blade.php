@@ -126,7 +126,8 @@
         <div class="text-center mt-3">
             <span class="text-[#515151] font-normal text-[17px]">{{ cms('auth.login.no_account', 'إذا لم يكن لديك حساب،') }} </span>
             <a href="{{ route('register', request()->only('next')) }}" class="text-[#204A7A] hover:underline font-semibold text-[17px] border-b border-[#204A7A] pb-[1px]">
-                {{ cms('auth.login.register_link', 'أنشئ حساباً سريعاً الآن') }}
+                <span class="sm:hidden">{{ cms('auth.login.register_link_mobile', 'أنشئ حساباً الآن') }}</span>
+                <span class="hidden sm:inline">{{ cms('auth.login.register_link', 'أنشئ حساباً سريعاً الآن') }}</span>
             </a>
         </div>
     </form>
