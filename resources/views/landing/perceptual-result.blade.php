@@ -35,7 +35,7 @@
   ];
 
   $infoItems = [
-    ['icon' => 'user-check.svg', 'label' => cms('perceptual_result.info.beneficiary', 'المستفيد'), 'mlabel' => cms('perceptual_result.info.beneficiary_mobile', 'المستخدم'), 'value' => $beneficiary, 'w' => 'lg:w-[119px]', 'mw' => 'w-[113px]'],
+    ['icon' => 'user-check.svg', 'label' => cms('perceptual_result.info.beneficiary', 'المستفيد'), 'mlabel' => cms('perceptual_result.info.beneficiary_mobile', 'المستخدم'), 'value' => $beneficiary, 'w' => 'lg:w-[119px]', 'mw' => 'flex-1 min-w-[113px]', 'wrap' => true],
     ['icon' => 'date.svg', 'label' => cms('perceptual_result.info.date', 'تاريخ التنفيذ'), 'mlabel' => cms('perceptual_result.info.date', 'تاريخ التنفيذ'), 'value' => now()->format('d M Y'), 'w' => 'lg:w-[130px]', 'mw' => 'w-[99px]'],
     ['icon' => 'report.svg', 'label' => cms('perceptual_result.info.report_code', 'رقم التقرير المعتمد'), 'mlabel' => cms('perceptual_result.info.report_code', 'رقم التقرير المعتمد'), 'value' => $reportCode, 'w' => 'lg:w-[241px]', 'mw' => 'w-[122px]'],
   ];
@@ -94,14 +94,14 @@
       </header>
 
       <!-- Report info (Figma #3509:8539 / #3509:6503) -->
-      <section class="w-full max-w-[361px] lg:max-w-none bg-white rounded-[16px] lg:rounded-[20px] drop-shadow-[0px_1px_4.55px_rgba(0,0,0,0.04)] flex items-start justify-center lg:justify-between gap-[10px] lg:px-12 lg:py-8">
+      <section class="w-full max-w-[361px] lg:max-w-none bg-white rounded-[16px] lg:rounded-[20px] drop-shadow-[0px_1px_4.55px_rgba(0,0,0,0.04)] flex flex-wrap lg:flex-nowrap items-start justify-center lg:justify-between gap-[10px] lg:px-12 lg:py-8">
         @foreach ($infoItems as $item)
-          <div class="flex flex-col items-center gap-2 lg:gap-4 p-[10px] lg:p-0 h-[117px] lg:h-auto {{ $item['mw'] }} lg:w-auto {{ $item['w'] }}">
+          <div class="flex flex-col items-center gap-2 lg:gap-4 p-[10px] lg:p-0 min-h-[117px] lg:min-h-0 {{ $item['mw'] }} lg:w-auto {{ $item['w'] }}">
             <div class="bg-[#fff0e4] rounded-[8px] lg:rounded-[11px] size-[32px] lg:size-[60px] flex items-center justify-center shrink-0">
               <img src="{{ $img }}/{{ $item['icon'] }}" alt="" class="size-[19px] lg:size-[32px] object-contain" />
             </div>
             <p class="font-medium text-[11px] lg:text-[18px] leading-[16.5px] text-[#565656] whitespace-nowrap lg:min-h-[25px]"><span class="lg:hidden">{{ $item['mlabel'] }}</span><span class="hidden lg:inline">{{ $item['label'] }}</span></p>
-            <p class="font-semibold text-[14px] lg:text-[25px] leading-[20px] text-[#1e293b] whitespace-nowrap lg:min-h-[29px] lg:flex lg:items-center" dir="auto">{{ $item['value'] }}</p>
+            <p class="font-semibold text-[14px] lg:text-[25px] leading-[20px] text-[#1e293b] text-center max-w-full {{ ($item['wrap'] ?? false) ? 'max-lg:whitespace-normal max-lg:break-words' : '' }} whitespace-nowrap lg:min-h-[29px] lg:flex lg:items-center" dir="auto">{{ $item['value'] }}</p>
           </div>
         @endforeach
       </section>

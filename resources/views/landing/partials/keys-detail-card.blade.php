@@ -17,7 +17,8 @@
       <img src="{{ $img }}/{{ strtolower($key->code) }}.webp" alt="" loading="lazy" decoding="async" class="absolute max-w-none object-cover pointer-events-none {{ $key->code === 'K2' && ! $d ? 'rounded-[12px]' : ($d ? 'rounded-l-[20px]' : 'rounded-l-[17px]') }}" style="left: {{ $px($img_c[0]) }}; top: {{ $px($img_c[1]) }}; width: {{ $px($img_c[2]) }}; height: {{ $px($img_c[3]) }}" />
 
       {{-- الاسم والمستوى والنسبة --}}
-      <div class="absolute flex items-center {{ $d ? 'gap-[6px]' : 'justify-between' }}" style="left: {{ $d ? '114.89px; top: 21px; width: 269px' : '117px; top: 19px; width: 229px' }}">
+      {{-- موبايل: من الشمال 117px ومن اليمين 15px (على عرض التصميم 361 بيطلع 229px)، فالسطر يضيق مع الشاشات الأضيق بدل ما يعدّي حدود الكارت --}}
+      <div class="absolute flex items-center {{ $d ? 'gap-[6px]' : 'flex-wrap gap-x-[6px] gap-y-[4px] justify-between' }}" style="left: {{ $d ? '114.89px; top: 21px; width: 269px' : '117px; top: 19px; right: 15px' }}">
         <p class="font-bold leading-[normal] whitespace-nowrap {{ $d ? 'text-[20px]' : 'text-[17px]' }}" style="color: {{ $t['name'] }}">{{ $key->name }} ({{ $key->code }})</p>
         @if ($key->level)
           <span class="flex items-center justify-center rounded-full border border-solid font-bold whitespace-nowrap {{ $d ? 'h-[25px] min-w-[90px] px-[12.2px] py-[3.3px] text-[14px] border-[1.111px]' : 'h-[23px] min-w-[75px] px-[11px] py-[3px] text-[12px]' }}" style="background: {{ $t['chipBg'] }}; border-color: {{ $t['chipBd'] }}; color: {{ $t['chipTx'] }}">{{ $key->level }}</span>
@@ -27,7 +28,7 @@
 
       {{-- الوصف --}}
       @if ($showDetails && $key->summary)
-        <p class="absolute font-medium leading-[normal] text-[#565656] text-right" style="left: {{ $d ? '109.34px; top: 81.09px; width: 275px; font-size: 16px' : '103px; top: 73px; width: 243px; font-size: 14px' }}">{{ $key->summary }}</p>
+        <p class="absolute font-medium leading-[normal] text-[#565656] text-right" style="left: {{ $d ? '109.34px; top: 81.09px; width: 275px; font-size: 16px' : '103px; top: 73px; right: 15px; font-size: 14px' }}">{{ $key->summary }}</p>
       @endif
 
       {{-- عرض / إخفاء التفاصيل --}}
