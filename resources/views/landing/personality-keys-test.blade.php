@@ -132,14 +132,14 @@
                       <span class="shrink-0 font-semibold text-[17px] lg:text-[25px] text-[#204a7a]">{{ $q['number'] }}.</span>
                       <span>{{ $q['text'] }}</span>
                     </p>
-                    <div role="radiogroup" aria-labelledby="pk-q-{{ $q['id'] }}" class="flex shrink-0 items-center gap-[24px] max-[374px]:gap-[12px] sm:gap-[26px]">
+                    <div role="radiogroup" aria-labelledby="pk-q-{{ $q['id'] }}" class="flex shrink-0 items-center gap-4 min-[360px]:gap-[18px] min-[375px]:gap-[22px] min-[390px]:gap-[26px] sm:gap-[26px]">
                       {{-- الدوم بترتيب 0 ← 4 (في RTL الصفر على اليمين، فيظهر 4 3 2 1 0 من الشمال زي Figma) --}}
                       @foreach (array_reverse($scale, true) as $value => $s)
                         @php $option = $q['options'][4 - $value] ?? null; @endphp
                         @continue(! $option)
                         <label class="relative cursor-pointer" style="--bg: {{ $s['bg'] }}; --c: {{ $s['color'] }}">
                           <input type="radio" name="q{{ $q['id'] }}" value="{{ $option }}" data-pk-choice aria-label="{{ $s['label'] }} ({{ $value }})" class="peer sr-only" />
-                          <span aria-hidden="true" class="flex size-[40px] max-[374px]:size-[34px] md:size-[44px] lg:size-[50px] items-center justify-center rounded-full border-2 border-solid border-[var(--bg)] bg-transparent font-messiri font-bold text-[14px] lg:text-[17px] text-[color:var(--c)] transition-colors duration-150 hover:bg-[var(--bg)] peer-checked:border-[var(--c)] peer-checked:bg-[var(--c)] peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-[var(--c)] peer-focus-visible:ring-offset-2">{{ $value }}</span>
+                          <span aria-hidden="true" class="flex size-[36px] min-[360px]:size-[38px] min-[390px]:size-[40px] md:size-[44px] lg:size-[50px] items-center justify-center rounded-full border-2 border-solid border-[var(--bg)] bg-transparent shadow-sm font-messiri font-bold text-[14px] min-[360px]:text-[15px] lg:text-[17px] text-[color:var(--c)] transition-colors duration-150 hover:bg-[var(--bg)] peer-checked:border-[var(--c)] peer-checked:bg-[var(--c)] peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-[var(--c)] peer-focus-visible:ring-offset-2">{{ $value }}</span>
                         </label>
                       @endforeach
                     </div>

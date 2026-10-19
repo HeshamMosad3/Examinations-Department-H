@@ -44,10 +44,11 @@
       <div data-list class="kd-list hidden flex-col gap-[10px] {{ $d ? 'mt-[14.5px] pb-[23.5px] px-[16px]' : 'mt-[20px] pb-[19px] px-[16px]' }}">
         @foreach ($key->subs as $sub)
           <div class="rounded-[12px] border border-solid {{ $d ? 'w-[372px] max-w-full mx-auto min-h-[130px] px-[14px] py-[10px]' : 'min-h-[116px] px-[13px] py-[9px]' }}" style="background: {{ $t['subBg'] }}; border-color: {{ $t['subBd'] }}">
-            <div class="flex items-start {{ $d ? 'gap-[8px]' : 'justify-between' }}">
+            <div class="flex items-start {{ $d ? 'gap-[8px]' : 'gap-[4px]' }}">
               <span class="shrink-0 flex items-center justify-center rounded-[11px] border border-solid p-px font-medium text-black {{ $d ? 'size-[35px] text-[14px]' : 'size-[32px] text-[11px]' }}" dir="ltr" style="background: {{ $t['badgeBg'] }}; border-color: {{ $t['badgeBd'] }}">{{ $sub->code }}</span>
-              <div class="flex flex-col gap-[8px] {{ $d ? 'w-[297px]' : 'w-[258px]' }}">
-                <div class="flex items-center justify-between">
+              {{-- موبايل: النص ياخد باقي العرض بعد المربع (258px على عرض التصميم) فمايدخلش على مربع الكود في الشاشات الأضيق --}}
+              <div class="flex flex-col gap-[8px] {{ $d ? 'w-[297px]' : 'flex-1 min-w-0' }}">
+                <div class="flex items-center justify-between {{ $d ? '' : 'flex-wrap gap-x-[6px] gap-y-[4px]' }}">
                   <h4 class="font-bold leading-[normal] text-[#262626] {{ $d ? 'text-[16px]' : 'text-[14px]' }}">{{ $sub->name }}</h4>
                   @if ($sub->level)
                     <span class="flex items-center justify-center rounded-full border border-solid font-bold whitespace-nowrap {{ $d ? 'h-[26px] px-[11px] py-[3px] text-[14px]' : 'h-[23px] px-[11px] py-[3px] text-[12px]' }}" style="background: {{ $t['chipBg'] }}; border-color: {{ $t['subChipBd'] }}; color: {{ $t['chipTx'] }}">{{ $sub->level }}</span>

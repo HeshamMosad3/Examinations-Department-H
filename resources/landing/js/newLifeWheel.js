@@ -308,7 +308,9 @@ function getMetrics() {
     return {
       effectiveFontSize: isMobile ? 34 : 26,
       iconScale: isMobile ? 1.25 : 1,
-      labelGap: 6
+      labelGap: 6,
+      // الموبايل: مسافة ثابتة بين حافة العجلة وأقرب نقطة في الاسم/الأيقونة (بدل مركز ثابت)، فالكلمات الطويلة ما تدخلش على العجلة
+      equalGap: isMobile
     };
   }
   return {
@@ -635,17 +637,28 @@ function updateWheelGeometry() {
       }
     } else if (isHomeDesign) {
       // الاسم والأيقونة ثابتين على دائرة حوالين العجلة (مش بيتحركوا مع النسبة)، والأيقونة تحت الاسم
-      const pos = polarToCartesian(cx, cy, SETTINGS.labelRadius, mid);
       const style = HOME_AXIS_STYLE[i];
       const iconW = style.iconW * metrics.iconScale;
       const iconH = style.iconH * metrics.iconScale;
       const lineH = metrics.effectiveFontSize * 1.5;
+      if (el.text) {
+        el.text.setAttribute("font-size", `${metrics.effectiveFontSize}px`);
+      }
+      let labelRadius = SETTINGS.labelRadius;
+      if (metrics.equalGap) {
+        // نصف عرض وارتفاع صندوق الاسم+الأيقونة بيتحسبوا على اتجاه المحور، فأقرب نقطة منه للعجلة تبقى على نفس المسافة دايمًا
+        const u = polarToCartesian(0, 0, 1, mid);
+        const textW = el.text && el.text.getComputedTextLength ? el.text.getComputedTextLength() : 0;
+        const halfW = Math.max(textW, iconW) / 2;
+        const halfH = (lineH + metrics.labelGap + iconH) / 2;
+        labelRadius = SETTINGS.outerRadius + 8 + halfW * Math.abs(u.x) + halfH * Math.abs(u.y);
+      }
+      const pos = polarToCartesian(cx, cy, labelRadius, mid);
       const top = pos.y - (lineH + metrics.labelGap + iconH) / 2;
 
       if (el.text) {
         el.text.setAttribute("x", pos.x);
         el.text.setAttribute("y", top + lineH / 2);
-        el.text.setAttribute("font-size", `${metrics.effectiveFontSize}px`);
         el.text.setAttribute("dominant-baseline", "central");
       }
 
