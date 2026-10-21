@@ -23,28 +23,28 @@
 
           <!-- Connector lines from pins on the outer ring to each pentagon center -->
           <!-- 01 البصيرة -->
-          <line x1="200.8" y1="113.8" x2="203.7" y2="53.3" stroke="#4F6EA5" stroke-width="1" stroke-linecap="round" />
+          <line x1="201.0" y1="110.2" x2="203.7" y2="53.3" stroke="#4F6EA5" stroke-width="1" stroke-linecap="round" />
           <!-- 02 الدافع -->
-          <line x1="243.5" y1="138.1" x2="306.3" y2="96.6" stroke="#64748B" stroke-width="1" stroke-linecap="round" />
+          <line x1="246.5" y1="136.1" x2="306.3" y2="96.6" stroke="#64748B" stroke-width="1" stroke-linecap="round" />
           <!-- 03 الصمود -->
-          <line x1="251.5" y1="178.6" x2="324.4" y2="193.1" stroke="#5FAE7D" stroke-width="1" stroke-linecap="round" />
+          <line x1="255.0" y1="179.3" x2="324.4" y2="193.1" stroke="#5FAE7D" stroke-width="1" stroke-linecap="round" />
           <!-- 04 الارتباط -->
-          <line x1="226.1" y1="214.6" x2="263.1" y2="276.6" stroke="#735297" stroke-width="1" stroke-linecap="round" />
+          <line x1="227.9" y1="217.7" x2="263.1" y2="276.6" stroke="#735297" stroke-width="1" stroke-linecap="round" />
           <!-- 05 القرار -->
-          <line x1="173.3" y1="216.3" x2="142.3" y2="276.6" stroke="#CCAB3E" stroke-width="1" stroke-linecap="round" />
+          <line x1="171.6" y1="219.5" x2="142.3" y2="276.6" stroke="#CCAB3E" stroke-width="1" stroke-linecap="round" />
           <!-- 06 التأثير -->
-          <line x1="145.1" y1="179.3" x2="70.9" y2="195.1" stroke="#B35769" stroke-width="1" stroke-linecap="round" />
+          <line x1="141.6" y1="180.0" x2="70.9" y2="195.1" stroke="#B35769" stroke-width="1" stroke-linecap="round" />
           <!-- 07 الأفق -->
-          <line x1="153.4" y1="137.3" x2="94.1" y2="96.6" stroke="#8640C9" stroke-width="1" stroke-linecap="round" />
+          <line x1="150.4" y1="135.3" x2="94.1" y2="96.6" stroke="#8640C9" stroke-width="1" stroke-linecap="round" />
 
           <!-- 7 Colored Pin Nodes situated directly on the outer concentric ring (Figma #934:4992) — بنفس حجم دبابيس صفحة الاستكشاف (قطر 6 على الموبايل) -->
-          <circle cx="200.8" cy="113.8" r="3" fill="#5969FF" />
-          <circle cx="243.5" cy="138.1" r="3" fill="#204A7A" />
-          <circle cx="251.5" cy="178.6" r="3" fill="#00BC45" />
-          <circle cx="226.1" cy="214.6" r="3" fill="#783CFF" />
-          <circle cx="173.3" cy="216.3" r="3" fill="#D37100" />
-          <circle cx="145.1" cy="179.3" r="3" fill="#F63657" />
-          <circle cx="153.4" cy="137.3" r="3" fill="#A855F7" />
+          <circle cx="201.0" cy="110.2" r="2.6" fill="#5969FF" />
+          <circle cx="246.5" cy="136.1" r="2.6" fill="#204A7A" />
+          <circle cx="255.0" cy="179.3" r="2.6" fill="#00BC45" />
+          <circle cx="227.9" cy="217.7" r="2.6" fill="#783CFF" />
+          <circle cx="171.6" cy="219.5" r="2.6" fill="#D37100" />
+          <circle cx="141.6" cy="180.0" r="2.6" fill="#F63657" />
+          <circle cx="150.4" cy="135.3" r="2.6" fill="#A855F7" />
         </svg>
 
         <!-- Desktop Integrated SVG Connector Lines, Concentric Rings, and Colored Pin Nodes (Figma Desktop Frame #875:6248: 950 x 804) -->
@@ -66,28 +66,28 @@
 
           <!-- Connector lines from pins on the outer ring to each pentagon center -->
           <!-- 01 البصيرة -->
-          <line x1="486.7" y1="271.9" x2="493.7" y2="127.5" stroke="#4F6EA5" stroke-width="2.5" stroke-linecap="round" />
+          <line x1="487.1" y1="263.5" x2="493.7" y2="127.5" stroke="#4F6EA5" stroke-width="2.5" stroke-linecap="round" />
           <!-- 02 الدافع -->
-          <line x1="588.8" y1="330.0" x2="739.0" y2="230.8" stroke="#64748B" stroke-width="2.5" stroke-linecap="round" />
+          <line x1="595.8" y1="325.4" x2="739.0" y2="230.8" stroke="#64748B" stroke-width="2.5" stroke-linecap="round" />
           <!-- 03 الصمود -->
-          <line x1="607.9" y1="426.5" x2="787.7" y2="461.7" stroke="#5FAE7D" stroke-width="2.5" stroke-linecap="round" />
+          <line x1="616.1" y1="428.1" x2="787.7" y2="461.7" stroke="#5FAE7D" stroke-width="2.5" stroke-linecap="round" />
           <!-- 04 الارتباط -->
-          <line x1="544.8" y1="514.2" x2="628.8" y2="661.3" stroke="#735297" stroke-width="2.5" stroke-linecap="round" />
+          <line x1="549.0" y1="521.5" x2="628.8" y2="661.3" stroke="#735297" stroke-width="2.5" stroke-linecap="round" />
           <!-- 05 القرار -->
-          <line x1="418.8" y1="515.7" x2="340.2" y2="661.3" stroke="#CCAB3E" stroke-width="2.5" stroke-linecap="round" />
+          <line x1="414.8" y1="523.1" x2="340.2" y2="661.3" stroke="#CCAB3E" stroke-width="2.5" stroke-linecap="round" />
           <!-- 06 التأثير -->
-          <line x1="353.4" y1="428.1" x2="169.5" y2="466.5" stroke="#B35769" stroke-width="2.5" stroke-linecap="round" />
+          <line x1="345.2" y1="429.8" x2="169.5" y2="466.5" stroke="#B35769" stroke-width="2.5" stroke-linecap="round" />
           <!-- 07 الأفق -->
-          <line x1="373.5" y1="328.1" x2="231.6" y2="230.8" stroke="#8640C9" stroke-width="2.5" stroke-linecap="round" />
+          <line x1="366.6" y1="323.3" x2="231.6" y2="230.8" stroke="#8640C9" stroke-width="2.5" stroke-linecap="round" />
 
           <!-- 7 Colored Pin Nodes situated directly on the outer concentric ring (Figma #875:6248) -->
-          <circle cx="486.7" cy="271.9" r="7.2" fill="#5969FF" />
-          <circle cx="588.8" cy="330.0" r="7.2" fill="#204A7A" />
-          <circle cx="607.9" cy="426.5" r="7.2" fill="#00BC45" />
-          <circle cx="544.8" cy="514.2" r="7.2" fill="#783CFF" />
-          <circle cx="418.8" cy="515.7" r="7.2" fill="#D37100" />
-          <circle cx="353.4" cy="428.1" r="7.2" fill="#F63657" />
-          <circle cx="373.5" cy="328.1" r="7.2" fill="#A855F7" />
+          <circle cx="487.1" cy="263.5" r="6" fill="#5969FF" />
+          <circle cx="595.8" cy="325.4" r="6" fill="#204A7A" />
+          <circle cx="616.1" cy="428.1" r="6" fill="#00BC45" />
+          <circle cx="549.0" cy="521.5" r="6" fill="#783CFF" />
+          <circle cx="414.8" cy="523.1" r="6" fill="#D37100" />
+          <circle cx="345.2" cy="429.8" r="6" fill="#F63657" />
+          <circle cx="366.6" cy="323.3" r="6" fill="#A855F7" />
         </svg>
 
         <!-- Center 7PK emblem (#875:6260 / #934:5004) -->

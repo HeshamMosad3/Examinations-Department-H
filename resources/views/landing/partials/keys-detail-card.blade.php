@@ -18,12 +18,12 @@
 
       {{-- الاسم والمستوى والنسبة --}}
       {{-- موبايل: من الشمال 117px ومن اليمين 15px (على عرض التصميم 361 بيطلع 229px)، فالسطر يضيق مع الشاشات الأضيق بدل ما يعدّي حدود الكارت --}}
-      <div class="absolute flex items-center {{ $d ? 'gap-[6px]' : 'flex-wrap gap-x-[6px] gap-y-[4px] justify-between' }}" style="left: {{ $d ? '114.89px; top: 21px; width: 269px' : '117px; top: 19px; right: 15px' }}">
-        <p class="font-bold leading-[normal] whitespace-nowrap {{ $d ? 'text-[20px]' : 'text-[17px]' }}" style="color: {{ $t['name'] }}">{{ $key->name }} ({{ $key->code }})</p>
+      <div class="absolute flex items-center {{ $d ? 'gap-[6px]' : 'max-[379px]:flex-wrap gap-x-[6px] gap-y-[4px] justify-between' }}" style="left: {{ $d ? '114.89px; top: 21px; width: 269px' : '117px; top: 19px; right: 15px' }}">
+        <p class="font-bold leading-[normal] whitespace-nowrap {{ $d ? 'text-[20px]' : 'text-[16px] min-[400px]:text-[17px]' }}" style="color: {{ $t['name'] }}">{{ $key->name }} ({{ $key->code }})</p>
         @if ($key->level)
-          <span class="flex items-center justify-center rounded-full border border-solid font-bold whitespace-nowrap {{ $d ? 'h-[25px] min-w-[90px] px-[12.2px] py-[3.3px] text-[14px] border-[1.111px]' : 'h-[23px] min-w-[75px] px-[11px] py-[3px] text-[12px]' }}" style="background: {{ $t['chipBg'] }}; border-color: {{ $t['chipBd'] }}; color: {{ $t['chipTx'] }}">{{ $key->level }}</span>
+          <span class="flex items-center justify-center rounded-full border border-solid font-bold whitespace-nowrap {{ $d ? 'h-[25px] min-w-[90px] px-[12.2px] py-[3.3px] text-[14px] border-[1.111px]' : 'h-[23px] min-w-0 px-[8px] py-[3px] text-[12px]' }}" style="background: {{ $t['chipBg'] }}; border-color: {{ $t['chipBd'] }}; color: {{ $t['chipTx'] }}">{{ $key->level }}</span>
         @endif
-        <span dir="ltr" class="flex items-center justify-center rounded-full border border-solid font-bold {{ $d ? 'h-[25.5px] min-w-[57.76px] px-[12.2px] py-[3.3px] text-[14px] border-[1.111px]' : 'h-[23px] min-w-[52px] px-[11px] py-[3px] text-[12px]' }}" style="background: {{ $t['chipBg'] }}; border-color: {{ $t['chipBd'] }}; color: {{ $t['chipTx'] }}">{{ $key->percent }}%</span>
+        <span dir="ltr" class="flex items-center justify-center rounded-full border border-solid font-bold {{ $d ? 'h-[25.5px] min-w-[57.76px] px-[12.2px] py-[3.3px] text-[14px] border-[1.111px]' : 'h-[23px] min-w-0 px-[8px] py-[3px] text-[12px]' }}" style="background: {{ $t['chipBg'] }}; border-color: {{ $t['chipBd'] }}; color: {{ $t['chipTx'] }}">{{ $key->percent }}%</span>
       </div>
 
       {{-- الوصف --}}
