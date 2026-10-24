@@ -31,8 +31,8 @@
         </div>
       </div>
 
-      <!-- Col 2: تواصل معنا (آخر عمود على الديسكتوب) -->
-      <div class="order-2 w-full max-w-[300px] lg:order-4 lg:w-[270px] lg:max-w-none lg:shrink-0 lg:ms-[161px]">
+      <!-- Col 2: تواصل معنا (آخر عمود على الديسكتوب، وبعد «روابط سريعة» على الموبايل) -->
+      <div class="order-3 md:order-2 w-full max-w-[300px] lg:order-4 lg:w-[270px] lg:max-w-none lg:shrink-0 lg:ms-[161px]">
         {!! $heading(cms('global.footer.contact_title', 'تواصل معنا')) !!}
         <ul class="flex flex-col gap-[18px] text-[17px] leading-[27px] text-[#ddd]" style="font-family: 'El Messiri', sans-serif;">
           <li class="flex items-start gap-[14px]">
@@ -67,7 +67,7 @@
       </div>
 
       <!-- Col 4: روابط سريعة -->
-      <div class="order-3 md:order-4 lg:order-3 w-full max-w-[300px] lg:w-[175px] lg:max-w-none lg:shrink-0 lg:ms-[161px]">
+      <div class="order-2 md:order-4 lg:order-3 w-full max-w-[300px] lg:w-[175px] lg:max-w-none lg:shrink-0 lg:ms-[161px]">
         {!! $heading(cms('global.footer.links_title', 'روابط سريعة')) !!}
         <ul class="flex flex-col gap-[18px] text-[17px] leading-[21px] text-[#ddd]" style="font-family: 'El Messiri', sans-serif;">
           <li><a href="{{ cms_url('global.footer.link_1_url', '#home') }}" data-nav="home" class="hover:text-[#E6B844] transition-colors">{{ cms('global.footer.link_1', 'الرئيسية') }}</a></li>
