@@ -15,7 +15,7 @@
 /node_modules
 /public/build
 /public/hot
-/public/landing/build
+/public/assets/website/build
 /public/landing.hot
 /public/storage
 /storage/*.key

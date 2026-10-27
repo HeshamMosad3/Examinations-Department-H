@@ -145,7 +145,7 @@ class AuthController extends Controller
         $this->rememberIntendedDestination($request);
 
         return response()
-            ->view('auth.login')
+            ->view('website.auth.login')
             ->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
             ->header('Pragma', 'no-cache')
             ->header('Expires', 'Sat, 01 Jan 2000 00:00:00 GMT');
@@ -170,7 +170,7 @@ class AuthController extends Controller
         $this->rememberIntendedDestination($request);
 
         return response()
-            ->view('auth.register')
+            ->view('website.auth.register')
             ->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
             ->header('Pragma', 'no-cache')
             ->header('Expires', 'Sat, 01 Jan 2000 00:00:00 GMT');
@@ -219,7 +219,7 @@ class AuthController extends Controller
 
     public function showForgotPassword()
     {
-        return view('auth.forgot-password');
+        return view('website.auth.forgot-password');
     }
 
     public function sendOtp(Request $request): RedirectResponse
@@ -257,7 +257,7 @@ class AuthController extends Controller
 
         $maskedEmail = $request->session()->get('password_reset_masked_email', $email);
 
-        return view('auth.verify-otp', [
+        return view('website.auth.verify-otp', [
             'email' => $email,
             'maskedEmail' => $maskedEmail,
         ]);
@@ -352,7 +352,7 @@ class AuthController extends Controller
             return redirect()->route('password.request')->withErrors(['email' => cms('auth.reset.expired', 'انتهت صلاحية جلسة إعادة التعيين، يرجى المحاولة مجدداً.')]);
         }
 
-        return view('auth.reset-password', [
+        return view('website.auth.reset-password', [
             'email' => $email,
             'token' => $token,
         ]);
@@ -417,7 +417,7 @@ class AuthController extends Controller
             return redirect()->route('login');
         }
 
-        return view('auth.reset-success');
+        return view('website.auth.reset-success');
     }
 
     /**

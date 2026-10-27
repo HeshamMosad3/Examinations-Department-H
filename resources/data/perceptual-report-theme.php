@@ -4,7 +4,7 @@
 // حسي #3509:9401/#3509:6939، بصري–سمعي #3509:8814/#3509:6638): ألوان الكروت وصورة المخ وهندسة رسمة المدار.
 // الإحداثيات بالبكسل في تصميم كل جهاز: d = الديسكتوب (572×503)، m = الموبايل (393×346).
 // كل المستويات السبعة متصممة؛ أي كود تاني بياخد ثيم البصري.
-$r = '/landing/images/perceptual-report/result/';
+$r = '/assets/website/images/perceptual-report/result/';
 
 // ثيم البصري (الأزرق) = الأساس
 $visual = [
@@ -16,7 +16,7 @@ $visual = [
         'check_bg' => ['#e0f2fe', '#e0f2fe'],
     ],
     'assets' => [
-        'star' => '/landing/images/perceptual-report/star.svg', 'zap' => $r . 'zap.svg', 'check' => $r . 'check.svg',
+        'star' => '/assets/website/images/perceptual-report/star.svg', 'zap' => $r . 'zap.svg', 'check' => $r . 'check.svg',
         'dom_icons' => [], // الأيقونة من المستوى نفسه (dominant.svg)
         'watermark' => $r . 'watermark-visual.svg',
     ],

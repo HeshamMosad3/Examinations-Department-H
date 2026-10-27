@@ -85,14 +85,14 @@ const tooltipsEnabled = !isResultPage;
 
 /* بيانات كل محور - الترتيب يبدأ من المحور الشخصي في أعلى العجلة مع عقارب الساعة تماماً كما في Figma */
 let axesState = [
-  { label: AXIS_LABELS.personal, color: "#7844D0", percent: 30, direction: "dark-to-light", icon: "custom", customIconUrl: "/landing/icons/wheel_of_life/personal.png" },
-  { label: AXIS_LABELS.spiritual, color: "#5875E5", percent: 45, direction: "dark-to-light", icon: "custom", customIconUrl: "/landing/icons/wheel_of_life/spiritual.png" },
-  { label: AXIS_LABELS.health, color: "#43A074", percent: 38, direction: "dark-to-light", icon: "custom", customIconUrl: "/landing/icons/wheel_of_life/health.png" },
-  { label: AXIS_LABELS.social, color: "#C53664", percent: 40, direction: "dark-to-light", icon: "custom", customIconUrl: "/landing/icons/wheel_of_life/social.png" },
-  { label: AXIS_LABELS.family, color: "#D98344", percent: 50, direction: "dark-to-light", icon: "custom", customIconUrl: "/landing/icons/wheel_of_life/family.png" },
-  { label: AXIS_LABELS.leisure, color: "#C9B642", percent: 30, direction: "dark-to-light", icon: "custom", customIconUrl: "/landing/icons/wheel_of_life/leisure.png" },
-  { label: AXIS_LABELS.financial, color: "#3CB1B3", percent: 35, direction: "dark-to-light", icon: "custom", customIconUrl: "/landing/icons/wheel_of_life/financial.png" },
-  { label: AXIS_LABELS.career, color: "#4474D0", percent: 45, direction: "dark-to-light", icon: "custom", customIconUrl: "/landing/icons/wheel_of_life/career.png" }
+  { label: AXIS_LABELS.personal, color: "#7844D0", percent: 30, direction: "dark-to-light", icon: "custom", customIconUrl: "/assets/website/icons/wheel_of_life/personal.png" },
+  { label: AXIS_LABELS.spiritual, color: "#5875E5", percent: 45, direction: "dark-to-light", icon: "custom", customIconUrl: "/assets/website/icons/wheel_of_life/spiritual.png" },
+  { label: AXIS_LABELS.health, color: "#43A074", percent: 38, direction: "dark-to-light", icon: "custom", customIconUrl: "/assets/website/icons/wheel_of_life/health.png" },
+  { label: AXIS_LABELS.social, color: "#C53664", percent: 40, direction: "dark-to-light", icon: "custom", customIconUrl: "/assets/website/icons/wheel_of_life/social.png" },
+  { label: AXIS_LABELS.family, color: "#D98344", percent: 50, direction: "dark-to-light", icon: "custom", customIconUrl: "/assets/website/icons/wheel_of_life/family.png" },
+  { label: AXIS_LABELS.leisure, color: "#C9B642", percent: 30, direction: "dark-to-light", icon: "custom", customIconUrl: "/assets/website/icons/wheel_of_life/leisure.png" },
+  { label: AXIS_LABELS.financial, color: "#3CB1B3", percent: 35, direction: "dark-to-light", icon: "custom", customIconUrl: "/assets/website/icons/wheel_of_life/financial.png" },
+  { label: AXIS_LABELS.career, color: "#4474D0", percent: 45, direction: "dark-to-light", icon: "custom", customIconUrl: "/assets/website/icons/wheel_of_life/career.png" }
 ];
 
 // ألوان وأيقونات تصميم الرئيسية الجديد بنفس ترتيب axesState (fill: القطاع، bg: الخلفية الفاتحة، text: لون الاسم)
@@ -117,7 +117,7 @@ if (isHomeDesign) {
       HOME_AXIS_STYLE[i].bg = custom.bg || HOME_AXIS_STYLE[i].bg;
       HOME_AXIS_STYLE[i].text = custom.text || HOME_AXIS_STYLE[i].text;
     }
-    axis.customIconUrl = (custom && custom.icon) || `/landing/icons/wheel_of_life/home/${key}.svg`;
+    axis.customIconUrl = (custom && custom.icon) || `/assets/website/icons/wheel_of_life/home/${key}.svg`;
   });
 }
 
@@ -126,7 +126,7 @@ let rotationAngle = 0;      // بالدرجات - قيمة معروضة محصو
 let autoSpinOn = typeof window !== "undefined" && localStorage.getItem("dar_alruya_wheel_auto_spin_360") === "true";
 let autoSpinSpeed = 20;     // درجة/ثانية
 let spinDirection = (typeof window !== "undefined" && localStorage.getItem("dar_alruya_wheel_spin_direction")) || "cw";
-let centerImageDataUrl = (typeof window !== "undefined" && window.LIFE_WHEEL_STYLE && window.LIFE_WHEEL_STYLE.compass) || "/landing/images/Frame%202147238562.png";
+let centerImageDataUrl = (typeof window !== "undefined" && window.LIFE_WHEEL_STYLE && window.LIFE_WHEEL_STYLE.compass) || "/assets/website/images/Frame%202147238562.png";
 let autoSpinTimer = null;
 let isSpinning = false;     // true أثناء تشغيل أنيميشن السبين العشوائي
 let audioCtx = null;

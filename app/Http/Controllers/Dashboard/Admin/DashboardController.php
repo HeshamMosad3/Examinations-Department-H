@@ -14,7 +14,7 @@ class DashboardController extends Controller
     {
         $assessments = $manager->listing();
 
-        return view('admin.dashboard', [
+        return view('dashboard.admin.dashboard', [
             'stats' => [
                 'assessments' => $assessments->count(),
                 'active' => $assessments->where('is_active', true)->count(),

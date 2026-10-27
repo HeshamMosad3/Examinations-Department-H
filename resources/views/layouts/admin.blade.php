@@ -8,8 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    <link href="{{ asset('admin-assets/admin-theme.css') }}" rel="stylesheet">
-    <link href="{{ asset('admin-assets/admin.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/dashboard/css/admin-theme.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/dashboard/css/admin.css') }}" rel="stylesheet">
     @stack('styles')
 </head>
 <body>
@@ -86,6 +86,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     @stack('scripts')
-    <script src="{{ asset('admin-assets/admin.js') }}"></script>
+    <script src="{{ asset('assets/dashboard/js/admin.js') }}"></script>
 </body>
 </html>

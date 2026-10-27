@@ -4,7 +4,7 @@
  * "تفاصيل الجوانب" page data. The percentages shown on the page are NOT stored here: they come from the user's
  * saved result in the database (App\Services\Website\LifeWheelService). Each aspect has 4 sub-aspects covering the scale's
  * questions in order: 3 + 3 + 2 + 2 (see LifeWheelService::SUB_GROUPS), as in the scale document.
- * Icons: public/landing/icons/aspects/ ({key}.svg main icon, {key}-1..4.svg sub-aspect icons).
+ * Icons: public/assets/website/icons/aspects/ ({key}.svg main icon, {key}-1..4.svg sub-aspect icons).
  * (Figma file n7hAGUkz558sP500I0m375, frame 3083:12404).
  * Texts, percentages and per-element sizes are copied from the Figma "Service (Desktop)" components
  * (Property 1 = Default / Expand). Full Tailwind class strings are kept literal on purpose so the

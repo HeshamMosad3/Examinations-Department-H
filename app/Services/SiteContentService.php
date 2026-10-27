@@ -22,8 +22,7 @@ class SiteContentService
 
     // الملفات اللي فيها محتوى الصفحات
     private const SOURCES = [
-        'resources/views/landing' => 'blade.php',
-        'resources/views/auth' => 'blade.php',
+        'resources/views/website' => 'blade.php',
         'resources/views/layouts' => 'blade.php',
         'resources/views/errors' => 'blade.php',
         'resources/data' => 'php',

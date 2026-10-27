@@ -44,8 +44,8 @@ class LifeWheelService
         return $data->roots()->map(fn ($aspect) => [
             'key' => $aspect->code,
             'label' => $aspect->name_ar,
-            'iconUrl' => '/landing/icons/wheel_of_life_line/' . (self::LINE_ICONS[$aspect->code] ?? ''),
-            'solidIconUrl' => '/landing/icons/wheel_of_life/' . $aspect->code . '.png',
+            'iconUrl' => '/assets/website/icons/wheel_of_life_line/' . (self::LINE_ICONS[$aspect->code] ?? ''),
+            'solidIconUrl' => '/assets/website/icons/wheel_of_life/' . $aspect->code . '.png',
             'description' => $aspect->description_ar ?? '',
             'questions' => $data->questionsUnder($aspect->id)->pluck('text_ar')->all(),
         ])->all();

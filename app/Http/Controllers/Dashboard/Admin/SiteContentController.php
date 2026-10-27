@@ -36,7 +36,7 @@ class SiteContentController extends Controller
             ];
         })->filter(fn ($p) => $p['fields'] > 0);
 
-        return view('admin.site_content.index', compact('pages'));
+        return view('dashboard.admin.site_content.index', compact('pages'));
     }
 
     public function edit(string $page): View
@@ -56,7 +56,7 @@ class SiteContentController extends Controller
                 ], $sections[$s]),
             ]]);
 
-        return view('admin.site_content.edit', ['page' => $page, 'meta' => $meta, 'sections' => $sections]);
+        return view('dashboard.admin.site_content.edit', ['page' => $page, 'meta' => $meta, 'sections' => $sections]);
     }
 
     public function update(Request $request, string $page, FileUploadService $uploads): RedirectResponse

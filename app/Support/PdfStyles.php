@@ -34,12 +34,12 @@ final class PdfStyles
             }
         }
 
-        $manifest = public_path('landing/build/manifest.json');
+        $manifest = public_path('assets/website/build/manifest.json');
         if (! is_file($manifest)) {
             return null;
         }
         $entry = json_decode((string) file_get_contents($manifest), true)['resources/landing/style.css']['file'] ?? null;
-        $file = $entry ? public_path('landing/build/' . $entry) : null;
+        $file = $entry ? public_path('assets/website/build/' . $entry) : null;
 
         return $file && is_file($file) ? (string) file_get_contents($file) : null;
     }

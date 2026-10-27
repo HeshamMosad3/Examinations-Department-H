@@ -21,7 +21,7 @@ class LifeWheelInfluenceController extends Controller
 
     public function index()
     {
-        return view('admin.life_wheel_influence.index', [
+        return view('dashboard.admin.life_wheel_influence.index', [
             'axes' => LifeWheelInfluenceSettings::AXES,
             'levels' => $this->settings->levels(),
             'matrix' => $this->settings->matrix(),

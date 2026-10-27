@@ -270,14 +270,14 @@ function renderNavButtons() {
   el.innerHTML = `
     ${isFirst ? '<span></span>' : `
       <button type="button" id="lw-prev-btn" class="flex items-center justify-center gap-2 w-[151px] max-[359px]:w-auto max-[359px]:flex-1 max-[359px]:max-w-[151px] md:w-auto h-[45px] md:h-[60px] px-3 min-[360px]:px-6 rounded-[10px] md:rounded-[15px] border md:border-2 border-brand-primary text-brand-primary font-messiri font-semibold text-[17px] max-[359px]:text-[15px] md:text-[21px] hover:bg-brand-primary hover:text-white transition-all cursor-pointer">
-        <span class="lw-icon-mask size-[16px] shrink-0 rotate-180 md:hidden" style="--icon-url:url('/landing/images/keys-test/arrow-prev.svg')" aria-hidden="true"></span>
+        <span class="lw-icon-mask size-[16px] shrink-0 rotate-180 md:hidden" style="--icon-url:url('/assets/website/images/keys-test/arrow-prev.svg')" aria-hidden="true"></span>
         <i class="hidden md:inline fa-solid fa-arrow-right md:text-[16px]" aria-hidden="true"></i>
         <span class="whitespace-nowrap leading-[normal]">${cms('wheel_test.js.prev_button', 'الجانب السابق')}</span>
       </button>
     `}
     <button type="button" id="lw-next-btn" class="flex items-center justify-center gap-2 w-[151px] max-[359px]:w-auto max-[359px]:flex-1 max-[359px]:max-w-[151px] md:w-auto h-[45px] md:h-[60px] px-3 min-[360px]:px-6 rounded-[10px] md:rounded-[15px] font-messiri font-semibold text-[17px] max-[359px]:text-[15px] md:text-[21px] transition-all ${allAnswered ? 'bg-brand-primary text-[#f6f6f6] hover:bg-[#102744] shadow-md cursor-pointer' : 'bg-brand-primary/50 text-[#f6f6f6]/70 cursor-not-allowed'}" ${allAnswered ? '' : 'disabled'}>
       <span class="whitespace-nowrap leading-[normal]">${isLast ? cms('wheel_test.js.finish_button', 'إنهاء الاختبار') : cms('wheel_test.js.next_button', 'الجانب التالي')}</span>
-      <span class="lw-icon-mask size-[16px] shrink-0 md:hidden" style="--icon-url:url('/landing/images/keys-test/arrow-next.svg')" aria-hidden="true"></span>
+      <span class="lw-icon-mask size-[16px] shrink-0 md:hidden" style="--icon-url:url('/assets/website/images/keys-test/arrow-next.svg')" aria-hidden="true"></span>
       <i class="hidden md:inline fa-solid fa-arrow-left md:text-[16px]" aria-hidden="true"></i>
     </button>
   `;
@@ -321,8 +321,8 @@ function showMilestone() {
   
   text.textContent = asset.text;
   
-  // Render the dotlottie player (if the user downloaded the JSON to public/landing/lotties)
-  iconContainer.innerHTML = `<dotlottie-player src="/landing/lotties/${asset.lottie}" background="transparent" speed="1" style="width: 100%; height: 100%;" loop autoplay></dotlottie-player>`;
+  // Render the dotlottie player (if the user downloaded the JSON to public/assets/website/lotties)
+  iconContainer.innerHTML = `<dotlottie-player src="/assets/website/lotties/${asset.lottie}" background="transparent" speed="1" style="width: 100%; height: 100%;" loop autoplay></dotlottie-player>`;
   
   overlay.classList.remove('hidden');
   overlay.classList.add('flex');

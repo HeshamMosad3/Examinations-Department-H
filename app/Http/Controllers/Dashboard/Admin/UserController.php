@@ -21,14 +21,14 @@ class UserController extends Controller
 
     public function index(Request $request): View
     {
-        return view('admin.users.index', [
+        return view('dashboard.admin.users.index', [
             'users' => $this->users->paginate($request->query('search')),
         ]);
     }
 
     public function show(User $user): View
     {
-        return view('admin.users.show', ['user' => $user, 'attempts' => $this->attempts->forUser($user->id)]);
+        return view('dashboard.admin.users.show', ['user' => $user, 'attempts' => $this->attempts->forUser($user->id)]);
     }
 
     /** تفاصيل محاولة: درجة كل محور ومستواه */
@@ -41,7 +41,7 @@ class UserController extends Controller
             ->where('a.id', $attempt->id)
             ->first(['a.*', 'u.name as user_name', 's.title_ar as assessment_title', 's.id as assessment_id', 'l.title_ar as level_title', 'l.summary_ar as level_summary', 'l.description_ar as level_description']);
 
-        return view('admin.users.attempt', ['attempt' => $info, 'scores' => $this->attempts->scoresOf($attempt->id)]);
+        return view('dashboard.admin.users.attempt', ['attempt' => $info, 'scores' => $this->attempts->scoresOf($attempt->id)]);
     }
 
     public function destroy(User $user): RedirectResponse

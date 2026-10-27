@@ -3,8 +3,8 @@
 // فالمسافات والأحجام بتطلع زي التصميم بالظبط وبتتصغر/تتكبر مع عرض الكارت.
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
-const ICON_DIR = '/landing/icons/wheel_of_life/home';
-const COMPASS_URL = '/landing/images/Frame%202147238562.png';
+const ICON_DIR = '/assets/website/icons/wheel_of_life/home';
+const COMPASS_URL = '/assets/website/images/Frame%202147238562.png';
 
 // ترتيب المحاور بيبدأ من الشخصي أعلى يمين العجلة مع عقارب الساعة (نفس الصفحة الرئيسية)
 export const AXES = [

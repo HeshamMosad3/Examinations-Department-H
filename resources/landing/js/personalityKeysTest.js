@@ -26,7 +26,7 @@ function showMilestone(i) {
 
   const item = milestones[Math.min(i, milestones.length - 1)];
   text.textContent = item.text;
-  icon.innerHTML = `<dotlottie-player src="/landing/lotties/${item.lottie}" background="transparent" speed="1" style="width: 100%; height: 100%;" loop autoplay></dotlottie-player>`;
+  icon.innerHTML = `<dotlottie-player src="/assets/website/lotties/${item.lottie}" background="transparent" speed="1" style="width: 100%; height: 100%;" loop autoplay></dotlottie-player>`;
   overlay.classList.remove('hidden');
   overlay.classList.add('flex');
   confetti({ particleCount: 90, spread: 75, origin: { y: 0.5 }, colors: ['#204A7A', '#FFD700', '#3B82F6', '#10B981'], zIndex: 9999 });

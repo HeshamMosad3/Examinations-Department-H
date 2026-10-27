@@ -25,9 +25,9 @@ export default defineConfig({
                 'resources/landing/js/personalityKeysResult.js',
                 'resources/landing/js/profile.js',
             ],
-            buildDirectory: 'landing/build',
+            buildDirectory: 'assets/website/build',
             hotFile: 'public/landing.hot',
-            refresh: ['resources/views/landing/**'],
+            refresh: ['resources/views/website/**'],
         }),
     ],
     css: {

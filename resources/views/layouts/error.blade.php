@@ -6,14 +6,14 @@
   <title>@yield('seo_title')</title>
   <meta name="robots" content="noindex, nofollow" />
   <meta name="theme-color" content="#204A7A" />
-  <link rel="icon" type="image/png" href="/landing/images/logo.png" />
+  <link rel="icon" type="image/png" href="/assets/website/images/logo.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=El+Messiri:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-  @include('landing.partials.cms-script'){{ (clone app(\Illuminate\Foundation\Vite::class))->useHotFile(public_path('landing.hot'))->useBuildDirectory('landing/build')->withEntryPoints(['resources/landing/style.css', 'resources/landing/js/notFound.js']) }}
+  @include('website.partials.cms-script'){{ (clone app(\Illuminate\Foundation\Vite::class))->useHotFile(public_path('landing.hot'))->useBuildDirectory('assets/website/build')->withEntryPoints(['resources/landing/style.css', 'resources/landing/js/notFound.js']) }}
 
   <style>
     @keyframes nf-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
@@ -26,7 +26,7 @@
 <body class="bg-brand-bg text-[#262626] min-h-screen font-cairo antialiased selection:bg-brand-primary selection:text-white relative page-wide-header">
   <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:right-4 focus:z-[999] focus:px-5 focus:py-3 focus:bg-brand-primary focus:text-white focus:rounded-xl focus:shadow-xl focus:outline-none">تخطي إلى المحتوى</a>
 
-  @include('landing.partials.navbar')
+  @include('website.partials.navbar')
 
   <main id="main-content" class="relative isolate w-full max-w-[1240px] mx-auto px-4 lg:px-0 py-12 md:py-[72px] lg:py-[96px] font-messiri overflow-x-clip">
     {{-- soft brand glow behind the content --}}
@@ -51,6 +51,6 @@
     </section>
   </main>
 
-  @include('landing.partials.footer')
+  @include('website.partials.footer')
 </body>
 </html>

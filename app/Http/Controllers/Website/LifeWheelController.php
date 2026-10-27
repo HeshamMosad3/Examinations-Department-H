@@ -59,7 +59,7 @@ class LifeWheelController extends Controller
                 return $aspect;
             });
 
-        return view('landing.life-wheel-details', [
+        return view('website.life-wheel-details', [
             'aspects' => $aspects,
             'hasResult' => $result !== null,
         ]);
@@ -109,7 +109,7 @@ class LifeWheelController extends Controller
 
         $attempt = Attempt::find($result['attempt_id']);
 
-        return view('landing.life-wheel-report', [
+        return view('website.life-wheel-report', [
             'aspects' => $aspects,
             'highest' => $aspects->sortByDesc('percent')->first(),
             'lowest' => $aspects->sortBy('percent')->first(),

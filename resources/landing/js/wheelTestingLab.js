@@ -18,14 +18,14 @@ const SETTINGS = {
 };
 
 const BASE_AXES = [
-  { key: 'personal',  label: cms('home.wheel.label_personal', 'الشخصي'),   color: '#7844D0', direction: 'dark-to-light', iconUrl: '/landing/icons/wheel_of_life/personal.png',  desc: cms('home.wheel.tooltip_personal', 'يقيس مستوى سعي الفرد للتعلم المستمر، وفاعليته في تنظيم وقته، ووضع الأهداف الشخصية والعمل على تحقيقها.') },
-  { key: 'spiritual', label: cms('home.wheel.label_spiritual', 'الروحاني'), color: '#5875E5', direction: 'dark-to-light', iconUrl: '/landing/icons/wheel_of_life/spiritual.png', desc: cms('home.wheel.tooltip_spiritual', 'يقيس مدى التزام الفرد بالعبادات والممارسات الإيمانية، وانعكاس القيم الروحية على سلوكه بما يمنحه السكينة والاستقرار النفسي.') },
-  { key: 'health',    label: cms('home.wheel.label_health', 'الصحي'),      color: '#43A074', direction: 'dark-to-light', iconUrl: '/landing/icons/wheel_of_life/health.png',    desc: cms('home.wheel.tooltip_health', 'يقيس مدى تبني الفرد لعادات صحية متكاملة تشمل التغذية، النشاط البدني، كفاية النوم، والتدابير الوقائية لدعم العافية الجسدية.') },
-  { key: 'social',    label: cms('home.wheel.label_social', 'الاجتماعي'),  color: '#C53664', direction: 'dark-to-light', iconUrl: '/landing/icons/wheel_of_life/social.png',    desc: cms('home.wheel.tooltip_social', 'يقيس مدى اهتمام الفرد بصلة الأرحام وبناء علاقات إيجابية مع المحيط، والمشاركة الفاعلة في المناسبات والمبادرات المجتمعية.') },
-  { key: 'family',    label: cms('home.wheel.label_family', 'العائلي'),    color: '#D98344', direction: 'dark-to-light', iconUrl: '/landing/icons/wheel_of_life/family.png',    desc: cms('home.wheel.tooltip_family', 'يقيس جودة التواصل الأسري، ومستوى تحمل المسؤوليات، والدعم المتبادل، والقدرة على إدارة الخلافات العائلية بحوار وإيجابية.') },
-  { key: 'leisure',   label: cms('home.wheel.label_leisure', 'الترفيهي'),  color: '#C9B642', direction: 'dark-to-light', iconUrl: '/landing/icons/wheel_of_life/leisure.png',   desc: cms('home.wheel.tooltip_leisure', 'يقيس قدرة الفرد على التوازن بين العمل والحياة، وممارسة الهوايات والأنشطة الترفيهية لتجديد الطاقة وتخفيف ضغوط الحياة.') },
-  { key: 'financial', label: cms('home.wheel.label_financial', 'المالي'),    color: '#3CB1B3', direction: 'dark-to-light', iconUrl: '/landing/icons/wheel_of_life/financial.png', desc: cms('home.wheel.tooltip_financial', 'يقيس مدى كفاءة الفرد في التخطيط المالي، وإدارة الدخل والمصروفات، والقدرة على الادخار والاستثمار والوفاء بالالتزامات المالية.') },
-  { key: 'career',    label: cms('home.wheel.label_career', 'المهني'),      color: '#4474D0', direction: 'dark-to-light', iconUrl: '/landing/icons/wheel_of_life/career.png',    desc: cms('home.wheel.tooltip_career', 'يقيس انضباط الفرد والتزامه بأنظمة العمل، وجودة أدائه المهني، وسعيه لتطوير مهاراته وبناء علاقات عمل إيجابية.') }
+  { key: 'personal',  label: cms('home.wheel.label_personal', 'الشخصي'),   color: '#7844D0', direction: 'dark-to-light', iconUrl: '/assets/website/icons/wheel_of_life/personal.png',  desc: cms('home.wheel.tooltip_personal', 'يقيس مستوى سعي الفرد للتعلم المستمر، وفاعليته في تنظيم وقته، ووضع الأهداف الشخصية والعمل على تحقيقها.') },
+  { key: 'spiritual', label: cms('home.wheel.label_spiritual', 'الروحاني'), color: '#5875E5', direction: 'dark-to-light', iconUrl: '/assets/website/icons/wheel_of_life/spiritual.png', desc: cms('home.wheel.tooltip_spiritual', 'يقيس مدى التزام الفرد بالعبادات والممارسات الإيمانية، وانعكاس القيم الروحية على سلوكه بما يمنحه السكينة والاستقرار النفسي.') },
+  { key: 'health',    label: cms('home.wheel.label_health', 'الصحي'),      color: '#43A074', direction: 'dark-to-light', iconUrl: '/assets/website/icons/wheel_of_life/health.png',    desc: cms('home.wheel.tooltip_health', 'يقيس مدى تبني الفرد لعادات صحية متكاملة تشمل التغذية، النشاط البدني، كفاية النوم، والتدابير الوقائية لدعم العافية الجسدية.') },
+  { key: 'social',    label: cms('home.wheel.label_social', 'الاجتماعي'),  color: '#C53664', direction: 'dark-to-light', iconUrl: '/assets/website/icons/wheel_of_life/social.png',    desc: cms('home.wheel.tooltip_social', 'يقيس مدى اهتمام الفرد بصلة الأرحام وبناء علاقات إيجابية مع المحيط، والمشاركة الفاعلة في المناسبات والمبادرات المجتمعية.') },
+  { key: 'family',    label: cms('home.wheel.label_family', 'العائلي'),    color: '#D98344', direction: 'dark-to-light', iconUrl: '/assets/website/icons/wheel_of_life/family.png',    desc: cms('home.wheel.tooltip_family', 'يقيس جودة التواصل الأسري، ومستوى تحمل المسؤوليات، والدعم المتبادل، والقدرة على إدارة الخلافات العائلية بحوار وإيجابية.') },
+  { key: 'leisure',   label: cms('home.wheel.label_leisure', 'الترفيهي'),  color: '#C9B642', direction: 'dark-to-light', iconUrl: '/assets/website/icons/wheel_of_life/leisure.png',   desc: cms('home.wheel.tooltip_leisure', 'يقيس قدرة الفرد على التوازن بين العمل والحياة، وممارسة الهوايات والأنشطة الترفيهية لتجديد الطاقة وتخفيف ضغوط الحياة.') },
+  { key: 'financial', label: cms('home.wheel.label_financial', 'المالي'),    color: '#3CB1B3', direction: 'dark-to-light', iconUrl: '/assets/website/icons/wheel_of_life/financial.png', desc: cms('home.wheel.tooltip_financial', 'يقيس مدى كفاءة الفرد في التخطيط المالي، وإدارة الدخل والمصروفات، والقدرة على الادخار والاستثمار والوفاء بالالتزامات المالية.') },
+  { key: 'career',    label: cms('home.wheel.label_career', 'المهني'),      color: '#4474D0', direction: 'dark-to-light', iconUrl: '/assets/website/icons/wheel_of_life/career.png',    desc: cms('home.wheel.tooltip_career', 'يقيس انضباط الفرد والتزامه بأنظمة العمل، وجودة أدائه المهني، وسعيه لتطوير مهاراته وبناء علاقات عمل إيجابية.') }
 ];
 
 const svgNS = "http://www.w3.org/2000/svg";
@@ -279,7 +279,7 @@ export class LifeWheelLabInstance {
     this.isSpinning = false;
     this.rotationAngle = 0;
     this.idleWobbleDeg = 0;
-    this.centerImageDataUrl = "/landing/images/Frame%202147238562.png";
+    this.centerImageDataUrl = "/assets/website/images/Frame%202147238562.png";
 
     // Fluid Water animation state
     this.isFluidAnimating = false;

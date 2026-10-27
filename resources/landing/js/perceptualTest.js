@@ -31,7 +31,7 @@ function renderOption(option, index) {
   return `
     <button type="button" role="radio" aria-checked="${selected}" data-index="${index}"
       class="pt-option w-full h-[73.2px] md:h-[97px] px-[17px] rounded-[15px] flex items-center justify-start gap-[12px] md:gap-[14px] text-right transition-colors duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary ${stateClass}">
-      <img src="/landing/images/perceptual-test/${selected ? 'radio-checked' : 'radio-empty'}.svg" alt="" width="30" height="30" class="size-[20px] md:size-[30px] shrink-0" />
+      <img src="/assets/website/images/perceptual-test/${selected ? 'radio-checked' : 'radio-empty'}.svg" alt="" width="30" height="30" class="size-[20px] md:size-[30px] shrink-0" />
       <span class="text-[17px] md:text-[30px] ${selected ? 'font-semibold md:font-medium' : 'font-medium'} text-black leading-[1.5] md:leading-normal">${option.label}</span>
     </button>`;
 }

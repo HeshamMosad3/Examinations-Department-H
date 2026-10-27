@@ -40,7 +40,7 @@ class ProfileController extends Controller
         $parts = array_intersect_key($this->profile->fields(), array_flip(RegisterForm::NAME_PARTS));
         $hasParts = collect($parts)->contains(fn ($f, $name) => $this->profile->valueOf($user, $name) !== '');
 
-        return view('landing.profile', [
+        return view('website.profile', [
             'user' => $user,
             'form' => $this->profile,
             'groups' => $this->profile->groups(),

@@ -71,7 +71,7 @@ class PersonalityKeysReportTest extends TestCase
 
         foreach (range(1, 7) as $n) {
             $this->assertStringContainsString("(K{$n})", $html);
-            $this->assertStringContainsString('/landing/images/keys-details/k' . $n . '.webp', $html);
+            $this->assertStringContainsString('/assets/website/images/keys-details/k' . $n . '.webp', $html);
         }
         $this->assertSame(7, substr_count($html, 'data-key-card'));
         $this->assertSame(21, substr_count($html, 'role="progressbar"'));
@@ -128,7 +128,7 @@ class PersonalityKeysReportTest extends TestCase
             ->assertDontSee('id="main-header"', false)
             ->assertDontSee('id="mobile-menu-btn"', false)
             ->assertDontSee('<footer id=', false)
-            ->assertSee('/landing/images/logo.png', false);
+            ->assertSee('/assets/website/images/logo.png', false);
     }
 
     public function test_the_details_page_download_button_opens_the_report_and_prints_it(): void

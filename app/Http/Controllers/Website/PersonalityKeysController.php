@@ -53,7 +53,7 @@ class PersonalityKeysController extends Controller
             ];
         })->all();
 
-        return view('landing.personality-keys-test', [
+        return view('website.personality-keys-test', [
             'keys' => $keys,
             'optionsCount' => $data->questions->first()->options ? count($data->questions->first()->options) : 5,
         ]);
@@ -87,7 +87,7 @@ class PersonalityKeysController extends Controller
             return $loaded;
         }
 
-        return view('landing.personality-keys-result', $this->summary($loaded));
+        return view('website.personality-keys-result', $this->summary($loaded));
     }
 
     /**
@@ -126,7 +126,7 @@ class PersonalityKeysController extends Controller
             return $loaded;
         }
 
-        return view('landing.personality-keys-report', $this->summary($loaded) + [
+        return view('website.personality-keys-report', $this->summary($loaded) + [
             'beneficiary' => $request->user()->name,
             'reportCode' => $this->data()->assessment->report_code ?: 'REP-KEYS',
         ]);
@@ -137,7 +137,7 @@ class PersonalityKeysController extends Controller
     {
         $loaded = $this->loadResult($request);
 
-        return $loaded instanceof \Illuminate\Http\RedirectResponse ? $loaded : view('landing.personality-keys-details', $loaded);
+        return $loaded instanceof \Illuminate\Http\RedirectResponse ? $loaded : view('website.personality-keys-details', $loaded);
     }
 
     /** آخر نتيجة للمستخدم: درجة ومستوى كل مفتاح (ومحاوره الفرعية) من المستويات المحفوظة للمقياس */

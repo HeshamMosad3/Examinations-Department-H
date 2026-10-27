@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 // Landing pages
 Route::get('/', [LandingController::class, 'home'])->name('home');
 
-Route::view('/life-wheel.html', 'landing.life-wheel')->name('life-wheel.explore');
+Route::view('/life-wheel.html', 'website.life-wheel')->name('life-wheel.explore');
 Route::get('/wheel-test', [LandingController::class, 'wheelTest'])->name('life-wheel.test');
 Route::get('/wheel-test.html', [LandingController::class, 'wheelTest']);
 Route::get('/life-wheel-test.html', [LandingController::class, 'wheelTest']);
@@ -23,7 +23,7 @@ Route::get('/perceptual-test.html', [LandingController::class, 'perceptualTest']
 Route::get('/perceptual-result.html', [LandingController::class, 'perceptualResult'])->middleware(['auth', 'profile.complete'])->name('perceptual.result');
 
 // مقياس مفاتيح الشخصية السبعة: الصفحة نفسها للمسجلين بس (الزائر بيروح لتسجيل الدخول ويرجع لها)، والنتيجة بتتحفظ للمستخدم
-Route::view('/personality-keys.html', 'landing.personality-keys-explore')->name('keys.explore');
+Route::view('/personality-keys.html', 'website.personality-keys-explore')->name('keys.explore');
 Route::get('/personality-keys-test.html', [PersonalityKeysController::class, 'test'])->name('keys.test');
 
 Route::middleware('auth')->group(function () {

@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 /**
- * صفحات الموقع العامة. كل البيانات من قاعدة البيانات، والصفحات (resources/views/landing) بتاخدها بنفس الشكل.
+ * صفحات الموقع العامة. كل البيانات من قاعدة البيانات، والصفحات (resources/views/website) بتاخدها بنفس الشكل.
  */
 class LandingController extends Controller
 {
@@ -32,7 +32,7 @@ class LandingController extends Controller
             'initialBtnText' => $index === 0 ? 'ابدأ التحدي' : null,
         ]);
 
-        return view('landing.index', compact('challengeQuestions'));
+        return view('website.index', compact('challengeQuestions'));
     }
 
     public function lifeWheelAssessment(LifeWheelService $lifeWheel)
@@ -42,7 +42,7 @@ class LandingController extends Controller
                 ->with('info', cms('auth.login.assessment_notice', 'يرجى تسجيل الدخول أو إنشاء حساب للبدء في إجراء الاختبار.'));
         }
 
-        return view('landing.life-wheel-assessment', ['categories' => $lifeWheel->categories()]);
+        return view('website.life-wheel-assessment', ['categories' => $lifeWheel->categories()]);
     }
 
     public function lifeWheelResult(LifeWheelService $lifeWheel): View
@@ -57,12 +57,12 @@ class LandingController extends Controller
             ->map(fn ($level) => ['min' => (int) $level->min_score, 'max' => (int) $level->max_score, 'title' => $level->title_ar, 'text' => $level->description_ar])
             ->values();
 
-        return view('landing.result', ['categories' => $lifeWheel->categories(), 'overallLevels' => $levels]);
+        return view('website.result', ['categories' => $lifeWheel->categories(), 'overallLevels' => $levels]);
     }
 
     public function wheelTest(LifeWheelService $lifeWheel): View
     {
-        return view('landing.life-wheel-test', ['categories' => $lifeWheel->categories()]);
+        return view('website.life-wheel-test', ['categories' => $lifeWheel->categories()]);
     }
 
     /** "اكتشف أنماط الإدراك": عدد أسئلة المقياس */
@@ -74,7 +74,7 @@ class LandingController extends Controller
             ->where('a.is_active', true)
             ->count();
 
-        return view('landing.perceptual-explore', compact('questionsCount'));
+        return view('website.perceptual-explore', compact('questionsCount'));
     }
 
     public function perceptualTest()
@@ -89,7 +89,7 @@ class LandingController extends Controller
             'options' => array_map(fn ($o) => ['label' => $o->label_ar], $q->options),
         ])->all();
 
-        return view('landing.perceptual-test', compact('questions'));
+        return view('website.perceptual-test', compact('questions'));
     }
 
     /** التقرير: الإجابات جاية في الرابط (ترتيب الاختيار لكل سؤال) والدرجات بتتحسب من قاعدة البيانات */
@@ -113,7 +113,7 @@ class LandingController extends Controller
             ->map(fn ($d) => ['key' => $d['code'], 'name' => $d['name'], 'score' => $d['score'], 'max' => $d['max']])
             ->sortByDesc('score')->values();
 
-        return view('landing.perceptual-result', [
+        return view('website.perceptual-result', [
             'report' => $builder->build($result['level']),
             'styles' => $styles,
             'reportCode' => $data->assessment->report_code,

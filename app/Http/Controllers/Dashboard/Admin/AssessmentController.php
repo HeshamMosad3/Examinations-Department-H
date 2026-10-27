@@ -28,13 +28,13 @@ class AssessmentController extends Controller
 
     public function index(): View
     {
-        return view('admin.assessments.index', ['assessments' => $this->manager->listing()]);
+        return view('dashboard.admin.assessments.index', ['assessments' => $this->manager->listing()]);
     }
 
     /** مقياس جديد في صفحة واحدة: البيانات ← الإجابات ← المحاور والأسئلة ← النتائج */
     public function create(): View
     {
-        return view('admin.assessments.create');
+        return view('dashboard.admin.assessments.create');
     }
 
     public function store(AssessmentWizardRequest $request, AssessmentImporter $importer): RedirectResponse
@@ -77,7 +77,7 @@ class AssessmentController extends Controller
     {
         $data = AssessmentData::load($assessment);
 
-        return view('admin.assessments.show', [
+        return view('dashboard.admin.assessments.show', [
             'assessment' => $assessment,
             'data' => $data,
             'issues' => $health->issuesByArea($data),
@@ -87,7 +87,7 @@ class AssessmentController extends Controller
 
     public function edit(Assessment $assessment): View
     {
-        return view('admin.assessments.form', ['assessment' => $assessment]);
+        return view('dashboard.admin.assessments.form', ['assessment' => $assessment]);
     }
 
     public function update(AssessmentRequest $request, Assessment $assessment): RedirectResponse
@@ -134,6 +134,6 @@ class AssessmentController extends Controller
             $result = $scoring->score($data, array_map('intval', (array) $request->input('answers', [])));
         }
 
-        return view('admin.assessments.preview', compact('assessment', 'data', 'result'));
+        return view('dashboard.admin.assessments.preview', compact('assessment', 'data', 'result'));
     }
 }
