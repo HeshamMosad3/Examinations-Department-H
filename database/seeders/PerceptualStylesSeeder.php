@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Services\Assessments\PerceptualReportCopy;
+use App\Services\Website\Assessments\PerceptualReportCopy;
 
 class PerceptualStylesSeeder extends AssessmentDataSeeder
 {

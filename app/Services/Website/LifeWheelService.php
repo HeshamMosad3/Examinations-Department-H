@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Website;
 
 use App\Models\Assessment;
 use App\Models\Attempt;
 use App\Models\User;
-use App\Services\Assessments\AssessmentData;
-use App\Services\Assessments\AttemptService;
+use App\Services\Website\Assessments\AssessmentData;
+use App\Services\Website\Assessments\AttemptService;
 use Illuminate\Validation\ValidationException;
 
 /**

@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Services\Auth\RegisterForm;
+use App\Services\Website\Auth\RegisterForm;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**

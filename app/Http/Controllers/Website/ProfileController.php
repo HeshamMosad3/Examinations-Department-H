@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
 
-use App\Services\Auth\ProfileForm;
-use App\Services\Auth\RegisterForm;
+use App\Services\Website\Auth\ProfileForm;
+use App\Services\Website\Auth\RegisterForm;
 use App\Services\FileUploadService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

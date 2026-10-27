@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use App\Models\Assessment;
 use App\Models\Attempt;
 use App\Models\User;
-use App\Services\Assessments\AssessmentData;
+use App\Services\Website\Assessments\AssessmentData;
 use Database\Seeders\SevenPersonalityKeysSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\Support\ProfileData;

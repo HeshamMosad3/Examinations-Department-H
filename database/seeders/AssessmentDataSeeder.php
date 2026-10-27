@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use App\Services\Assessments\AssessmentImporter;
+use App\Services\Dashboard\Admin\Assessments\AssessmentImporter;
 use Illuminate\Database\Seeder;
 
 /**

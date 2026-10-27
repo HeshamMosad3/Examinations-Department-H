@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Assessment;
 use App\Models\Attempt;
 use App\Models\ResultLevel;
-use App\Services\LifeWheelService;
+use App\Services\Website\LifeWheelService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

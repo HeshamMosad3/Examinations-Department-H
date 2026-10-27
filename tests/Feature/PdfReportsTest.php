@@ -4,7 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Assessment;
 use App\Models\User;
-use App\Services\Assessments\AssessmentData;
+use App\Services\Website\Assessments\AssessmentData;
 use Database\Seeders\PerceptualStylesSeeder;
 use Database\Seeders\WheelOfLifeSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;

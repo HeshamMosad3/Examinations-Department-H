@@ -4,9 +4,9 @@ use App\Models\AnswerOption;
 use App\Models\Assessment;
 use App\Models\Attempt;
 use App\Models\Question;
-use App\Services\Assessments\AssessmentData;
-use App\Services\Assessments\AssessmentImporter;
-use App\Services\Assessments\AttemptService;
+use App\Services\Website\Assessments\AssessmentData;
+use App\Services\Dashboard\Admin\Assessments\AssessmentImporter;
+use App\Services\Website\Assessments\AttemptService;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
 

@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Services\Assessments;
+namespace App\Services\Dashboard\Admin\Assessments;
+
+use App\Services\Website\Assessments\AssessmentData;
 
 use App\Models\ResultLevel;
 use Illuminate\Support\Collection;

@@ -1,12 +1,12 @@
 {{-- إعدادات تأثير جوانب العجلة على بعضها وإعدادات حركتها (من لوحة الإدارة) لعجلة الصفحة الرئيسية. لو مش متاحة، العجلة بتستخدم القيم الافتراضية. --}}
 @php
   try {
-    $lifeWheelInfluence = app(\App\Services\LifeWheelInfluenceSettings::class)->wheelConfig();
+    $lifeWheelInfluence = app(\App\Services\Dashboard\Admin\LifeWheelInfluenceSettings::class)->wheelConfig();
   } catch (\Throwable $e) {
     $lifeWheelInfluence = null;
   }
   try {
-    $lifeWheelJourney = app(\App\Services\LifeWheelJourneySettings::class)->wheelConfig();
+    $lifeWheelJourney = app(\App\Services\Dashboard\Admin\LifeWheelJourneySettings::class)->wheelConfig();
   } catch (\Throwable $e) {
     $lifeWheelJourney = null;
   }

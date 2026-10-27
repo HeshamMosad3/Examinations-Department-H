@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Auth;
+namespace App\Services\Website\Auth;
 
 use Illuminate\Validation\Rule;
 

@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use App\Models\Attempt;
 use App\Models\User;
 use App\Models\AttemptAnswer;
-use App\Services\LifeWheelService;
+use App\Services\Website\LifeWheelService;
 use Database\Seeders\WheelOfLifeSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\Support\ProfileData;

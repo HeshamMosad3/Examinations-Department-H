@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Dashboard\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Services\Assessments\AssessmentManager;
-use App\Services\Assessments\AttemptService;
+use App\Services\Dashboard\Admin\Assessments\AssessmentManager;
+use App\Services\Website\Assessments\AttemptService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 

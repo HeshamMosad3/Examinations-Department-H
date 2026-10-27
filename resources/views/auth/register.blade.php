@@ -8,8 +8,8 @@
 @section('aside_class', 'lg:sticky lg:top-6 lg:h-[calc(100vh-3rem)]')
 
 @php
-    // الحقول وترتيبها وقواعدها من لوحة الإدارة (App\Services\Auth\RegisterForm)
-    $form = app(\App\Services\Auth\RegisterForm::class);
+    // الحقول وترتيبها وقواعدها من لوحة الإدارة (App\Services\Website\Auth\RegisterForm)
+    $form = app(\App\Services\Website\Auth\RegisterForm::class);
     $fields = $form->fields();
     $firstField = array_key_first($fields);
 @endphp
@@ -135,7 +135,7 @@
 
 @push('scripts')
 <script>
-    // قواعد التحقق نفسها اللي في السيرفر (App\Services\Auth\RegisterForm::clientRules)
+    // قواعد التحقق نفسها اللي في السيرفر (App\Services\Website\Auth\RegisterForm::clientRules)
     window.REGISTER_RULES = @json($form->clientRules());
 
     document.addEventListener('DOMContentLoaded', () => {

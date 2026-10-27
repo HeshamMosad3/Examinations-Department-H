@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Dashboard\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Attempt;
 use App\Models\User;
-use App\Services\Assessments\AttemptService;
+use App\Services\Website\Assessments\AttemptService;
 use App\Services\UserService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

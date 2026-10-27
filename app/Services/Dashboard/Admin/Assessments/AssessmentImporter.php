@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Assessments;
+namespace App\Services\Dashboard\Admin\Assessments;
 
 use App\Models\AnswerOption;
 use App\Models\Assessment;

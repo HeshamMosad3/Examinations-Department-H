@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Assessments;
+namespace App\Services\Website\Assessments;
 
 use App\Models\ResultLevel;
 

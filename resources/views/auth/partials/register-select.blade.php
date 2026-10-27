@@ -22,7 +22,7 @@
     >
         <span class="flex items-center gap-2.5">
             @if ($flags)
-                <img src="{{ $selectedLabel ? $flags[$value] : \App\Services\Auth\RegisterForm::OTHER_FLAG }}" alt="" class="w-[22px] h-[22px] rounded-full object-cover shadow-sm {{ $selectedLabel ? '' : 'hidden' }}" data-dropdown-flag />
+                <img src="{{ $selectedLabel ? $flags[$value] : \App\Services\Website\Auth\RegisterForm::OTHER_FLAG }}" alt="" class="w-[22px] h-[22px] rounded-full object-cover shadow-sm {{ $selectedLabel ? '' : 'hidden' }}" data-dropdown-flag />
             @endif
             <span class="font-medium text-[16px] {{ $selectedLabel ? 'text-[#262626]' : 'text-[#949494]' }}" data-dropdown-text data-placeholder="{{ $field['placeholder'] }}">{{ $selectedLabel ?? $field['placeholder'] }}</span>
         </span>

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Dashboard\Admin;
 
 use App\Models\LifeWheelInfluence;
 use App\Models\LifeWheelInfluenceLevel;

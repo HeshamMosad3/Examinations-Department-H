@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Assessments;
+namespace App\Services\Website\Assessments;
 
 /**
  * نصوص تقرير الأنماط الإدراكية بالشكل الجديد لكل مستوى (database/data/perceptual_report_copy.php)،

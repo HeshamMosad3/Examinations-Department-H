@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\QuestionRequest;
 use App\Models\Assessment;
 use App\Models\Question;
-use App\Services\Assessments\AssessmentManager;
+use App\Services\Dashboard\Admin\Assessments\AssessmentManager;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

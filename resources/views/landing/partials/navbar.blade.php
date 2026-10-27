@@ -86,7 +86,7 @@
                 <span>{{ cms('global.nav.profile', 'الملف الشخصي') }}</span>
               </span>
               @unless (auth()->user()->isAdmin())
-                @php $navPercent = app(\App\Services\Auth\ProfileForm::class)->completion(auth()->user())['percent']; @endphp
+                @php $navPercent = app(\App\Services\Website\Auth\ProfileForm::class)->completion(auth()->user())['percent']; @endphp
                 <span dir="ltr" class="rounded-full px-2 py-0.5 text-[11px] font-cairo font-bold {{ $navPercent === 100 ? 'bg-[#dcfce7] text-[#166534]' : 'bg-[#fff3cd] text-[#92400e]' }}">{{ $navPercent }}%</span>
               @endunless
             </a>

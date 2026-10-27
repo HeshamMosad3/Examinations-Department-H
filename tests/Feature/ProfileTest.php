@@ -4,8 +4,8 @@ namespace Tests\Feature;
 
 use App\Models\Assessment;
 use App\Models\User;
-use App\Services\Assessments\AssessmentData;
-use App\Services\Auth\ProfileForm;
+use App\Services\Website\Assessments\AssessmentData;
+use App\Services\Website\Auth\ProfileForm;
 use Database\Seeders\SevenPersonalityKeysSeeder;
 use Database\Seeders\WheelOfLifeSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;

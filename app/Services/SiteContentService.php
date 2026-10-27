@@ -28,8 +28,8 @@ class SiteContentService
         'resources/views/errors' => 'blade.php',
         'resources/data' => 'php',
         'resources/landing/js' => 'js',
-        'app/Services/Assessments' => 'php',
-        'app/Services/Auth' => 'php',
+        'app/Services/Website' => 'php',
+        'app/Services/Dashboard' => 'php',
         'app/Http' => 'php',
     ];
 

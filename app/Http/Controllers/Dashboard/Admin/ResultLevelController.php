@@ -7,7 +7,7 @@ use App\Http\Requests\Admin\ResultLevelRequest;
 use App\Models\Assessment;
 use App\Models\Dimension;
 use App\Models\ResultLevel;
-use App\Services\Assessments\AssessmentManager;
+use App\Services\Dashboard\Admin\Assessments\AssessmentManager;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 

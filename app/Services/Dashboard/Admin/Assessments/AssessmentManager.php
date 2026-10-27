@@ -1,6 +1,9 @@
 <?php
 
-namespace App\Services\Assessments;
+namespace App\Services\Dashboard\Admin\Assessments;
+
+use App\Services\Website\Assessments\AssessmentData;
+use App\Services\Website\Assessments\AttemptService;
 
 use App\Models\AnswerOption;
 use App\Models\Assessment;

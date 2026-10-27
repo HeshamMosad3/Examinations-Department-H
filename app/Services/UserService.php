@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Models\User;
-use App\Services\Assessments\AttemptService;
+use App\Services\Website\Assessments\AttemptService;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
