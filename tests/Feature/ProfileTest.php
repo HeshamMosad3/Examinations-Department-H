@@ -229,22 +229,22 @@ class ProfileTest extends TestCase
         $this->assertNull(session('url.intended'));
     }
 
-    public function test_the_personality_keys_result_shows_scores_to_everyone_but_levels_only_with_a_complete_profile(): void
+    public function test_the_personality_keys_details_need_a_complete_profile(): void
     {
         $this->seed(SevenPersonalityKeysSeeder::class);
         $data = AssessmentData::load(Assessment::byCode(Assessment::SEVEN_PERSONALITY_KEYS));
         $answers = $data->questions->mapWithKeys(fn ($q) => [$q->id => $q->options[0]->id])->all();
 
-        foreach ([$this->quickUser(), $this->completeUser()] as $i => $user) {
-            $this->actingAs($user)->postJson(route('keys.results.store'), ['answers' => $answers])->assertOk();
-            $page = $this->get(route('keys.details'))->assertOk()->assertSee('البصيرة (K1)', false);
+        // الحساب السريع (ملف ناقص): صفحة التفاصيل بتحوّله لإكمال الملف
+        $quick = $this->quickUser();
+        $this->actingAs($quick)->postJson(route('keys.results.store'), ['answers' => $answers])->assertOk();
+        $this->get(route('keys.details'))->assertRedirect(route('profile.edit'));
+        $this->assertSame(url('/personality-keys-details.html'), session('url.intended'));
 
-            if ($i === 0) {
-                $page->assertSee('data-profile-gate', false)->assertSee(route('profile.edit', ['next' => '/personality-keys-details.html']), false);
-            } else {
-                $page->assertDontSee('data-profile-gate', false);
-            }
-        }
+        // الملف المكتمل: التفاصيل كاملة من غير حاجز
+        $complete = $this->completeUser();
+        $this->actingAs($complete)->postJson(route('keys.results.store'), ['answers' => $answers])->assertOk();
+        $this->get(route('keys.details'))->assertOk()->assertSee('البصيرة (K1)', false)->assertDontSee('data-profile-gate', false);
     }
 
     public function test_admins_are_not_held_back_by_the_gate(): void

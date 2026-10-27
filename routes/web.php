@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\Admin;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\LandingController;
-use App\Http\Controllers\LifeWheelController;
-use App\Http\Controllers\PersonalityKeysController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Dashboard\Admin;
+use App\Http\Controllers\Website\AuthController;
+use App\Http\Controllers\Website\LandingController;
+use App\Http\Controllers\Website\LifeWheelController;
+use App\Http\Controllers\Website\PersonalityKeysController;
+use App\Http\Controllers\Website\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 // Landing pages

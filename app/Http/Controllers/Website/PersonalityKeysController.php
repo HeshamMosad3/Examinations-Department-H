@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Website;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\Assessment;
 use App\Services\Assessments\AssessmentData;

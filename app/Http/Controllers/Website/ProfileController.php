@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Website;
+
+use App\Http\Controllers\Controller;
 
 use App\Services\Auth\ProfileForm;
 use App\Services\Auth\RegisterForm;
