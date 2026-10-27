@@ -22,7 +22,7 @@ class UserController extends Controller
     public function index(Request $request): View
     {
         return view('admin.users.index', [
-            'users' => $this->users->paginate($request->query('search'), $request->query('role')),
+            'users' => $this->users->paginate($request->query('search')),
         ]);
     }
 
@@ -44,11 +44,8 @@ class UserController extends Controller
         return view('admin.users.attempt', ['attempt' => $info, 'scores' => $this->attempts->scoresOf($attempt->id)]);
     }
 
-    public function destroy(Request $request, User $user): RedirectResponse
+    public function destroy(User $user): RedirectResponse
     {
-        if ($user->id === $request->user()->id) {
-            return back()->withErrors(['user' => 'مينفعش تحذف حسابك.']);
-        }
         $this->users->delete($user);
 
         return redirect()->route('admin.users.index')->with('success', 'تم حذف المستخدم ومحاولاته.');

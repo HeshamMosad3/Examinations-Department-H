@@ -1,3 +1,7 @@
+@php
+    $navUser = auth('admin')->user() ?? auth('web')->user();
+    $navIsAdmin = auth('admin')->check();
+@endphp
 <!-- ==================== 1. FLOATING NAV-BAR (#875:7147 / #934:5750) ==================== -->
 @php
     $isHome = request()->routeIs('home') || request()->is('/');
@@ -44,7 +48,7 @@
 
     <!-- LEFT SIDE IN RTL: User Profile Dropdown or Login Button -->
     <div class="flex items-center justify-end">
-      @auth
+      @if ($navUser)
         <!-- User Profile Dropdown (Hover Trigger) -->
         <div class="relative group" id="user-profile-menu">
           <!-- User Avatar / Icon Trigger Button -->
@@ -71,13 +75,13 @@
             <!-- User Info: Name -->
             <div class="px-3.5 py-2.5 rounded-[12px] bg-[#F8FAFC] border border-[#E2E8F0] mb-2">
               <p class="text-[#204A7A] font-bold text-[15px] leading-tight font-messiri truncate">
-                {{ auth()->user()->name }}
+                {{ $navUser->name }}
               </p>
             </div>
 
             <!-- Profile / Dashboard Link -->
             <a 
-              href="{{ auth()->user()->isAdmin() ? route('admin.dashboard') : route('profile.edit') }}"
+              href="{{ $navIsAdmin ? route('admin.dashboard') : route('profile.edit') }}"
               class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-[10px] text-[#262626] hover:bg-[#F0F5FA] hover:text-[#204A7A] font-messiri font-semibold text-[14px] transition-colors mb-1"
               role="menuitem"
             >
@@ -85,8 +89,8 @@
                 <i class="fa-regular fa-id-card text-[15px] text-[#204A7A]"></i>
                 <span>{{ cms('global.nav.profile', 'الملف الشخصي') }}</span>
               </span>
-              @unless (auth()->user()->isAdmin())
-                @php $navPercent = app(\App\Services\Website\Auth\ProfileForm::class)->completion(auth()->user())['percent']; @endphp
+              @unless ($navIsAdmin)
+                @php $navPercent = app(\App\Services\Website\Auth\ProfileForm::class)->completion($navUser)['percent']; @endphp
                 <span dir="ltr" class="rounded-full px-2 py-0.5 text-[11px] font-cairo font-bold {{ $navPercent === 100 ? 'bg-[#dcfce7] text-[#166534]' : 'bg-[#fff3cd] text-[#92400e]' }}">{{ $navPercent }}%</span>
               @endunless
             </a>
@@ -110,7 +114,7 @@
           <span class="leading-none lg:hidden">{{ cms('global.nav.login_mobile', 'تسجيل دخول') }}</span>
           <span class="leading-none hidden lg:inline">{{ cms('global.nav.login', 'تسجيل الدخول') }}</span>
         </a>
-      @endauth
+      @endif
     </div>
   </header>
 
@@ -138,13 +142,13 @@
       <a href="{{ cms_url('global.nav.contact_url', '#contact') }}" data-nav="contact" class="mobile-nav-item text-white font-normal text-[19px] leading-[1.5] whitespace-nowrap hover:text-[#E6B844] transition-colors cursor-pointer">{{ cms('global.nav.contact', 'تواصل معنا') }}</a>
       
       <div class="pt-4 border-t border-white/10 mt-2">
-        @auth
+        @if ($navUser)
           <div class="px-3 py-2.5 rounded-[12px] bg-white/10 mb-3 text-right">
-            <div class="text-white font-bold text-[15px] font-messiri truncate">{{ auth()->user()->name }}</div>
+            <div class="text-white font-bold text-[15px] font-messiri truncate">{{ $navUser->name }}</div>
           </div>
 
           <a 
-            href="{{ auth()->user()->isAdmin() ? route('admin.dashboard') : route('profile.edit') }}"
+            href="{{ $navIsAdmin ? route('admin.dashboard') : route('profile.edit') }}"
             class="w-full h-[40px] rounded-[10px] bg-white/15 hover:bg-white/25 text-white font-semibold text-[14px] flex items-center justify-between px-3 transition-colors mb-2"
           >
             <span class="flex items-center gap-2">
@@ -166,7 +170,7 @@
             <i class="fa-regular fa-user text-xs"></i>
             <span>تسجيل الدخول</span>
           </a>
-        @endauth
+        @endif
       </div>
     </nav>
   </aside>

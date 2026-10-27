@@ -10,8 +10,12 @@ class LifeWheelLoginRedirectTest extends TestCase
 {
     use RefreshDatabase;
 
-    private function makeUser(string $role = 'user'): User
+    private function makeUser(string $role = 'user'): User|\App\Models\Admin
     {
+        if ($role === 'admin') {
+            return \App\Models\Admin::create(['name' => 'Test admin', 'email' => 'admin@example.test', 'password' => 'password']);
+        }
+
         return User::create(['name' => 'Test user', 'email' => $role . '@example.test', 'password' => bcrypt('password'), 'role' => $role]);
     }
 

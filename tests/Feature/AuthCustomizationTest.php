@@ -115,12 +115,12 @@ class AuthCustomizationTest extends TestCase
 
     public function test_the_admin_page_saves_switches_numbers_and_lists(): void
     {
-        $admin = User::create(['name' => 'Admin', 'email' => 'admin@example.test', 'password' => 'password', 'role' => 'admin']);
+        $admin = \App\Models\Admin::create(['name' => 'Admin', 'email' => 'admin@example.test', 'password' => 'password']);
 
-        $this->actingAs($admin)->get(route('admin.site-content.edit', 'auth'))
+        $this->actingAs($admin, 'admin')->get(route('admin.site-content.edit', 'auth'))
             ->assertOk()->assertSee('حقل: رقم الجوال')->assertSee('role="switch"', false)->assertSee('type="number"', false);
 
-        $this->actingAs($admin)->put(route('admin.site-content.update', 'auth'), ['values' => [
+        $this->actingAs($admin, 'admin')->put(route('admin.site-content.update', 'auth'), ['values' => [
             'auth__field_phone__enabled' => '0',        // switch off
             'auth__field_first_name__required' => '1', // same as the original: not stored
             'auth__field_phone__min' => 'abc',         // not a number: ignored

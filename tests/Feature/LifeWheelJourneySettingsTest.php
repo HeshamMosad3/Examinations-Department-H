@@ -13,8 +13,12 @@ class LifeWheelJourneySettingsTest extends TestCase
 {
     use RefreshDatabase;
 
-    private function user(string $role): User
+    private function user(string $role): User|\App\Models\Admin
     {
+        if ($role === 'admin') {
+            return \App\Models\Admin::create(['name' => 'admin user', 'email' => 'admin@example.test', 'password' => bcrypt('password')]);
+        }
+
         $digits = str_pad((string) (crc32($role) % 100000000), 8, '0', STR_PAD_LEFT);
 
         return User::create(ProfileData::complete([
@@ -59,7 +63,7 @@ class LifeWheelJourneySettingsTest extends TestCase
 
     public function test_admin_page_shows_the_journey_settings(): void
     {
-        $this->actingAs($this->user('admin'))
+        $this->actingAs($this->user('admin'), 'admin')
             ->get(route('admin.life-wheel-influence.index'))
             ->assertOk()
             ->assertSee('حركة العجلة في الصفحة الرئيسية')
@@ -69,7 +73,7 @@ class LifeWheelJourneySettingsTest extends TestCase
 
     public function test_admin_saves_the_settings_and_the_home_wheel_uses_them(): void
     {
-        $this->actingAs($this->user('admin'))
+        $this->actingAs($this->user('admin'), 'admin')
             ->put(route('admin.life-wheel-influence.journey'), $this->validPayload())
             ->assertRedirect()
             ->assertSessionHas('success');
@@ -95,7 +99,7 @@ class LifeWheelJourneySettingsTest extends TestCase
 
     public function test_admin_can_turn_the_simulation_off(): void
     {
-        $this->actingAs($this->user('admin'))
+        $this->actingAs($this->user('admin'), 'admin')
             ->put(route('admin.life-wheel-influence.journey'), $this->validPayload(['enabled' => '0']))
             ->assertRedirect();
 
@@ -118,7 +122,7 @@ class LifeWheelJourneySettingsTest extends TestCase
             ['priority_axes' => ['unknown']],
             ['start_values' => ['personal' => 3, 'spiritual' => 32, 'health' => 33, 'social' => 34, 'family' => 35, 'leisure' => 36, 'financial' => 37, 'career' => 38]],
         ] as $bad) {
-            $this->actingAs($admin)
+            $this->actingAs($admin, 'admin')
                 ->from(route('admin.life-wheel-influence.index'))
                 ->put(route('admin.life-wheel-influence.journey'), $this->validPayload($bad))
                 ->assertSessionHasErrors();

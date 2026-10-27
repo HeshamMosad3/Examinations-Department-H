@@ -11,12 +11,12 @@ class UserMiddleware
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if (! auth()->check()) {
-            throw new AuthenticationException();
+        if (auth('admin')->check() && ! $request->is('exam/*/result')) {
+            return redirect()->route('admin.dashboard');
         }
 
-        if (auth()->user()->isAdmin() && ! $request->is('exam/*/result')) {
-            return redirect()->route('admin.dashboard');
+        if (! auth('web')->check()) {
+            throw new AuthenticationException();
         }
 
         return $next($request);

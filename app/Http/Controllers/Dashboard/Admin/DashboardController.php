@@ -18,7 +18,7 @@ class DashboardController extends Controller
             'stats' => [
                 'assessments' => $assessments->count(),
                 'active' => $assessments->where('is_active', true)->count(),
-                'users' => DB::table('users')->where('role', 'user')->count(),
+                'users' => DB::table('users')->count(),
                 'attempts' => DB::table('attempts')->count(),
             ],
             'assessments' => $assessments,

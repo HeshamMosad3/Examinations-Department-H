@@ -34,7 +34,7 @@
             </a>
             <div class="d-flex align-items-center gap-2 gap-md-3">
                 <a class="small text-decoration-none" href="{{ route('home') }}" target="_blank"><i class="bi bi-box-arrow-up-left"></i> الموقع</a>
-                <span class="small text-muted d-none d-xl-inline"><bdi>{{ auth()->user()->email }}</bdi></span>
+                <span class="small text-muted d-none d-xl-inline"><bdi>{{ auth('admin')->user()->email }}</bdi></span>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button class="btn btn-sm btn-outline-secondary" type="submit"><i class="bi bi-box-arrow-right"></i><span class="d-none d-sm-inline"> خروج</span></button>

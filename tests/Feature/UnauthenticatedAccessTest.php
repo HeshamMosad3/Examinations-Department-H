@@ -64,9 +64,9 @@ class UnauthenticatedAccessTest extends TestCase
 
     public function test_logging_out_from_the_admin_panel_goes_to_the_login_form(): void
     {
-        $admin = User::create(['name' => 'Admin', 'email' => 'admin@example.test', 'password' => bcrypt('password'), 'role' => 'admin']);
+        $admin = \App\Models\Admin::create(['name' => 'Admin', 'email' => 'admin@example.test', 'password' => bcrypt('password')]);
 
-        $this->actingAs($admin)->from(route('admin.dashboard'))->post(route('logout'))->assertRedirect(route('login'));
+        $this->actingAs($admin, 'admin')->from(route('admin.dashboard'))->post(route('logout'))->assertRedirect(route('login'));
     }
 
     public function test_logging_out_from_a_public_page_keeps_the_user_there(): void

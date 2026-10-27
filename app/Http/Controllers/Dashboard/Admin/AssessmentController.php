@@ -46,7 +46,7 @@ class AssessmentController extends Controller
             'scoring_type' => 'sum',
             'price' => $input['price'] ?? 0,
             'order_index' => (int) Assessment::max('order_index') + 1,
-            'created_by' => $request->user()->id,
+            'created_by' => auth('admin')->id(),
             'options' => array_map(fn ($o) => [$o['label_ar'], (int) $o['score_value']], $input['options']),
             'dimensions' => $input['dimensions'],
             'levels' => array_map(fn ($l, $i) => [

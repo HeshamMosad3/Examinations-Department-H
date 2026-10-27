@@ -171,7 +171,7 @@ class ProfileForm
     public function isComplete(User $user): bool
     {
         // الأدمن مالوش ملف شخصي ومش بيتقيّد بالبوابة
-        return $user->isAdmin() || $this->completion($user)['complete'];
+        return $this->completion($user)['complete'];
     }
 
     /**

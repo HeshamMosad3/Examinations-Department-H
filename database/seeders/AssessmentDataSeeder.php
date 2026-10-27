@@ -17,7 +17,7 @@ abstract class AssessmentDataSeeder extends Seeder
     public function run(AssessmentImporter $importer): void
     {
         $data = $this->data();
-        $data['created_by'] = User::where('role', 'admin')->value('id');
+        $data['created_by'] = \App\Models\Admin::value('id');
 
         $assessment = $importer->import($data);
         $this->command?->info("  {$assessment->title_ar}");

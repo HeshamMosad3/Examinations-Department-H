@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -10,7 +11,11 @@ class AdminMiddleware
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if (! auth()->check() || ! auth()->user()->isAdmin()) {
+        if (! auth('admin')->check() && ! auth('web')->check()) {
+            throw new AuthenticationException();
+        }
+
+        if (! auth('admin')->check()) {
             abort(403, 'غير مصرح لك بالوصول.');
         }
 

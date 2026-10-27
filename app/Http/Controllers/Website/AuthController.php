@@ -7,8 +7,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\QuickRegisterRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Models\Admin;
 use App\Models\User;
 use App\Services\UserService;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -76,9 +78,9 @@ class AuthController extends Controller
     }
 
     /** Admins only follow an intended URL inside the admin panel; anything else lands them on the dashboard */
-    private function redirectAfterLogin(Request $request, User $user): RedirectResponse
+    private function redirectAfterLogin(Request $request, Authenticatable $user): RedirectResponse
     {
-        if (! $user->isAdmin()) {
+        if (! $user instanceof Admin) {
             return redirect()->intended(route('home'));
         }
 
@@ -88,6 +90,18 @@ class AuthController extends Controller
         return $intended === $adminPrefix || str_starts_with($intended, $adminPrefix . '/')
             ? redirect()->to($intended)
             : redirect()->route('admin.dashboard');
+    }
+
+    /** نفس شاشة الدخول للأدمن والمتدرب: نجرّب حارس admin وبعدها web ونرجّع اللي دخل */
+    private function attemptLogin(array $credentials, bool $remember): ?Authenticatable
+    {
+        foreach (['admin', 'web'] as $guard) {
+            if (Auth::guard($guard)->attempt($credentials, $remember)) {
+                return Auth::guard($guard)->user();
+            }
+        }
+
+        return null;
     }
 
     /** Creates a fresh 4-digit code for the email (replacing any previous one) and sends it */
@@ -141,12 +155,9 @@ class AuthController extends Controller
     {
         $credentials = $request->validated();
 
-        if (Auth::attempt($credentials, $request->boolean('remember'))) {
+        if ($user = $this->attemptLogin($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
             $this->rememberIntendedDestination($request);
-
-            /** @var \App\Models\User $user */
-            $user = Auth::user();
 
             return $this->redirectAfterLogin($request, $user);
         }
@@ -194,7 +205,7 @@ class AuthController extends Controller
     /** نافذة الدخول السريع: نفس منطق /login بس بترجّع JSON (الأدمن بيروح للوحة الإدارة، والمستخدم للصفحة اللي كان رايحلها) */
     public function quickLogin(LoginRequest $request): JsonResponse
     {
-        if (! Auth::attempt($request->validated(), $request->boolean('remember'))) {
+        if (! $user = $this->attemptLogin($request->validated(), $request->boolean('remember'))) {
             throw ValidationException::withMessages([
                 'email' => cms('auth.login.failed', 'البريد الإلكتروني أو كلمة المرور غير صحيحة.'),
             ]);
@@ -202,9 +213,6 @@ class AuthController extends Controller
 
         $request->session()->regenerate();
         $this->rememberIntendedDestination($request);
-
-        /** @var \App\Models\User $user */
-        $user = Auth::user();
 
         return response()->json(['success' => true, 'redirect' => $this->redirectAfterLogin($request, $user)->getTargetUrl()]);
     }
@@ -420,7 +428,8 @@ class AuthController extends Controller
     {
         $previous = $this->previousPageOnThisSite($request);
 
-        Auth::logout();
+        Auth::guard('admin')->logout();
+        Auth::guard('web')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
@@ -452,7 +461,7 @@ class AuthController extends Controller
         }
 
         return collect($route->gatherMiddleware())->contains(
-            fn ($middleware) => is_string($middleware) && ($middleware === 'auth' || str_starts_with($middleware, 'auth:'))
+            fn ($middleware) => is_string($middleware) && (in_array($middleware, ['auth', 'user', 'admin'], true) || str_starts_with($middleware, 'auth:'))
         );
     }
 }

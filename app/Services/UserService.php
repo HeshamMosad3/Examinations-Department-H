@@ -29,7 +29,7 @@ class UserService
     }
 
     /** المستخدمين مع عدد محاولاتهم وآخر محاولة (join + group by) */
-    public function paginate(?string $search, ?string $role, int $perPage = 20): LengthAwarePaginator
+    public function paginate(?string $search, int $perPage = 20): LengthAwarePaginator
     {
         $attempts = DB::table('attempts')
             ->select('user_id', DB::raw('count(*) as attempts_count'), DB::raw('max(completed_at) as last_attempt_at'))
@@ -42,9 +42,8 @@ class UserService
                 ->orWhere('u.email', 'like', "%{$search}%")
                 ->orWhere('u.phone', 'like', "%{$search}%")
                 ->orWhere('u.national_id', 'like', "%{$search}%")))
-            ->when($role, fn ($q) => $q->where('u.role', $role))
             ->orderByDesc('u.id')
-            ->select('u.id', 'u.name', 'u.email', 'u.phone', 'u.role', 'u.created_at', DB::raw('coalesce(a.attempts_count, 0) as attempts_count'), 'a.last_attempt_at')
+            ->select('u.id', 'u.name', 'u.email', 'u.phone', 'u.created_at', DB::raw('coalesce(a.attempts_count, 0) as attempts_count'), 'a.last_attempt_at')
             ->paginate($perPage)
             ->withQueryString();
     }

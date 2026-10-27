@@ -41,9 +41,4 @@ class User extends Authenticatable
         'password' => 'hashed',
         'birth_date' => 'date',
     ];
-
-    public function isAdmin(): bool
-    {
-        return $this->role === 'admin';
-    }
 }

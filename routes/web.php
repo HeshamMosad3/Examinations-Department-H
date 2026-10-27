@@ -64,7 +64,7 @@ Route::middleware('guest')->group(function () {
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // User routes
-Route::middleware(['auth', 'user'])->group(function () {
+Route::middleware('user')->group(function () {
     // الملف الشخصي: عرض / تعديل وإكمال / حذف البيانات
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->middleware('throttle:20,1')->name('profile.update');
@@ -75,7 +75,7 @@ Route::middleware(['auth', 'user'])->group(function () {
 });
 
 // Admin
-Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::redirect('/', '/admin/dashboard');
     Route::get('/dashboard', [Admin\DashboardController::class, 'index'])->name('dashboard');
 

@@ -45,8 +45,8 @@ class ProfileTest extends TestCase
         $this->get(route('profile.edit'))->assertUnauthorized();
         $this->put(route('profile.update'), $this->payload())->assertUnauthorized();
 
-        $admin = User::create(['name' => 'Admin', 'email' => 'admin@example.test', 'password' => bcrypt('password'), 'role' => 'admin']);
-        $this->actingAs($admin)->get(route('profile.edit'))->assertRedirect(route('admin.dashboard'));
+        $admin = \App\Models\Admin::create(['name' => 'Admin', 'email' => 'admin@example.test', 'password' => bcrypt('password')]);
+        $this->actingAs($admin, 'admin')->get(route('profile.edit'))->assertRedirect(route('admin.dashboard'));
     }
 
     public function test_a_quick_signup_user_sees_a_partial_completion_and_the_missing_fields(): void
@@ -245,12 +245,5 @@ class ProfileTest extends TestCase
         $complete = $this->completeUser();
         $this->actingAs($complete)->postJson(route('keys.results.store'), ['answers' => $answers])->assertOk();
         $this->get(route('keys.details'))->assertOk()->assertSee('البصيرة (K1)', false)->assertDontSee('data-profile-gate', false);
-    }
-
-    public function test_admins_are_not_held_back_by_the_gate(): void
-    {
-        $admin = User::create(['name' => 'Admin', 'email' => 'admin@example.test', 'password' => bcrypt('password'), 'role' => 'admin']);
-
-        $this->assertTrue(app(ProfileForm::class)->isComplete($admin));
     }
 }

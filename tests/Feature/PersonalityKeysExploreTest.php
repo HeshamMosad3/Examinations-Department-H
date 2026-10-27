@@ -28,12 +28,12 @@ class PersonalityKeysExploreTest extends TestCase
 
     public function test_admin_can_edit_the_page_texts(): void
     {
-        $admin = User::create(['name' => 'Admin', 'email' => 'admin@example.test', 'password' => 'password', 'role' => 'admin']);
+        $admin = \App\Models\Admin::create(['name' => 'Admin', 'email' => 'admin@example.test', 'password' => 'password']);
 
-        $this->actingAs($admin)->get(route('admin.site-content.edit', 'keys_explore'))
+        $this->actingAs($admin, 'admin')->get(route('admin.site-content.edit', 'keys_explore'))
             ->assertOk()->assertSee('keys_explore__hero__title', false)->assertSee('keys_explore__keys__k3', false)->assertSee('keys_explore__steps__step_1_button', false);
 
-        $this->actingAs($admin)->put(route('admin.site-content.update', 'keys_explore'), ['values' => [
+        $this->actingAs($admin, 'admin')->put(route('admin.site-content.update', 'keys_explore'), ['values' => [
             'keys_explore__hero__title' => 'عنوان جديد للمفاتيح',
         ]])->assertRedirect();
 

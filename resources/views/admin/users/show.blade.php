@@ -5,8 +5,8 @@
 @section('content')
     <a href="{{ route('admin.users.index') }}" class="small text-decoration-none"><i class="bi bi-arrow-right"></i> المستخدمون</a>
     <div class="d-flex flex-wrap justify-content-between align-items-start gap-2 mt-1 mb-3">
-        <h1 class="h4 m-0">{{ $user->name }} <span class="badge {{ $user->isAdmin() ? 'text-bg-warning' : 'text-bg-light' }} fs-6 fw-normal">{{ $user->isAdmin() ? 'مدير' : 'مستخدم' }}</span></h1>
-        @if (! $user->is(auth()->user()))
+        <h1 class="h4 m-0">{{ $user->name }} <span class="badge text-bg-light fs-6 fw-normal">مستخدم</span></h1>
+        @if (true)
             <form method="POST" action="{{ route('admin.users.destroy', $user) }}" data-confirm="هيتحذف المستخدم وكل نتائجه نهائيًا. متأكد؟">
                 @csrf @method('DELETE')
                 <button class="btn btn-outline-danger"><i class="bi bi-trash"></i> حذف المستخدم</button>
