@@ -229,7 +229,7 @@ class ProfileForm
                     }
             }
             if ($f['unique']) {
-                $rule[] = Rule::unique('users', $name)->ignore($user->id);
+                $rule[] = Rule::unique('users', User::column($name))->ignore($user->id);
             }
             $rules[$name] = $rule;
         }

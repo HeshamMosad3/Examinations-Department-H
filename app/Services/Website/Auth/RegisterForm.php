@@ -2,6 +2,7 @@
 
 namespace App\Services\Website\Auth;
 
+use App\Models\User;
 use Illuminate\Validation\Rule;
 
 /**
@@ -266,7 +267,7 @@ class RegisterForm
                     }
             }
             if ($f['unique'] && $f['type'] !== 'email') {
-                $rule[] = Rule::unique('users', $name);
+                $rule[] = Rule::unique('users', User::column($name));
             }
             if ($f['confirm']) {
                 $rule[] = 'confirmed';

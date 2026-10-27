@@ -49,7 +49,7 @@ class AuthCustomizationTest extends TestCase
         unset($payload['phone'], $payload['national_id'], $payload['national_id_confirmation']);
         $this->post(route('register.post'), $payload)->assertRedirect(route('home'));
 
-        $this->assertDatabaseHas('users', ['email' => 'new@example.test', 'phone' => null, 'national_id' => null]);
+        $this->assertDatabaseHas('users', ['email' => 'new@example.test', 'phone_number' => null, 'id_number' => null]);
     }
 
     public function test_hidden_fields_are_not_saved_even_if_posted(): void
@@ -57,7 +57,7 @@ class AuthCustomizationTest extends TestCase
         $this->set(['auth.field_phone.enabled' => '0']);
 
         $this->post(route('register.post'), $this->payload())->assertRedirect(route('home'));
-        $this->assertDatabaseHas('users', ['email' => 'new@example.test', 'phone' => null]);
+        $this->assertDatabaseHas('users', ['email' => 'new@example.test', 'phone_number' => null]);
     }
 
     public function test_admin_can_turn_on_extra_fields_and_require_them(): void
@@ -68,7 +68,7 @@ class AuthCustomizationTest extends TestCase
 
         $this->post(route('register.post'), $this->payload())->assertSessionHasErrors('gender');
         $this->post(route('register.post'), $this->payload(['gender' => 'female', 'qualification' => 'ماجستير']))->assertRedirect(route('home'));
-        $this->assertDatabaseHas('users', ['email' => 'new@example.test', 'gender' => 'female', 'qualification' => 'ماجستير']);
+        $this->assertDatabaseHas('users', ['email' => 'new@example.test', 'gender' => 'female', 'edu_qualification' => 'ماجستير']);
     }
 
     public function test_admin_controls_lengths_arabic_only_and_messages(): void

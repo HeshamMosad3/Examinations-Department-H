@@ -77,14 +77,14 @@ class AuthenticationFigmaFlowTest extends TestCase
         $this->assertDatabaseHas('users', [
             'first_name'       => 'محمد',
             'father_name'      => 'عبدالله',
-            'grandfather_name' => 'سليمان',
+            'grand_father_name' => 'سليمان',
             'last_name'        => 'العتيبي',
             'name'             => 'محمد عبدالله سليمان العتيبي',
             'email'            => 'mohammed@example.com',
-            'phone'            => '0555123456',
+            'phone_number'     => '0555123456',
             'identity_type'    => 'سعودية',
             'nationality'      => 'سعودي',
-            'national_id'      => '1098765432',
+            'id_number'        => '1098765432',
         ]);
     }
 
@@ -194,6 +194,6 @@ class AuthenticationFigmaFlowTest extends TestCase
         $this->post(route('register.post'), $payload)->assertSessionHasErrors('nationality');
 
         $this->post(route('register.post'), ['nationality' => 'سعودي'] + $payload)->assertRedirect(route('home'));
-        $this->assertDatabaseHas('users', ['email' => 'a@example.com', 'phone' => '0555123456']);
+        $this->assertDatabaseHas('users', ['email' => 'a@example.com', 'phone_number' => '0555123456']);
     }
 }

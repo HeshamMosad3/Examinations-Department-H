@@ -87,7 +87,6 @@ class QuickAuthDialogsTest extends TestCase
 
         $user = User::where('email', 'quick@example.test')->firstOrFail();
         $this->assertAuthenticatedAs($user);
-        $this->assertSame('user', $user->role);
         $this->assertSame('محمد عبدالله العتيبي', $user->name);
     }
 

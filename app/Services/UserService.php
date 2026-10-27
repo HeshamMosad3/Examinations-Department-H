@@ -25,7 +25,7 @@ class UserService
             $data['name'] = strstr($data['email'], '@', true) ?: $data['email'];
         }
 
-        return User::create($data + ['role' => 'user']);
+        return User::create($data);
     }
 
     /** المستخدمين مع عدد محاولاتهم وآخر محاولة (join + group by) */
@@ -40,10 +40,10 @@ class UserService
             ->when($search, fn ($q) => $q->where(fn ($q) => $q
                 ->where('u.name', 'like', "%{$search}%")
                 ->orWhere('u.email', 'like', "%{$search}%")
-                ->orWhere('u.phone', 'like', "%{$search}%")
-                ->orWhere('u.national_id', 'like', "%{$search}%")))
+                ->orWhere('u.phone_number', 'like', "%{$search}%")
+                ->orWhere('u.id_number', 'like', "%{$search}%")))
             ->orderByDesc('u.id')
-            ->select('u.id', 'u.name', 'u.email', 'u.phone', 'u.created_at', DB::raw('coalesce(a.attempts_count, 0) as attempts_count'), 'a.last_attempt_at')
+            ->select('u.id', 'u.name', 'u.email', 'u.phone_number as phone', 'u.created_at', DB::raw('coalesce(a.attempts_count, 0) as attempts_count'), 'a.last_attempt_at')
             ->paginate($perPage)
             ->withQueryString();
     }

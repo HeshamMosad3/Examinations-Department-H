@@ -40,8 +40,8 @@ class QuickRegisterRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'min:2', 'max:255', 'regex:/^[\p{Arabic}\s]+$/u'],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')],
-            'phone' => ['required', 'string', 'regex:/^[0-9]{9,15}$/', Rule::unique('users', 'phone')],
-            'national_id' => ['required', 'string', 'regex:/^[0-9]{8,15}$/', Rule::unique('users', 'national_id'), 'confirmed'],
+            'phone' => ['required', 'string', 'regex:/^[0-9]{9,15}$/', Rule::unique('users', 'phone_number')],
+            'national_id' => ['required', 'string', 'regex:/^[0-9]{8,15}$/', Rule::unique('users', 'id_number'), 'confirmed'],
             'password' => ['required', 'string', "min:{$passwordMin}", 'max:255', 'confirmed'],
         ];
     }
