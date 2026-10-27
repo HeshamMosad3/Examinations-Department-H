@@ -57,7 +57,7 @@ flowchart LR
 | **Landing & Assessments UI** | Laravel Blade templates + Tailwind CSS 3.x + Vanilla JS (Modular ES6) |
 | **Admin Dashboard UI** | Laravel Blade + Bootstrap 5 / Custom Admin Theme |
 | **Bundler & Build Tool** | Vite (dedicated `vite.landing.config.js` and standard `vite.config.js`) |
-| **Authentication** | Custom session/cookie-based auth, Phone/Email verification with OTP, password resets |
+| **Authentication** | Two session guards: `web` (trainees, `users` table) and `admin` (`admins` table); roles via `spatie/laravel-permission`; OTP password resets for trainees |
 | **Testing** | PHPUnit / Pest (`php artisan test`) |
 | **Localization & Direction** | Native Arabic (RTL - `dir="rtl"`), UTF-8 encoding |
 
@@ -68,49 +68,47 @@ flowchart LR
 ```
 Examinations-Department/
 ├── app/
-│   ├── Enums/                     # Type-safe PHP Enums (e.g. AssessmentStatus, QuestionType)
+│   ├── Enums/                     # UserRoleEnum (Super_Admin, Admin, Admission, Teacher, Support, Trainees), SettingsGroupsEnum
+│   ├── Traits/                    # Shared traits
 │   ├── Http/
 │   │   ├── Controllers/
-│   │   │   ├── Admin/             # Admin panel management (Users, Assessments, CMS, etc.)
-│   │   │   ├── AuthController.php # Authentication: Login, Register, OTP verification, Password resets
-│   │   │   ├── LandingController.php # Public landing pages, CMS content delivery
-│   │   │   ├── LifeWheelController.php # Life Wheel quiz execution and scoring
-│   │   │   └── AssessmentController.php # Assessment taking, submission, and result display
-│   │   ├── Middleware/            # Custom middleware (Auth, Admin verification, Guest redirection)
+│   │   │   ├── Dashboard/
+│   │   │   │   ├── Admin/         # Admin panel (Users, Assessments, Questions, Site content, Life Wheel settings)
+│   │   │   │   └── Trainees/      # Reserved for the trainee dashboard
+│   │   │   └── Website/           # Public site: Auth, Landing, LifeWheel, PersonalityKeys, Profile
+│   │   ├── Middleware/            # AdminMiddleware (guard admin), UserMiddleware (guard web), EnsureProfileComplete
 │   │   └── Requests/              # Form Requests containing backend validation rules
-│   ├── Models/                    # Eloquent Models (User, Assessment, Question, Result, CMS, etc.)
+│   ├── Models/                    # User (trainees, guard web), Admin (guard admin), Assessment, Attempt, GeneralSetting, SiteContent, ...
+│   ├── Repositories/              # Dashboard/{Admin,Trainees} and Website (reserved, empty for now)
 │   └── Services/                  # Business Logic Layer
-│       ├── Assessments/           # Calculation & scoring engines (ScoringService, etc.)
-│       ├── LifeWheelService.php   # Life Wheel dimension processing and analytics
-│       └── UserService.php        # User lifecycle management
+│       ├── Dashboard/Admin/       # AssessmentManager/Importer/Exporter/Health, LifeWheelInfluence/JourneySettings
+│       ├── Website/               # LifeWheelService, Assessments/ (scoring, attempts, reports), Auth/ (RegisterForm, ProfileForm)
+│       └── (root)                 # Shared: FileUploadService, SiteContentService, UserService
 ├── bootstrap/                     # Laravel bootstrap & app configuration (app.php, providers.php)
-├── config/                        # Laravel config files (auth.php, database.php, cms.php, etc.)
+├── config/                        # Laravel config files (auth.php with guards web + admin, permission.php, ...)
 ├── database/
 │   ├── factories/                 # Eloquent model factories for testing
 │   ├── migrations/                # Database schema migrations
-│   └── seeders/                   # Seeders for default users, assessments, CMS contents
-├── public/                        # Public assets, build outputs, favicon, uploaded media
+│   └── seeders/                   # Seeders for roles, default admin/user, assessments, CMS contents
+├── public/
+│   └── assets/
+│       ├── website/               # Public images/icons/lotties + Vite build output (build/, git-ignored)
+│       └── dashboard/{css,js}/    # Admin panel CSS/JS
 ├── resources/
-│   ├── css/                       # General application CSS
-│   ├── js/                        # General JS entrypoints
-│   ├── landing/                   # Public & Assessment Frontend Assets
-│   │   ├── css/                   # Tailwind CSS source files for landing
-│   │   └── js/                    # Client-side scripts (quiz.js, chart.js, auth-validation.js, etc.)
+│   ├── landing/                   # Frontend sources for the public site (style.css, tailwind.config.js, js/)
 │   └── views/
-│       ├── admin/                 # Admin Blade views (Bootstrap 5)
-│       ├── auth/                  # Authentication Blade views (Login, Register, OTP, Reset Password)
-│       ├── components/            # Reusable Blade components (Navbar, Modals, Buttons)
-│       ├── landing/               # Public-facing Blade pages (Home, Assessments, Life Wheel, Results)
-│       └── layouts/               # Master layouts (app.blade.php, landing.blade.php, auth.blade.php)
+│       ├── dashboard/admin/       # Admin Blade views (Bootstrap 5)
+│       ├── website/               # Public Blade pages (Home, Assessments, Life Wheel, Results) + website/auth (Login, Register, OTP)
+│       ├── layouts/               # Master layouts (admin, auth, error)
+│       └── errors/                # Friendly 401/403/404/... pages
 ├── routes/
-│   ├── web.php                    # All web routes (Auth, Landing, Assessments, Profile)
-│   ├── admin.php                  # Protected Admin dashboard routes
+│   ├── web.php                    # All web routes (Auth, Website, Profile, /admin panel)
 │   └── console.php                # CLI console commands
 ├── tests/
 │   ├── Feature/                   # Feature & integration tests (Auth, Quiz, Scoring)
 │   └── Unit/                      # Unit tests for Services & math logic
 ├── vite.config.js                 # Standard Vite configuration
-├── vite.landing.config.js         # Dedicated Vite configuration for landing/Tailwind bundle
+├── vite.landing.config.js         # Dedicated Vite config for the Tailwind bundle (output: public/assets/website/build)
 └── composer.json                  # PHP dependencies & autoloader
 ```
 
