@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Route;
 // Landing pages
 Route::get('/', [LandingController::class, 'home'])->name('home');
 
+// Bootstrap + jQuery pages (static, no backend)
+Route::view('/courses', 'website.bootstrap.courses')->name('courses.index');
+
 Route::view('/life-wheel.html', 'website.life-wheel')->name('life-wheel.explore');
 Route::get('/wheel-test', [LandingController::class, 'wheelTest'])->name('life-wheel.test');
 Route::get('/wheel-test.html', [LandingController::class, 'wheelTest']);

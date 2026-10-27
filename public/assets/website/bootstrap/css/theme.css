@@ -1,0 +1,174 @@
+/* ==========================================================================
+   Dar Al-Ruya — shared theme for the Bootstrap + jQuery pages
+   (same brand tokens / header / footer as the Tailwind pages)
+   ========================================================================== */
+
+:root {
+  --brand: #204A7A;
+  --brand-navy: #1A3B62;
+  --brand-dark: #1D1D1D;
+  --brand-gold: #E6B844;
+  --brand-gold-dot: #CFA63D;
+  --page-bg: #F6F6F6;
+  --border: #E2E8F0;
+  --text: #262626;
+  --muted: #565656;
+  --font-messiri: 'El Messiri', 'Cairo', sans-serif;
+  --font-cairo: 'Cairo', 'El Messiri', sans-serif;
+
+  /* Bootstrap overrides */
+  --bs-body-font-family: var(--font-messiri);
+  --bs-body-bg: var(--page-bg);
+  --bs-body-color: var(--brand-dark);
+  --bs-primary: var(--brand);
+  --bs-primary-rgb: 32, 74, 122;
+  --bs-link-color: var(--brand);
+  --bs-link-hover-color: var(--brand-navy);
+}
+
+html { scroll-behavior: smooth; scroll-padding-top: 90px; background: var(--page-bg); }
+body.bs-page {
+  font-family: var(--font-messiri);
+  background: var(--page-bg);
+  color: var(--brand-dark);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+@media (max-width: 991.98px) { html { scroll-padding-top: 75px; } }
+
+.bs-skip-link {
+  position: fixed; top: 1rem; right: 1rem; z-index: 2000;
+  padding: .75rem 1.25rem; background: var(--brand); color: #fff; border-radius: 12px;
+}
+
+/* ---------- Header ---------- */
+.bs-header {
+  position: sticky; top: 10px; z-index: 1030;
+  width: calc(100% - 32px); max-width: 1240px; height: 57px;
+  margin: 10px auto 0; padding: 0 16px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(255, 255, 255, .65);
+  border: 1px solid rgba(226, 232, 240, .8); border-radius: 109px;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, .06);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  transition: all .3s;
+}
+.bs-logo { display: flex; align-items: center; border-radius: 8px; }
+.bs-logo img { width: 58px; height: 45px; object-fit: contain; filter: drop-shadow(0 1px 1px rgba(0,0,0,.08)); }
+
+.bs-menu-btn {
+  width: 40px; height: 40px; border: 0; border-radius: 50%; background: transparent;
+  color: var(--brand); font-size: 20px; display: flex; align-items: center; justify-content: center;
+  transition: background .2s, transform .1s;
+}
+.bs-menu-btn:hover { background: rgba(0, 0, 0, .05); }
+.bs-menu-btn:active { transform: scale(.95); }
+
+.bs-nav { align-items: center; gap: 24px; height: 38px; white-space: nowrap; font-size: 15px; line-height: 1; }
+.bs-nav-link {
+  position: relative; padding: 4px 0; color: var(--brand-dark); font-weight: 500;
+  text-decoration: none; border-radius: 4px; transition: color .2s;
+}
+.bs-nav-link:hover { color: var(--brand); }
+.bs-nav-link.is-active { color: var(--brand); font-weight: 700; }
+.bs-nav-link.is-active::after {
+  content: ''; position: absolute; inset-inline: 0; bottom: -4px; height: 2.5px;
+  background: var(--brand); border-radius: 9999px;
+}
+
+.bs-login-btn {
+  width: 80px; height: 28px; display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--brand); border-radius: 5px; color: var(--brand);
+  font-family: var(--font-messiri); font-weight: 600; font-size: 10px; white-space: nowrap;
+  text-decoration: none; box-shadow: 0 1px 2px rgba(0,0,0,.05); transition: all .2s;
+}
+.bs-login-btn:hover { background: var(--brand); color: #fff; }
+.bs-login-btn span { line-height: 1; }
+
+@media (min-width: 992px) {
+  .bs-header { top: 16px; margin-top: 16px; height: 80px; padding: 0 24px; border-radius: 38px; background: rgba(255,255,255,.66); -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px); }
+  .bs-logo img { width: auto; height: 58px; }
+  .bs-login-btn { width: 154px; height: 45px; border-radius: 16px; font-family: var(--font-cairo); font-size: 14px; }
+}
+@media (min-width: 1200px) { .bs-nav { gap: 26px; font-size: 17px; } }
+
+/* ---------- Mobile drawer (Bootstrap offcanvas) ---------- */
+.bs-drawer {
+  --bs-offcanvas-width: 252px; --bs-offcanvas-bg: var(--brand-navy); --bs-offcanvas-color: #fff;
+  max-width: 85vw; box-shadow: -4px 0 25px rgba(0, 0, 0, .35); border: 0;
+}
+.offcanvas-backdrop.show { opacity: .6; }
+.bs-drawer-close {
+  position: absolute; top: 20px; left: 20px; width: 32px; height: 32px; border: 0; border-radius: 50%;
+  background: transparent; color: rgba(255,255,255,.9); display: flex; align-items: center; justify-content: center;
+}
+.bs-drawer-close:hover { background: rgba(255,255,255,.1); color: #fff; }
+.bs-drawer-nav { padding: 56px 28px 24px 20px; display: flex; flex-direction: column; gap: 20px; }
+.bs-drawer-nav > a { color: #fff; font-size: 19px; line-height: 1.5; text-decoration: none; white-space: nowrap; transition: color .2s; }
+.bs-drawer-nav > a:hover { color: var(--brand-gold); }
+.bs-drawer-nav > a.is-active { font-weight: 700; }
+.bs-drawer-cta { padding-top: 16px; margin-top: 8px; border-top: 1px solid rgba(255,255,255,.1); }
+.bs-drawer-login {
+  height: 42px; border-radius: 10px; background: #fff; color: var(--brand-navy); font-weight: 600; font-size: 15px;
+  display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none;
+}
+
+/* ---------- Footer ---------- */
+.bs-footer {
+  width: 100%; margin-top: 25px; padding: 16px 16px;
+  background: var(--brand-navy); color: #fff; font-family: var(--font-messiri);
+}
+.bs-footer-inner { max-width: 1240px; margin: 0 auto; }
+.bs-footer-cols {
+  display: grid; grid-template-columns: 1fr; gap: 40px;
+  max-width: 361px; margin-inline: auto; align-items: start;
+}
+.bs-fcol-brand { order: 1; }
+.bs-fcol-links { order: 2; }
+.bs-fcol-contact { order: 3; }
+.bs-footer-logo { width: 69px; height: 70px; object-fit: contain; object-position: bottom; margin-bottom: 21px; display: block; }
+.bs-footer-tagline { color: #FEFEFE; font-size: 14px; line-height: 1.5; font-weight: 500; margin: 0 0 28px; max-width: 247px; min-height: 49px; }
+.bs-social { width: 31px; height: 31px; border-radius: 5px; display: inline-flex; align-items: center; justify-content: center; transition: opacity .2s, border-color .2s; }
+.bs-social:hover { opacity: .8; }
+.bs-social-bordered { border: 1px solid #ddd; }
+.bs-social-bordered:hover { border-color: var(--brand-gold); opacity: 1; }
+
+.bs-fhead { display: flex; align-items: center; gap: 8px; margin-bottom: 25px; }
+.bs-fhead h4 { margin: 0; font-size: 21px; font-weight: 600; line-height: 1.5; color: #fff; white-space: nowrap; font-family: var(--font-messiri); }
+.bs-fhead-mark { display: flex; align-items: center; }
+.bs-fhead-mark i { width: 6.64px; height: 6.64px; border-radius: 50%; background: var(--brand-gold-dot); flex-shrink: 0; }
+.bs-fhead-mark b { width: 52px; height: 2px; background: var(--brand-gold); }
+
+.bs-flist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 18px; font-size: 17px; line-height: 27px; color: #ddd; }
+.bs-flist a { color: inherit; text-decoration: none; transition: color .2s; }
+.bs-flist a:hover { color: var(--brand-gold); }
+.bs-flist-contact li { display: flex; align-items: center; gap: 14px; }
+.bs-flist-contact img { width: 24px; height: 24px; flex-shrink: 0; }
+.bs-flist-contact li:first-child span { white-space: nowrap; }
+
+.bs-footer-divider { max-width: 361px; margin: 40px auto 13px; border: 0; border-top: 1px solid rgba(197, 197, 197, .2); opacity: 1; }
+.bs-footer-rights {
+  max-width: 361px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 20px;
+  font-size: 14px; color: var(--page-bg);
+}
+.bs-footer-rights a { color: var(--page-bg); text-decoration: none; transition: color .2s; }
+.bs-footer-rights a:hover { color: var(--brand-gold); }
+
+@media (min-width: 768px) {
+  .bs-footer { margin-top: 51px; }
+  .bs-footer-cols { grid-template-columns: 1fr 1fr; max-width: 680px; column-gap: 48px; row-gap: 40px; }
+  .bs-fcol-brand { order: 1; } .bs-fcol-services { order: 2; } .bs-fcol-contact { order: 3; } .bs-fcol-links { order: 4; }
+  .bs-footer-divider, .bs-footer-rights { max-width: none; }
+  .bs-footer-rights { flex-direction: row; justify-content: space-between; gap: 0; }
+}
+@media (min-width: 992px) {
+  .bs-footer { padding: 47px 48px 28px; }
+  .bs-footer-logo { width: 81px; height: 82px; }
+  .bs-footer-cols { display: flex; max-width: 1236px; margin-inline: 0; gap: 0; }
+  .bs-footer-cols > .bs-fcol { flex-shrink: 0; }
+  .bs-fcol-brand { width: 247px; order: 1; }
+  .bs-fcol-services { width: 131px; margin-inline-start: 91px; order: 2; }
+  .bs-fcol-links { width: 175px; margin-inline-start: 161px; order: 3; }
+  .bs-fcol-contact { width: 270px; margin-inline-start: 161px; order: 4; }
+  .bs-footer-divider { margin: 25px 0 42px; }
+}
