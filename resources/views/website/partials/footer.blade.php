@@ -58,9 +58,9 @@
       <div class="hidden md:block order-4 md:order-3 lg:order-2 w-full max-w-[300px] lg:w-[131px] lg:max-w-none lg:shrink-0 lg:ms-[91px]">
         {!! $heading(cms('global.footer.services_title', 'خدماتنا')) !!}
         <ul class="flex flex-col gap-[18px] text-[17px] leading-[27px] text-[#ddd] whitespace-nowrap" style="font-family: 'El Messiri', sans-serif;">
-          <li><a href="{{ cms_url('global.footer.service_1_url', '#courses') }}" class="hover:text-[#E6B844] transition-colors">{{ cms('global.footer.service_1', 'التدريب الفردي') }}</a></li>
-          <li><a href="{{ cms_url('global.footer.service_2_url', '#courses') }}" class="hover:text-[#E6B844] transition-colors">{{ cms('global.footer.service_2', 'التدريب المؤسسي') }}</a></li>
-          <li><a href="{{ cms_url('global.footer.service_3_url', '#courses') }}" class="hover:text-[#E6B844] transition-colors">{{ cms('global.footer.service_3', 'التعلم الإلكتروني') }}</a></li>
+          <li><a href="{{ cms_url('global.footer.service_1_url', '/courses') }}" class="hover:text-[#E6B844] transition-colors">{{ cms('global.footer.service_1', 'التدريب الفردي') }}</a></li>
+          <li><a href="{{ cms_url('global.footer.service_2_url', '/courses') }}" class="hover:text-[#E6B844] transition-colors">{{ cms('global.footer.service_2', 'التدريب المؤسسي') }}</a></li>
+          <li><a href="{{ cms_url('global.footer.service_3_url', '/courses') }}" class="hover:text-[#E6B844] transition-colors">{{ cms('global.footer.service_3', 'التعلم الإلكتروني') }}</a></li>
           <li><a href="{{ cms_url('global.footer.service_4_url', '#certifications') }}" class="hover:text-[#E6B844] transition-colors">{{ cms('global.footer.service_4', 'الشهادات الدولية') }}</a></li>
           <li><a href="{{ cms_url('global.footer.service_5_url', '#assessments') }}" class="hover:text-[#E6B844] transition-colors">{{ cms('global.footer.service_5', 'المقاييس والتقييم') }}</a></li>
         </ul>
@@ -71,7 +71,7 @@
         {!! $heading(cms('global.footer.links_title', 'روابط سريعة')) !!}
         <ul class="flex flex-col gap-[18px] text-[17px] leading-[21px] text-[#ddd]" style="font-family: 'El Messiri', sans-serif;">
           <li><a href="{{ cms_url('global.footer.link_1_url', '#home') }}" data-nav="home" class="hover:text-[#E6B844] transition-colors">{{ cms('global.footer.link_1', 'الرئيسية') }}</a></li>
-          <li><a href="{{ cms_url('global.footer.link_2_url', '#courses') }}" data-nav="courses" class="hover:text-[#E6B844] transition-colors">{{ cms('global.footer.link_2', 'الدورات') }}</a></li>
+          <li><a href="{{ cms_url('global.footer.link_2_url', '/courses') }}" data-nav="courses" class="hover:text-[#E6B844] transition-colors">{{ cms('global.footer.link_2', 'الدورات') }}</a></li>
           <li><a href="{{ cms_url('global.footer.link_3_url', '#certifications') }}" data-nav="certifications" class="hover:text-[#E6B844] transition-colors">{{ cms('global.footer.link_3', 'الشهادات') }}</a></li>
           <li><a href="{{ cms_url('global.footer.link_4_url', '#assessments') }}" data-nav="assessments" class="hover:text-[#E6B844] transition-colors">{{ cms('global.footer.link_4', 'المقاييس') }}</a></li>
           <li><a href="{{ cms_url('global.footer.link_5_url', '#about') }}" data-nav="about" class="hover:text-[#E6B844] transition-colors">{{ cms('global.footer.link_5', 'عن دار الرؤى') }}</a></li>

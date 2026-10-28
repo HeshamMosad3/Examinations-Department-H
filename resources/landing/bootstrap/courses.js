@@ -1,4 +1,7 @@
 /* Courses page — client-side search + pagination (no backend) */
+import $ from 'jquery';
+import './courses.css';
+
 $(function () {
   var PAGE_SIZE = 6;
   var $cols = $('#courses-grid .course-col');
@@ -24,17 +27,19 @@ $(function () {
     });
   }
 
-  function arabicDigits(n) { return String(n); }
-
   function renderPager(total) {
     var pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+    var prevOff = page === 1, nextOff = page === pages;
     var html = '<ul class="pager-list">';
-    html += '<li><button type="button" class="pager-btn" data-go="prev" aria-label="الصفحة السابقة"' + (page === 1 ? ' disabled' : '') + '><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button></li>';
+    // RTL: "previous" (›) sits on the right, "next" (‹) on the left. Disabled = the grey icon from Figma.
+    html += '<li><button type="button" class="pager-btn pager-nav" data-go="prev" aria-label="الصفحة السابقة"' + (prevOff ? ' disabled' : '') + '>' +
+            '<img src="' + $pager.data(prevOff ? 'icon-prev-off' : 'icon-prev') + '" alt="" aria-hidden="true" /></button></li>';
     for (var i = 1; i <= pages; i++) {
-      html += '<li><button type="button" class="pager-btn' + (i === page ? ' is-active' : '') + '" data-go="' + i + '"' +
-              (i === page ? ' aria-current="page"' : '') + ' aria-label="صفحة ' + i + '">' + arabicDigits(i) + '</button></li>';
+      html += '<li><button type="button" class="pager-btn pager-num' + (i === page ? ' is-active' : '') + '" data-go="' + i + '"' +
+              (i === page ? ' aria-current="page"' : '') + ' aria-label="صفحة ' + i + '">' + i + '</button></li>';
     }
-    html += '<li><button type="button" class="pager-btn" data-go="next" aria-label="الصفحة التالية"' + (page === pages ? ' disabled' : '') + '><i class="fa-solid fa-chevron-left" aria-hidden="true"></i></button></li>';
+    html += '<li><button type="button" class="pager-btn pager-nav" data-go="next" aria-label="الصفحة التالية"' + (nextOff ? ' disabled' : '') + '>' +
+            '<img src="' + $pager.data(nextOff ? 'icon-next-off' : 'icon-next') + '" alt="" aria-hidden="true" /></button></li>';
     html += '</ul>';
     $pager.html(html).toggleClass('d-none', total === 0);
     return pages;

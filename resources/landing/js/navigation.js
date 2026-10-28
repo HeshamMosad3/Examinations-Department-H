@@ -114,6 +114,9 @@ export function initNavigation() {
       link.addEventListener('click', (e) => {
         const targetNav = link.getAttribute('data-nav');
         if (!targetNav) return;
+        // a link to a real page (e.g. /courses) navigates normally; only in-page anchors are smooth-scrolled
+        const href = link.getAttribute('href') || '';
+        if (!href.startsWith('#') && !href.startsWith('/#')) return;
         e.preventDefault();
         if (targetNav !== 'home' && !document.getElementById(targetNav)) {
           window.location.href = `/#${targetNav}`;

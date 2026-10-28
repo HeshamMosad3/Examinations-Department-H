@@ -29,7 +29,7 @@
         <span class="nav-indicator absolute bottom-[-4px] left-0 right-0 h-[2.5px] bg-[#204A7A] rounded-full" aria-hidden="true"></span>
         @endif
       </a>
-      <a href="{{ cms_url('global.nav.courses_url', '#courses') }}" data-nav="courses" class="nav-item relative py-1 text-[#1D1D1D] font-medium hover:text-[#204A7A] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary rounded">
+      <a href="{{ cms_url('global.nav.courses_url', '/courses') }}" data-nav="courses" class="nav-item relative py-1 text-[#1D1D1D] font-medium hover:text-[#204A7A] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary rounded">
         <span class="nav-text">{{ cms('global.nav.courses', 'الدورات') }}</span>
       </a>
       <a href="{{ cms_url('global.nav.certifications_url', '#certifications') }}" data-nav="certifications" class="nav-item relative py-1 text-[#1D1D1D] font-medium hover:text-[#204A7A] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary rounded">
@@ -135,7 +135,7 @@
     <!-- Navigation Links List (#934:5763: x=49, y=54, width=174px, gap=19px, El Messiri) -->
     <nav aria-label="روابط التنقل للأجهزة الذكية" class="pt-[56px] pr-[28px] pl-[20px] flex flex-col gap-[20px] text-right font-messiri overflow-hidden">
       <a href="{{ cms_url('global.nav.home_url', '/#home') }}" data-nav="home" class="mobile-nav-item {{ $isHome ? 'text-white font-bold' : 'text-white font-normal hover:text-[#E6B844]' }} text-[19px] leading-[1.5] whitespace-nowrap transition-colors cursor-pointer">{{ cms('global.nav.home', 'الرئيسية') }}</a>
-      <a href="{{ cms_url('global.nav.courses_url', '#courses') }}" data-nav="courses" class="mobile-nav-item text-white font-normal text-[19px] leading-[1.5] whitespace-nowrap hover:text-[#E6B844] transition-colors cursor-pointer">{{ cms('global.nav.courses', 'الدورات') }}</a>
+      <a href="{{ cms_url('global.nav.courses_url', '/courses') }}" data-nav="courses" class="mobile-nav-item text-white font-normal text-[19px] leading-[1.5] whitespace-nowrap hover:text-[#E6B844] transition-colors cursor-pointer">{{ cms('global.nav.courses', 'الدورات') }}</a>
       <a href="{{ cms_url('global.nav.certifications_url', '#certifications') }}" data-nav="certifications" class="mobile-nav-item text-white font-normal text-[19px] leading-[1.5] whitespace-nowrap hover:text-[#E6B844] transition-colors cursor-pointer">{{ cms('global.nav.certifications_mobile', 'الشهادات الإحترافية') }}</a>
       <a href="{{ cms_url('global.nav.assessments_url', '#assessments') }}" data-nav="assessments" class="mobile-nav-item text-white font-normal text-[19px] leading-[1.5] whitespace-nowrap hover:text-[#E6B844] transition-colors cursor-pointer">{{ cms('global.nav.assessments', 'المقاييس') }}</a>
       <a href="{{ cms_url('global.nav.about_url', '#about') }}" data-nav="about" class="mobile-nav-item text-white font-normal text-[19px] leading-[1.5] whitespace-nowrap hover:text-[#E6B844] transition-colors cursor-pointer">{{ cms('global.nav.about', 'عن دار الرؤى') }}</a>

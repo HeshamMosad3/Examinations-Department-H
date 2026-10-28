@@ -24,6 +24,9 @@ export default defineConfig({
                 'resources/landing/js/personalityKeysDetails.js',
                 'resources/landing/js/personalityKeysResult.js',
                 'resources/landing/js/profile.js',
+                // Bootstrap + jQuery pages (website/bootstrap views)
+                'resources/landing/bootstrap/app.js',
+                'resources/landing/bootstrap/courses.js',
             ],
             buildDirectory: 'assets/website/build',
             hotFile: 'public/landing.hot',

@@ -1,3 +1,21 @@
+/* Self-hosted fonts (npm: @fontsource) */
+@import '@fontsource/el-messiri/arabic-400.css';
+@import '@fontsource/el-messiri/arabic-500.css';
+@import '@fontsource/el-messiri/arabic-600.css';
+@import '@fontsource/el-messiri/arabic-700.css';
+@import '@fontsource/el-messiri/latin-400.css';
+@import '@fontsource/el-messiri/latin-500.css';
+@import '@fontsource/el-messiri/latin-600.css';
+@import '@fontsource/el-messiri/latin-700.css';
+@import '@fontsource/cairo/arabic-400.css';
+@import '@fontsource/cairo/arabic-500.css';
+@import '@fontsource/cairo/arabic-600.css';
+@import '@fontsource/cairo/arabic-700.css';
+@import '@fontsource/cairo/latin-400.css';
+@import '@fontsource/cairo/latin-500.css';
+@import '@fontsource/cairo/latin-600.css';
+@import '@fontsource/cairo/latin-700.css';
+
 /* ==========================================================================
    Dar Al-Ruya — shared theme for the Bootstrap + jQuery pages
    (same brand tokens / header / footer as the Tailwind pages)
@@ -43,9 +61,9 @@ body.bs-page {
 
 /* ---------- Header ---------- */
 .bs-header {
-  position: sticky; top: 10px; z-index: 1030;
-  width: calc(100% - 32px); max-width: 1240px; height: 57px;
-  margin: 10px auto 0; padding: 0 16px;
+  position: sticky; top: 16px; z-index: 1030;
+  width: calc(100% - 32px); max-width: 1241px; height: 57px;
+  margin: 16px auto 0; padding: 0 16px;
   display: flex; align-items: center; justify-content: space-between;
   background: rgba(255, 255, 255, .65);
   border: 1px solid rgba(226, 232, 240, .8); border-radius: 109px;
@@ -66,31 +84,38 @@ body.bs-page {
 
 .bs-nav { align-items: center; gap: 24px; height: 38px; white-space: nowrap; font-size: 15px; line-height: 1; }
 .bs-nav-link {
-  position: relative; padding: 4px 0; color: var(--brand-dark); font-weight: 500;
-  text-decoration: none; border-radius: 4px; transition: color .2s;
+  position: relative; display: inline-flex; flex-direction: column; align-items: center; padding: 4px 0; color: var(--brand-dark); font-weight: 500;
+  text-decoration: none; border-radius: 4px; transition: color .3s ease-out, font-weight .3s ease-out;
 }
-.bs-nav-link:hover { color: var(--brand); }
-.bs-nav-link.is-active { color: var(--brand); font-weight: 700; }
-.bs-nav-link.is-active::after {
+/* invisible bold copy of the label keeps the link the same width whether it is bold or not */
+.bs-nav-link::before { content: attr(data-text); height: 0; overflow: hidden; visibility: hidden; font-weight: 500; pointer-events: none; }
+.bs-nav-link { height: 28px; }
+.bs-nav-link > span { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); white-space: nowrap; }
+.bs-nav-link::after {
   content: ''; position: absolute; inset-inline: 0; bottom: -4px; height: 2.5px;
-  background: var(--brand); border-radius: 9999px;
+  background: var(--brand); border-radius: 9999px; transform: scaleX(0); opacity: 0;
+  transition: transform .3s ease-out, opacity .3s ease-out;
 }
+.bs-nav-link:hover, .bs-nav-link.is-active { color: var(--brand); font-weight: 700; }
+.bs-nav-link:hover::after, .bs-nav-link.is-active::after { transform: scaleX(1); opacity: 1; }
 
 .bs-login-btn {
   width: 80px; height: 28px; display: flex; align-items: center; justify-content: center;
   border: 1px solid var(--brand); border-radius: 5px; color: var(--brand);
   font-family: var(--font-messiri); font-weight: 600; font-size: 10px; white-space: nowrap;
-  text-decoration: none; box-shadow: 0 1px 2px rgba(0,0,0,.05); transition: all .2s;
+  text-decoration: none; box-shadow: 0 1px 2px rgba(0,0,0,.05); transition: background-color .3s ease-out, color .3s ease-out;
 }
 .bs-login-btn:hover { background: var(--brand); color: #fff; }
 .bs-login-btn span { line-height: 1; }
 
 @media (min-width: 992px) {
-  .bs-header { top: 16px; margin-top: 16px; height: 80px; padding: 0 24px; border-radius: 38px; background: rgba(255,255,255,.66); -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px); }
+  .bs-header { top: 16px; margin-top: 16px; max-width: 1024px; height: 80px; padding: 0 24px; border-radius: 38px; background: rgba(255,255,255,.66); -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px); }
   .bs-logo img { width: auto; height: 58px; }
   .bs-login-btn { width: 154px; height: 45px; border-radius: 16px; font-family: var(--font-cairo); font-size: 14px; }
 }
-@media (min-width: 1200px) { .bs-nav { gap: 26px; font-size: 17px; } }
+@media (min-width: 1200px) {
+  .bs-nav { gap: 26px; font-size: 17px; }
+}
 
 /* ---------- Mobile drawer (Bootstrap offcanvas) ---------- */
 .bs-drawer {
@@ -133,23 +158,24 @@ body.bs-page {
 .bs-social-bordered { border: 1px solid #ddd; }
 .bs-social-bordered:hover { border-color: var(--brand-gold); opacity: 1; }
 
-.bs-fhead { display: flex; align-items: center; gap: 8px; margin-bottom: 25px; }
+.bs-fhead { display: flex; align-items: center; gap: 0; margin-bottom: 25px; }
 .bs-fhead h4 { margin: 0; font-size: 21px; font-weight: 600; line-height: 1.5; color: #fff; white-space: nowrap; font-family: var(--font-messiri); }
 .bs-fhead-mark { display: flex; align-items: center; }
 .bs-fhead-mark i { width: 6.64px; height: 6.64px; border-radius: 50%; background: var(--brand-gold-dot); flex-shrink: 0; }
 .bs-fhead-mark b { width: 52px; height: 2px; background: var(--brand-gold); }
 
-.bs-flist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 18px; font-size: 17px; line-height: 27px; color: #ddd; }
+.bs-flist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 18px; font-size: 17px; line-height: 26px; color: #ddd; }
+.bs-fcol-links .bs-flist { line-height: 21px; }
 .bs-flist a { color: inherit; text-decoration: none; transition: color .2s; }
 .bs-flist a:hover { color: var(--brand-gold); }
-.bs-flist-contact li { display: flex; align-items: center; gap: 14px; }
+.bs-flist-contact li { display: flex; align-items: center; gap: 14px; min-height: 27px; }
 .bs-flist-contact img { width: 24px; height: 24px; flex-shrink: 0; }
 .bs-flist-contact li:first-child span { white-space: nowrap; }
 
 .bs-footer-divider { max-width: 361px; margin: 40px auto 13px; border: 0; border-top: 1px solid rgba(197, 197, 197, .2); opacity: 1; }
 .bs-footer-rights {
   max-width: 361px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 20px;
-  font-size: 14px; color: var(--page-bg);
+  font-size: 14px; color: var(--page-bg); min-height: 67px;
 }
 .bs-footer-rights a { color: var(--page-bg); text-decoration: none; transition: color .2s; }
 .bs-footer-rights a:hover { color: var(--brand-gold); }
@@ -159,7 +185,7 @@ body.bs-page {
   .bs-footer-cols { grid-template-columns: 1fr 1fr; max-width: 680px; column-gap: 48px; row-gap: 40px; }
   .bs-fcol-brand { order: 1; } .bs-fcol-services { order: 2; } .bs-fcol-contact { order: 3; } .bs-fcol-links { order: 4; }
   .bs-footer-divider, .bs-footer-rights { max-width: none; }
-  .bs-footer-rights { flex-direction: row; justify-content: space-between; gap: 0; }
+  .bs-footer-rights { flex-direction: row; justify-content: space-between; gap: 0; min-height: 26px; }
 }
 @media (min-width: 992px) {
   .bs-footer { padding: 47px 48px 28px; }
@@ -170,5 +196,53 @@ body.bs-page {
   .bs-fcol-services { width: 131px; margin-inline-start: 91px; order: 2; }
   .bs-fcol-links { width: 175px; margin-inline-start: 161px; order: 3; }
   .bs-fcol-contact { width: 270px; margin-inline-start: 161px; order: 4; }
-  .bs-footer-divider { margin: 25px 0 42px; }
+  .bs-footer-divider { margin: 29px 0 44px; }
 }
+
+/* ---------- Header: logged-in user menu (same behaviour as the main site) ---------- */
+.bs-header.is-scrolled { box-shadow: 0 10px 30px rgba(0, 0, 0, .1); }
+
+.bs-user-btn {
+  width: 36px; height: 36px; padding: 0; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: #E9EDF2; color: var(--brand); border: 1px solid rgba(32, 74, 122, .3);
+  font-size: 15px; box-shadow: 0 1px 2px rgba(0, 0, 0, .05); transition: all .2s;
+}
+.bs-user-btn:hover, .bs-user-btn.show { background: var(--brand); color: #fff; }
+.bs-user-btn::after { display: none; }
+@media (min-width: 992px) { .bs-user-btn { width: 45px; height: 45px; font-size: 18px; } }
+
+.bs-user-menu { position: relative; }
+.bs-user-dropdown {
+  --bs-dropdown-min-width: 230px; --bs-dropdown-padding-x: 10px; --bs-dropdown-padding-y: 10px;
+  --bs-dropdown-border-radius: 18px; --bs-dropdown-border-color: rgba(218, 218, 218, .7);
+  --bs-dropdown-box-shadow: 0 12px 32px rgba(0, 0, 0, .12);
+  width: 230px; text-align: start; margin-top: 8px !important;
+}
+.bs-user-name {
+  padding: 10px 14px; margin-bottom: 8px; border-radius: 12px; background: #F8FAFC; border: 1px solid var(--border);
+  color: var(--brand); font-weight: 700; font-size: 15px; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.bs-user-item {
+  width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  padding: 10px 14px; border: 0; border-radius: 10px; background: transparent;
+  color: #262626; font-weight: 600; font-size: 14px; text-decoration: none; text-align: start; transition: background .15s, color .15s;
+}
+.bs-user-item:hover { background: #F0F5FA; color: var(--brand); }
+.bs-user-item i { color: var(--brand); font-size: 15px; }
+.bs-user-item--danger, .bs-user-item--danger i { color: #E53935; }
+.bs-user-item--danger:hover { background: #FFF5F5; color: #E53935; }
+.bs-user-item .bs-item-label { display: flex; align-items: center; gap: 8px; }
+.bs-pct { border-radius: 9999px; padding: 2px 8px; font-family: var(--font-cairo); font-size: 11px; font-weight: 700; background: #fff3cd; color: #92400e; }
+.bs-pct.is-complete { background: #dcfce7; color: #166534; }
+
+/* Drawer: logged-in block */
+.bs-drawer-user { padding: 10px 12px; border-radius: 12px; background: rgba(255, 255, 255, .1); color: #fff; font-weight: 700; font-size: 15px; margin-bottom: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bs-drawer-btn {
+  width: 100%; height: 40px; border: 0; border-radius: 10px; margin-bottom: 8px; padding: 0 12px;
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  background: rgba(255, 255, 255, .15); color: #fff; font-weight: 600; font-size: 14px; text-decoration: none; transition: background .2s;
+}
+.bs-drawer-btn:hover { background: rgba(255, 255, 255, .25); color: #fff; }
+.bs-drawer-btn--danger { justify-content: center; background: rgba(220, 38, 38, .8); }
+.bs-drawer-btn--danger:hover { background: #dc2626; }

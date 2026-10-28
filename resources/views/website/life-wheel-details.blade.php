@@ -193,7 +193,7 @@
               <h3 class="[word-break:break-word] [grid-area:1/1] font-messiri font-semibold leading-[1.5] top-px ml-[42.57px] mt-0 relative text-[21px] text-right text-white w-[132.432px]" dir="auto">{{ cms('global.footer.links_title', 'روابط سريعة') }}</h3>
             </div>
             <ul class="flex flex-col gap-[18px] items-start relative shrink-0 w-[108px]">
-              @foreach ([[cms('global.footer.link_1', 'الرئيسية'), '/'], [cms('global.footer.link_2', 'الدورات'), '/#courses'], [cms('global.footer.link_3', 'الشهادات'), '/#certifications'], [cms('global.footer.link_4', 'المقاييس'), '/#assessments'], [cms('global.footer.link_5', 'عن دار الرؤى'), '/#about']] as [$label, $href])
+              @foreach ([[cms('global.footer.link_1', 'الرئيسية'), '/'], [cms('global.footer.link_2', 'الدورات'), '/courses'], [cms('global.footer.link_3', 'الشهادات'), '/#certifications'], [cms('global.footer.link_4', 'المقاييس'), '/#assessments'], [cms('global.footer.link_5', 'عن دار الرؤى'), '/#about']] as [$label, $href])
                 <li class="h-[21px] relative shrink-0 w-full">
                   <a href="{{ $href }}" class="[word-break:break-word] absolute font-messiri font-normal inset-[1px_0_-23.81%_0] leading-[1.5] text-[#ddd] text-[17px] text-right" dir="auto">{{ $label }}</a>
                 </li>
