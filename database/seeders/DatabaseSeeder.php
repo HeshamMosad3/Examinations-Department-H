@@ -16,21 +16,28 @@ class DatabaseSeeder extends Seeder
             Role::findOrCreate($role->value, $role === UserRoleEnum::TRAINEES ? 'web' : 'admin');
         }
 
-        Admin::firstOrCreate(['email' => 'admin@alroaya.sa'], [
-            'user_name' => 'admin',
-            'name' => 'مدير النظام',
-            'password' => 'password',
-            'id_number' => '1000000000',
-            'phone_number' => '0500000000',
-        ])->assignRole(UserRoleEnum::SUPER_ADMIN->value);
+        // الأدمن: الباسورد من ADMIN_PASSWORD (والإيميل من ADMIN_EMAIL). على الإنتاج من غيرهم مفيش أدمن بيتعمل،
+        // وعلى الجهاز المحلي بيتعمل بباسورد تجريبي للتجربة بس.
+        $adminPassword = env('ADMIN_PASSWORD') ?: (app()->isProduction() ? null : 'password');
+        if ($adminPassword) {
+            Admin::firstOrCreate(['email' => env('ADMIN_EMAIL', 'admin@alroaya.sa')], [
+                'user_name' => 'admin',
+                'name' => 'مدير النظام',
+                'password' => $adminPassword,
+                'id_number' => '1000000000',
+                'phone_number' => '0500000000',
+            ])->assignRole(UserRoleEnum::SUPER_ADMIN->value);
+        }
 
-        User::firstOrCreate(['email' => 'user@alroaya.sa'], [
-            'name' => 'محمد أحمد',
-            'password' => 'password',
-            'role' => 'user',
-            'national_id' => '1111111111',
-            'phone' => '0511111111',
-        ]);
+        // مستخدم تجريبي: للتطوير المحلي فقط، مش على الإنتاج
+        if (! app()->isProduction()) {
+            User::firstOrCreate(['email' => 'user@alroaya.sa'], [
+                'name' => 'محمد أحمد',
+                'password' => 'password',
+                'national_id' => '1111111111',
+                'phone' => '0511111111',
+            ]);
+        }
 
         // المقاييس العشرة
         $this->call([
