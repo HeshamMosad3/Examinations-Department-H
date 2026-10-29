@@ -138,7 +138,7 @@
 
               <div class="course-body">
                 <span class="course-tag">الدورات التطويرية</span>
-                <h3 class="course-title">{{ $c['title'] }}</h3>
+                <h3 class="course-title">@if (! empty($c['slug']))<a href="{{ route('courses.show', $c['slug']) }}">{{ $c['title'] }}</a>@else{{ $c['title'] }}@endif</h3>
                 <p class="course-desc">{!! nl2br(e($c['desc'])) !!}</p>
 
                 <div class="course-metrics">
@@ -147,7 +147,7 @@
                   <div class="metric"><img src="{{ $ico }}/metric-moon.svg" alt="" aria-hidden="true" /><strong>مسائي</strong><small>الفترة اليومية</small></div>
                 </div>
 
-                <a href="#" class="course-register" aria-label="سجل الآن في {{ $c['title'] }}">
+                <a href="{{ ! empty($c['slug']) ? route('courses.show', $c['slug']) : '#' }}" class="course-register" aria-label="سجل الآن في {{ $c['title'] }}">
                   <span>سجل الآن</span><img src="{{ $ico }}/arrow-left.svg" alt="" aria-hidden="true" />
                 </a>
               </div>

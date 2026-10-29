@@ -13,6 +13,12 @@ Route::get('/', [LandingController::class, 'home'])->name('home');
 
 // Bootstrap + jQuery pages (static, no backend)
 Route::view('/courses', 'website.bootstrap.courses')->name('courses.index');
+Route::get('/courses/{slug}', function (string $slug) {
+    $details = require resource_path('data/course-details.php');
+    abort_unless(isset($details[$slug]), 404);
+
+    return view('website.bootstrap.course-details', ['course' => $details[$slug], 'slug' => $slug]);
+})->name('courses.show');
 
 Route::view('/life-wheel.html', 'website.life-wheel')->name('life-wheel.explore');
 Route::get('/wheel-test', [LandingController::class, 'wheelTest'])->name('life-wheel.test');

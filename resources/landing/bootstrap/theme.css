@@ -54,6 +54,10 @@ body.bs-page {
 }
 @media (max-width: 991.98px) { html { scroll-padding-top: 75px; } }
 
+/* selected text: primary colour, like the old pages (Tailwind `selection:bg-brand-primary selection:text-white`) */
+::selection { background: var(--brand); color: #fff; }
+::-moz-selection { background: var(--brand); color: #fff; }
+
 .bs-skip-link {
   position: fixed; top: 1rem; right: 1rem; z-index: 2000;
   padding: .75rem 1.25rem; background: var(--brand); color: #fff; border-radius: 12px;
@@ -190,13 +194,21 @@ body.bs-page {
 @media (min-width: 992px) {
   .bs-footer { padding: 47px 48px 28px; }
   .bs-footer-logo { width: 81px; height: 82px; }
-  .bs-footer-cols { display: flex; max-width: 1236px; margin-inline: 0; gap: 0; }
-  .bs-footer-cols > .bs-fcol { flex-shrink: 0; }
-  .bs-fcol-brand { width: 247px; order: 1; }
-  .bs-fcol-services { width: 131px; margin-inline-start: 91px; order: 2; }
-  .bs-fcol-links { width: 175px; margin-inline-start: 161px; order: 3; }
-  .bs-fcol-contact { width: 270px; margin-inline-start: 161px; order: 4; }
+  /* 992–1335px: columns share the width; the exact Figma widths below need ≥ 1336px */
+  .bs-footer-cols { display: flex; justify-content: space-between; max-width: none; margin-inline: 0; gap: 24px; }
+  .bs-fcol-brand { flex: 0 1 247px; min-width: 0; order: 1; }
+  .bs-fcol-services { order: 2; }
+  .bs-fcol-links { order: 3; }
+  .bs-fcol-contact { order: 4; }
   .bs-footer-divider { margin: 29px 0 44px; }
+}
+@media (min-width: 1336px) {
+  .bs-footer-cols { justify-content: flex-start; max-width: 1236px; gap: 0; }
+  .bs-footer-cols > .bs-fcol { flex-shrink: 0; }
+  .bs-fcol-brand { flex: none; width: 247px; }
+  .bs-fcol-services { width: 131px; margin-inline-start: 91px; }
+  .bs-fcol-links { width: 175px; margin-inline-start: 161px; }
+  .bs-fcol-contact { width: 270px; margin-inline-start: 161px; }
 }
 
 /* ---------- Header: logged-in user menu (same behaviour as the main site) ---------- */

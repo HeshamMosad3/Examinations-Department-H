@@ -27,6 +27,7 @@ export default defineConfig({
                 // Bootstrap + jQuery pages (website/bootstrap views)
                 'resources/landing/bootstrap/app.js',
                 'resources/landing/bootstrap/courses.js',
+                'resources/landing/bootstrap/course-details.js',
             ],
             buildDirectory: 'assets/website/build',
             hotFile: 'public/landing.hot',

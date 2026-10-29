@@ -1,0 +1,89 @@
+/* ==========================================================================
+   "اطلب عرض سعر لجهتك" dialog — Figma desktop 3707:9964 · mobile 3707:10047
+   Base = mobile (337 wide); ≥ 768px = desktop dialog (760 wide)
+   ========================================================================== */
+.cd-corp-btn { border: 0; font-family: inherit; }
+
+.cd-modal { --bs-modal-margin: 28px; }
+.cd-modal.fade .modal-dialog { transition: transform .3s ease-out; }
+.cd-modal .modal-dialog { max-width: 760px; }
+@media (min-width: 576px) { .cd-modal .modal-dialog { margin-inline: auto; } }
+.cd-modal .modal-content { border: 0; border-radius: 15px; background: #fff; overflow: hidden; font-family: var(--font-messiri); }
+.modal-backdrop.show { --bs-backdrop-opacity: .55; }
+
+.cd-modal-head { flex: none; height: 70px; display: flex; align-items: flex-start; gap: 9px; padding: 13px 19px 0 16px; background: linear-gradient(90deg, #163655, #204A7A); }
+.cd-modal-ico { flex: none; margin-top: 2px; width: 22px; height: 22px; border-radius: 6px; background: #E5BA61; display: flex; align-items: center; justify-content: center; }
+.cd-modal-ico img { width: 12px; height: 12px; }
+.cd-modal-titles { flex: 1; min-width: 0; }
+.cd-modal-titles small { display: block; color: #E5BA61; font-size: 8px; line-height: 13px; font-weight: 700; }
+.cd-modal-titles h2 { margin: 0; color: #F6F6F6; font-size: 11px; line-height: 17px; font-weight: 700; }
+.cd-modal-titles p { margin: 0; color: #DDD; font-size: 8px; line-height: 12px; font-weight: 600; }
+.cd-modal-close { flex: none; margin-top: 2px; width: 22px; height: 22px; padding: 0; border: .8px solid #fff; border-radius: 50%; background: rgba(255,255,255,.09); display: flex; align-items: center; justify-content: center; transition: background-color .3s ease-out; }
+.cd-modal-close img { width: 12px; height: 12px; }
+.cd-modal-close:hover { background: rgba(255,255,255,.22); }
+
+.cd-modal-body { padding: 32px 16px 25px; display: flex; flex-direction: column; gap: 20px; }
+.cd-fields { display: grid; grid-template-columns: 1fr; gap: 18px; }
+.cd-field { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.cd-field label { display: flex; align-items: center; gap: 4px; color: var(--text); font-size: 14px; line-height: 20px; font-weight: 500; }
+.cd-field label img { width: 10px; height: 10px; }
+.cd-input { width: 100%; height: 56px; padding: 12px 16px; border: 1px solid #DADADA; border-radius: 10px; background: #fff; color: var(--text); font: 400 14px/19px var(--font-messiri); outline: 0; transition: border-color .2s ease-out, box-shadow .2s ease-out; }
+.cd-input::placeholder { color: #949494; opacity: 1; }
+.cd-input:focus { border-color: var(--brand); box-shadow: 0 0 0 3px rgba(32,74,122,.12); }
+.cd-input.is-invalid, .cd-phone.is-invalid { border-color: #D92D20; }
+.cd-select { appearance: none; -webkit-appearance: none; background: #fff url('/assets/website/icons/course-details/dialog/chevron.svg') no-repeat left 16px center; background-size: 24px 12px; cursor: pointer; }
+.cd-select:invalid { color: #949494; }
+.cd-select option { color: var(--text); }
+.cd-textarea { height: 96px; resize: none; }
+
+/* training place: only relevant for on-site / hybrid training. Hidden until then; the method select takes the whole row and
+   shrinks (desktop) / the field slides open (mobile) when it appears. */
+.cd-pair { grid-column: 1 / -1; display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.cd-pair > .cd-field { flex: 1 1 0; }
+.cd-field--city { max-height: 100px; transition: opacity .3s ease-out .05s, transform .3s ease-out .05s, max-height .35s cubic-bezier(.4,0,.2,1), margin-top .35s cubic-bezier(.4,0,.2,1), visibility 0s; }
+.cd-field--city.is-collapsed { max-height: 0; margin-top: -18px; overflow: hidden; opacity: 0; transform: translateY(-8px); visibility: hidden; pointer-events: none; transition: opacity .2s ease-out, transform .2s ease-out, max-height .35s cubic-bezier(.4,0,.2,1), margin-top .35s cubic-bezier(.4,0,.2,1), visibility 0s .35s; }
+@media (prefers-reduced-motion: reduce) { .cd-field--city, .cd-field--city.is-collapsed { transition: none; } }
+.cd-date { appearance: none; -webkit-appearance: none; position: relative; text-align: start; background: #fff url('/assets/website/icons/course-details/dialog/calendar.svg') no-repeat right 16px center; background-size: 20px 20px; }
+.cd-date:not(.has-value) { color: #949494; }
+.cd-date::-webkit-calendar-picker-indicator { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+.cd-phone { display: flex; height: 56px; border: 1px solid #DADADA; border-radius: 10px; overflow: hidden; background: #fff; transition: border-color .2s ease-out, box-shadow .2s ease-out; }
+.cd-phone:focus-within { border-color: var(--brand); box-shadow: 0 0 0 3px rgba(32,74,122,.12); }
+.cd-phone .cd-input { flex: 1; min-width: 0; height: 100%; border: 0; border-radius: 0; box-shadow: none; text-align: left; }
+.cd-dial { flex: none; display: flex; align-items: center; gap: 8px; padding: 0 16px; background: rgba(182,182,182,.1); border-inline-end: 1px solid #DDD; color: var(--text); font-size: 14px; line-height: 19px; font-weight: 600; }
+.cd-dial img { width: 28px; height: 28px; }
+
+.cd-modal-foot { display: flex; flex-direction: column-reverse; align-items: center; gap: 20px; }
+.cd-send { width: 100%; height: 45px; display: flex; align-items: center; justify-content: center; gap: 9px; border: 0; border-radius: 10px; background: var(--brand); color: #E9EDF2; font: 600 14px/21px var(--font-messiri); transition: background-color .3s ease-out; }
+.cd-send img { width: 14px; height: 14px; }
+.cd-send:hover { background: var(--brand-navy); }
+.cd-note { margin: 0; display: flex; align-items: center; gap: 2px; color: #65708A; font-size: 11px; line-height: 16px; font-weight: 400; }
+.cd-note img { width: 14px; height: 14px; }
+
+@media (min-width: 768px) {
+  .cd-modal .modal-content { border-radius: 18px; }
+  .cd-modal-head { height: 101px; gap: 20px; padding: 21px 24px 0 25px; }
+  .cd-modal-ico { margin-top: 0; width: 46px; height: 46px; border-radius: 12px; }
+  .cd-modal-ico img { width: 26px; height: 26px; }
+  .cd-modal-titles small { font-size: 10px; line-height: 16px; }
+  .cd-modal-titles h2 { font-size: 17px; line-height: 27px; }
+  .cd-modal-titles p { font-size: 10px; line-height: 15px; }
+  .cd-modal-close { margin-top: 0; width: 35px; height: 35px; }
+  .cd-modal-close img { width: 20px; height: 20px; }
+
+  .cd-modal-body { padding: 53px 19px 40px; gap: 32px; }
+  .cd-fields { grid-template-columns: 1fr 1fr; gap: 24px 12px; padding-inline: 4px; }
+  .cd-field--full { grid-column: 1 / -1; margin-inline: -4px; }
+  .cd-pair { flex-direction: row; gap: 0; }
+  .cd-pair > .cd-field { min-width: 0; }
+  .cd-field--city { flex-grow: 1; max-height: none; margin-inline-start: 12px; margin-top: 0; transition: flex-grow .35s cubic-bezier(.4,0,.2,1), margin .35s cubic-bezier(.4,0,.2,1), opacity .3s ease-out .08s, transform .3s ease-out .08s, visibility 0s; }
+  .cd-field--city.is-collapsed { flex-grow: 0; max-height: none; margin-inline-start: 0; margin-top: 0; overflow: hidden; transform: none; transition: flex-grow .35s cubic-bezier(.4,0,.2,1), margin .35s cubic-bezier(.4,0,.2,1), opacity .15s ease-out, visibility 0s .35s; }
+  .cd-field--city label { white-space: nowrap; }
+  .cd-field label { font-size: 16px; }
+  .cd-input { font-size: 16px; }
+  .cd-dial { font-size: 16px; }
+
+  .cd-modal-foot { flex-direction: row; justify-content: space-between; align-items: center; padding-top: 18px; border-top: 1px solid #E5E9F1; }
+  .cd-send { width: 245px; height: 56px; border-radius: 15px; }
+  .cd-note { gap: 4px; font-size: 12px; line-height: 19px; }
+  .cd-note img { width: 17px; height: 17px; }
+}
