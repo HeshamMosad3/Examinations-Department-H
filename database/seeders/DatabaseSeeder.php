@@ -40,19 +40,23 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        // المقاييس العشرة
-        $this->call([
-            WheelOfLifeSeeder::class,
-            PerceptualStylesSeeder::class,
-            SevenPersonalityKeysSeeder::class,
-            BigFiveSeeder::class,
-            CognitiveFlexibilitySeeder::class,
-            SelfDisciplineSeeder::class,
-            CriticalThinkingSeeder::class,
-            CuriositySeeder::class,
-            ReasoningAbilitiesSeeder::class,
-            InitiativeSeeder::class,
-        ]);
+        // المقاييس العشرة: بتتزرع مرة واحدة بس لما جدول المقاييس يكون فاضي. تشغيلها تاني بيمسح المقياس ومحاولات
+        // المستخدمين عليه (الـ Importer بيمسح الموجود بنفس الكود)، فالتشغيل المتكرر على السيرفر مايعيدهاش.
+        // لإعادة زرع مقياس واحد: php artisan db:seed --class=SelfDisciplineSeeder
+        if (! \App\Models\Assessment::exists()) {
+            $this->call([
+                WheelOfLifeSeeder::class,
+                PerceptualStylesSeeder::class,
+                SevenPersonalityKeysSeeder::class,
+                BigFiveSeeder::class,
+                CognitiveFlexibilitySeeder::class,
+                SelfDisciplineSeeder::class,
+                CriticalThinkingSeeder::class,
+                CuriositySeeder::class,
+                ReasoningAbilitiesSeeder::class,
+                InitiativeSeeder::class,
+            ]);
+        }
 
         // أسئلة "التحدي السريع" في الصفحة الرئيسية
         if (! \App\Models\ChallengeQuestion::exists()) {
