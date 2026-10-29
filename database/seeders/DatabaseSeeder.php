@@ -16,11 +16,12 @@ class DatabaseSeeder extends Seeder
             Role::findOrCreate($role->value, $role === UserRoleEnum::TRAINEES ? 'web' : 'admin');
         }
 
-        // الأدمن: الباسورد من ADMIN_PASSWORD (والإيميل من ADMIN_EMAIL). على الإنتاج من غيرهم مفيش أدمن بيتعمل،
+        // الأدمن: الإيميل والباسورد من ADMIN_EMAIL / ADMIN_PASSWORD، وبيتضبطوا في كل تشغيل
+        // (غيّر المتغير وأعد الـ deploy لتغيير الباسورد). على الإنتاج من غير ADMIN_PASSWORD مفيش أدمن بيتعمل،
         // وعلى الجهاز المحلي بيتعمل بباسورد تجريبي للتجربة بس.
         $adminPassword = env('ADMIN_PASSWORD') ?: (app()->isProduction() ? null : 'password');
         if ($adminPassword) {
-            Admin::firstOrCreate(['email' => env('ADMIN_EMAIL', 'admin@alroaya.sa')], [
+            Admin::updateOrCreate(['email' => env('ADMIN_EMAIL', 'admin@alroaya.sa')], [
                 'user_name' => 'admin',
                 'name' => 'مدير النظام',
                 'password' => $adminPassword,
