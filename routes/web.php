@@ -1,5 +1,7 @@
 <?php
 
+// مسارات الموقع العام ولوحة الإدارة (guard: web للمتدربين، admin للأدمن)
+
 use App\Http\Controllers\Dashboard\Admin;
 use App\Http\Controllers\Website\AuthController;
 use App\Http\Controllers\Website\LandingController;
