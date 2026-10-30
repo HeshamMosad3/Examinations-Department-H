@@ -129,7 +129,7 @@
             <span>{{ $course['help']['text'] }}</span>
           </div>
           <a href="https://wa.me/{{ ltrim($course['help']['phone'], '+') }}" class="cd-wa" rel="noopener" target="_blank">
-            <span class="cd-wa-label">{{ $course['help']['button'] }}<img src="{{ $ico }}/whatsapp.svg" alt="" aria-hidden="true" /></span>
+            <span class="cd-wa-label"><img src="{{ $ico }}/whatsapp.svg" alt="" aria-hidden="true" />{{ $course['help']['button'] }}</span>
             <span class="cd-wa-phone" dir="ltr">{{ $course['help']['phone'] }}</span>
           </a>
         </div>

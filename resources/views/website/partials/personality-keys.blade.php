@@ -125,7 +125,7 @@
 
       <!-- Heading (#898:3897) -->
       <div class="text-center mb-[12px] md:mb-[56px] px-3 sm:px-4 flex flex-col items-center gap-[10px] md:gap-[20px] w-full max-w-[361px] sm:max-w-none mx-auto">
-        <p class="text-[13px] min-[370px]:text-[13.5px] min-[400px]:text-[14px] sm:text-[18px] md:text-[24px] font-medium text-brand-dark font-messiri leading-tight sm:leading-relaxed text-center w-full sm:max-w-none">
+        <p class="text-[12.5px] min-[360px]:text-[13px] min-[390px]:text-[14px] md:text-[24px] font-medium text-brand-dark font-messiri leading-normal text-center w-full whitespace-nowrap">
           {{ cms('home.keys.intro', 'اكتشف سمات شخصيتك وطريقة تعاملك باستخدام') }}
         </p>
         <h2 id="personality-keys-title" class="text-[18px] sm:text-[27px] md:text-[34px] font-bold text-brand-primary font-messiri leading-[27px] sm:leading-tight text-center">

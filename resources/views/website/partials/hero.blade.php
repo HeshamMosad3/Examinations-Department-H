@@ -45,7 +45,7 @@
 
       <!-- Heading CTA (#875:7304 Desktop / #942:4138 Mobile) -->
       <div class="text-center mb-[12px] md:mb-[40px] px-3 sm:px-4 flex flex-col items-center gap-[10px] md:gap-[20px] w-full max-w-[800px] mx-auto">
-        <p class="text-[12.5px] min-[360px]:text-[13px] min-[390px]:text-[14px] md:text-[24px] font-medium text-black font-messiri leading-normal text-center w-full mx-auto sm:whitespace-nowrap">
+        <p class="text-[12.5px] min-[360px]:text-[13px] min-[390px]:text-[14px] md:text-[24px] font-medium text-black font-messiri leading-normal text-center w-full mx-auto whitespace-nowrap">
           {{ cms('home.hero.wheel_intro', 'اكتشف مستوى التوازن فى اهم جوانب حياتك باستخدام') }}
         </p>
         <h2 class="text-[16.5px] min-[390px]:text-[17.5px] md:text-[34px] font-bold md:font-semibold text-[#1D436E] font-messiri leading-[23px] sm:leading-[22px] md:leading-[1.5] text-center whitespace-nowrap">

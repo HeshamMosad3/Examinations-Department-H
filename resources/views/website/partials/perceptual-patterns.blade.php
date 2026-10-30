@@ -121,8 +121,8 @@
       </div>
 
       <!-- Heading CTA (#875:7315 Desktop / #942:4140 Mobile) -->
-      <div class="text-center mb-[12px] md:mb-[40px] px-3 sm:px-4 flex flex-col items-center gap-[10px] md:gap-[20px] w-full max-w-[361px] md:max-w-[490px] mx-auto">
-        <p class="text-[14px] md:text-[24px] font-medium text-black font-messiri leading-normal text-center w-full max-w-[333px] md:max-w-[490px] mx-auto">
+      <div class="text-center mb-[12px] md:mb-[40px] px-3 sm:px-4 flex flex-col items-center gap-[10px] md:gap-[20px] w-full max-w-[361px] md:max-w-none mx-auto">
+        <p class="text-[12.5px] min-[360px]:text-[13px] min-[390px]:text-[14px] md:text-[24px] font-medium text-black font-messiri leading-normal text-center w-full mx-auto whitespace-nowrap">
           {{ cms('home.perceptual.intro', 'اكتشف طريقتك في فهم العالم من حولك باستخدام') }}
         </p>
         <h2 id="perceptual-title" class="text-[18px] md:text-[34px] font-bold md:font-semibold text-[#1D436E] font-messiri leading-[27px] md:leading-[1.5] text-center whitespace-nowrap">
