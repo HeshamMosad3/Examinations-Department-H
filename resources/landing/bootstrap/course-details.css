@@ -135,7 +135,7 @@
 .cd-head-eyebrow i { width: 8px; height: 1px; background: var(--brand-gold); }
 .cd-head-title { position: absolute; right: 75px; top: 24px; color: #F6F6F6; font-size: 16px; line-height: 25px; font-weight: 700; white-space: nowrap; }
 .cd-head-line { position: absolute; right: 75px; top: 53px; width: 130px; height: 1px; border-radius: 20px; background: linear-gradient(270deg, #C5A365, rgba(197,163,101,.4), rgba(197,163,101,0)); }
-.cd-head-num { position: absolute; right: 33px; top: 23px; color: #E9E9E9; font-size: 14px; line-height: 22px; font-weight: 700; }
+.cd-head-num { position: absolute; right: 29px; top: 18px; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; padding-top: .12em; color: #E9E9E9; font-size: 14px; line-height: 1; font-weight: 700; }
 .cd-head-toggle { position: absolute; left: 18px; top: 16px; width: 25px; height: 25px; padding: 0; border: 0; background: none; border-radius: 50%; }
 .cd-head-toggle img { width: 100%; height: 100%; transition: transform .3s ease-out; }
 .cd-head-toggle[aria-expanded="false"] img { transform: rotate(180deg); }
@@ -181,16 +181,18 @@
 .cd-days .cd-item-icon { align-self: flex-start; }
 .cd-item-head small { color: var(--brand); font-size: 12px; line-height: 19px; font-weight: 700; }
 .cd-item-head strong { color: var(--text); font-size: 12px; line-height: 18px; font-weight: 600; }
-.cd-days .cd-item-inner { padding-inline: 17px 57px; }
-.cd-days .cd-item-inner p { color: #565656; font-size: 11px; line-height: 16px; font-weight: 400; margin-top: -2px; }
-.cd-chips { margin: 12px 0 0; padding: 0 0 18px; display: flex; flex-wrap: wrap; gap: 9px; }
-.cd-chips li { display: flex; align-items: center; gap: 2px; height: 20px; padding: 0 6px; background: #fff; border-radius: 20px; color: #565656; font-size: 10px; line-height: 15px; font-weight: 600; }
+.cd-days .cd-item-inner { padding-inline: 57px; }
+.cd-days .cd-item-inner p { color: #565656; font-size: 11px; line-height: 16.5px; font-weight: 400; margin-top: 4px; }
+/* one row always: the row may run into the end padding (Figma chips span the whole card on mobile) */
+.cd-chips { margin: 8px -40px 0 0; padding: 0 0 16px; display: flex; flex-wrap: nowrap; gap: 9px; }
+.cd-chips li { flex: none; white-space: nowrap; display: flex; align-items: center; gap: 2px; height: 20px; padding: 0 6px; background: #fff; border-radius: 20px; color: #565656; font-size: 10px; line-height: 15px; font-weight: 600; }
 .cd-chips img { width: 10px; height: 10px; }
 .cd-days .cd-item.is-open { background: linear-gradient(180deg, #F8FAFC, #F0F7FF); border: .5px solid var(--brand); border-radius: 10px; box-shadow: 0 5.5px 13.8px rgba(32,74,122,.08); }
 .cd-days .cd-item.is-open .cd-item-num { background: var(--brand); border-color: var(--brand); color: #fff; box-shadow: 0 0 0 3px rgba(32,74,122,.09); }
 .cd-days .cd-item-icon { order: 3; }
 .cd-days .cd-item-btn { padding-block: 15.5px; }
-.cd-days .cd-item.is-open .cd-item-btn { align-items: flex-start; padding-bottom: 0; min-height: 0; }
+.cd-days .cd-item.is-open .cd-item-btn { align-items: flex-start; padding-bottom: 0; padding-inline: 16.5px; min-height: 0; }
+.cd-days .cd-item.is-open .cd-item-inner { padding-inline: 56.5px; }
 
 /* FAQ */
 .cd-faq .cd-item-btn { gap: 38px; padding: 16px; }
@@ -257,7 +259,7 @@
   .cd-head-eyebrow i { width: 16px; height: 2px; }
   .cd-head-title { right: 162px; top: 42px; font-size: 21px; line-height: 33px; }
   .cd-head-line { right: 162px; top: 87px; width: 256px; height: 2px; }
-  .cd-head-num { right: 81px; top: 41px; font-size: 17px; line-height: 27px; }
+  .cd-head-num { right: 56px; top: 24px; width: 61px; height: 61px; font-size: 17px; }
   .cd-head-toggle { left: 28px; top: 38px; width: 36px; height: 36px; }
 
   .cd-overview { padding-inline: 0; font-size: 14px; line-height: 26px; }
@@ -279,14 +281,15 @@
   .cd-item-num { width: 40px; height: 40px; font-size: 12px; }
   .cd-item-head { gap: 2.3px; padding-top: 6px; }
   .cd-item-head strong { font-size: 14px; line-height: 21px; padding-top: 2.7px; }
-  .cd-days .cd-item.is-open .cd-item-head { padding-top: 0; }
-  .cd-days .cd-item-inner { padding-inline: 87px 70px; }
-  .cd-days .cd-item-inner p { font-size: 14px; line-height: 21px; margin-top: 6px; }
-  .cd-chips { margin: 14px 0 0; padding-bottom: 18px; gap: 6.5px; }
+  .cd-days .cd-item.is-open .cd-item-head { padding-top: 0; gap: 4px; }
+  .cd-days .cd-item-inner, .cd-days .cd-item.is-open .cd-item-inner { padding-inline: 83px 61px; }
+  .cd-days .cd-item-inner p { font-size: 14px; line-height: 21px; margin-top: 6.65px; }
+  .cd-chips { margin: 12.35px 0 0; padding-bottom: 17px; gap: 6.5px; }
   .cd-chips li { height: 25px; padding: 0 7.3px; gap: 3.65px; border-radius: 18px; font-size: 12px; line-height: 18px; }
   .cd-chips img { width: 16px; height: 16px; }
   .cd-days .cd-item.is-open { border-width: 1px; box-shadow: 0 11px 27px rgba(32,74,122,.08); }
   .cd-days .cd-item.is-open .cd-item-num { width: 38px; height: 38px; box-shadow: 0 0 0 3px rgba(32,74,122,.09); }
+  .cd-days .cd-item.is-open .cd-item-btn { padding-inline: 27px; }
 
   .cd-faq .cd-item { border-width: .8px; border-radius: 8px; }
   .cd-faq .cd-item-btn { padding: 17px 19px; gap: 38px; }
