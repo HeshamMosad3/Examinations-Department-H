@@ -1,5 +1,7 @@
 <?php
 
+// أوامر الـ CLI المخصصة (لا يوجد حاليًا أوامر مجدولة)
+
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 
