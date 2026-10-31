@@ -96,7 +96,7 @@
   font-family: var(--font-messiri); font-size: 17px; font-weight: 500; line-height: 26px; color: var(--text);
 }
 .pager-num { min-width: 13px; height: 32px; }
-.pager-num.is-active { min-width: 32px; border-radius: 50%; background: var(--brand); color: var(--page-bg); font-size: 21px; font-weight: 600; cursor: default; }
+.pager-num.is-active { min-width: 32px; border-radius: 50%; background: var(--brand); color: var(--page-bg); font-size: 21px; font-weight: 600; cursor: default; padding-top: 3.8px; }
 /* prev / next: 24px chevron inside a round hit area that fills with navy on hover (Figma: smart-animate, 300ms ease-out) */
 .pager-nav { width: 24px; height: 24px; margin-inline: -4px; border-radius: 50%; transition: background-color .3s ease-out; }
 .pager-nav img { width: 24px; height: 24px; display: block; transition: filter .3s ease-out; }
@@ -253,7 +253,7 @@
   .pager-list { gap: 40px; height: 40px; }
   .pager-btn { font-size: 21px; line-height: 33px; }
   .pager-num { min-width: 13px; height: 40px; }
-  .pager-num.is-active { min-width: 40px; font-size: 25px; line-height: 38px; }
+  .pager-num.is-active { min-width: 40px; font-size: 25px; line-height: 38px; padding-top: 6.5px; }
   .pager-nav { width: 40px; height: 40px; margin-inline: 9px; }
 
   .course-card { gap: 17px; padding-bottom: 20px; border-radius: 24px; min-height: 725px; }

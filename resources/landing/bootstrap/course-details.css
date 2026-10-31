@@ -135,7 +135,7 @@
 .cd-head-eyebrow i { width: 8px; height: 1px; background: var(--brand-gold); }
 .cd-head-title { position: absolute; right: 75px; top: 24px; color: #F6F6F6; font-size: 16px; line-height: 25px; font-weight: 700; white-space: nowrap; }
 .cd-head-line { position: absolute; right: 75px; top: 53px; width: 130px; height: 1px; border-radius: 20px; background: linear-gradient(270deg, #C5A365, rgba(197,163,101,.4), rgba(197,163,101,0)); }
-.cd-head-num { position: absolute; right: 29px; top: 18px; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; padding-top: .12em; color: #E9E9E9; font-size: 14px; line-height: 1; font-weight: 700; }
+.cd-head-num { position: absolute; right: 29px; top: 18px; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; padding-top: 3.9px; color: #E9E9E9; font-size: 14px; line-height: 1; font-weight: 700; }
 .cd-head-toggle { position: absolute; left: 18px; top: 16px; width: 25px; height: 25px; padding: 0; border: 0; background: none; border-radius: 50%; }
 .cd-head-toggle img { width: 100%; height: 100%; transition: transform .3s ease-out; }
 .cd-head-toggle[aria-expanded="false"] img { transform: rotate(180deg); }
@@ -176,15 +176,15 @@
 
 /* plan days */
 .cd-days .cd-item-btn { align-items: center; gap: 12px; }
-.cd-item-num { flex: none; width: 28px; height: 28px; border-radius: 50%; background: #F5F7FB; border: .5px solid #E5E9F1; color: var(--brand); font-size: 12px; line-height: 19px; font-weight: 700; display: flex; align-items: center; justify-content: center; transition: background-color .3s ease-out, color .3s ease-out, box-shadow .3s ease-out; }
+.cd-item-num { flex: none; width: 28px; height: 28px; border-radius: 50%; background: #F5F7FB; border: .5px solid #E5E9F1; color: var(--brand); font-size: 12px; line-height: 19px; font-weight: 700; display: flex; align-items: center; justify-content: center; padding-top: 3.5px; transition: background-color .3s ease-out, color .3s ease-out, box-shadow .3s ease-out; }
 .cd-item-head { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
 .cd-days .cd-item-icon { align-self: flex-start; }
 .cd-item-head small { color: var(--brand); font-size: 12px; line-height: 19px; font-weight: 700; }
 .cd-item-head strong { color: var(--text); font-size: 12px; line-height: 18px; font-weight: 600; }
 .cd-days .cd-item-inner { padding-inline: 57px; }
 .cd-days .cd-item-inner p { color: #565656; font-size: 11px; line-height: 16.5px; font-weight: 400; margin-top: 4px; }
-/* one row always: the row may run into the end padding (Figma chips span the whole card on mobile) */
-.cd-chips { margin: 8px -40px 0 0; padding: 0 0 16px; display: flex; flex-wrap: nowrap; gap: 9px; }
+/* one row always, starting on the same line as the description text (right edge); on very narrow cards it may run into the left padding */
+.cd-chips { margin: 8px 0 0; padding: 0 0 16px; display: flex; flex-wrap: nowrap; gap: 9px; }
 .cd-chips li { flex: none; white-space: nowrap; display: flex; align-items: center; gap: 2px; height: 20px; padding: 0 6px; background: #fff; border-radius: 20px; color: #565656; font-size: 10px; line-height: 15px; font-weight: 600; }
 .cd-chips img { width: 10px; height: 10px; }
 .cd-days .cd-item.is-open { background: linear-gradient(180deg, #F8FAFC, #F0F7FF); border: .5px solid var(--brand); border-radius: 10px; box-shadow: 0 5.5px 13.8px rgba(32,74,122,.08); }
@@ -202,6 +202,26 @@
 .cd-faq .cd-item-inner { padding: 0 16px; }
 .cd-faq .cd-item-inner p { margin-top: 4px; padding: 6px 7px 10px; border-top: .5px solid rgba(88,129,175,.5); color: #565656; font-size: 12px; line-height: 19px; font-weight: 500; }
 .cd-faq .cd-item-inner p br { display: none; }
+
+/* mobile (< 768px): fine-tuning against the Figma accordion frames (3707:10357 … 3707:10638, 361px cards) */
+@media (max-width: 767.98px) {
+  /* closed day card: number circle sits on the top line (16.5px), same as the open card, not centred */
+  .cd-days .cd-item-btn { align-items: flex-start; }
+  /* open day card: soft 30% navy border, 161.47° gradient and the tighter shadow */
+  .cd-days .cd-item.is-open { background: linear-gradient(161.47deg, #F8FAFC 0%, #F0F7FF 100%); border-color: rgba(32,74,122,.3); box-shadow: 0 5.5px 6.9px rgba(32,74,122,.08); }
+  /* open FAQ card: question row starts 8px lower (circle 22px, text 24px from the top), 8px to the divider,
+     divider is lighter and spans the full card width, the answer text is the 323px column (padding, so the divider is not cut) */
+  .cd-faq .cd-item.is-open .cd-item-btn { align-items: flex-start; padding-bottom: 4px; }
+  .cd-faq .cd-item.is-open .cd-item-q { margin-top: 7px; }
+  .cd-faq .cd-item.is-open .cd-item-icon { margin-top: 5px; }
+  .cd-faq .cd-item-inner p { padding-block: 6px 16px; padding-inline: 0 max(0px, calc(100% - 323px)); border-top-color: rgba(88,129,175,.2); }
+}
+
+/* 1x screens (desktop window / DevTools): a .5px border is drawn as a full 1px line, so it looks twice as dark as in Figma (and on 2x–3x phones): halve the alpha there */
+@media (max-width: 767.98px) and (max-resolution: 1.49dppx) {
+  .cd-faq .cd-item-inner p { border-top-color: rgba(88,129,175,.1); }
+  .cd-days .cd-item.is-open { border-color: rgba(32,74,122,.15); }
+}
 
 /* ---------- 04 reviews slider ---------- */
 .cd-slider { margin-inline: -16px; }
@@ -259,7 +279,7 @@
   .cd-head-eyebrow i { width: 16px; height: 2px; }
   .cd-head-title { right: 162px; top: 42px; font-size: 21px; line-height: 33px; }
   .cd-head-line { right: 162px; top: 87px; width: 256px; height: 2px; }
-  .cd-head-num { right: 56px; top: 24px; width: 61px; height: 61px; font-size: 17px; }
+  .cd-head-num { right: 56px; top: 24px; width: 61px; height: 61px; font-size: 17px; padding-top: 4px; }
   .cd-head-toggle { left: 28px; top: 38px; width: 36px; height: 36px; }
 
   .cd-overview { padding-inline: 0; font-size: 14px; line-height: 26px; }
