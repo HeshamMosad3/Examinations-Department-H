@@ -34,9 +34,22 @@
 .cd-select { appearance: none; -webkit-appearance: none; background: #fff url('/assets/website/icons/course-details/dialog/chevron.svg') no-repeat left 16px center; background-size: 24px 12px; cursor: pointer; }
 .cd-select:invalid { color: #949494; }
 .cd-select option { color: var(--text); }
+/* Customisable select (Chrome / Edge 135+): same closed look, but the list follows Figma (3710:8390 / 3710:8424, Forms):
+   56px rows, 14px side padding, hover/selected row #E6F2FA with brand text. Other browsers keep their native list. */
+@supports (appearance: base-select) {
+  .cd-select, .cd-select::picker(select) { appearance: base-select; }
+  .cd-select { display: flex; align-items: center; justify-content: space-between; gap: 10px; background-image: none; }
+  .cd-select::picker-icon { content: ''; flex: none; width: 24px; height: 12px; background: url('/assets/website/icons/course-details/dialog/chevron.svg') no-repeat center / 24px 12px; transition: rotate .2s ease-out; }
+  .cd-select:open::picker-icon { rotate: 180deg; }
+  .cd-select::picker(select) { margin-block: 4px; padding: 0; border: 1px solid #DADADA; border-radius: 10px; background: #fff; box-shadow: 0 8px 24px rgba(32,74,122,.12); max-height: 280px; overflow-y: auto; }
+  .cd-select option { display: flex; align-items: center; gap: 10px; min-height: 56px; padding: 0 14px; background: #fff; color: var(--text); font: 500 14px/19px var(--font-messiri); cursor: pointer; transition: background-color .15s ease-out, color .15s ease-out; }
+  .cd-select option[hidden] { display: none; }
+  .cd-select option::checkmark { display: none; }
+  .cd-select option:hover, .cd-select option:focus-visible, .cd-select option:checked { background: #E6F2FA; color: var(--brand); outline: 0; }
+}
 .cd-textarea { height: 96px; resize: none; }
 
-/* training place: only relevant for on-site / hybrid training. Hidden until then; the method select takes the whole row and
+/* training place: only relevant for on-site training. Hidden until then; the method select takes the whole row and
    shrinks (desktop) / the field slides open (mobile) when it appears. */
 .cd-pair { grid-column: 1 / -1; display: flex; flex-direction: column; gap: 18px; min-width: 0; }
 .cd-pair > .cd-field { flex: 1 1 0; }

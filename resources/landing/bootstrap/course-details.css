@@ -195,7 +195,8 @@
 .cd-days .cd-item.is-open .cd-item-inner { padding-inline: 56.5px; }
 
 /* FAQ */
-.cd-faq .cd-item-btn { gap: 38px; padding: 16px; }
+.cd-faq .cd-item-btn { gap: 38px; padding: 16px; transition: padding-bottom .3s ease-out; }
+.cd-faq .cd-item-q, .cd-faq .cd-item-icon { transition: margin-top .3s ease-out; }
 .cd-item-q { flex: 1; min-width: 0; color: var(--text); font-size: 12px; line-height: 18px; font-weight: 600; }
 .cd-faq .cd-item { border-color: #CDD5E5; }
 .cd-faq .cd-item.is-open { background: #EFF7FF; border: .41px solid #A7CEFA; }
@@ -315,7 +316,9 @@
   .cd-faq .cd-item-btn { padding: 17px 19px; gap: 38px; }
   .cd-item-q { font-size: 14px; line-height: 21px; }
   .cd-faq .cd-item-inner { padding: 0 19px; }
-  .cd-faq .cd-item-inner p { margin-top: 6px; padding: 6px 0 13px 30px; font-size: 12px; line-height: 18px; }
+  /* open FAQ (Figma 3707:10933/10950/10967): divider 54px from the top, answer 12px under it, lighter .8px line */
+  .cd-faq .cd-item.is-open .cd-item-btn { padding-bottom: 6.5px; }
+  .cd-faq .cd-item-inner p { margin-top: 6px; padding: 11.5px 0 18px 30px; font-size: 12px; line-height: 18px; border-top: .8px solid rgba(159,195,235,.2); }
   .cd-faq .cd-item-inner p br { display: inline; }
   .cd-faq .cd-item.is-open { border-width: .8px; }
 
@@ -450,4 +453,9 @@
   .cd-slider { margin-inline: 5px 0; width: 714px; }
   .cd-review { width: calc((100% - 44px) / 3); }
   .cd-dots { margin-top: 39px; }
+}
+
+/* 1x desktop screens: a .8px border is drawn as a full 1px line (Figma shows ~.16 of ink), so lighten the FAQ divider there */
+@media (min-width: 768px) and (max-resolution: 1.49dppx) {
+  .cd-faq .cd-item-inner p { border-top-color: rgba(159,195,235,.16); }
 }
