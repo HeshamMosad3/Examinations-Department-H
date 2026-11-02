@@ -60,8 +60,8 @@ $(function () {
     var dx = e.clientX - startX;
     startX = null;
     if (Math.abs(dx) < 40) return;
-    // RTL: dragging to the left shows the next card
-    index = Math.max(0, Math.min(last(), index + (dx < 0 ? 1 : -1)));
+    // RTL: the next cards sit on the left, so dragging right pulls them in (content follows the finger)
+    index = Math.max(0, Math.min(last(), index + (dx > 0 ? 1 : -1)));
     render();
   });
 
