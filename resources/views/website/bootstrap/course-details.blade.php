@@ -74,7 +74,12 @@
 
         <div class="cd-enroll">
           <div class="cd-enroll-media">
-            <img src="{{ $img }}/{{ $course['enroll']['img'] }}" alt="" class="cd-enroll-img" loading="lazy" />
+            @php
+                // optional Figma placement of the photo inside the frame: m = mobile, d = desktop, each [width, height, left, top] in %
+                $pos = $e['img_pos'] ?? null;
+                $posStyle = $pos ? sprintf('--mw:%s%%;--mh:%s%%;--mx:%s%%;--my:%s%%;--dw:%s%%;--dh:%s%%;--dx:%s%%;--dy:%s%%', ...$pos['m'], ...$pos['d']) : null;
+            @endphp
+            <img src="{{ $img }}/{{ $course['enroll']['img'] }}" alt="" class="cd-enroll-img{{ $pos ? ' has-pos' : '' }}" @if ($posStyle) style="{{ $posStyle }}" @endif loading="lazy" />
             <span class="cd-enroll-shade" aria-hidden="true"></span>
             <div class="cd-enroll-top">
               <span class="cd-live"><i aria-hidden="true"></i>{{ $e['status'] }}</span>
