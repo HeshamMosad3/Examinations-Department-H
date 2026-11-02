@@ -158,13 +158,13 @@
 .info-ico img { display: block; width: 14px; height: 14px; }
 
 .trust-box {
-  background: linear-gradient(180deg, rgba(8, 22, 58, .92), rgba(4, 38, 92, .88)); gap: 6px;
+  background: linear-gradient(180deg, rgba(8, 22, 58, .92), rgba(4, 38, 92, .88)); gap: 6px; padding: 10.9px;
   -webkit-backdrop-filter: blur(9px); backdrop-filter: blur(9px);
 }
-.trust-row { display: flex; align-items: center; gap: 8px; min-height: 33px; }
+.trust-row { display: flex; align-items: flex-start; gap: 8px; min-height: 33px; } /* Figma 3671:9481 / 3671:10470: the round icon sits on the first text line */
 .trust-row strong { display: block; color: #F6F6F6; font-size: 11px; font-weight: 700; line-height: 17px; }
 .trust-row small { display: block; color: #F6F6F6; font-size: 8px; font-weight: 500; line-height: 12px; white-space: nowrap; }
-.trust-row--accr { position: relative; padding-top: 5.4px; border-top: 1px solid rgba(255, 255, 255, .2); min-height: 40px; }
+.trust-row--accr { position: relative; padding-top: 6.33px; border-top: 1px solid rgba(255, 255, 255, .2); min-height: 40px; }
 .trust-row--accr small { color: #FDE68A; }
 .trust-row--accr::after { content: ''; position: absolute; bottom: -1px; inset-inline-start: 0; width: 50px; height: 1px; border-radius: 9999px; background: var(--brand-gold); }
 .trust-ico { width: 18px; height: 18px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
@@ -286,11 +286,11 @@
   .info-ico { width: 24px; height: 24px; border-radius: 8px; }
   .info-ico img { width: 16px; height: 16px; }
 
-  .trust-box { padding: 10px; gap: 10px; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
-  .trust-row { min-height: 37px; }
+  .trust-box { padding: 11px; gap: 10px; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+  .trust-row { min-height: 37px; align-items: flex-start; } /* Figma 3671:10470: the round icon sits on the first text line, not centred between the two */
   .trust-row strong { font-size: 12px; line-height: 19px; }
   .trust-row small { font-size: 9px; line-height: 14px; }
-  .trust-row--accr { padding-top: 6px; min-height: 46px; }
+  .trust-row--accr { padding-top: 7px; min-height: 46px; }
   .trust-row--accr::after { width: 56px; height: 2px; bottom: -2px; }
   .trust-ico { width: 20px; height: 20px; }
   .trust-ico img { width: 12px; height: 12px; }
