@@ -61,7 +61,7 @@
 .cd-share { width: 25px; height: 25px; padding: 0; border: 0; border-radius: 50%; background: none; transition: opacity .3s ease-out; }
 .cd-share img { width: 100%; height: 100%; }
 .cd-share:hover { opacity: .85; }
-.cd-enroll-title { position: absolute; inset-inline: 16px 24px; bottom: 48px; display: flex; flex-direction: column; align-items: flex-start; color: #F6F6F6; font-size: clamp(16px, 5.1vw, 20px); line-height: 1.55; font-weight: 700; }
+.cd-enroll-title { position: absolute; inset-inline: 16px 15px; bottom: 48px; display: flex; flex-direction: column; align-items: flex-start; color: #F6F6F6; font-size: clamp(16px, 5.1vw, 20px); line-height: 1.55; font-weight: 700; }
 .cd-enroll-title strong { font-weight: 700; }
 .cd-enroll-bar { margin-top: 3px; width: 55px; height: 4px; background: #5188C7; border-radius: 10px; box-shadow: 0 1px 2px rgba(0,0,0,.05); }
 
@@ -459,3 +459,9 @@
 @media (min-width: 768px) and (max-resolution: 1.49dppx) {
   .cd-faq .cd-item-inner p { border-top-color: rgba(159,195,235,.16); }
 }
+
+/* title written as one sentence (e.g. "إدارة الموارد البشرية الحديثة CBP"): the latin part flows with the text at the same size */
+.cd-title.cd-title--inline { display: block; text-align: center; }
+.cd-title.cd-title--inline bdi { font-size: inherit; line-height: inherit; }
+@media (min-width: 768px) { .cd-title.cd-title--inline { text-align: start; } }
+@media (min-width: 1200px) { .cd-title.cd-title--inline { line-height: 68px; } }

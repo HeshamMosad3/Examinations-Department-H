@@ -42,13 +42,18 @@
     <section class="cd-hero" aria-labelledby="cd-title">
       <div class="cd-hero-text">
         <span class="cd-tag">{{ $course['tag'] }}<i aria-hidden="true"></i></span>
-        <h1 id="cd-title" class="cd-title"><span>{{ $course['title'] }}</span> <bdi>{{ $course['title_en'] }}</bdi></h1>
+        @if (! empty($course['title_inline']))
+          {{-- one running title ("… الحديثة CBP"): the English part stays in the text flow, same size --}}
+          <h1 id="cd-title" class="cd-title cd-title--inline"><span>{{ $course['title'] }} <bdi>{{ $course['title_en'] }}</bdi></span></h1>
+        @else
+          <h1 id="cd-title" class="cd-title"><span>{{ $course['title'] }}</span> <bdi>{{ $course['title_en'] }}</bdi></h1>
+        @endif
         <p class="cd-lead">{{ $course['lead'] }}</p>
       </div>
 
       <div class="cd-hero-media">
         <span class="cd-hero-frame" aria-hidden="true"></span>
-        <img class="cd-hero-img" src="{{ $img }}/{{ $course['hero_img'] }}" alt="فريق عمل يتعاون في تخطيط وإدارة مشروع" width="526" height="314" fetchpriority="high" />
+        <img class="cd-hero-img" src="{{ $img }}/{{ $course['hero_img'] }}" alt="{{ $course['hero_alt'] }}" width="526" height="314" fetchpriority="high" />
         <div class="cd-start">
           <img src="{{ $ico }}/badge-calendar.svg" alt="" aria-hidden="true" />
           <span><small>{{ $course['start_label'] }}</small><strong>{{ $course['start_date'] }}</strong></span>
