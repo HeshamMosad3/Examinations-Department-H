@@ -225,7 +225,7 @@
 }
 
 /* ---------- 04 reviews slider ---------- */
-.cd-slider { margin-inline: -16px; }
+.cd-slider { margin-inline: -16px; touch-action: pan-y; } /* pan-y: vertical scroll stays native, horizontal swipes reach the slider script */
 .cd-viewport { overflow: hidden; padding: 0 0 12px; }
 .cd-track { display: flex; gap: 17px; padding-inline: max(39px, calc((100vw - 315px) / 2)); transition: transform .4s ease-out; will-change: transform; }
 .cd-review { position: relative; flex: none; width: min(315px, calc(100vw - 78px)); min-height: 176px; padding: 20px; background: #FEFEFE; border: .5px solid #E5E9F1; border-radius: 14px; opacity: .55; transform: scale(.946); transition: opacity .4s ease-out, transform .4s ease-out; }
