@@ -53,7 +53,14 @@
 
       <div class="cd-hero-media">
         <span class="cd-hero-frame" aria-hidden="true"></span>
-        <img class="cd-hero-img" src="{{ $img }}/{{ $course['hero_img'] }}" alt="{{ $course['hero_alt'] }}" width="526" height="314" fetchpriority="high" />
+        @if (! empty($course['hero_pos']))
+          {{-- hero photo placed as drawn in the mobile Figma frame: [width %, height %, left %, top %] of the frame (desktop keeps object-fit: cover) --}}
+          <div class="cd-hero-img cd-hero-img--wrap" style="--hw:{{ $course['hero_pos'][0] }}%;--hh:{{ $course['hero_pos'][1] }}%;--hx:{{ $course['hero_pos'][2] }}%;--hy:{{ $course['hero_pos'][3] }}%">
+            <img class="cd-hero-photo" src="{{ $img }}/{{ $course['hero_img'] }}" alt="{{ $course['hero_alt'] }}" width="526" height="314" fetchpriority="high" />
+          </div>
+        @else
+          <img class="cd-hero-img" src="{{ $img }}/{{ $course['hero_img'] }}" alt="{{ $course['hero_alt'] }}" width="526" height="314" fetchpriority="high" />
+        @endif
         <div class="cd-start">
           <img src="{{ $ico }}/badge-calendar.svg" alt="" aria-hidden="true" />
           <span><small>{{ $course['start_label'] }}</small><strong>{{ $course['start_date'] }}</strong></span>
@@ -77,7 +84,7 @@
             @php
                 // optional Figma placement of the photo inside the frame: m = mobile, d = desktop, each [width, height, left, top] in %
                 $pos = $e['img_pos'] ?? null;
-                $posStyle = $pos ? sprintf('--mw:%s%%;--mh:%s%%;--mx:%s%%;--my:%s%%;--dw:%s%%;--dh:%s%%;--dx:%s%%;--dy:%s%%', ...$pos['m'], ...$pos['d']) : null;
+                $posStyle = $pos ? (isset($pos['m']) ? sprintf('--mw:%s%%;--mh:%s%%;--mx:%s%%;--my:%s%%;--mf:fill;', ...$pos['m']) : '--mw:100%;--mh:100%;--mx:0;--my:0;--mf:cover;') . sprintf('--dw:%s%%;--dh:%s%%;--dx:%s%%;--dy:%s%%', ...$pos['d']) : null;
             @endphp
             <img src="{{ $img }}/{{ $course['enroll']['img'] }}" alt="" class="cd-enroll-img{{ $pos ? ' has-pos' : '' }}" @if ($posStyle) style="{{ $posStyle }}" @endif loading="lazy" />
             <span class="cd-enroll-shade" aria-hidden="true"></span>
@@ -167,7 +174,7 @@
           <div id="cd-gains" class="cd-collapse is-open">
             <ul class="cd-gains">
               @foreach ($course['gains'] as $g)
-                <li><span>{{ $g }}</span><img src="{{ $ico }}/tick-badge.svg" alt="" aria-hidden="true" /></li>
+                <li><span>{!! nl2br(e($g)) !!}</span><img src="{{ $ico }}/tick-badge.svg" alt="" aria-hidden="true" /></li>
               @endforeach
             </ul>
           </div>

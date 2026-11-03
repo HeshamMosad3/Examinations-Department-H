@@ -54,7 +54,7 @@
 .cd-enroll { background: #fff; border: .5px solid #DEE4EB; border-radius: 10px; padding: 17px 20.5px 24px 23.5px; }
 .cd-enroll-media { position: relative; aspect-ratio: 316 / 197; border-radius: 11px; overflow: hidden; }
 .cd-enroll-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.cd-enroll-img.has-pos { inset: auto; max-width: none; width: var(--mw); height: var(--mh); left: var(--mx); top: var(--my); object-fit: fill; }
+.cd-enroll-img.has-pos { inset: auto; max-width: none; width: var(--mw); height: var(--mh); left: var(--mx); top: var(--my); object-fit: var(--mf, fill); }
 .cd-enroll-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(22,54,85,.18), rgba(12,36,60,.9)); }
 .cd-enroll-top { position: absolute; inset: 14px 17px auto 16px; display: flex; justify-content: space-between; align-items: center; }
 .cd-live { display: flex; align-items: center; gap: 6px; height: 25px; padding: 0 10px; background: rgba(255,255,255,.94); border-radius: 20px; color: var(--brand); font-size: 10px; line-height: 16px; font-weight: 700; }
@@ -157,7 +157,7 @@
 .cd-collapse.is-open { grid-template-rows: 1fr; }
 .cd-collapse > * { min-height: 0; overflow: hidden; }
 .cd-gains { padding: 0; display: flex; flex-direction: column; gap: 12px; }
-.cd-gains li { min-height: 50px; display: flex; align-items: center; gap: 8px; padding: 14px; background: #E9EDF2; border: .8px solid #DEE4EB; border-radius: 8px; color: var(--text); font-size: 12px; line-height: 18px; font-weight: 600; }
+.cd-gains li { min-height: 50px; display: flex; align-items: center; gap: 8px; padding: 6.2px 14px; background: #E9EDF2; border: .8px solid #DEE4EB; border-radius: 8px; color: var(--text); font-size: 12px; line-height: 18px; font-weight: 600; }
 .cd-gains li img { flex: none; width: 20px; height: 20px; }
 .cd-gains li span { flex: 1; }
 
@@ -293,7 +293,7 @@
   .cd-audience p br { display: inline; }
 
   .cd-gains { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 19px; row-gap: 25px; }
-  .cd-gains li { min-height: 58px; gap: 11px; border-radius: 7px; }
+  .cd-gains li { min-height: 58px; gap: 11px; padding-block: 10.2px; border-radius: 7px; }
   .cd-gains li img { width: 28px; height: 28px; }
 
   .cd-acc { gap: 14px; }
@@ -466,3 +466,11 @@
 .cd-title.cd-title--inline bdi { font-size: inherit; line-height: inherit; }
 @media (min-width: 768px) { .cd-title.cd-title--inline { text-align: start; } }
 @media (min-width: 1200px) { .cd-title.cd-title--inline { line-height: 68px; } }
+
+/* photo placement on tablet / desktop (values copied from the desktop Figma frame) */
+@media (min-width: 768px) { .cd-enroll-img.has-pos { width: var(--dw); height: var(--dh); left: var(--dx); top: var(--dy); object-fit: fill; } }
+
+/* hero photo with a Figma placement (mobile): a clipped frame holding a bigger photo; tablet/desktop keep the plain cover crop */
+.cd-hero-img--wrap { overflow: hidden; }
+.cd-hero-img--wrap .cd-hero-photo { position: absolute; display: block; max-width: none; width: var(--hw); height: var(--hh); left: var(--hx); top: var(--hy); }
+@media (min-width: 768px) { .cd-hero-img--wrap .cd-hero-photo { width: 100%; height: 100%; left: 0; top: 0; object-fit: cover; } }
