@@ -1,6 +1,6 @@
 @extends('website.bootstrap.layouts.app', ['active' => 'courses'])
 
-@section('title', $course['title'].' '.$course['title_en'].' | دار الرؤى للتدريب')
+@section('title', trim($course['title'].' '.$course['title_en']).' | دار الرؤى للتدريب')
 @section('description', $course['lead'])
 
 @push('vite')
@@ -44,9 +44,9 @@
         <span class="cd-tag">{{ $course['tag'] }}<i aria-hidden="true"></i></span>
         @if (! empty($course['title_inline']))
           {{-- one running title ("… الحديثة CBP"): the English part stays in the text flow, same size --}}
-          <h1 id="cd-title" class="cd-title cd-title--inline"><span>{{ $course['title'] }} <bdi>{{ $course['title_en'] }}</bdi></span></h1>
+          <h1 id="cd-title" class="cd-title cd-title--inline"><span>{{ $course['title'] }} @if ($course['title_en'] !== '')<bdi>{{ $course['title_en'] }}</bdi>@endif</span></h1>
         @else
-          <h1 id="cd-title" class="cd-title"><span>{{ $course['title'] }}</span> <bdi>{{ $course['title_en'] }}</bdi></h1>
+          <h1 id="cd-title" class="cd-title"><span>{{ $course['title'] }}</span> @if ($course['title_en'] !== '')<bdi>{{ $course['title_en'] }}</bdi>@endif</h1>
         @endif
         <p class="cd-lead">{{ $course['lead'] }}</p>
       </div>
@@ -94,7 +94,7 @@
             </div>
             <div class="cd-enroll-title">
               <strong>دورة {{ $course['title'] }}</strong>
-              <strong>{{ $course['title_en'] }}</strong>
+              @if ($course['title_en'] !== '')<strong>{{ $course['title_en'] }}</strong>@endif
               <span class="cd-enroll-bar" aria-hidden="true"></span>
             </div>
           </div>

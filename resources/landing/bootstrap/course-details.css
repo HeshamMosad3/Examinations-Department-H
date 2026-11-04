@@ -151,6 +151,7 @@
 .cd-audience h3 { color: var(--brand); font-size: 12px; line-height: 15px; font-weight: 700; }
 .cd-audience p { color: #565656; font-size: 12px; line-height: 18.75px; font-weight: 400; }
 .cd-audience p br { display: none; }
+.cd-gains li br { display: none; }
 .cd-audience .cd-aud-m br { display: inline; }
 
 /* ---------- 02 gains (collapsible) ---------- */
@@ -160,7 +161,7 @@
 .cd-gains { padding: 0; display: flex; flex-direction: column; gap: 12px; }
 .cd-gains li { min-height: 50px; display: flex; flex-direction: row-reverse; align-items: center; gap: 8px; padding: 6.2px 14px; background: #E9EDF2; border: .8px solid #DEE4EB; border-radius: 8px; color: var(--text); font-size: 12px; line-height: 18px; font-weight: 600; }
 .cd-gains li img { flex: none; width: 20px; height: 20px; }
-.cd-gains li span { flex: 1; }
+.cd-gains li span { flex: 1; margin-left: -2px; } /* Figma text is nowrap and overhangs the 14px padding by ~1px */
 
 /* ---------- Accordions (03 plan + 05 FAQ) ---------- */
 .cd-acc { display: flex; flex-direction: column; gap: 14px; }
@@ -292,6 +293,8 @@
   .cd-audience h3 { font-size: 17px; line-height: 27px; }
   .cd-audience p { font-size: 14px; line-height: 22px; font-weight: 500; }
   .cd-audience p br { display: inline; }
+  .cd-gains li br { display: inline; }
+  .cd-gains li span { margin-left: 0; }
 
   .cd-gains { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 19px; row-gap: 25px; }
   .cd-gains li { min-height: 58px; gap: 11px; padding-block: 10.2px; border-radius: 7px; }
