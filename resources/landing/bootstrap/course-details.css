@@ -115,7 +115,7 @@
 .cd-help-text { grid-area: text; display: flex; flex-direction: column; gap: 5px; min-width: 0; }
 .cd-help-text strong { color: var(--text); font-size: 12px; line-height: 19px; font-weight: 600; }
 .cd-help-text span { color: #565656; font-size: 11px; line-height: 17px; font-weight: 500; }
-.cd-wa { grid-area: wa; position: relative; left: -6px; justify-self: center; width: 290px; max-width: 100%; height: 33px; display: flex; align-items: center; justify-content: space-between; padding: 0 22.4px; background: #24A17A; border: .6px solid #10B981; border-radius: 10px; color: #F6F6F6; text-decoration: none; transition: background-color .3s ease-out; }
+.cd-wa { grid-area: wa; position: relative; left: -6px; justify-self: center; width: min(290px, calc(100% - 11px)); max-width: 100%; height: 33px; display: flex; align-items: center; justify-content: space-between; padding: 0 22.4px; background: #24A17A; border: .6px solid #10B981; border-radius: 10px; color: #F6F6F6; text-decoration: none; transition: background-color .3s ease-out; }
 .cd-wa:hover { background: #1F8D6C; color: #F6F6F6; }
 .cd-wa-label { display: flex; align-items: center; gap: 10px; font-size: 10px; line-height: 16px; font-weight: 500; }
 .cd-wa-label img { width: 14px; height: 14px; }
