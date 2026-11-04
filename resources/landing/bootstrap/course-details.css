@@ -144,20 +144,21 @@
 
 /* ---------- 01 overview ---------- */
 .cd-overview { padding-inline: 4px; color: #565656; font-size: 12px; line-height: 22px; font-weight: 600; }
-.cd-audience { margin-top: 8px; position: relative; display: flex; align-items: flex-start; gap: 6px; padding: 14px 8px; background: #E9EDF2; border-right: 1.2px solid var(--brand); border-radius: 4px 0 0 4px; }
+.cd-audience { margin-top: 8px; position: relative; display: flex; align-items: flex-start; gap: 6px; padding: 14px 8px; background: #E9EDF2; border-right: 2px solid var(--brand); border-radius: 4px 0 0 4px; }
 .cd-audience-ico { flex: none; width: 28px; height: 28px; }
 .cd-audience-ico img { width: 100%; height: 100%; }
-.cd-audience div { display: flex; flex-direction: column; gap: 4px; }
-.cd-audience h3 { color: var(--brand); font-size: 12px; line-height: 19px; font-weight: 700; }
-.cd-audience p { color: #565656; font-size: 12px; line-height: 19px; font-weight: 400; }
+.cd-audience div { display: flex; flex-direction: column; gap: 5px; }
+.cd-audience h3 { color: var(--brand); font-size: 12px; line-height: 15px; font-weight: 700; }
+.cd-audience p { color: #565656; font-size: 12px; line-height: 18.75px; font-weight: 400; }
 .cd-audience p br { display: none; }
+.cd-audience .cd-aud-m br { display: inline; }
 
 /* ---------- 02 gains (collapsible) ---------- */
 .cd-collapse { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .3s ease-out; }
 .cd-collapse.is-open { grid-template-rows: 1fr; }
 .cd-collapse > * { min-height: 0; overflow: hidden; }
 .cd-gains { padding: 0; display: flex; flex-direction: column; gap: 12px; }
-.cd-gains li { min-height: 50px; display: flex; align-items: center; gap: 8px; padding: 6.2px 14px; background: #E9EDF2; border: .8px solid #DEE4EB; border-radius: 8px; color: var(--text); font-size: 12px; line-height: 18px; font-weight: 600; }
+.cd-gains li { min-height: 50px; display: flex; flex-direction: row-reverse; align-items: center; gap: 8px; padding: 6.2px 14px; background: #E9EDF2; border: .8px solid #DEE4EB; border-radius: 8px; color: var(--text); font-size: 12px; line-height: 18px; font-weight: 600; }
 .cd-gains li img { flex: none; width: 20px; height: 20px; }
 .cd-gains li span { flex: 1; }
 

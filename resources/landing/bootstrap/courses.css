@@ -113,6 +113,7 @@
 /* Cover */
 .course-cover { position: relative; height: 329px; background: #020617; overflow: hidden; flex-shrink: 0; }
 .course-cover-img { position: absolute; top: 0; left: 0; width: 100%; min-height: 100%; object-fit: cover; object-position: top center; }
+.course-cover-img.has-pos { width: var(--mw); height: var(--mh); min-height: 0; left: var(--mx); top: var(--my); object-fit: fill; }
 .course-cover-shade {
   position: absolute; inset: 0;
   /* Figma overlay: darkest at the bottom (behind the info boxes), photo shows through at the top */
@@ -259,6 +260,7 @@
   .course-card { gap: 17px; padding-bottom: 20px; border-radius: 24px; min-height: 725px; }
 
   .course-cover { height: 359px; }
+  .course-cover-img.has-pos { width: var(--dw); height: var(--dh); left: var(--dx); top: var(--dy); }
   .course-cover-shade { background: linear-gradient(0deg, rgba(3, 14, 28, .92) 0%, rgba(17, 43, 73, .5) 55%, rgba(15, 23, 42, .18) 100%); }
   .course-cover-inner { padding: 16px 16px 24px; }
 

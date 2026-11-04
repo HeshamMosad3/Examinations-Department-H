@@ -90,7 +90,9 @@
           <div class="col-12 col-md-6 col-xl-4 course-col" data-search="{{ $c['title'] }} {{ implode(' ', $c['cover']) }} {{ $c['desc'] }}">
             <article class="course-card">
               <div class="course-cover">
-                <img src="{{ $img }}/{{ $c['img'] }}" alt="" class="course-cover-img" loading="lazy" />
+                @php($p = $c['pos'] ?? null)
+                <img src="{{ $img }}/{{ $c['img'] }}" alt="" class="course-cover-img{{ $p ? ' has-pos' : '' }}" loading="lazy"
+                  @if ($p) style="--mw:{{ $p['m'][0] }}%;--mh:{{ $p['m'][1] }}%;--mx:{{ $p['m'][2] }}%;--my:{{ $p['m'][3] }}%;--dw:{{ $p['d'][0] }}%;--dh:{{ $p['d'][1] }}%;--dx:{{ $p['d'][2] }}%;--dy:{{ $p['d'][3] }}%" @endif />
                 <span class="course-cover-shade" aria-hidden="true"></span>
 
                 <div class="course-cover-inner">

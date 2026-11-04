@@ -163,7 +163,13 @@
             <span class="cd-audience-ico"><img src="{{ $ico }}/users.svg" alt="" aria-hidden="true" /></span>
             <div>
               <h3>{{ $course['audience_title'] }}</h3>
-              <p>{!! nl2br(e($course['audience'])) !!}</p>
+              @if (! empty($course['audience_m']))
+                {{-- phone frame breaks the sentence by hand; tablet/desktop wrap it naturally --}}
+                <p class="cd-aud-m d-md-none">{!! nl2br(e($course['audience_m'])) !!}</p>
+                <p class="d-none d-md-block">{!! nl2br(e($course['audience'])) !!}</p>
+              @else
+                <p>{!! nl2br(e($course['audience'])) !!}</p>
+              @endif
             </div>
           </div>
         </section>
