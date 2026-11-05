@@ -151,7 +151,7 @@
 .cd-audience h3 { color: var(--brand); font-size: 12px; line-height: 15px; font-weight: 700; }
 .cd-audience p { color: #565656; font-size: 12px; line-height: 18.75px; font-weight: 400; }
 .cd-audience p br { display: none; }
-.cd-gains li br { display: none; }
+@media (min-width: 372px) { .cd-audience .cd-aud-m br { display: inline; } } /* hand breaks only where the 277px line fits (393 frame); narrower phones wrap naturally */
 .cd-audience .cd-aud-m br { display: inline; }
 
 /* ---------- 02 gains (collapsible) ---------- */
@@ -162,6 +162,7 @@
 .cd-gains li { min-height: 50px; display: flex; flex-direction: row-reverse; align-items: center; gap: 8px; padding: 6.2px 14px; background: #E9EDF2; border: .8px solid #DEE4EB; border-radius: 8px; color: var(--text); font-size: 12px; line-height: 18px; font-weight: 600; }
 .cd-gains li img { flex: none; width: 20px; height: 20px; }
 .cd-gains li span { flex: 1; margin-left: -2px; } /* Figma text is nowrap and overhangs the 14px padding by ~1px */
+.cd-gains li br { display: none; } /* the hand breaks are the desktop Figma wraps; the phone frame keeps each gain on its own flow */
 
 /* ---------- Accordions (03 plan + 05 FAQ) ---------- */
 .cd-acc { display: flex; flex-direction: column; gap: 14px; }
@@ -228,17 +229,17 @@
 }
 
 /* ---------- 04 reviews slider ---------- */
-.cd-slider { margin-inline: -16px; touch-action: pan-y; } /* pan-y: vertical scroll stays native, horizontal swipes reach the slider script */
-.cd-viewport { overflow: hidden; padding: 0 0 12px; }
+.cd-slider { margin: 4px -16px 0; touch-action: pan-y; } /* pan-y: vertical scroll stays native, horizontal swipes reach the slider script */
+.cd-viewport { overflow: hidden; padding: 0 0 10px; }
 .cd-track { display: flex; gap: 17px; padding-inline: max(39px, calc((100vw - 315px) / 2)); transition: transform .4s ease-out; will-change: transform; }
-.cd-review { position: relative; flex: none; width: min(315px, calc(100vw - 78px)); min-height: 176px; padding: 20px; background: #FEFEFE; border: .5px solid #E5E9F1; border-radius: 14px; opacity: .55; transform: scale(.946); transition: opacity .4s ease-out, transform .4s ease-out; }
+.cd-review { position: relative; flex: none; width: min(315px, calc(100vw - 78px)); min-height: 176px; padding: 20px; background: #FEFEFE; border: .5px solid #AFCAEA; border-radius: 14px; opacity: .55; transform: scale(.946); transition: opacity .4s ease-out, transform .4s ease-out; }
 .cd-review.is-active { opacity: 1; transform: none; }
 .cd-review blockquote { color: var(--text); font-size: 14px; line-height: 21px; font-weight: 400; }
 .cd-quote { position: absolute; left: 20px; top: 76px; color: rgba(184,147,54,.2); font-family: var(--font-cairo); font-size: 39px; line-height: 39px; font-weight: 900; }
-.cd-stars { margin-top: 14px; height: 24px; display: flex; align-items: center; justify-content: flex-start; gap: 4px; }
+.cd-stars { margin-top: 14px; height: 24px; display: flex; align-items: flex-start; justify-content: flex-start; gap: 4px; }
 .cd-stars img { width: 15px; height: 15px; }
-.cd-review figcaption { margin-top: 0; display: flex; align-items: center; gap: 9px; }
-.cd-review figcaption img { flex: none; width: 40px; height: 40px; border-radius: 50%; border: 1.6px solid var(--brand); object-fit: cover; background: #EFF3F8; }
+.cd-review figcaption { margin-top: 15px; display: flex; align-items: center; gap: 9px; }
+.cd-review figcaption img { flex: none; width: 40px; height: 40px; border-radius: 50%; border: 1.6px solid rgba(32,74,122,.3); object-fit: cover; background: #EFF3F8; }
 .cd-review figcaption span { display: flex; flex-direction: column; }
 .cd-review figcaption strong { color: var(--brand); font-size: 14px; line-height: 22px; font-weight: 700; }
 .cd-review figcaption small { color: #565656; font-size: 12px; line-height: 19px; font-weight: 500; }
@@ -297,7 +298,7 @@
   .cd-gains li span { margin-left: 0; }
 
   .cd-gains { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 19px; row-gap: 25px; }
-  .cd-gains li { min-height: 58px; gap: 11px; padding-block: 10.2px; border-radius: 7px; }
+  .cd-gains li { min-height: 58px; gap: 11px; padding-block: 10.2px; border-radius: 7px; border-color: transparent; }
   .cd-gains li img { width: 28px; height: 28px; }
 
   .cd-acc { gap: 14px; }
@@ -313,7 +314,7 @@
   .cd-chips { margin: 12.35px 0 0; padding-bottom: 17px; gap: 6.5px; }
   .cd-chips li { height: 25px; padding: 0 7.3px; gap: 3.65px; border-radius: 18px; font-size: 12px; line-height: 18px; }
   .cd-chips img { width: 16px; height: 16px; }
-  .cd-days .cd-item.is-open { border-width: 1px; box-shadow: 0 11px 27px rgba(32,74,122,.08); }
+  .cd-days .cd-item.is-open { border-width: 1px; border-color: rgba(32,74,122,.3); box-shadow: 0 11px 27px rgba(32,74,122,.08); }
   .cd-days .cd-item.is-open .cd-item-num { width: 38px; height: 38px; box-shadow: 0 0 0 3px rgba(32,74,122,.09); }
   .cd-days .cd-item.is-open .cd-item-btn { padding-inline: 27px; }
 
@@ -328,13 +329,13 @@
   .cd-faq .cd-item.is-open { border-width: .8px; }
 
   /* reviews: 2 cards per view (3 from 1200px) */
-  .cd-slider { margin-inline: 0; width: 100%; }
+  .cd-slider { margin: 0; width: 100%; }
   .cd-viewport { padding-bottom: 0; }
   .cd-track { gap: 22px; padding-inline: 0; }
-  .cd-review { width: calc((100% - 22px) / 2); min-height: 200px; padding: 26px 18px 18px 29px; display: flex; flex-direction: column; opacity: 1; transform: none; border-width: 1px; }
+  .cd-review { width: calc((100% - 22px) / 2); min-height: 200px; padding: 26px 18px 18px 29px; display: flex; flex-direction: column; opacity: 1; transform: none; border-width: 1px; border-color: #D7DEE9; }
   .cd-review blockquote { font-size: 12px; line-height: 18px; }
   .cd-quote { left: 14px; top: auto; bottom: 50px; font-size: 40px; line-height: 40px; }
-  .cd-stars { margin-top: 8px; height: 14px; gap: 4px; }
+  .cd-stars { margin-top: 8px; height: 14px; align-items: center; gap: 4px; }
   .cd-stars img { width: 12px; height: 12px; }
   .cd-review figcaption { margin-top: auto; padding-top: 24px; gap: 16px; }
   .cd-review figcaption img { width: 28px; height: 28px; border-width: .9px; }
@@ -372,7 +373,7 @@
    ≥ 1200px — Figma 1440 desktop frame, exact values
    ========================================================================== */
 @media (min-width: 1200px) {
-  .cd-page { padding: 0 16px 128px; }
+  .cd-page { padding: 0 16px 88px; }
 
   /* hero: text column on the right (587), image column on the left (590) */
   .cd-hero { grid-template-columns: 587px 590px; grid-template-rows: 1fr auto; column-gap: 55px; justify-content: space-between; align-items: stretch; padding: 0 4px 0 5px; }
@@ -469,13 +470,50 @@
 /* title written as one sentence (e.g. "إدارة الموارد البشرية الحديثة CBP"): the latin part flows with the text at the same size */
 .cd-title.cd-title--inline { display: block; text-align: center; }
 .cd-title.cd-title--inline bdi { font-size: inherit; line-height: inherit; }
+@media (max-width: 767.98px) { .cd-title.cd-title--inline { line-height: 28px; } } /* Figma TOT phone: the one-line title frame is 28px tall */
 @media (min-width: 768px) { .cd-title.cd-title--inline { text-align: start; } }
 @media (min-width: 1200px) { .cd-title.cd-title--inline { line-height: 68px; } }
+/* audience box drawn at a fixed 119px with a 3-line paragraph: the text block (101px) is centred, not padded by 20 */
+@media (min-width: 1200px) {
+  .cd-audience--tight { height: 119px; padding-block: 11px 0; }
+  .cd-audience--tight .cd-audience-ico { align-self: center; }
+  .cd-audience--tight div { gap: 3px; }
+  /* Figma: the 606px text column + 16px gap + 50px icon are centred in the box (≈2.3px slack on each side) */
+  .cd-audience { justify-content: center; }
+  .cd-audience > div { flex: 0 1 606px; }
+}
 
 /* photo placement on tablet / desktop (values copied from the desktop Figma frame) */
 @media (min-width: 768px) { .cd-enroll-img.has-pos { width: var(--dw); height: var(--dh); left: var(--dx); top: var(--dy); object-fit: fill; } }
 
 /* hero photo with a Figma placement (mobile): a clipped frame holding a bigger photo; tablet/desktop keep the plain cover crop */
 .cd-hero-img--wrap { overflow: hidden; }
-.cd-hero-img--wrap .cd-hero-photo { position: absolute; display: block; max-width: none; width: var(--hw); height: var(--hh); left: var(--hx); top: var(--hy); }
-@media (min-width: 768px) { .cd-hero-img--wrap .cd-hero-photo { width: 100%; height: 100%; left: 0; top: 0; object-fit: cover; } }
+.cd-hero-img--wrap::after { content: ""; position: absolute; inset: 0; background: rgba(0, 0, 0, var(--hov, 0)); }
+@media (min-width: 1200px) { .cd-hero-img--wrap { width: var(--hbw, 526px); } }
+.cd-hero-img--wrap .cd-hero-photo { position: absolute; display: block; max-width: none; width: var(--hw); height: var(--hh); left: var(--hx); top: var(--hy); object-fit: var(--hf, fill); }
+@media (min-width: 768px) { .cd-hero-img--wrap .cd-hero-photo { width: var(--hdw, 100%); height: var(--hdh, 100%); left: var(--hdx, 0); top: var(--hdy, 0); object-fit: var(--hdf, cover); } }
+
+/* desktop veil drawn as its own 465×290 box (diagonal gradient) instead of the default vertical one */
+@media (min-width: 1200px) { .cd-enroll-shade--d { inset: auto; left: -8.5px; top: 0; width: 465px; height: 290px; background: var(--shade-d); } }
+
+/* desktop frames where every day / FAQ row is drawn 714px wide (open or closed), flush with the gains grid, instead of the full 719px column */
+@media (min-width: 1200px) {
+  .cd-page--w714 .cd-days .cd-item { width: 714px; margin-inline-start: 5px; }
+  .cd-page--w714 .cd-faq .cd-item.is-open { margin-inline-start: 5px; }
+  .cd-page--w714 .cd-days .cd-item:not(.is-open) .cd-item-btn { padding-inline: 21.5px 26.5px; } /* the row content is centred, so it sits 5px nearer the number badge than the minus button */
+  .cd-page--w714 .cd-days .cd-item.is-open .cd-item-btn { padding-inline: 24.3px; }
+  .cd-page--w714 .cd-chips { gap: 8px; }
+  .cd-page--w714 .cd-chips li { padding: 0 14px; }
+  .cd-page--w714 .cd-title { height: 61px; } /* Figma title frame is 61px tall (the text overflows it), so the lead starts 40px below that */
+  .cd-page--w714 .cd-title:not(.cd-title--inline) { box-sizing: border-box; padding-top: 3px; } /* two-tone title: its ink sits 3px lower in the Figma frame */
+  .cd-page--w714 .cd-badges { margin-bottom: 3px; }
+  .cd-lead-sp { padding-inline-end: 3.5px; } /* the Figma title starts with a space that the browser would collapse */
+}
+
+/* phone-only Figma placements (TOT): veil box 315×213 at (1.09, 0.46); title block pinned from the top, 30px + 26px lines, 37px bar */
+@media (max-width: 767.98px) {
+  .cd-enroll-shade--m { inset: auto; left: 1.09px; top: .46px; width: 315px; height: 213px; background: var(--shade-m); }
+  .cd-enroll-title--m { inset-inline-start: 17px; top: var(--tt); bottom: auto; font-size: 20px; line-height: 30px; gap: 4px; }
+  .cd-enroll-title--m strong + strong { line-height: 26px; }
+  .cd-enroll-title--m .cd-enroll-bar { margin-top: -1px; width: var(--tbw); }
+}

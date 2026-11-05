@@ -26,7 +26,7 @@
 @endphp
 
 @section('content')
-<div class="cd-page">
+<div class="cd-page{{ ! empty($course['list_w714']) ? ' cd-page--w714' : '' }}">
   <div class="cd-wrap">
 
     {{-- Breadcrumb (desktop only, as in Figma) --}}
@@ -53,9 +53,17 @@
 
       <div class="cd-hero-media">
         <span class="cd-hero-frame" aria-hidden="true"></span>
-        @if (! empty($course['hero_pos']))
-          {{-- hero photo placed as drawn in the mobile Figma frame: [width %, height %, left %, top %] of the frame (desktop keeps object-fit: cover) --}}
-          <div class="cd-hero-img cd-hero-img--wrap" style="--hw:{{ $course['hero_pos'][0] }}%;--hh:{{ $course['hero_pos'][1] }}%;--hx:{{ $course['hero_pos'][2] }}%;--hy:{{ $course['hero_pos'][3] }}%">
+        @php
+          $hp = $course['hero_pos'] ?? null;   // phone frame: [width %, height %, left %, top %] of the photo box
+          $hpd = $course['hero_pos_d'] ?? null; // tablet / desktop frame, same format
+          $heroStyle = ($hp ? sprintf('--hw:%s%%;--hh:%s%%;--hx:%s%%;--hy:%s%%;--hf:fill;', ...$hp) : '--hw:100%;--hh:100%;--hx:0;--hy:0;--hf:cover;')
+            . ($hpd ? sprintf('--hdw:%s%%;--hdh:%s%%;--hdx:%s%%;--hdy:%s%%;--hdf:fill;', ...$hpd) : '')
+            . (isset($course['hero_w_d']) ? '--hbw:'.$course['hero_w_d'].'px;' : '')      // desktop photo box width (526 unless the frame says otherwise)
+            . (isset($course['hero_overlay']) ? '--hov:'.$course['hero_overlay'].';' : ''); // optional dark veil over the photo
+        @endphp
+        @if ($hp || $hpd || isset($course['hero_w_d']))
+          {{-- hero photo placed as drawn in the Figma frames (a clipped frame holding a bigger photo); a missing part falls back to a plain cover crop --}}
+          <div class="cd-hero-img cd-hero-img--wrap" style="{{ $heroStyle }}">
             <img class="cd-hero-photo" src="{{ $img }}/{{ $course['hero_img'] }}" alt="{{ $course['hero_alt'] }}" width="526" height="314" fetchpriority="high" />
           </div>
         @else
@@ -87,12 +95,12 @@
                 $posStyle = $pos ? (isset($pos['m']) ? sprintf('--mw:%s%%;--mh:%s%%;--mx:%s%%;--my:%s%%;--mf:fill;', ...$pos['m']) : '--mw:100%;--mh:100%;--mx:0;--my:0;--mf:cover;') . sprintf('--dw:%s%%;--dh:%s%%;--dx:%s%%;--dy:%s%%', ...$pos['d']) : null;
             @endphp
             <img src="{{ $img }}/{{ $course['enroll']['img'] }}" alt="" class="cd-enroll-img{{ $pos ? ' has-pos' : '' }}" @if ($posStyle) style="{{ $posStyle }}" @endif loading="lazy" />
-            <span class="cd-enroll-shade" aria-hidden="true"></span>
+            <span class="cd-enroll-shade{{ ! empty($e['shade_d']) ? ' cd-enroll-shade--d' : '' }}{{ ! empty($e['shade_m']) ? ' cd-enroll-shade--m' : '' }}" aria-hidden="true"@if (! empty($e['shade_d']) || ! empty($e['shade_m'])) style="{{ ! empty($e['shade_d']) ? '--shade-d:'.$e['shade_d'].';' : '' }}{{ ! empty($e['shade_m']) ? '--shade-m:'.$e['shade_m'] : '' }}"@endif></span>
             <div class="cd-enroll-top">
               <span class="cd-live"><i aria-hidden="true"></i>{{ $e['status'] }}</span>
               <button type="button" class="cd-share" id="cd-share" aria-label="مشاركة الدورة"><img src="{{ $ico }}/share.svg" alt="" aria-hidden="true" /></button>
             </div>
-            <div class="cd-enroll-title">
+            <div class="cd-enroll-title{{ ! empty($e['title_m']) ? ' cd-enroll-title--m' : '' }}"@if (! empty($e['title_m'])) style="--tt:{{ $e['title_m'][0] }}px;--tbw:{{ $e['title_m'][1] }}px"@endif>
               <strong>دورة {{ $course['title'] }}</strong>
               @if ($course['title_en'] !== '')<strong>{{ $course['title_en'] }}</strong>@endif
               <span class="cd-enroll-bar" aria-hidden="true"></span>
@@ -159,7 +167,7 @@
         <section class="cd-block" aria-labelledby="cd-s1">
           @include('website.bootstrap.partials.course-section-head', ['label' => 'عن البرنامج', 'title' => 'نظرة عامة على الدورة', 'num' => '01'])
           <p class="cd-overview">{{ $course['overview'] }}</p>
-          <div class="cd-audience">
+          <div class="cd-audience{{ ! empty($course['audience_tight']) ? ' cd-audience--tight' : '' }}">
             <span class="cd-audience-ico"><img src="{{ $ico }}/users.svg" alt="" aria-hidden="true" /></span>
             <div>
               <h3>{{ $course['audience_title'] }}</h3>
@@ -194,7 +202,7 @@
               <div class="cd-item {{ $i === 0 ? 'is-open' : '' }}">
                 <button type="button" class="cd-item-btn" aria-expanded="{{ $i === 0 ? 'true' : 'false' }}" aria-controls="cd-day-{{ $i }}">
                   <span class="cd-item-num">{{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }}</span>
-                  <span class="cd-item-head"><small>{{ $dLabel }}</small><strong>{{ $dTitle }}</strong></span>
+                  <span class="cd-item-head"><small>{{ $dLabel }}</small><strong @if ($dTitle !== ltrim($dTitle)) class="cd-lead-sp" @endif>{{ ltrim($dTitle) }}</strong></span>
                   <span class="cd-item-icon"><img src="{{ $ico }}/minus.svg" alt="" class="ic-minus" aria-hidden="true" /><img src="{{ $ico }}/plus.svg" alt="" class="ic-plus" aria-hidden="true" /></span>
                 </button>
                 <div id="cd-day-{{ $i }}" class="cd-item-body">
