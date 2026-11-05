@@ -517,3 +517,11 @@
   .cd-enroll-title--m strong + strong { line-height: 26px; }
   .cd-enroll-title--m .cd-enroll-bar { margin-top: -1px; width: var(--tbw); }
 }
+
+/* phone FAQ heights from the shared Figma frames (3707:10620 / 10638 / 10627): closed card 57px, open Q2/Q3 122px, open Q1 167px */
+@media (max-width: 767.98px) {
+  .cd-faq .cd-item:not(.is-open) .cd-item-btn { padding-block: 15.5px; }
+  .cd-faq .cd-item.is-open:first-child .cd-item-inner p { padding-bottom: 15px; }
+  .cd-faq .cd-item.is-open:not(:first-child) .cd-item-btn { padding-top: 19px; }
+  .cd-faq .cd-item.is-open:not(:first-child) .cd-item-inner p { padding-bottom: 19px; }
+}
