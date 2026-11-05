@@ -17,7 +17,7 @@
 
       <!-- LOGO (58x45 on mobile #934:5757, scaled up to 86x79 on desktop #656:3820) -->
       <a href="#home" data-nav="home" aria-label="الصفحة الرئيسية لدار الرؤى" class="flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary rounded-lg">
-        <img src="{{ cms_image('global.nav.logo', '/assets/website/images/logo.png') }}" alt="شعار دار الرؤى للتدريب" loading="eager" fetchpriority="high" decoding="async" class="w-[63px] h-[50px] lg:w-auto lg:h-[58px] object-contain drop-shadow-sm" />
+        <img src="{{ cms_image('global.nav.logo', '/assets/website/images/logo.png') }}" alt="شعار دار الرؤى للتدريب" loading="eager" fetchpriority="high" decoding="async" class="w-[67px] h-[54px] lg:w-auto lg:h-[58px] object-contain drop-shadow-sm" />
       </a>
     </div>
 
