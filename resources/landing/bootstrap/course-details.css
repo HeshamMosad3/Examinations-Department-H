@@ -151,7 +151,7 @@
 .cd-audience h3 { color: var(--brand); font-size: 12px; line-height: 15px; font-weight: 700; }
 .cd-audience p { color: #565656; font-size: 12px; line-height: 18.75px; font-weight: 400; }
 .cd-audience p br { display: none; }
-.cd-audience .cd-aud-m { text-wrap: pretty; } /* phone: no hand breaks (they left a lone word on its own line on real phones); the text just wraps, 768+ uses the Figma breaks */
+.cd-audience .cd-aud-m { text-wrap: pretty; text-align: justify; text-justify: inter-word; } /* phone: no hand breaks (they left a lone word on its own line on real phones); the text just wraps, 768+ uses the Figma breaks */
 
 /* ---------- 02 gains (collapsible) ---------- */
 .cd-collapse { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .3s ease-out; }
