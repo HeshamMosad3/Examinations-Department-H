@@ -515,6 +515,8 @@
 }
 
 /* cybersecurity frames set the overview, audience and first FAQ answer as justified text (the other courses are right-aligned) */
+.cd-page--lead-justify .cd-lead { text-align: justify; text-justify: inter-word; }
+@media (max-width: 767px) { .cd-page--lead-justify .cd-lead { max-width: 316px; text-align: start; } } /* the phone frame draws the lead ragged, ~316px wide */
 .cd-page--justify .cd-overview, .cd-page--justify .cd-audience p, .cd-page--justify .cd-faq .cd-item-inner p { text-align: justify; text-justify: inter-word; }
 
 /* FAQ answer box drawn 8px wider on the left (text starts 42px from the card edge) so a 652px first line stays on one line */

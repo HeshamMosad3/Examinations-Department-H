@@ -26,7 +26,7 @@
 @endphp
 
 @section('content')
-<div class="cd-page{{ ! empty($course['list_w714']) ? ' cd-page--w714' : '' }}{{ ! empty($course['faq_wide']) ? ' cd-page--faq-wide' : '' }}{{ ! empty($course['justify']) ? ' cd-page--justify' : '' }}">
+<div class="cd-page{{ ! empty($course['list_w714']) ? ' cd-page--w714' : '' }}{{ ! empty($course['faq_wide']) ? ' cd-page--faq-wide' : '' }}{{ ! empty($course['justify']) ? ' cd-page--justify' : '' }}{{ ! empty($course['lead_justify']) ? ' cd-page--lead-justify' : '' }}">
   <div class="cd-wrap">
 
     {{-- Breadcrumb (desktop only, as in Figma) --}}
