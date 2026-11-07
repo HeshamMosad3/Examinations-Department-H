@@ -167,7 +167,7 @@
         <section class="cd-block" aria-labelledby="cd-s1">
           @include('website.bootstrap.partials.course-section-head', ['label' => 'عن البرنامج', 'title' => 'نظرة عامة على الدورة', 'num' => '01'])
           <p class="cd-overview">{{ $course['overview'] }}</p>
-          <div class="cd-audience{{ ! empty($course['audience_tight']) ? ' cd-audience--tight' : '' }}"@if (isset($course['audience_ico_y'])) style="--aiy:{{ $course['audience_ico_y'] }}px"@endif>
+          <div class="cd-audience{{ ! empty($course['audience_tight']) ? ' cd-audience--tight' : '' }}"@if (isset($course['audience_ico_y']) || isset($course['audience_h_m'])) style="{{ isset($course['audience_ico_y']) ? '--aiy:'.$course['audience_ico_y'].'px;' : '' }}{{ isset($course['audience_h_m']) ? '--ahm:'.$course['audience_h_m'].'px;' : '' }}"@endif>
             <span class="cd-audience-ico"><img src="{{ $ico }}/users.svg" alt="" aria-hidden="true" /></span>
             <div>
               <h3>{{ $course['audience_title'] }}</h3>

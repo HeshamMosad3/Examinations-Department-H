@@ -290,6 +290,7 @@
   .cd-audience { margin-top: 16px; gap: 16px; padding: 20px; border-right-width: 2.4px; border-radius: 7px 0 0 7px; }
   .cd-audience-ico { width: 50px; height: 50px; }
   .cd-audience div { gap: 8px; }
+  .cd-audience h3 { position: relative; top: 1px; } /* Figma sets the 12px title in an 18.76px line inside a 15px box, which puts the glyphs 1px lower */
   .cd-audience h3 { font-size: 17px; line-height: 27px; }
   .cd-audience p { font-size: 14px; line-height: 22px; font-weight: 500; }
   .cd-audience p br { display: inline; }
@@ -545,3 +546,11 @@
   .cd-faq .cd-item.is-open:not(:first-child) .cd-item-btn { padding-top: 19px; }
   .cd-faq .cd-item.is-open:not(:first-child) .cd-item-inner p { padding-bottom: 19px; }
 }
+/* phone audience box as drawn in the Figma frames: title 15px, 8px gap, justified text, box height from the frame (--ahm) */
+@media (max-width: 767.98px) {
+  .cd-audience div { gap: 8px; }
+  .cd-audience p { text-align: justify; text-justify: inter-word; }
+  .cd-audience[style*="--ahm"] { height: var(--ahm); padding-bottom: 0; }
+}
+/* the frame's hand break (cbp-hr) is kept on phones as wide as the 393px frame; narrower phones wrap naturally */
+@media (min-width: 380px) and (max-width: 767.98px) { .cd-audience .cd-aud-m br { display: inline; } }
