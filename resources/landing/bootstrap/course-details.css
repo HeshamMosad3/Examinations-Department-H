@@ -38,8 +38,8 @@
 .cd-start small { font-size: 8px; line-height: 12.5px; font-weight: 400; }
 .cd-start strong { font-size: 10px; line-height: 15.6px; font-weight: 700; }
 
-.cd-badges { margin-top: 16px; padding: 0; width: 100%; display: flex; flex-wrap: wrap; gap: 7px; }
-.cd-badges li { flex: 1 1 auto; min-width: 0; min-height: 28px; display: flex; align-items: center; justify-content: center; gap: 4px; padding: 6px; background: #F5F7FB; border: .54px solid #E5E9F1; border-radius: 5px; color: var(--text); font-size: 9px; line-height: 14px; font-weight: 600; }
+.cd-badges { margin-top: 16px; padding: 0; width: 100%; display: flex; flex-wrap: wrap; justify-content: center; gap: 7px; }
+.cd-badges li { flex: 0 1 auto; min-width: 0; min-height: 28px; display: flex; align-items: center; justify-content: center; gap: 4px; padding: 6px; background: #F5F7FB; border: .54px solid #E5E9F1; border-radius: 5px; color: var(--text); font-size: 9px; line-height: 14px; font-weight: 600; }
 .cd-badges img { width: 14px; height: 14px; flex: none; }
 
 /* ---------- Layout: mobile = one column, corporate card last ---------- */
@@ -507,6 +507,25 @@
   .cd-page--w714 .cd-title:not(.cd-title--inline) { box-sizing: border-box; padding-top: 3px; } /* two-tone title: its ink sits 3px lower in the Figma frame */
   .cd-page--w714 .cd-badges { margin-bottom: 3px; }
   .cd-lead-sp { padding-inline-end: 3.5px; } /* the Figma title starts with a space that the browser would collapse */
+}
+
+/* desktop: audience icon pinned at a Figma y inside the 119px box (instead of centred in the padded area) */
+@media (min-width: 1200px) {
+  .cd-audience--tight[style*="--aiy"] .cd-audience-ico { align-self: flex-start; margin-top: calc(var(--aiy) - 11px); }
+}
+
+/* cybersecurity frames set the overview, audience and first FAQ answer as justified text (the other courses are right-aligned) */
+.cd-page--justify .cd-overview, .cd-page--justify .cd-audience p, .cd-page--justify .cd-faq .cd-item-inner p { text-align: justify; text-justify: inter-word; }
+
+/* FAQ answer box drawn 8px wider on the left (text starts 42px from the card edge) so a 652px first line stays on one line */
+@media (min-width: 768px) {
+  .cd-page--faq-wide .cd-faq .cd-item-inner p { padding-left: 22px; }
+}
+
+/* desktop one-line enroll title (cybersecurity): block pinned from the top, 30px line, 51px bar */
+@media (min-width: 1200px) {
+  .cd-enroll-title--d { top: var(--tdt); line-height: 30px; }
+  .cd-enroll-title--d .cd-enroll-bar { margin-top: 8px; width: var(--tdbw); }
 }
 
 /* phone-only Figma placements (TOT): veil box 315×213 at (1.09, 0.46); title block pinned from the top, 30px + 26px lines, 37px bar */

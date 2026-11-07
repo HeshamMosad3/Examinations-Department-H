@@ -26,7 +26,7 @@
 @endphp
 
 @section('content')
-<div class="cd-page{{ ! empty($course['list_w714']) ? ' cd-page--w714' : '' }}">
+<div class="cd-page{{ ! empty($course['list_w714']) ? ' cd-page--w714' : '' }}{{ ! empty($course['faq_wide']) ? ' cd-page--faq-wide' : '' }}{{ ! empty($course['justify']) ? ' cd-page--justify' : '' }}">
   <div class="cd-wrap">
 
     {{-- Breadcrumb (desktop only, as in Figma) --}}
@@ -100,7 +100,7 @@
               <span class="cd-live"><i aria-hidden="true"></i>{{ $e['status'] }}</span>
               <button type="button" class="cd-share" id="cd-share" aria-label="مشاركة الدورة"><img src="{{ $ico }}/share.svg" alt="" aria-hidden="true" /></button>
             </div>
-            <div class="cd-enroll-title{{ ! empty($e['title_m']) ? ' cd-enroll-title--m' : '' }}"@if (! empty($e['title_m'])) style="--tt:{{ $e['title_m'][0] }}px;--tbw:{{ $e['title_m'][1] }}px"@endif>
+            <div class="cd-enroll-title{{ ! empty($e['title_m']) ? ' cd-enroll-title--m' : '' }}{{ ! empty($e['title_d']) ? ' cd-enroll-title--d' : '' }}"@if (! empty($e['title_m']) || ! empty($e['title_d'])) style="{{ ! empty($e['title_m']) ? '--tt:'.$e['title_m'][0].'px;--tbw:'.$e['title_m'][1].'px;' : '' }}{{ ! empty($e['title_d']) ? '--tdt:'.$e['title_d'][0].'px;--tdbw:'.$e['title_d'][1].'px' : '' }}"@endif>
               <strong>دورة {{ $course['title'] }}</strong>
               @if ($course['title_en'] !== '')<strong>{{ $course['title_en'] }}</strong>@endif
               <span class="cd-enroll-bar" aria-hidden="true"></span>
@@ -167,7 +167,7 @@
         <section class="cd-block" aria-labelledby="cd-s1">
           @include('website.bootstrap.partials.course-section-head', ['label' => 'عن البرنامج', 'title' => 'نظرة عامة على الدورة', 'num' => '01'])
           <p class="cd-overview">{{ $course['overview'] }}</p>
-          <div class="cd-audience{{ ! empty($course['audience_tight']) ? ' cd-audience--tight' : '' }}">
+          <div class="cd-audience{{ ! empty($course['audience_tight']) ? ' cd-audience--tight' : '' }}"@if (isset($course['audience_ico_y'])) style="--aiy:{{ $course['audience_ico_y'] }}px"@endif>
             <span class="cd-audience-ico"><img src="{{ $ico }}/users.svg" alt="" aria-hidden="true" /></span>
             <div>
               <h3>{{ $course['audience_title'] }}</h3>
