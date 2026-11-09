@@ -44,7 +44,7 @@
         <span class="cd-tag">{{ $course['tag'] }}<i aria-hidden="true"></i></span>
         @if (! empty($course['title_inline']))
           {{-- one running title ("… الحديثة CBP"): the English part stays in the text flow, same size --}}
-          <h1 id="cd-title" class="cd-title cd-title--inline"><span>{{ $course['title'] }} @if ($course['title_en'] !== '')<bdi>{{ $course['title_en'] }}</bdi>@endif</span></h1>
+          <h1 id="cd-title" class="cd-title cd-title--inline"@if (isset($course['title_h'])) style="--th:{{ $course['title_h'] }}px"@endif><span>{{ $course['title'] }} @if ($course['title_en'] !== '')<bdi>{{ $course['title_en'] }}</bdi>@endif</span></h1>
         @else
           <h1 id="cd-title" class="cd-title"><span>{{ $course['title'] }}</span> @if ($course['title_en'] !== '')<bdi>{{ $course['title_en'] }}</bdi>@endif</h1>
         @endif
@@ -100,7 +100,7 @@
               <span class="cd-live"><i aria-hidden="true"></i>{{ $e['status'] }}</span>
               <button type="button" class="cd-share" id="cd-share" aria-label="مشاركة الدورة"><img src="{{ $ico }}/share.svg" alt="" aria-hidden="true" /></button>
             </div>
-            <div class="cd-enroll-title{{ ! empty($e['title_m']) ? ' cd-enroll-title--m' : '' }}{{ ! empty($e['title_d']) ? ' cd-enroll-title--d' : '' }}"@if (! empty($e['title_m']) || ! empty($e['title_d'])) style="{{ ! empty($e['title_m']) ? '--tt:'.$e['title_m'][0].'px;--tbw:'.$e['title_m'][1].'px;' : '' }}{{ ! empty($e['title_d']) ? '--tdt:'.$e['title_d'][0].'px;--tdbw:'.$e['title_d'][1].'px' : '' }}"@endif>
+            <div class="cd-enroll-title{{ ! empty($e['title_m']) ? ' cd-enroll-title--m' : '' }}{{ ! empty($e['title_d']) ? ' cd-enroll-title--d' : '' }}"@if (! empty($e['title_m']) || ! empty($e['title_d'])) style="{{ ! empty($e['title_m']) ? '--tt:'.$e['title_m'][0].'px;--tbw:'.$e['title_m'][1].'px;' : '' }}{{ ! empty($e['title_d']) ? '--tdt:'.$e['title_d'][0].'px;--tdbw:'.$e['title_d'][1].'px;'.(isset($e['title_d'][2]) ? '--tdlh:'.$e['title_d'][2].'px;--tdbm:'.($e['title_d'][3] ?? 8).'px' : '') : '' }}"@endif>
               <strong>دورة {{ $course['title'] }}</strong>
               @if ($course['title_en'] !== '')<strong>{{ $course['title_en'] }}</strong>@endif
               <span class="cd-enroll-bar" aria-hidden="true"></span>
@@ -187,8 +187,10 @@
           @include('website.bootstrap.partials.course-section-head', ['label' => 'ماذا ستتعلم؟', 'title' => 'مكتسباتك من الدورة', 'num' => '02', 'toggle' => 'cd-gains'])
           <div id="cd-gains" class="cd-collapse is-open">
             <ul class="cd-gains">
-              @foreach ($course['gains'] as $g)
-                <li><span>{!! nl2br(e($g)) !!}</span><img src="{{ $ico }}/tick-badge.svg" alt="" aria-hidden="true" /></li>
+              @foreach ($course['gains'] as $gi => $g)
+                @php $gm = $course['gains_m'][$gi] ?? null; @endphp
+                {{-- gains_m: the phone frame sometimes breaks a gain at other words than the desktop frame --}}
+                <li>@if ($gm !== null)<span class="cd-gm d-md-none">{!! nl2br(e($gm)) !!}</span><span class="d-none d-md-block">{!! nl2br(e($g)) !!}</span>@else<span>{!! nl2br(e($g)) !!}</span>@endif<img src="{{ $ico }}/tick-badge.svg" alt="" aria-hidden="true" /></li>
               @endforeach
             </ul>
           </div>

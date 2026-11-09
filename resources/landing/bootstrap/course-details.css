@@ -505,6 +505,7 @@
   .cd-page--w714 .cd-chips { gap: 8px; }
   .cd-page--w714 .cd-chips li { padding: 0 14px; }
   .cd-page--w714 .cd-title { height: 61px; } /* Figma title frame is 61px tall (the text overflows it), so the lead starts 40px below that */
+  .cd-page--w714 .cd-title[style*="--th"] { height: var(--th); } /* a two-line title frame (Figma 121px) */
   .cd-page--w714 .cd-title:not(.cd-title--inline) { box-sizing: border-box; padding-top: 3px; } /* two-tone title: its ink sits 3px lower in the Figma frame */
   .cd-page--w714 .cd-badges { margin-bottom: 3px; }
   .cd-lead-sp { padding-inline-end: 3.5px; } /* the Figma title starts with a space that the browser would collapse */
@@ -527,8 +528,8 @@
 
 /* desktop one-line enroll title (cybersecurity): block pinned from the top, 30px line, 51px bar */
 @media (min-width: 1200px) {
-  .cd-enroll-title--d { top: var(--tdt); line-height: 30px; }
-  .cd-enroll-title--d .cd-enroll-bar { margin-top: 8px; width: var(--tdbw); }
+  .cd-enroll-title--d { top: var(--tdt); line-height: var(--tdlh, 30px); } /* title_d: [top, bar width, line pitch, bar gap] — pitch/gap for a two-line title */
+  .cd-enroll-title--d .cd-enroll-bar { margin-top: var(--tdbm, 8px); width: var(--tdbw); }
 }
 
 /* phone-only Figma placements (TOT): veil box 315×213 at (1.09, 0.46); title block pinned from the top, 30px + 26px lines, 37px bar */
@@ -554,3 +555,6 @@
 }
 /* the frame's hand break (cbp-hr) is kept on phones as wide as the 393px frame; narrower phones wrap naturally */
 @media (min-width: 380px) and (max-width: 767.98px) { .cd-audience .cd-aud-m br { display: inline; } }
+/* phone: a gain's own hand breaks (gains_m) are kept on phones as wide as the 393px frame */
+@media (max-width: 767.98px) { .cd-gains .cd-gm br { display: none; } }
+@media (min-width: 380px) and (max-width: 767.98px) { .cd-gains .cd-gm br { display: inline; } }
