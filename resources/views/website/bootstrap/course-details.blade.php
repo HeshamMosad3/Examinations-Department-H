@@ -26,7 +26,7 @@
 @endphp
 
 @section('content')
-<div class="cd-page{{ ! empty($course['list_w714']) ? ' cd-page--w714' : '' }}{{ ! empty($course['faq_wide']) ? ' cd-page--faq-wide' : '' }}{{ ! empty($course['justify']) ? ' cd-page--justify' : '' }}{{ ! empty($course['lead_justify']) ? ' cd-page--lead-justify' : '' }}">
+<div class="cd-page{{ ! empty($course['title_h']) ? ' cd-page--t2' : '' }}{{ ! empty($course['day_p_wide']) ? ' cd-page--daywide' : '' }}{{ ! empty($course['list_w714']) ? ' cd-page--w714' : '' }}{{ ! empty($course['faq_wide']) ? ' cd-page--faq-wide' : '' }}{{ ! empty($course['justify']) ? ' cd-page--justify' : '' }}{{ ! empty($course['lead_justify']) ? ' cd-page--lead-justify' : '' }}">
   <div class="cd-wrap">
 
     {{-- Breadcrumb (desktop only, as in Figma) --}}
@@ -48,7 +48,7 @@
         @else
           <h1 id="cd-title" class="cd-title"><span>{{ $course['title'] }}</span> @if ($course['title_en'] !== '')<bdi>{{ $course['title_en'] }}</bdi>@endif</h1>
         @endif
-        <p class="cd-lead">{{ $course['lead'] }}</p>
+        <p class="cd-lead"@if (! empty($course['lead_w_m'])) style="--lw:{{ $course['lead_w_m'] }}px"@endif>{{ $course['lead'] }}</p>
       </div>
 
       <div class="cd-hero-media">
@@ -101,7 +101,7 @@
               <button type="button" class="cd-share" id="cd-share" aria-label="مشاركة الدورة"><img src="{{ $ico }}/share.svg" alt="" aria-hidden="true" /></button>
             </div>
             <div class="cd-enroll-title{{ ! empty($e['title_m']) ? ' cd-enroll-title--m' : '' }}{{ ! empty($e['title_d']) ? ' cd-enroll-title--d' : '' }}"@if (! empty($e['title_m']) || ! empty($e['title_d'])) style="{{ ! empty($e['title_m']) ? '--tt:'.$e['title_m'][0].'px;--tbw:'.$e['title_m'][1].'px;' : '' }}{{ ! empty($e['title_d']) ? '--tdt:'.$e['title_d'][0].'px;--tdbw:'.$e['title_d'][1].'px;'.(isset($e['title_d'][2]) ? '--tdlh:'.$e['title_d'][2].'px;--tdbm:'.($e['title_d'][3] ?? 8).'px' : '') : '' }}"@endif>
-              <strong>دورة {{ $course['title'] }}</strong>
+              <strong>@if (! empty($e['title_lines'])){!! implode('<br>', array_map('e', $e['title_lines'])) !!}@else دورة {{ $course['title'] }}@endif</strong>
               @if ($course['title_en'] !== '')<strong>{{ $course['title_en'] }}</strong>@endif
               <span class="cd-enroll-bar" aria-hidden="true"></span>
             </div>
