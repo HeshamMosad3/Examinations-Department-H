@@ -570,3 +570,6 @@
 
 /* desktop: with a two-line title the Figma hero is 11px taller than the photo (badges and everything below sit 11px lower) */
 @media (min-width: 1200px) { .cd-page--t2 .cd-hero { padding-bottom: 11px; } }
+
+/* phone: a title drawn on two lines in Figma gets a max width (--tmw) so it wraps where the frame does */
+@media (max-width: 767.98px) { .cd-title--inline > span { display: block; max-width: var(--tmw, none); margin-inline: auto; } }
