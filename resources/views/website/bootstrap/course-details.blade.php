@@ -48,7 +48,7 @@
         @else
           <h1 id="cd-title" class="cd-title"><span>{{ $course['title'] }}</span> @if ($course['title_en'] !== '')<bdi>{{ $course['title_en'] }}</bdi>@endif</h1>
         @endif
-        <p class="cd-lead"@if (! empty($course['lead_w_m'])) style="--lw:{{ $course['lead_w_m'] }}px"@endif>{{ $course['lead'] }}</p>
+        <p class="cd-lead"@if (! empty($course['lead_w_m'])) style="--lw:{{ $course['lead_w_m'] }}px"@endif>@if (! empty($course['lead_m']))<span class="d-md-none">{{ $course['lead_m'] }}</span><span class="d-none d-md-inline">{{ $course['lead'] }}</span>@else{{ $course['lead'] }}@endif</p>
       </div>
 
       <div class="cd-hero-media">
