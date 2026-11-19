@@ -28,6 +28,7 @@ export default defineConfig({
                 'resources/landing/bootstrap/app.js',
                 'resources/landing/bootstrap/courses.js',
                 'resources/landing/bootstrap/course-details.js',
+                'resources/landing/bootstrap/course-details-v2.js',
             ],
             buildDirectory: 'assets/website/build',
             hotFile: 'public/landing.hot',

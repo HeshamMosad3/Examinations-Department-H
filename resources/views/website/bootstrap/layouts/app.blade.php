@@ -17,7 +17,10 @@
 <body class="bs-page">
   <a href="#main-content" class="visually-hidden-focusable bs-skip-link">{{ cms('global.a11y.skip_link', 'تخطي إلى المحتوى الرئيسي') }}</a>
 
-  @include('website.bootstrap.partials.header', ['active' => $active ?? null])
+  @yield('before_header')
+  @unless (View::hasSection('no_header'))
+    @include('website.bootstrap.partials.header', ['active' => $active ?? null])
+  @endunless
 
   <main id="main-content">
     @yield('content')

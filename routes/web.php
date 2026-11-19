@@ -19,6 +19,12 @@ Route::get('/courses/{slug}', function (string $slug) {
     $details = require resource_path('data/course-details.php');
     abort_unless(isset($details[$slug]), 404);
 
+    // Redesigned courses (data in course-details-v2.php) use the new template; the rest keep the old one.
+    $v2 = require resource_path('data/course-details-v2.php');
+    if (isset($v2[$slug])) {
+        return view('website.bootstrap.course-details-v2', ['course' => $details[$slug], 'v2' => $v2[$slug], 'slug' => $slug]);
+    }
+
     return view('website.bootstrap.course-details', ['course' => $details[$slug], 'slug' => $slug]);
 })->name('courses.show');
 

@@ -1,0 +1,678 @@
+/* ==========================================================================
+   Course details — REDESIGN (v2). Figma "دار الرؤى للتدريب (1) Redesign"
+     desktop 1440: 3931:12622 (first course: PMP)
+   Desktop first (≥ 1280px) — every value below is the Figma value, in px.
+   Mobile frame comes next (3931:15148).
+   ========================================================================== */
+@import '@fontsource/cairo/latin-900.css';
+
+.cdv2-page { overflow-x: clip; padding: 0 16px 128px; }
+.cdv2-page img, .cdv2-top img { display: block; max-width: none; }
+.cdv2-page :where(h1, h2, h3, p, ul, figure, blockquote) { margin: 0; padding: 0; }
+.cdv2-page ul { list-style: none; }
+.cdv2-page button, .cdv2-page input { font-family: inherit; }
+.cdv2-wrap { max-width: 1241px; margin: 48px auto 0; display: flex; flex-direction: column; gap: 64px; }
+
+/* ---------- Top bar: countdown (82) + logo bar (92) = 174 ---------- */
+.cdv2-top { display: contents; } /* so the logo bar can stick to the viewport top (its containing block becomes <body>) */
+.cdv2-countdown { position: relative; height: 82px; box-sizing: border-box; background: #204A7A; border-bottom: 2px solid #CFA63D; display: flex; align-items: center; justify-content: center; gap: 107px; direction: ltr; }
+.cdv2-cd { display: flex; gap: 6px; }
+.cdv2-cd-box { box-sizing: border-box; width: 56px; min-width: 56px; padding: 4px 6px; border-radius: 8px; background: rgba(255,255,255,.1); text-align: center; }
+.cdv2-cd-box b { display: block; font: 900 18px/28px 'Cairo', sans-serif; color: #fff; }
+.cdv2-cd-box small { display: block; font-size: 12px; line-height: 1.5; font-weight: 500; color: rgba(255,255,255,.7); }
+.cdv2-cd-box.is-sec { border: 1px solid #E6B844; }
+.cdv2-cd-box.is-sec b, .cdv2-cd-box.is-sec small { color: #E6B844; }
+.cdv2-cd-text { display: flex; align-items: center; gap: 0; }
+.cdv2-cd-label, .cdv2-cd-seats { font-size: 17px; line-height: normal; font-weight: 700; white-space: nowrap; }
+.cdv2-cd-label { color: #fff; }
+.cdv2-cd-seats { color: #E6B844; }
+.cdv2-cd-sep { width: 16px; height: 1px; transform: rotate(90deg); margin: 0 5px; }
+.cdv2-cd-dot { width: 5px; height: 5px; border-radius: 50%; background: #FBBF24; box-shadow: 0 0 8px #FBBF24; margin-left: 9px; }
+.cdv2-logobar { position: sticky; top: 0; z-index: 1030; height: 92px; display: flex; justify-content: center; align-items: flex-start; padding-top: 6px; box-sizing: border-box; background: linear-gradient(180deg, #F1F1F1 0, #FBFBFB 40%, #FCFCFC 100%); }
+.cdv2-logobar a { position: relative; display: block; width: 86px; height: 79px; overflow: hidden; }
+.cdv2-logobar .cdv2-logo-m { display: none; }
+.cdv2-logobar .cdv2-logo-d { position: absolute; height: 124.73%; left: -14.4%; top: -12.77%; width: 127.45%; max-width: none; } /* Figma crop of 3931:12658 */
+
+/* ---------- Hero (1241 × 562.6 row, card left / text right) ---------- */
+.cdv2-stage { display: grid; grid-template-columns: 1fr 461px; grid-template-rows: 562.6px 30px auto; row-gap: 64px; align-items: start; }
+/* RTL grid: the first track (1fr) is on the right = hero text + sections, the 461 track on the left = booking form + enrollment card */
+.cdv2-side { grid-column: 2; grid-row: 1 / 4; align-self: stretch; display: flex; flex-direction: column; align-items: flex-end; }
+/* rail = form 562.6 + 64 down to the "اكتشف تفاصيل الدورة" divider */
+.cdv2-form-rail { width: 458.6px; height: 626.6px; flex: none; }
+/* the enrollment card (top = 626.6 + 94 = 720.6) pins as soon as it appears and stays until the end of the page (the side column spans all of it) */
+.cdv2-side .cdv2-card { margin-top: 94px; position: sticky; top: 108px; }
+.cdv2-hero { grid-column: 1; grid-row: 1; }
+.cdv2-discover { grid-column: 1 / -1; grid-row: 2; width: 100%; }
+.cdv2-stage > .cdv2-main { grid-column: 1; grid-row: 3; }
+
+.cdv2-hero-text { width: 590px; margin-top: 20.3px; margin-inline-start: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 56px; }
+.cdv2-hero-head { width: 590px; display: flex; flex-direction: column; gap: 32px; }
+.cdv2-tag { display: flex; align-items: center; justify-content: flex-start; gap: 9px; height: 27px; font-size: 17px; line-height: normal; font-weight: 700; color: #CFA63D; }
+.cdv2-tag i { width: 28px; height: 2px; background: #C9952A; flex: none; }
+.cdv2-hero-copy { width: 556px; display: flex; flex-direction: column; gap: 40px; }
+.cdv2-hero-titles { display: flex; flex-direction: column; align-items: flex-start; }
+.cdv2-title { width: 556px; height: 81px; margin-bottom: -16px; font-size: 52px; line-height: 68px; font-weight: 700; color: #204A7A; text-align: right; }
+.cdv2-title-en { width: 98px; height: 43.2px; font-size: 43px; line-height: normal; font-weight: 700; color: #204A7A; text-align: center; } /* box is 43.2 high, the glyphs sit in a 'normal' line like Figma */
+.cdv2-lead { width: 518px; font-size: 17px; line-height: 27px; font-weight: 600; color: #6F6F6F; text-align: right; }
+
+.cdv2-meta { width: 531px; display: flex; align-items: center; gap: 31px; height: 23px; }
+.cdv2-meta li { display: flex; align-items: center; gap: 10px; }
+.cdv2-meta span { font-size: 14px; line-height: 22px; font-weight: 700; color: #262626; white-space: pre; direction: rtl; }
+.cdv2-meta-sep img { width: 23px; height: 1px; transform: rotate(90deg); margin: 0 -11px; }
+@media (min-width: 1280px) { .cdv2-meta li:nth-child(3) > span:first-child { width: 106px; flex: none; } } /* Figma text box of the time item is 106 wide (the fallback font renders it 3px wider); keeps the separators and the date at x 190 / 357 / 388 */
+
+.cdv2-badges { width: 590px; display: flex; justify-content: flex-start; gap: 12px; height: 40px; }
+.cdv2-badges li { box-sizing: border-box; display: flex; align-items: center; gap: 7px; padding: 9px 12px; background: #F5F7FB; border: .8px solid #E5E9F1; border-radius: 6px; }
+.cdv2-badges span { font-size: 12px; line-height: 1.5; font-weight: 600; color: #262626; white-space: nowrap; }
+
+/* booking form card — 458.6 × 562.6 */
+.cdv2-form { position: relative; z-index: 5; /* scrolls with the hero: always 64px above the "اكتشف تفاصيل الدورة" divider, as in Figma */ scroll-margin-top: 108px; box-sizing: border-box; width: 458.6px; height: 562.6px; padding: 18px 38px; background: #fff; border: .8px solid #E3E8EF; border-radius: 16px; filter: drop-shadow(0 4px 13px rgba(23,53,90,.1)); display: flex; flex-direction: column; gap: 24px; }
+.cdv2-form-head { width: 339px; align-self: center; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.cdv2-form-logo { position: relative; display: block; width: 61px; height: 61px; overflow: hidden; }
+.cdv2-form-logo img { position: absolute; height: 119.09%; left: -12.38%; top: -11.82%; width: 124.76%; max-width: none; }
+.cdv2-form-title { width: 100%; display: flex; flex-direction: column; gap: 14px; }
+.cdv2-form-title h2 { font-size: 21px; line-height: 33px; font-weight: 700; color: #262626; text-align: center; }
+.cdv2-form-title img { width: 339px; height: 1px; margin-bottom: -1px; } /* Figma line is 0 high with a 1px stroke */
+.cdv2-form-body { display: flex; flex-direction: column; gap: 16px; }
+.cdv2-form-main { display: flex; flex-direction: column; gap: 18px; }
+.cdv2-fields { display: flex; flex-direction: column; gap: 18px; }
+.cdv2-field { display: flex; flex-direction: column; gap: 12px; margin: 0; }
+.cdv2-field--phone { gap: 14px; }
+.cdv2-label { display: flex; align-items: flex-start; gap: 4px; height: 20px; font-size: 14px; line-height: 20px; font-weight: 500; color: #262626; }
+.cdv2-field input { box-sizing: border-box; width: 100%; height: 48px; padding: 12px 16px; border: 1px solid #DADADA; border-radius: 10px; background: #fff; font-size: 14px; line-height: 1.2; color: #262626; text-align: right; outline: 0; transition: border-color .2s; }
+.cdv2-field input::placeholder { color: #949494; opacity: 1; }
+.cdv2-field input:focus { border-color: #204A7A; }
+.cdv2-input-phone { display: flex; height: 48px; border: 1px solid #DADADA; border-radius: 10px; overflow: hidden; background: #fff; transition: border-color .2s; }
+.cdv2-input-phone:focus-within { border-color: #204A7A; }
+.cdv2-input-phone input { flex: 1; min-width: 0; height: 100%; border: 0; border-radius: 0; padding: 0 0 0 17px; text-align: left; }
+.cdv2-cc { box-sizing: border-box; width: 104px; display: flex; align-items: center; justify-content: center; gap: 8px; background: rgba(182,182,182,.1); border-left: 1px solid #DDD; }
+.cdv2-cc b { font-size: 14px; line-height: 1.2; font-weight: 600; color: #262626; }
+.cdv2-submit { width: 100%; height: 48px; display: flex; align-items: center; justify-content: center; gap: 9px; border: 0; border-radius: 10px; background: #204A7A; color: #E9EDF2; font-size: 14px; line-height: 1.5; font-weight: 600; cursor: pointer; transition: background .2s; }
+.cdv2-submit:hover { background: #1A3B62; }
+.cdv2-form-note { font-size: 12px; line-height: 19px; color: #5A6474; text-align: center; }
+
+/* "اكتشف تفاصيل الدورة" divider — 1241 × 30 */
+.cdv2-discover { height: 30px; display: flex; align-items: center; justify-content: center; gap: 16px; padding: 0 48px; direction: ltr; }
+.cdv2-discover-line { width: 450px; height: 2px; flex: none; }
+.cdv2-discover-line--l { background: linear-gradient(to left, rgba(32,74,122,0), #4D79AB 50%, #3E6898); }
+.cdv2-discover-line--r { order: 3; background: linear-gradient(to right, rgba(32,74,122,0), #6988AC 50%, #294D75); }
+.cdv2-discover-pill { order: 2; display: flex; align-items: center; justify-content: center; gap: 4px; height: 30px; padding: 4px 24px; box-sizing: border-box; border-radius: 20px; background: #EFF2F5; filter: drop-shadow(0 1px 1px rgba(0,0,0,.05)); text-decoration: none; direction: rtl; }
+.cdv2-discover-pill span { font-size: 14px; line-height: normal; font-weight: 700; color: #204A7A; white-space: nowrap; }
+
+/* ---------- Lower area: sections (726) + enrollment card (461), gap 53 ---------- */
+.cdv2-main { width: 726px; justify-self: start; display: flex; flex-direction: column; gap: 64px; }
+.cdv2-block { display: flex; flex-direction: column; gap: 48px; }
+
+/* section banner — 726 × 109, positions are Figma left/right/top in px */
+.cdv2-banner { position: relative; box-sizing: border-box; width: 726px; height: 109px; background: #204A7A; border: 1px solid #DEE4EB; border-radius: 11px; overflow: hidden; direction: ltr; }
+.cdv2-banner > * { position: absolute; }
+.cdv2-banner-blob { left: -16px; top: -19px; width: 75px; height: 75px; box-sizing: border-box; border: .8px solid rgba(201,149,42,.12); border-radius: 37.5px; background: rgba(241,245,249,.12); }
+.cdv2-banner-disc { left: 635px; top: 17px; width: 51px; height: 51px; border-radius: 50%; background: rgba(65,100,132,.4); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
+.cdv2-banner-dot { right: 95px; top: 18px; width: 13px; height: 13px; box-sizing: border-box; border: 1px solid rgba(211,156,54,.7); border-radius: 50%; }
+.cdv2-banner-ring { right: 55px; top: 50%; width: 61px; height: 61px; box-sizing: border-box; transform: translateY(-50%); border: 1px solid rgba(255,255,255,.2); border-radius: 50%; background: rgba(255,255,255,.02); }
+.cdv2-banner-dash { left: 526px; top: 25.25px; width: 16px; height: 1.5px; background: #E6B844; }
+.cdv2-banner-line { left: 300px; top: 86px; width: 256px; height: 2px; border-radius: 9999px; background: linear-gradient(to left, #C5A365 0, rgba(197,163,101,.4) 38.462%, rgba(197,163,101,0) 80.769%); }
+.cdv2-banner-label { left: 520px; top: 16px; width: 191px; transform: translateX(-100%); font-size: 12px; line-height: normal; font-weight: 700; color: #E6B844; text-align: right; direction: rtl; white-space: nowrap; }
+.cdv2-banner-title { left: 556px; top: 41px; transform: translateX(-100%); font-size: 21px; line-height: normal; font-weight: 700; color: #F6F6F6; text-align: right; direction: rtl; white-space: nowrap; }
+.cdv2-banner-num { left: var(--nx, 626.5px); top: var(--nt, 40px); width: 21px; transform: translateX(-50%); font-size: 17px; line-height: 22px; font-weight: 700; color: #E9E9E9; text-align: center; }
+
+/* 01 audience — 2 × 2, items 347 × 58 */
+.cdv2-aud { display: grid; grid-template-columns: 347px 347px; justify-content: space-between; column-gap: 32px; row-gap: 25px; } /* Figma 3931:12869: items at x 0 and 379 of the 726 column (gap 32), rows 25 apart */
+.cdv2-aud li { box-sizing: border-box; height: 58px; display: flex; align-items: center; gap: 11px; padding: 14px; background: #E9EDF2; border: .8px solid transparent; border-radius: 7px; font-size: 12px; line-height: 1.5; font-weight: 600; color: #262626; }
+.cdv2-tick { width: 28px; height: 28px; flex: none; display: flex; align-items: center; justify-content: center; box-sizing: border-box; padding: 4px; border-radius: 13px; background: #204A7A; }
+
+/* 02 plan + 06 FAQ — accordions, items 714 wide */
+.cdv2-acc { display: flex; flex-direction: column; gap: 14px; margin-inline: 6px; }
+.cdv2-item { box-sizing: border-box; min-height: 90px; background: #fff; border: .73px solid #E5E9F1; border-radius: 10px; }
+.cdv2-item-btn { width: 100%; display: flex; align-items: center; gap: 18px; text-align: right; background: none; border: 0; cursor: pointer; color: inherit; }
+.cdv2-plan .cdv2-item { display: flex; flex-direction: column; justify-content: center; } /* item height = min-height (border-box), whatever the border snaps to */
+.cdv2-plan .cdv2-item-btn { min-height: 0; padding: 14px 20.1px 14px 25.5px; }
+.cdv2-num { order: 0; flex: none; width: 40px; height: 40px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: .73px solid #E5E9F1; border-radius: 19.169px; background: #F5F7FB; font-size: 12px; font-weight: 700; color: #204A7A; transition: all .25s; }
+.cdv2-item-main { order: 1; flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; }
+.cdv2-item-main strong { display: block; height: 21px; padding-top: 2.74px; font-size: 14px; line-height: 21px; font-weight: 600; color: #262626; }
+.cdv2-toggle { order: 2; flex: none; width: 24px; height: 24px; box-sizing: border-box; padding: 3px; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: #F5F7FB; transition: background .25s; }
+.cdv2-toggle .ic-minus { display: none; }
+.cdv2-item-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .3s ease-out; }
+.cdv2-item-inner { overflow: hidden; display: block; min-height: 0; }
+.cdv2-item.is-open .cdv2-item-body { grid-template-rows: 1fr; }
+.cdv2-item-text { display: block; margin-top: 6px; height: 18px; padding-top: 3.65px; font-size: 14px; line-height: 21px; font-weight: 400; color: #565656; }
+.cdv2-chips { display: flex; gap: 6.39px; margin-top: 14px; padding-top: 4.56px; }
+.cdv2-chip { box-sizing: border-box; width: 124px; height: 25px; display: flex; align-items: center; justify-content: center; gap: 4px; padding: 4.56px 7.3px; border-radius: 18.257px; background: #fff; font-size: 12px; line-height: 1.5; font-weight: 600; color: #565656; white-space: nowrap; }
+.cdv2-plan .cdv2-item.is-open { border: 1px solid rgba(32,74,122,.3); background: linear-gradient(169.14deg, #F8FAFC 0%, #F0F7FF 100%); filter: drop-shadow(0 10.954px 13.692px rgba(32,74,122,.08)); }
+.cdv2-plan .cdv2-item.is-open { min-height: 137px; }
+.cdv2-plan .cdv2-item.is-open .cdv2-item-btn { align-items: flex-start; padding: 23px 24px; }
+.cdv2-plan .cdv2-item.is-open .cdv2-num { width: 38.34px; height: 38.34px; background: #204A7A; border-color: #204A7A; color: #fff; box-shadow: 0 0 0 4.564px rgba(32,74,122,.09); }
+.cdv2-plan .cdv2-item.is-open .cdv2-item-main { justify-content: flex-start; margin-inline-start: -7.3px; }
+.cdv2-item.is-open .cdv2-toggle { background: #204A7A; }
+.cdv2-item.is-open .cdv2-toggle .ic-plus { display: none; }
+.cdv2-item.is-open .cdv2-toggle .ic-minus { display: block; }
+
+/* 03 certificates — 3 × (232 × 253), gap 15 */
+.cdv2-certs { display: flex; gap: 15px; align-items: center; justify-content: flex-start; direction: ltr; }
+.cdv2-certs > * { direction: rtl; }
+.cdv2-cert { position: relative; box-sizing: border-box; flex: none; width: 232px; height: 253px; background: #FEFEFE; border: .5px solid #AFCAEA; border-radius: 14px; }
+.cdv2-cert--cbp { order: 0; border: 2px solid rgba(32,74,122,.8); filter: drop-shadow(0 2px 1.75px rgba(32,74,122,.12)); }
+.cdv2-cert--intl { order: 1; }
+.cdv2-cert--local { order: 2; height: 255px; }
+.cdv2-corner { position: absolute; width: 49px; height: 60px; }
+.cdv2-corner--bl { left: 0; top: 193px; }
+.cdv2-corner--tl { left: 4.5px; top: -7.5px; transform: rotate(90deg); }
+.cdv2-corner--tr { left: 181px; top: 0; transform: rotate(180deg); }
+.cdv2-corner--br { left: 176.5px; top: 198.5px; transform: rotate(-90deg); }
+.cdv2-ribbon { position: absolute; left: 170px; top: -1px; width: 25px; height: 46px; object-fit: cover; }
+.cdv2-cert-in { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 192px; display: flex; flex-direction: column; align-items: center; gap: 32px; }
+.cdv2-cert--cbp .cdv2-cert-in { width: 201px; }
+.cdv2-cert-logos { display: flex; align-items: center; gap: 8px; }
+.cdv2-cert--cbp .cdv2-cert-logos { height: 29px; } /* Figma: logo row of the CBP card is 29 high */
+.cdv2-logo { position: relative; display: block; overflow: hidden; flex: none; }
+.cdv2-logo img { position: absolute; }
+.cdv2-logo--a { width: 34px; height: 18px; } .cdv2-logo--a img { height: 137.95%; left: -12.99%; top: -17.73%; width: 127.27%; }
+.cdv2-logo--b { width: 44px; height: 14.909px; } .cdv2-logo--b img { height: 487.8%; left: -23.14%; top: -173.17%; width: 165.29%; }
+.cdv2-logo--c { width: 48px; height: 22px; } .cdv2-logo--c img { height: 307.69%; left: -19.29%; top: -101.54%; width: 142.86%; }
+.cdv2-logo--d { width: 34px; height: 29px; } .cdv2-logo--d img { height: 183.87%; left: -27.78%; top: -41.94%; width: 158.33%; }
+.cdv2-logo-solo { width: 28px; height: 34px; object-fit: cover; }
+.cdv2-logo-sep { width: 18px; height: 1px; transform: rotate(90deg); margin-inline: -8.5px; flex: none; }
+.cdv2-cert-body { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.cdv2-cert-copy { width: 100%; display: flex; flex-direction: column; gap: 6px; }
+.cdv2-cert-copy h3 { font-size: 17px; line-height: normal; font-weight: 700; color: #262626; text-align: right; }
+.cdv2-cert--cbp .cdv2-cert-copy p { width: 202px; }
+.cdv2-cert-copy p { font-size: 12px; line-height: 1.5; font-weight: 600; color: #565656; text-align: right; }
+.cdv2-cert-line { width: 100%; height: 1px; }
+.cdv2-price { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; }
+.cdv2-price small { height: 33px; display: flex; align-items: center; font-size: 8px; line-height: 1.5; font-weight: 500; color: #64748B; white-space: nowrap; direction: rtl; }
+.cdv2-price-main { display: flex; align-items: center; gap: 11px; }
+.cdv2-cert--cbp .cdv2-price-main { gap: 6px; }
+.cdv2-price-val { display: flex; align-items: flex-end; gap: 6px; }
+.cdv2-price-val b { font-size: 12px; line-height: normal; font-weight: 700; color: #334155; white-space: nowrap; direction: rtl; }
+.cdv2-price-val strong { font-size: 17px; line-height: normal; font-weight: 700; color: #0F172A; }
+
+/* ---------- Enrollment card — 461 wide ---------- */
+.cdv2-card { box-sizing: border-box; width: 461px; flex: none; padding: 26px 24px; display: flex; flex-direction: column; gap: 28px; background: #fff; border: 1px solid #DEE4EB; border-radius: 20px; box-shadow: 0 4px 26px rgba(32,74,122,.1); }
+.cdv2-card-top { height: 32px; display: flex; justify-content: space-between; align-items: flex-start; }
+.cdv2-live { box-sizing: border-box; width: 100px; height: 32px; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 8px 12px; border-radius: 30px; background: rgba(235,242,249,.4); font-size: 10px; line-height: normal; font-weight: 700; color: #204A7A; white-space: nowrap; }
+.cdv2-live i { width: 8.185px; height: 8.185px; border-radius: 50%; background: #23AA75; box-shadow: 0 0 0 4.093px rgba(35,170,117,.15); }
+.cdv2-share { width: 30px; height: 30px; box-sizing: border-box; padding: 5px 4px 5px 6px; display: flex; align-items: center; justify-content: center; border: 0; border-radius: 15px; background: #EAF0F6; cursor: pointer; }
+.cdv2-card-head { display: flex; flex-direction: column; align-items: center; gap: 24px; }
+.cdv2-card-title { width: 384px; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; } /* flex-start = right edge in RTL */
+.cdv2-card-title > div { width: 347px; display: flex; flex-direction: column; gap: 8px; }
+.cdv2-card-title strong { display: block; font-size: 25px; line-height: normal; font-weight: 700; color: #204A7A; text-align: right; }
+.cdv2-card-title strong:first-child { height: 30px; }
+.cdv2-card-title strong:last-child { height: 26px; }
+.cdv2-card-bar { width: 53px; height: 4px; border-radius: 10px; background: #5188C7; box-shadow: 0 1px 2px rgba(0,0,0,.05); }
+.cdv2-seats { box-sizing: border-box; width: 384px; height: 66px; display: flex; align-items: center; justify-content: space-between; padding: 0 21.5px; background: #fff; border: 1px solid #C5D3E2; border-radius: 13px; box-shadow: 0 0 0 2px rgba(32,74,122,.12); }
+.cdv2-seats-ico { order: 1; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; border-radius: 10px; background: #E9EDF2; }
+.cdv2-seats-text { order: 2; flex: 1; margin-inline-start: 14px; display: flex; flex-direction: column; gap: 4px; }
+.cdv2-seats-text small { font-size: 12px; line-height: 1.5; font-weight: 600; color: #6F6F6F; }
+.cdv2-seats-text strong { font-size: 12px; line-height: normal; font-weight: 700; color: #204A7A; }
+.cdv2-open { order: 3; box-sizing: border-box; width: 89px; height: 24px; display: flex; align-items: center; justify-content: center; gap: 5px; padding: 6px 8px; border-radius: 20px; background: #EDF8F3; font-size: 10px; line-height: normal; font-weight: 700; color: #267052; white-space: nowrap; }
+.cdv2-open i { width: 4.841px; height: 4.841px; border-radius: 50%; background: #2C9B70; box-shadow: 0 0 0 2.42px rgba(44,155,112,.13); }
+.cdv2-card-info { display: flex; flex-direction: column; gap: 20px; margin-top: -4px; } /* head → info is 24 in Figma, the card column gap is 28 */
+.cdv2-rows { box-sizing: border-box; height: 171px; display: flex; flex-direction: column; justify-content: center; gap: 26px; padding: 18px; background: #F8FAFC; border: 2px solid rgba(241,245,249,.8); border-radius: 18px; }
+.cdv2-rows li { display: flex; align-items: center; justify-content: space-between; height: 26px; }
+.cdv2-row-label { display: flex; align-items: center; gap: 8.868px; font-size: 14px; line-height: 1.5; font-weight: 500; color: #334155; white-space: nowrap; }
+.cdv2-row-ico { width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; border-radius: 6.651px; background: #E9EDF2; }
+.cdv2-row-val { font-size: 14px; line-height: normal; font-weight: 700; color: #1E293B; white-space: nowrap; }
+.cdv2-row-range { display: flex; gap: 7.538px; }
+.cdv2-row-range em { font-style: normal; color: #6F6F6F; }
+.cdv2-metrics { display: flex; gap: 15.519px; padding: 14.3px 0 13.3px; border-top: 1px solid #F1F5F9; }
+.cdv2-metric { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 4.434px; padding: 0 4.434px 3.325px; }
+.cdv2-metric:not(:first-child) { border-inline-start: 1.108px solid #E2E8F0; } /* Figma 3931:12775: divider on the 2nd and 3rd cells (right edge in LTR), none on the outer edge */
+.cdv2-metric strong { padding-bottom: 2.217px; font-size: 16px; line-height: normal; font-weight: 700; color: #262626; white-space: nowrap; }
+.cdv2-metric small { font-size: 13px; line-height: 1.5; font-weight: 500; color: #949494; white-space: nowrap; }
+
+/* ---------- 04 steps — 726 × 181, every position is Figma left/top (px) ---------- */
+.cdv2-steps { position: relative; width: 726px; height: 181px; direction: ltr; }
+.cdv2-steps > * { position: absolute; }
+.cdv2-step-n { width: 179px; height: 82px; transform: translateX(-50%); font-size: 36px; line-height: normal; font-weight: 700; color: #BAC7D6; opacity: .9; text-align: center; }
+.cdv2-step-path { top: 33px; width: 173px; height: 40px; }
+.cdv2-step-path img { position: absolute; left: -.57%; top: -3.75%; width: 101.13%; height: 106.58%; }
+.cdv2-step-dot { width: 7px; height: 7px; box-sizing: border-box; transform: translate(-50%, -50%); border: 2px solid #204A7A; border-radius: 50%; background: #fff; }
+.cdv2-step-ico { width: 75px; height: 75px; }
+.cdv2-step-ico--1 { left: 597px; top: 47px; }
+.cdv2-step-ico--3 { left: 55px; top: 50px; }
+.cdv2-step-ico--1 img, .cdv2-step-ico--3 img { position: absolute; left: -6.67%; top: -1.33%; width: 113.34%; height: 113.33%; }
+.cdv2-step-ico--2 { left: 328px; top: 44px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; padding: 1px; border: 1px solid rgba(226,232,240,.8); border-radius: 50%; background: #fff; box-shadow: 0 4px 6px -1px rgba(224,231,255,.5), 0 2px 4px -2px rgba(224,231,255,.5); }
+.cdv2-step-text { display: flex; flex-direction: column; align-items: center; gap: 4px; white-space: nowrap; direction: rtl; }
+.cdv2-step-text h3 { font-size: 17px; line-height: normal; font-weight: 700; color: #1E293B; }
+.cdv2-step-text p { font-size: 14px; line-height: 1.5; font-weight: 400; color: #475569; text-align: center; }
+
+/* ---------- 05 reviews — 3 cards of 223 × 200, gap 28; dots 43 below ---------- */
+.cdv2-slider { display: flex; flex-direction: column; align-items: center; gap: 43px; }
+.cdv2-viewport { width: 726px; height: 200px; margin: -2px 0; overflow: hidden; }
+.cdv2-track { display: flex; gap: 28px; direction: rtl; transition: transform .45s ease; }
+.cdv2-review { position: relative; box-sizing: border-box; flex: none; width: 223px; height: 200px; background: #FEFEFE; border: .28px solid #AFCAEA; border-radius: 14px; }
+.cdv2-quote { position: absolute; left: -14.56px; top: 17.86px; font: 900 40.254px/40.254px 'Cairo', sans-serif; color: rgba(184,147,54,.2); }
+.cdv2-review-in { position: absolute; left: 28.54px; top: 26.84px; width: 176.27px; display: flex; flex-direction: column; align-items: flex-end; gap: 40px; direction: ltr; }
+.cdv2-review-top { width: 100%; display: flex; flex-direction: column; gap: 12px; direction: rtl; }
+.cdv2-review blockquote { font-size: 12px; line-height: 1.5; font-weight: 400; color: #262626; text-align: right; }
+.cdv2-stars { position: relative; height: 14px; display: flex; justify-content: flex-start; gap: 4px; }
+.cdv2-review figcaption { display: flex; flex-direction: row-reverse; gap: 16px; align-items: flex-start; }
+.cdv2-review figcaption img { width: 28px; height: 28px; box-sizing: border-box; border: .895px solid rgba(32,74,122,.3); border-radius: 20px; background: #EFF3F8; object-fit: cover; }
+.cdv2-review figcaption span { width: 111.6px; display: flex; flex-direction: column; direction: rtl; text-align: right; }
+.cdv2-review figcaption strong { font-size: 12px; line-height: 1.5; font-weight: 600; color: #204A7A; }
+.cdv2-review figcaption small { font-size: 10px; line-height: normal; font-weight: 400; color: #64748B; white-space: pre; }
+.cdv2-dots { display: flex; gap: 4px; direction: ltr; }
+.cdv2-dots button { width: 8px; height: 6px; padding: 0; border: 0; border-radius: 9999px; background: #DDE4ED; cursor: pointer; transition: width .3s, background .3s; }
+.cdv2-dots button.is-active { width: 20px; background: #204A7A; }
+.cdv2-only-m { display: none; }
+.cdv2-certs-dots { display: none; }
+
+/* ---------- 06 FAQ — items 714 × 60, open 122 ---------- */
+.cdv2-faq { margin-inline: 0; gap: 12px; }
+.cdv2-faq .cdv2-item { margin-inline-start: 0; } /* Figma 3931:13170: every item is the full 726 column wide, open or closed – the open one only grows downward */
+.cdv2-faq .cdv2-item.is-open { margin-bottom: 2px; } /* 14 below the open item, 12 between the rest */
+.cdv2-faq .cdv2-item { min-height: 60px; display: flex; flex-direction: column; justify-content: center; border: .8px solid #E5E9F1; border-radius: 8px; }
+.cdv2-faq .cdv2-item-btn { justify-content: space-between; padding: 17px 19px; }
+.cdv2-faq-q { flex: 1; font-size: 14px; line-height: 1.5; font-weight: 600; color: #262626; text-align: right; }
+.cdv2-faq .cdv2-item.is-open { min-height: 122px; background: #EFF7FF; border-color: #A7CEFA; }
+.cdv2-faq .cdv2-item.is-open .cdv2-item-btn { padding-bottom: 0; }
+.cdv2-faq .cdv2-item-inner { padding: 0 19px; }
+.cdv2-faq-a { margin: 12px 0 17px; padding-top: 12px; border-top: .8px solid rgba(159,195,235,.2); font-size: 12px; line-height: 1.5; font-weight: 500; color: #565656; text-align: right; }
+
+/* ---------- 07 about — stats 348 × 174, accreditation 726 × 121, logos 159 circles ---------- */
+.cdv2-about { display: flex; flex-direction: column; }
+.cdv2-stats { display: flex; justify-content: space-between; margin-bottom: 16px; }
+.cdv2-stat { box-sizing: border-box; width: 348px; height: 174px; display: flex; align-items: center; justify-content: center; background: #fff; border: 1.6px solid #BAD2EE; border-radius: 30px; }
+.cdv2-stat-in { width: 180px; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.cdv2-ico-box { position: relative; box-sizing: border-box; flex: none; width: 61px; height: 61px; display: flex; align-items: center; justify-content: center; background: #F2F8FF; border: 2px solid rgba(219,234,254,.6); border-radius: 19.997px; }
+.cdv2-approved { display: flex; }
+.cdv2-stat-text { display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; }
+.cdv2-stat-text strong { font-size: 21px; line-height: 1.5; font-weight: 700; color: #262626; white-space: nowrap; }
+.cdv2-stat-text > span { font-size: 20px; line-height: 1.5; font-weight: 600; color: #64748B; white-space: nowrap; }
+.cdv2-accr { box-sizing: border-box; height: 121px; display: flex; align-items: center; gap: 27.995px; padding: 39.993px; background: #fff; border: 1.6px solid #BAD2EE; border-radius: 30px; }
+.cdv2-accr-text { display: flex; flex-direction: column; gap: 2px; margin-top: -4px; }
+.cdv2-accr-text h3 { font-size: 21px; line-height: normal; font-weight: 700; color: #262626; }
+.cdv2-accr-text p { display: flex; gap: 8px; font-size: 20px; white-space: nowrap; }
+.cdv2-accr-text p span { line-height: 1.5; font-weight: 500; color: #64748B; }
+.cdv2-accr-text p b { line-height: normal; font-weight: 700; color: #475569; }
+.cdv2-logos { margin-top: 48px; width: 726px; overflow: hidden; -webkit-mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent); mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent); }
+.cdv2-logos-track { display: flex; width: max-content; animation: cdv2Marquee 22s linear infinite; will-change: transform; } /* same speed / direction as the home page partners strip */
+.cdv2-logos:hover .cdv2-logos-track { animation-play-state: paused; }
+.cdv2-logos-set { display: flex; flex: none; gap: 26px; padding-right: 26px; margin: 0; }
+@keyframes cdv2Marquee { 0% { transform: translateX(calc(-100% / 3)); } 100% { transform: translateX(0); } }
+@media (prefers-reduced-motion: reduce) { .cdv2-logos-track { animation: none; } .cdv2-logos-set + .cdv2-logos-set { display: none; } }
+.cdv2-lg { position: relative; flex: none; width: 159.054px; height: 159.054px; }
+.cdv2-lg-ring { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(90deg); }
+.cdv2-lg span { position: absolute; overflow: hidden; }
+.cdv2-lg span img { position: absolute; }
+.cdv2-lg--ibta span { left: 20.36px; top: 55.99px; width: 118.066px; height: 46.3px; }
+.cdv2-lg--ibta span img { height: 423.95%; left: -26.33%; top: -142.98%; width: 165.69%; }
+.cdv2-lg--manar span { left: 35.63px; top: 35.63px; width: 89.707px; height: 89.707px; }
+.cdv2-lg--manar span img { height: 66.73%; left: -22.46%; top: 16.96%; width: 144%; }
+.cdv2-lg--tvtc span { left: 14.63px; top: 41.35px; width: 133.605px; height: 76.346px; }
+.cdv2-lg--tvtc span img { height: 228.06%; left: -15.16%; top: -66.33%; width: 130.32%; }
+.cdv2-lg--nelc span { left: 15.9px; top: 59.8px; width: 122.049px; height: 42.663px; }
+.cdv2-lg--nelc span img { height: 175.95%; left: -7.6%; top: -37.97%; width: 116.97%; }
+.cdv2-lg--hrdf span { left: 14.63px; top: 41.35px; width: 133.6px; height: 76.35px; }
+.cdv2-lg--hrdf span img { height: 104%; left: 20.29%; top: -4.3%; width: 59.43%; }
+.cdv2-lg--certiport span { left: 25.45px; top: 62.99px; width: 117.07px; height: 38.81px; }
+.cdv2-lg--certiport span img { height: 319.15%; left: -1.93%; top: -112.77%; width: 105.08%; }
+.cdv2-lg--oxford span { left: 44.53px; top: 39.45px; width: 75.71px; height: 88.43px; }
+.cdv2-lg--oxford span img { height: 98.03%; left: 0; top: 2.06%; width: 100%; }
+
+/* ---------- closing countdown banner — 726 × 120 ---------- */
+.cdv2-closing { position: relative; width: 726px; height: 120px; background: #17355A; border-radius: 16px; overflow: hidden; }
+.cdv2-closing-blob { position: absolute; left: -40px; top: -64px; width: 160px; height: 160px; border-radius: 50%; background: rgba(255,255,255,.05); }
+.cdv2-closing-in { position: absolute; left: calc(50% - 1px); top: 50%; transform: translate(-50%, -50%); width: 676px; display: flex; align-items: flex-end; justify-content: center; gap: 142px; }
+.cdv2-closing-text { width: 291.337px; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; direction: rtl; }
+.cdv2-closing-pill { display: flex; align-items: center; gap: 4px; height: 30px; padding: 0 10px; border-radius: 25px; background: rgba(255,206,104,.05); }
+.cdv2-closing-pill b { font-size: 12px; line-height: normal; font-weight: 700; color: #E6B844; white-space: nowrap; }
+.cdv2-closing-text p { height: 24px; padding-top: 4px; box-sizing: border-box; font-size: 14px; line-height: normal; font-weight: 500; color: #F6F6F6; white-space: nowrap; }
+
+/* ---------- icons exported as a clipped "Group" in Figma: placed with the Figma insets (% of the icon frame) ---------- */
+.cdv2-ic { position: relative; display: block; flex: none; }
+.cdv2-ic img { position: absolute; max-width: none; }
+.cdv2-ic--pin20 { width: 20px; height: 18px; } .cdv2-ic--pin20 img { left: 19.43%; top: 3.17%; width: 61.15%; height: 93.67%; }
+.cdv2-ic--clock20 { width: 20px; height: 20px; } .cdv2-ic--clock20 img { left: 11.82%; top: 11.82%; width: 76.4%; height: 76.4%; }
+.cdv2-ic--row-calendar { width: 16px; height: 16px; } .cdv2-ic--row-calendar img { inset: 0; width: 100%; height: 100%; }
+.cdv2-ic--row-clock { width: 16px; height: 16px; } .cdv2-ic--row-clock img { left: 11.1%; top: 11.1%; width: 77.75%; height: 77.75%; }
+.cdv2-ic--row-pin { width: 18px; height: 16px; } .cdv2-ic--row-pin img { left: 19.14%; top: 2.79%; width: 61.71%; height: 94.43%; }
+.cdv2-ic--metric { width: 17.735px; height: 17.735px; }
+.cdv2-ic--m-days img, .cdv2-ic--m-period img { inset: 0; width: 100%; height: 100%; }
+.cdv2-ic--m-hours img { left: 10.52%; top: 10.52%; width: 78.94%; height: 78.94%; }
+.cdv2-closing-pill { direction: ltr; }
+
+
+/* ---------- floating signup button — 185 × 61 (Figma 3931:13365); shown once the booking form scrolls out of view ---------- */
+.cdv2-fab { position: fixed; z-index: 1040; bottom: 24px; left: max(24px, calc((100vw - 1241px) / 2 + 8.5px)); width: 185px; height: 61px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; gap: 5px; padding: 15px 31px; border: 2px solid #F7E9C5; border-radius: 25px; background: #204A7A; filter: drop-shadow(0 1px 2px rgba(201,149,42,.25)); color: #F6F6F6; font-size: 17px; line-height: normal; font-weight: 700; white-space: nowrap; cursor: pointer; opacity: 0; visibility: hidden; transform: translateY(16px); transition: opacity .3s, transform .3s, visibility .3s, background .2s; }
+.cdv2-fab.is-visible { opacity: 1; visibility: visible; transform: none; }
+.cdv2-fab:hover { background: #1A3B62; }
+.cdv2-fab img { width: 20px; height: 20px; }
+
+/* ==========================================================================
+   MOBILE — Figma "الدورات" mobile frame 3931:14200 (393 wide, content 361.5)
+   Everything below applies ≤ 1279px; the desktop frame above is untouched.
+   ========================================================================== */
+@media (max-width: 1279.98px) {
+  .cdv2-only-d { display: none; }
+  .cdv2-only-m { display: inline; }
+
+  /* ---------- top bar: countdown 50 + logo 57 ---------- */
+  .cdv2-countdown { height: 50px; border-bottom-width: 1px; gap: 21px; padding: 0 9px 0 8px; } /* content centre = 50% - .5px like Figma */
+  .cdv2-countdown .cdv2-cd { gap: 4px; }
+  .cdv2-countdown .cdv2-cd-box { width: 32px; min-width: 32px; height: 32px; padding: 4px 6px 1.2px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; }
+  .cdv2-countdown .cdv2-cd-box b { font: 700 10px/12px 'El Messiri', 'Cairo', sans-serif; }
+  .cdv2-countdown .cdv2-cd-box small { font-size: 8.5px; line-height: 13.6px; font-weight: 700; color: #F6F6F6; white-space: nowrap; }
+  .cdv2-countdown .cdv2-cd-box.is-sec small { color: #E6B844; }
+  .cdv2-countdown .cdv2-cd-text { gap: 6px; width: 177px; }
+  .cdv2-countdown .cdv2-cd-label, .cdv2-countdown .cdv2-cd-seats { font-size: 11px; margin: 0; }
+  .cdv2-countdown .cdv2-cd-sep { width: 9px; margin: 0 -3.35px; } /* measured against Figma: label → line 6.7, line → text 8 */
+  .cdv2-countdown .cdv2-cd-dot { margin-left: .7px; }
+  .cdv2-logobar { height: 57px; padding-top: 3px; background: #FCFCFC; } /* Figma: white at 65% over the #F6F6F6 page — opaque now that it sticks */
+  .cdv2-logobar a { width: 58px; height: 45px; overflow: visible; } /* centred in the bar */ /* box = Figma 58 × 45; the png's empty margins may spill, the logo itself is never clipped */
+  .cdv2-logobar .cdv2-logo-d { display: none; }
+  .cdv2-logobar .cdv2-logo-m { display: block; position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: fill; max-width: none; } /* Figma 3931:14239 stretches the square logo to 58 × 45 (size-full, no object-fit) */
+
+  /* ---------- page: one 361.5 column ---------- */
+  .cdv2-page { padding: 0 15.75px 39px; } /* + the footer's own top margin = 64 below the last banner */
+  .cdv2-wrap { max-width: 361.5px; margin-top: 24px; gap: 0; }
+  .cdv2-stage { display: flex; flex-direction: column; align-items: stretch; row-gap: 0; }
+  .cdv2-side, .cdv2-hero, .cdv2-hero-text, .cdv2-form-rail { display: contents; }
+  .cdv2-discover { display: none; }
+
+  /* ---------- hero card: tag, title, lead, details row ---------- */
+  .cdv2-hero-head { order: 1; width: 291px; margin: 0 auto; gap: 12px; align-items: center; }
+  .cdv2-tag { justify-content: center; height: auto; gap: 4px; font-size: 14px; line-height: 1.5; font-weight: 600; color: #CFA63D; }
+  .cdv2-tag i { width: 15px; background: #CFA63D; }
+  .cdv2-hero-copy { width: 100%; gap: 8px; align-items: center; }
+  .cdv2-hero-titles { flex-direction: row; justify-content: center; align-items: center; gap: 6px; width: 100%; }
+  .cdv2-title { width: auto; height: auto; margin: 0; font-size: 21px; line-height: 1.31; white-space: nowrap; text-align: right; }
+  .cdv2-title-en { width: auto; height: auto; font-size: 21px; line-height: normal; }
+  .cdv2-lead { width: 100%; font-size: 14px; line-height: normal; font-weight: 500; color: #565656; text-align: center; }
+  .cdv2-meta { order: 2; width: 335px; max-width: 100%; margin: 24px auto 0; height: 17px; gap: 8px; justify-content: center; }
+  .cdv2-meta li { gap: 2px; }
+  .cdv2-meta span { font-size: 11px; line-height: normal; }
+  .cdv2-meta .cdv2-ic--pin20 { width: 16px; height: 13px; }
+  .cdv2-meta .cdv2-ic--clock20 { width: 16px; height: 16px; }
+  .cdv2-meta li:not(.cdv2-meta-sep) > img { width: 16px; height: 16px; }
+  .cdv2-meta-sep img { width: 15.42px; margin: 0 -7.2px; }
+
+  /* ---------- booking form ---------- */
+  .cdv2-form { order: 3; position: static; width: 100%; height: auto; margin-top: 20px; padding: 16px 21px; gap: 16px; filter: drop-shadow(0 4px 2px rgba(23,53,90,.1)); }
+  .cdv2-form-head { width: 100%; gap: 8px; }
+  .cdv2-form-logo { width: 47px; height: 47px; }
+  .cdv2-form-title { gap: 12px; }
+  .cdv2-form-title h2 { font-size: 17px; line-height: normal; }
+  .cdv2-form-title img { width: 100%; }
+  .cdv2-form-body { gap: 14px; }
+  .cdv2-form-main { gap: 16px; }
+  .cdv2-fields { gap: 16px; }
+  .cdv2-field, .cdv2-field--phone { gap: 10px; }
+  .cdv2-cc { width: 82px; }
+  .cdv2-form-note { font-size: 10px; line-height: normal; }
+  .cdv2-badges { order: 4; width: 100%; height: 28px; margin-top: 16px; justify-content: center; gap: 7px; }
+  .cdv2-badges li { height: 28px; padding: 6px; gap: 4px; border-width: .536px; border-radius: 5px; }
+  .cdv2-badges li img { width: 14px; height: 14px; }
+  .cdv2-badges span { font-size: 9px; }
+
+  /* ---------- enrollment card ---------- */
+  .cdv2-side .cdv2-card { order: 5; position: static; width: 100%; margin-top: 20px; padding: 20px; gap: 32px; }
+  .cdv2-card-top { height: 21px; align-items: center; }
+  .cdv2-live { width: 88px; height: 25px; padding: 6px 10px; gap: 6px; background: rgba(255,255,255,.94); }
+  .cdv2-live i { width: 6.038px; height: 6.038px; box-shadow: 0 0 0 3.019px rgba(35,170,117,.15); }
+  .cdv2-share { width: 25px; height: 25px; padding: 5px 6px; }
+  .cdv2-share img { width: 14px; height: 14px; }
+  .cdv2-card-head { align-items: stretch; gap: 16px; }
+  .cdv2-card-title { width: 100%; gap: 3px; }
+  .cdv2-card-title > div { width: 100%; gap: 4px; }
+  .cdv2-card-title strong { font-size: 24px; }
+  .cdv2-card-bar { width: 55px; }
+  .cdv2-seats { width: 100%; height: 55px; padding: 0 17px; border-width: .738px; box-shadow: 0 0 0 2px rgba(32,74,122,.1); }
+  .cdv2-seats-ico { width: 25px; height: 25px; border-radius: 8px; align-self: flex-start; margin-top: 10px; } /* Figma: icon sits on the top of the text group */
+  .cdv2-seats-ico img { width: 14px; height: 14px; }
+  .cdv2-seats-text { margin-inline-start: 10px; gap: 2.951px; }
+  .cdv2-seats-text small { font-size: 10px; }
+  .cdv2-seats-text strong { font-size: 11px; }
+  .cdv2-open { width: 75px; height: 23px; padding: 6px; border-radius: 15px; font-size: 8px; gap: 4px; }
+  .cdv2-open i { width: 3.571px; height: 3.571px; box-shadow: 0 0 0 1.786px rgba(44,155,112,.13); }
+  .cdv2-card-info { margin-top: -16px; gap: 14px; }
+  .cdv2-rows { height: 148px; padding: 17.475px 13.475px; border-width: 1.475px; border-radius: 10px; gap: 20px; }
+  .cdv2-rows li { height: 22px; }
+  .cdv2-row-label { gap: 6.542px; font-size: 12px; color: #262626; }
+  .cdv2-row-ico { width: 22px; height: 22px; border-radius: 5px; }
+  .cdv2-row-val { font-size: 12px; color: #262626; }
+  .cdv2-row-range { gap: 5.56px; }
+  .cdv2-ic--row-calendar { width: 14px; height: 14px; }
+  .cdv2-ic--row-clock { width: 14px; height: 14px; }
+  .cdv2-ic--row-pin { width: 16px; height: 14px; }
+  .cdv2-metrics { gap: 12px; padding: 10.818px 0 10px; border-top-width: .818px; }
+  .cdv2-metrics { justify-content: center; }
+  .cdv2-metric { box-sizing: border-box; flex: 0 0 95px; height: 55px; padding: 0 3.271px 2.453px; gap: 3px; }
+  .cdv2-metric:first-child { border-inline-start: 0; }
+  .cdv2-metric:not(:first-child) { border-inline-start: .818px solid #E2E8F0; } /* Figma 3931:14307: the divider belongs to the 2nd and 3rd cells (right edge in LTR), none on the outer edge */
+  .cdv2-ic--metric { width: 15px; height: 15px; }
+  .cdv2-metric strong { padding: 0; font-size: 12px; line-height: 21px; }
+  .cdv2-metric small { font-size: 10px; line-height: 14px; }
+
+  /* ---------- sections ---------- */
+  .cdv2-stage > .cdv2-main { order: 6; width: 100%; margin-top: 40px; gap: 40px; }
+  .cdv2-block { gap: 32px; }
+  .cdv2-block:nth-child(5) { margin-top: 31px; } /* steps → reviews is 71, not 40 */
+
+  /* banner 361 × 65 */
+  .cdv2-banner { width: 100%; height: 65px; border-width: .513px; border-radius: 8px; }
+  .cdv2-banner-blob { left: -8.51px; top: -9.51px; width: 38px; height: 38px; border-width: .5px; border-radius: 20px; }
+  .cdv2-banner-disc { left: auto; right: 9.51px; top: 8.49px; width: 26px; height: 26px; -webkit-backdrop-filter: blur(2.05px); backdrop-filter: blur(2.05px); }
+  .cdv2-banner-dot { right: 47.49px; top: 13.49px; width: 8px; height: 8px; border-width: .5px; }
+  .cdv2-banner-ring { right: 28.49px; width: 30px; height: 30px; border-width: .513px; }
+  .cdv2-banner-dash { left: auto; right: 75.5px; top: 13.65px; width: 8.2px; height: .77px; }
+  .cdv2-banner-line { left: auto; right: 77.5px; top: 51px; width: 130px; height: 1px; }
+  .cdv2-banner-label { left: auto; right: 86.2px; top: 7.49px; width: auto; transform: none; font-size: 10px; text-align: right; }
+  .cdv2-banner-title { left: auto; right: 75.5px; top: 23.3px; transform: none; font-size: 16px; }
+  .cdv2-banner-num { left: auto; right: 34.5px; top: 23.5px; width: 18px; transform: none; font-size: 14px; line-height: 16px; }
+
+  /* 01 audience: one column */
+  .cdv2-aud { display: flex; flex-direction: column; gap: 10px; padding: 0; }
+  .cdv2-aud li { width: 100%; height: 50px; padding: 14px; gap: 8px; border: .8px solid #DEE4EB; border-radius: 8px; }
+  .cdv2-tick { width: 20px; height: 20px; border-radius: 13px; }
+  .cdv2-tick img { width: 14px; height: 14px; }
+
+  /* 02 plan + 06 FAQ */
+  .cdv2-acc { margin-inline: 0; gap: 10px; }
+  .cdv2-item { min-height: 0; border: .5px solid #CDD5E5; border-radius: 8px; }
+  .cdv2-plan .cdv2-item-btn { min-height: 0; padding: 16px; gap: 12px; }
+  .cdv2-num { width: 28px; height: 28px; padding-top: 3px; border-radius: 50%; border-width: .5px; }
+  .cdv2-item-main { flex: none; width: 246px; max-width: calc(100% - 64px); justify-content: center; } /* Figma text column = 246, the toggle takes the rest */
+  .cdv2-toggle { margin-inline-start: auto; }
+  .cdv2-item-main strong { height: auto; padding: 0; font-size: 12px; line-height: 1.5; }
+  .cdv2-toggle { padding: 1.515px; border-radius: 20px; }
+  .cdv2-item-text { height: auto; margin-top: 4px; padding: 0; font-size: 11px; line-height: 1.5; }
+  .cdv2-chips { margin-top: 8px; padding: 0; gap: 9px; justify-content: flex-start; }
+  .cdv2-chip { width: auto; height: 20px; padding: 6px; gap: 2px; border-radius: 20px; font-size: 10px; }
+  .cdv2-chip img { width: 10px; height: 10px; }
+  .cdv2-plan .cdv2-item.is-open { min-height: 100px; border: .505px solid rgba(32,74,122,.3); border-radius: 10px; filter: drop-shadow(0 5.531px 6.913px rgba(32,74,122,.08)); }
+  .cdv2-plan .cdv2-item.is-open .cdv2-item-btn { padding: 16px; }
+  .cdv2-plan .cdv2-item.is-open .cdv2-num { padding-top: 2px; width: 28px; height: 28px; box-shadow: 0 0 0 2.5px rgba(32,74,122,.09); font-size: 12px; }
+  .cdv2-plan .cdv2-item.is-open .cdv2-item-main { margin-inline-start: 0; }
+  .cdv2-faq { gap: 10px; }
+  .cdv2-faq .cdv2-item { margin-inline-start: 0; min-height: 0; border: .5px solid #CDD5E5; border-radius: 8px; }
+  .cdv2-faq .cdv2-item.is-open { min-height: 167px; margin-bottom: 0; border: .406px solid #A7CEFA; background: #EFF7FF; }
+  .cdv2-faq .cdv2-item-btn { padding: 16px; gap: 38px; }
+  .cdv2-faq .cdv2-item.is-open .cdv2-item-btn { padding-bottom: 0; align-items: flex-start; }
+  .cdv2-faq-q { font-size: 12px; }
+  .cdv2-faq .cdv2-item-inner { padding: 0 16px; }
+  .cdv2-faq-a { margin: 6px 0 16px; padding-top: 6px; border-top: .5px solid rgba(88,129,175,.2); font-size: 12px; line-height: normal; text-align: justify; }
+
+  /* 03 certificates: swipeable cards 315 × 221 */
+  .cdv2-certs { width: calc(100% + 31.5px); margin-inline: -15.75px; padding-inline: calc((100vw - 315px) / 2); box-sizing: border-box; direction: rtl; justify-content: flex-start; align-items: flex-start; gap: 19px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .cdv2-certs::-webkit-scrollbar { display: none; }
+  .cdv2-cert, .cdv2-cert--local, .cdv2-cert--intl, .cdv2-cert--cbp { order: 0; width: 315px; height: 221px; scroll-snap-align: center; border-width: .5px; }
+  .cdv2-cert--cbp { border: 1px solid #204A7A; filter: none; }
+  .cdv2-corner--bl { left: 0; top: 161px; }
+  .cdv2-corner--tl { left: 5.5px; top: -6.5px; }
+  .cdv2-corner--tr { left: 266px; top: -1px; }
+  .cdv2-corner--br { left: 260.5px; top: 166.5px; }
+  .cdv2-ribbon { left: 248px; width: 32px; height: 59px; }
+  .cdv2-cert-in, .cdv2-cert--cbp .cdv2-cert-in { width: 268px; gap: 18px; }
+  .cdv2-cert--cbp .cdv2-cert-in { gap: 27px; }
+  .cdv2-cert--cbp .cdv2-cert-logos { height: auto; }
+  .cdv2-cert-logos { gap: 18px; }
+  .cdv2-logo--a { width: 40px; height: 21px; }
+  .cdv2-logo--b { width: 56px; height: 19px; }
+  .cdv2-logo--c { width: 54px; height: 25px; }
+  .cdv2-logo--d { width: 39px; height: 34px; }
+  .cdv2-logo-sep { margin-inline: -9px; }
+  .cdv2-cert-body { gap: 14px; }
+  .cdv2-cert--cbp .cdv2-cert-body { gap: 10px; }
+  .cdv2-cert-copy p, .cdv2-cert--cbp .cdv2-cert-copy p { width: 100%; }
+  .cdv2-cert-copy h3 { width: auto; }
+  .cdv2-price { gap: 18px; }
+  .cdv2-price small { font-size: 10px; }
+  .cdv2-price-val strong { font-size: 21px; }
+  .cdv2-price-main img { width: 16px; height: 16px; }
+  .cdv2-certs-dots { display: flex; margin: -14px auto 0; justify-content: center; } /* 18 below the cards (block gap is 32) */
+
+  /* 04 steps: the desktop strip scaled to 361 (zoom .4972), texts re-sized to the mobile 10 / 8px */
+  .cdv2-steps { zoom: .4972; margin: 0 auto; }
+  .cdv2-step-text h3 { font-size: 20.11px; }
+  .cdv2-step-text p { font-size: 16.09px; font-weight: 500; }
+  .cdv2-step-text { gap: 4px; }
+
+  /* 05 reviews: swipeable cards */
+  .cdv2-slider { gap: 18px; }
+  .cdv2-viewport { width: calc(100% + 31.5px); margin: 0 -15.75px; padding-inline: calc((100vw - 315px) / 2); box-sizing: border-box; height: auto; overflow-x: auto; direction: rtl; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .cdv2-viewport::-webkit-scrollbar { display: none; }
+  .cdv2-track { transform: none !important; transition: none; gap: 17px; align-items: center; height: 186px; }
+  .cdv2-review { width: 315px; height: auto; padding: 20px; scroll-snap-align: center; border-width: .5px; }
+  .cdv2-review-in { position: static; width: 100%; gap: 0; align-items: stretch; direction: rtl; }
+  .cdv2-review-top { gap: 14px; }
+  .cdv2-review blockquote { font-size: 14px; line-height: 1.5; }
+  .cdv2-stars { height: 24px; gap: 4px; align-items: flex-start; }
+  .cdv2-stars img { width: 16px; height: 16px; }
+  .cdv2-quote { left: 0; top: 0; font-size: 39px; line-height: 39px; }
+  .cdv2-review figcaption { flex-direction: row-reverse; justify-content: flex-end; gap: 9px; align-items: center; }
+  .cdv2-review figcaption img { width: 40px; height: 40px; border-width: 1.6px; border-radius: 50%; }
+  .cdv2-review figcaption span { width: 171px; }
+  .cdv2-review figcaption strong { font-size: 14px; font-weight: 700; line-height: normal; }
+  .cdv2-review figcaption small { font-size: 12px; font-weight: 500; color: #565656; }
+
+  /* 07 about */
+  .cdv2-stats { gap: 10px; margin-bottom: 10px; }
+  .cdv2-stat { width: calc(50% - 5px); height: 112px; border-width: .8px; border-radius: 15px; }
+  .cdv2-stat-in { width: 90px; gap: 6px; }
+  .cdv2-ico-box { width: 35px; height: 35px; border-width: 1px; border-radius: 10px; }
+  .cdv2-ico-box img { zoom: .5625; }
+  .cdv2-stat-text { gap: 0; }
+  .cdv2-stat-text strong { font-size: 17px; font-weight: 600; }
+  .cdv2-stat-text > span { font-size: 12px; }
+  .cdv2-accr { height: 83px; padding: 20px; gap: 14px; border-width: .8px; border-radius: 15px; }
+  .cdv2-accr .cdv2-ico-box { width: 48px; height: 48px; border-radius: 16px; }
+  .cdv2-accr .cdv2-ico-box img { zoom: .75; }
+  .cdv2-accr-text { gap: 1px; margin-top: 0; }
+  .cdv2-accr-text h3 { font-size: 17px; font-weight: 600; line-height: 1.5; }
+  .cdv2-accr-text p { gap: 4px; font-size: 12px; }
+  .cdv2-logos { width: 100%; margin-top: 32px; }
+  .cdv2-lg { zoom: .679; }
+
+  /* closing banner 361 × 185 */
+  .cdv2-closing { width: 100%; height: 185px; border-radius: 10px; }
+  .cdv2-closing-in { left: calc(50% + .17px); width: 291.337px; flex-direction: column-reverse; align-items: center; justify-content: center; gap: 16px; }
+  .cdv2-closing-text { width: 100%; align-items: center; gap: 12px; }
+  .cdv2-closing-text p { text-align: center; }
+
+  /* floating signup button 108 × 45 */
+  .cdv2-fab { left: 16px; bottom: 16px; width: auto; height: auto; padding: 11px 16px; gap: 5px; border-radius: 20px; font-size: 12px; }
+  .cdv2-fab img { width: 18px; height: 18px; }
+}
+
+/* ---------- booking modals — 339 wide, radius 32 (Figma 3931:13462 / 3931:13431) ---------- */
+.cdv2-modal { position: fixed; inset: 0; z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 16px; background: rgba(15,23,42,.5); -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px); }
+.cdv2-modal[hidden] { display: none; }
+.cdv2-modal-box { box-sizing: border-box; width: min(339px, 100%); max-height: calc(100vh - 32px); overflow: auto; display: flex; flex-direction: column; gap: 30px; padding: 20px 26px; background: #fff; border: 1px solid #F1F5F9; border-radius: 32px; box-shadow: 0 25px 50px -12px rgba(0,0,0,.12); }
+.cdv2-modal-box--dup { padding: 26px; }
+.cdv2-modal-box * { box-sizing: border-box; }
+.cdv2-modal-box :where(h2, p) { margin: 0; }
+.cdv2-modal-close { align-self: flex-start; width: 24px; height: 24px; margin-inline-start: 9.5px; margin-bottom: -28px; padding: 0; display: block; border: 0; background: none; cursor: pointer; position: relative; z-index: 1; }
+.cdv2-modal-box--dup .cdv2-modal-close { margin-bottom: -25px; }
+.cdv2-modal-close img, .cdv2-modal-box img { display: block; max-width: none; }
+.cdv2-modal-head { width: 266px; max-width: 100%; align-self: center; display: flex; flex-direction: column; align-items: center; gap: 16px; padding-top: 26px; }
+.cdv2-modal-box--dup .cdv2-modal-head { padding-top: 29px; }
+.cdv2-modal-ok-ico { width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: #ECFDF5; box-shadow: 0 0 0 8px rgba(236,253,245,.5), inset 0 2px 4px rgba(0,0,0,.05); }
+.cdv2-modal-ok-ico > span { width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: #059669; box-shadow: 0 4px 6px -1px rgba(5,150,105,.3), 0 2px 4px -2px rgba(5,150,105,.3); }
+.cdv2-modal-user { position: relative; display: block; width: 64px; height: 64px; margin: 8px 0 16px; }
+.cdv2-modal-user-c { width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; padding: 0 15px 0 17px; border-radius: 50%; background: #204A7A; box-shadow: inset 0 2px 4px rgba(0,0,0,.05); }
+.cdv2-modal-user i { position: absolute; left: 47px; bottom: -4px; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; padding: 2px; border: 2px solid #fff; border-radius: 50%; background: #204A7A; filter: drop-shadow(0 1px 1px rgba(0,0,0,.05)); }
+.cdv2-modal-text { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; width: 100%; }
+.cdv2-modal-text h2 { font-size: 21px; line-height: normal; font-weight: 700; color: #262626; }
+.cdv2-modal-text p { font-size: 12px; line-height: 1.5; font-weight: 600; color: #565656; }
+.cdv2-modal-box--dup .cdv2-modal-text p { font-weight: 500; color: #6F6F6F; }
+.cdv2-modal-text p b { font-weight: 700; color: #565656; unicode-bidi: isolate; }
+.cdv2-modal-actions { display: flex; flex-direction: column; gap: 16px; width: 100%; }
+.cdv2-modal-btn { width: 100%; height: 48px; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 12px 24px; border-radius: 10px; font-size: 14px; line-height: 1.5; font-weight: 600; text-decoration: none; cursor: pointer; white-space: nowrap; transition: background .2s, color .2s; }
+.cdv2-modal-btn--wa { border: 0; background: #29AE5B; color: #E9EDF2; }
+.cdv2-modal-btn--wa:hover { background: #229a50; }
+.cdv2-modal-btn--outline { border: 1px solid #204A7A; background: none; color: #204A7A; }
+.cdv2-modal-btn--outline:hover { background: #204A7A; color: #fff; }
+.cdv2-modal-note { margin-top: -4px; font-size: 12px; line-height: 1.5; font-weight: 500; color: #6F6F6F; text-align: center; }
+
+/* ==========================================================================
+   Smooth accordions (plan + FAQ): size, padding, border, shadow, gradient, toggle icon and content all animate together
+   ========================================================================== */
+.cdv2-item { position: relative; transition: min-height .28s cubic-bezier(.4,0,.2,1), margin .28s ease, background-color .28s ease, border-color .28s ease, border-radius .28s ease, filter .28s ease; }
+.cdv2-item-btn { position: relative; z-index: 1; user-select: none; -webkit-tap-highlight-color: transparent; transition: padding .28s cubic-bezier(.4,0,.2,1); }
+.cdv2-num { transition: width .28s cubic-bezier(.4,0,.2,1), height .28s cubic-bezier(.4,0,.2,1), background-color .28s ease, border-color .28s ease, color .28s ease, box-shadow .28s ease, padding .28s ease; }
+.cdv2-item-body { transition: grid-template-rows .28s cubic-bezier(.4,0,.2,1); }
+.cdv2-item-inner { opacity: 0; transform: translateY(-6px); transition: opacity .2s ease, transform .28s cubic-bezier(.4,0,.2,1); }
+.cdv2-item.is-open .cdv2-item-inner { opacity: 1; transform: none; transition-delay: .05s; }
+/* the plan's open gradient fades in (a gradient itself can't transition) */
+.cdv2-plan .cdv2-item.is-open { background-color: #fff; background-image: none; }
+.cdv2-plan .cdv2-item::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(169.14deg, #F8FAFC 0%, #F0F7FF 100%); opacity: 0; transition: opacity .28s ease; pointer-events: none; }
+.cdv2-plan .cdv2-item.is-open::before { opacity: 1; }
+/* + / − cross-fade and turn */
+.cdv2-toggle { position: relative; }
+.cdv2-toggle img { position: absolute; left: 50%; top: 50%; width: 18px; height: 18px; margin: -9px 0 0 -9px; transition: opacity .25s ease, transform .28s cubic-bezier(.4,0,.2,1); }
+.cdv2-toggle .ic-plus, .cdv2-toggle .ic-minus { display: block; }
+.cdv2-toggle .ic-minus { opacity: 0; transform: rotate(-90deg); }
+.cdv2-item.is-open .cdv2-toggle .ic-plus { display: block; opacity: 0; transform: rotate(90deg); }
+.cdv2-item.is-open .cdv2-toggle .ic-minus { display: block; opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .cdv2-item, .cdv2-item-btn, .cdv2-num, .cdv2-item-body, .cdv2-item-inner, .cdv2-plan .cdv2-item::before, .cdv2-toggle img { transition: none; }
+}
+
+/* ==========================================================================
+   Booking form states — Figma 3969:12947 (name) / 3969:12987 (email) / 3969:13140 (phone)
+   default #DADADA · focus #4585CF + 1.5px ring · error #CF6560 + pink message (35 high, #FDEBEA)
+   ========================================================================== */
+.cdv2-field > input:focus { outline: 0; background: #fff; border-color: #4585CF; box-shadow: 0 0 0 1.5px rgba(56,112,176,.12); }
+.cdv2-input-phone:focus-within { background: #fff; border-color: #4585CF; box-shadow: 0 0 0 1.5px rgba(56,112,176,.12); }
+.cdv2-input-phone input:focus { outline: 0; box-shadow: none; }
+.cdv2-field.is-error > input { border-color: #CF6560; color: #262626; }
+.cdv2-field.is-error > input:not(:placeholder-shown) { background: #fff; box-shadow: 0 0 0 1.5px rgba(207,101,96,.12); }
+.cdv2-field.is-error .cdv2-input-phone { background: #fff; border-color: #CF6560; box-shadow: 0 0 0 1.5px rgba(207,101,96,.12); }
+.cdv2-field.is-error .cdv2-input-phone input { color: #262626; }
+.cdv2-err { display: flex; align-items: center; box-sizing: border-box; height: 35px; margin-top: 2px; padding: 0 16px; border-radius: 8px; background: #FDEBEA; color: #C34F52; font-size: 14px; line-height: 1.2; font-weight: 400; white-space: nowrap; overflow: hidden; }
+.cdv2-err[hidden] { display: none; }
+.cdv2-field--phone .cdv2-err { margin-top: 0; } /* the phone field is already 14 above (label → input), the others 12 + 2 */
+.cdv2-err button { all: unset; cursor: pointer; margin: 0 4px; color: #262626; text-decoration: underline; text-underline-position: from-font; }
+.cdv2-err button:focus-visible { outline: 2px solid #4585CF; outline-offset: 2px; border-radius: 2px; }
+
+/* the card grows when a message appears; everything under it moves down (desktop) */
+@media (min-width: 1280px) {
+  .cdv2-stage { grid-template-rows: minmax(562.6px, auto) 30px auto; }
+  .cdv2-form { height: auto; min-height: 562.6px; }
+  .cdv2-form-rail { height: auto; }
+  .cdv2-side .cdv2-card { margin-top: 158px; } /* 562.6 form + 64 + 30 divider + 64 = card top at 720.6 */
+}
+
+/* ---------- desktop modals — 746 wide (Figma 3931:13372 / 3931:13399) ---------- */
+@media (min-width: 768px) {
+  .cdv2-modal-box, .cdv2-modal-box--dup { width: 746px; max-width: 100%; padding: 36px 76px; gap: 41px; }
+  .cdv2-modal-close { width: 39px; height: 39px; margin: 0 0 -41px; }
+  .cdv2-modal-box--dup .cdv2-modal-close { margin-bottom: -41px; }
+  .cdv2-modal-close img { width: 100%; height: 100%; }
+  .cdv2-modal-head, .cdv2-modal-box--dup .cdv2-modal-head { width: 445px; padding-top: 2px; gap: 30px; }
+  .cdv2-modal-text { gap: 10px; }
+  .cdv2-modal-text h2 { font-size: 30px; }
+  .cdv2-modal-text p { width: 448px; max-width: 100%; font-size: 17px; line-height: 1.5; }
+  .cdv2-modal-box--dup .cdv2-modal-text p { width: 351px; font-weight: 600; color: #6F6F6F; }
+  .cdv2-modal-box--dup .cdv2-modal-text p b { font-size: 17px; line-height: normal; }
+  .cdv2-dup-rest { font-size: 14px; }
+  .cdv2-modal-actions { gap: 24px; }
+  .cdv2-modal-btn { height: 60px; border-radius: 12px; font-size: 21px; }
+  .cdv2-modal-btn img { width: 28px; height: 28px; }
+  .cdv2-modal-note { font-size: 17px; }
+}
+/* outline button hover = Figma "Variant2" (3931:13516) */
+.cdv2-modal-btn--outline:hover { background: #204A7A; color: #E9E9E9; }
+.cdv2-modal-btn--outline:hover img { filter: brightness(0) invert(1); }
+.cdv2-modal-text p b[dir="ltr"] { unicode-bidi: isolate; display: inline-block; }

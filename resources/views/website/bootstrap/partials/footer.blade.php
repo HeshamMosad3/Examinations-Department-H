@@ -15,7 +15,7 @@
         [cms('global.footer.link_4', 'المقاييس'), cms_url('global.footer.link_4_url', url('/#assessments'))],
         [cms('global.footer.link_5', 'عن دار الرؤى'), cms_url('global.footer.link_5_url', url('/#about'))],
     ];
-    $phone = cms('global.footer.phone', '+966 55 759 5769');
+    $phone = cms('global.footer.phone', '+966 50 623 5130'); // Figma: WhatsApp number
     $email = cms('global.footer.email', 'info@alruaa.com');
 @endphp
 {{-- ==================== FOOTER (same look as the main site footer) ==================== --}}
@@ -59,7 +59,7 @@
         <div class="bs-fhead"><h4>{{ cms('global.footer.contact_title', 'تواصل معنا') }}</h4><span class="bs-fhead-mark" dir="ltr"><i></i><b></b></span></div>
         <ul class="bs-flist bs-flist-contact">
           <li><img src="{{ $fi }}/location.svg" alt="" aria-hidden="true" /><span>{{ cms('global.footer.address', 'الرياض - المملكة العربية السعودية') }}</span></li>
-          <li><img src="{{ $fi }}/phone.svg" alt="" aria-hidden="true" /><a href="{{ cms_url('global.footer.phone_url', 'tel:+966557595769') }}" dir="ltr" aria-label="الاتصال بالهاتف: {{ $phone }}">{{ $phone }}</a></li>
+          <li><img src="{{ $fi }}/whatsapp.svg" alt="" aria-hidden="true" class="bs-fwa" /><a href="{{ cms_url('global.footer.phone_url', 'https://wa.me/'.preg_replace('/\D/', '', $phone)) }}" dir="ltr" target="_blank" rel="noopener" aria-label="التواصل عبر واتساب: {{ $phone }}">{{ $phone }}</a></li>
           <li><img src="{{ $fi }}/email.svg" alt="" aria-hidden="true" /><a href="mailto:{{ $email }}" dir="ltr" aria-label="إرسال بريد إلكتروني: {{ $email }}">{{ $email }}</a></li>
           <li><img src="{{ $fi }}/clock.svg" alt="" aria-hidden="true" /><span>{{ cms('global.footer.hours', 'الأحد–الخميس: 9ص–6م') }}</span></li>
         </ul>

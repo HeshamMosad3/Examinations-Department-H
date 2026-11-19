@@ -162,18 +162,21 @@ body.bs-page {
 .bs-social-bordered { border: 1px solid #ddd; }
 .bs-social-bordered:hover { border-color: var(--brand-gold); opacity: 1; }
 
-.bs-fhead { display: flex; align-items: center; gap: 0; margin-bottom: 25px; }
+.bs-fhead { display: flex; align-items: center; gap: 8.5px; margin-bottom: 25px; }
 .bs-fhead h4 { margin: 0; font-size: 21px; font-weight: 600; line-height: 1.5; color: #fff; white-space: nowrap; font-family: var(--font-messiri); }
 .bs-fhead-mark { display: flex; align-items: center; }
-.bs-fhead-mark i { width: 6.64px; height: 6.64px; border-radius: 50%; background: var(--brand-gold-dot); flex-shrink: 0; }
-.bs-fhead-mark b { width: 52px; height: 2px; background: var(--brand-gold); }
+.bs-fhead-mark i { width: 6.48px; height: 6.48px; border-radius: 50%; background: var(--brand-gold-dot); flex-shrink: 0; }
+.bs-fhead-mark b { width: 52.9px; height: 2px; background: var(--brand-gold); }
 
 .bs-flist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 18px; font-size: 17px; line-height: 26px; color: #ddd; }
 .bs-fcol-links .bs-flist { line-height: 21px; }
 .bs-flist a { color: inherit; text-decoration: none; transition: color .2s; }
 .bs-flist a:hover { color: var(--brand-gold); }
-.bs-flist-contact li { display: flex; align-items: center; gap: 14px; min-height: 27px; }
+.bs-flist-contact li { display: flex; align-items: center; gap: 14px; min-height: 25.5px; line-height: 1.5; }
 .bs-flist-contact img { width: 24px; height: 24px; flex-shrink: 0; }
+.bs-flist-contact img.bs-fwa { width: 22px; height: 25px; } /* WhatsApp mark (Figma 22 × 25) */
+.bs-flist-contact li:nth-child(1) img { width: 18px; height: 22px; margin: 1px 3px; } /* pin: 18 × 22 centred in the 24 box (Figma) */
+.bs-flist-contact li:nth-child(4) img { width: 22px; height: 22px; margin: 1px; } /* clock: 22 × 22 centred in the 24 box */
 .bs-flist-contact li:first-child span { white-space: nowrap; }
 
 .bs-footer-divider { max-width: 361px; margin: 40px auto 13px; border: 0; border-top: 1px solid rgba(197, 197, 197, .2); opacity: 1; }
