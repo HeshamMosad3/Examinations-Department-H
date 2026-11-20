@@ -5,6 +5,8 @@
    Mobile frame comes next (3931:15148).
    ========================================================================== */
 @import '@fontsource/cairo/latin-900.css';
+/* phones: stop Android Chrome from inflating text (font boosting) so sizes match Figma */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 
 .cdv2-page { overflow-x: clip; padding: 0 16px 128px; }
 .cdv2-page img, .cdv2-top img { display: block; max-width: none; }
@@ -486,12 +488,12 @@
   .cdv2-plan .cdv2-item.is-open .cdv2-item-main { margin-inline-start: 0; }
   .cdv2-faq { gap: 10px; }
   .cdv2-faq .cdv2-item { margin-inline-start: 0; min-height: 0; border: .5px solid #CDD5E5; border-radius: 8px; }
-  .cdv2-faq .cdv2-item.is-open { min-height: 167px; margin-bottom: 0; border: .406px solid #A7CEFA; background: #EFF7FF; }
+  .cdv2-faq .cdv2-item.is-open { min-height: 0; justify-content: flex-start; margin-bottom: 0; border: .406px solid #A7CEFA; background: #EFF7FF; }
   .cdv2-faq .cdv2-item-btn { padding: 16px; gap: 38px; }
   .cdv2-faq .cdv2-item.is-open .cdv2-item-btn { padding-bottom: 0; align-items: flex-start; }
   .cdv2-faq-q { font-size: 12px; }
   .cdv2-faq .cdv2-item-inner { padding: 0 16px; }
-  .cdv2-faq-a { margin: 6px 0 16px; padding-top: 6px; border-top: .5px solid rgba(88,129,175,.2); font-size: 12px; line-height: normal; text-align: justify; }
+  .cdv2-faq-a { margin: 10px 0 16px; padding-top: 6px; border-top: .5px solid rgba(88,129,175,.2); font-size: 12px; line-height: normal; text-align: justify; }
 
   /* 03 certificates: swipeable cards 315 × 221 */
   .cdv2-certs { width: calc(100% + 31.5px); margin-inline: -15.75px; padding-inline: calc((100vw - 315px) / 2); box-sizing: border-box; direction: rtl; justify-content: flex-start; align-items: flex-start; gap: 19px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
@@ -608,19 +610,19 @@
 /* ==========================================================================
    Smooth accordions (plan + FAQ): size, padding, border, shadow, gradient, toggle icon and content all animate together
    ========================================================================== */
-.cdv2-item { position: relative; transition: min-height .28s cubic-bezier(.4,0,.2,1), margin .28s ease, background-color .28s ease, border-color .28s ease, border-radius .28s ease, filter .28s ease; }
-.cdv2-item-btn { position: relative; z-index: 1; user-select: none; -webkit-tap-highlight-color: transparent; transition: padding .28s cubic-bezier(.4,0,.2,1); }
-.cdv2-num { transition: width .28s cubic-bezier(.4,0,.2,1), height .28s cubic-bezier(.4,0,.2,1), background-color .28s ease, border-color .28s ease, color .28s ease, box-shadow .28s ease, padding .28s ease; }
-.cdv2-item-body { transition: grid-template-rows .28s cubic-bezier(.4,0,.2,1); }
-.cdv2-item-inner { opacity: 0; transform: translateY(-6px); transition: opacity .2s ease, transform .28s cubic-bezier(.4,0,.2,1); }
-.cdv2-item.is-open .cdv2-item-inner { opacity: 1; transform: none; transition-delay: .05s; }
+.cdv2-item { position: relative; transition: min-height .4s cubic-bezier(.4,0,.2,1), margin .4s ease, background-color .4s ease, border-color .4s ease, border-radius .4s ease, filter .4s ease; }
+.cdv2-item-btn { position: relative; z-index: 1; user-select: none; -webkit-tap-highlight-color: transparent; transition: padding .4s cubic-bezier(.4,0,.2,1); }
+.cdv2-num { transition: width .4s cubic-bezier(.4,0,.2,1), height .4s cubic-bezier(.4,0,.2,1), background-color .4s ease, border-color .4s ease, color .4s ease, box-shadow .4s ease, padding .4s ease; }
+.cdv2-item-body { transition: grid-template-rows .4s cubic-bezier(.4,0,.2,1); }
+.cdv2-item-inner { opacity: 0; transform: translateY(-6px); transition: opacity .3s ease, transform .4s cubic-bezier(.4,0,.2,1); }
+.cdv2-item.is-open .cdv2-item-inner { opacity: 1; transform: none; transition-delay: .1s; }
 /* the plan's open gradient fades in (a gradient itself can't transition) */
 .cdv2-plan .cdv2-item.is-open { background-color: #fff; background-image: none; }
-.cdv2-plan .cdv2-item::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(169.14deg, #F8FAFC 0%, #F0F7FF 100%); opacity: 0; transition: opacity .28s ease; pointer-events: none; }
+.cdv2-plan .cdv2-item::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(169.14deg, #F8FAFC 0%, #F0F7FF 100%); opacity: 0; transition: opacity .4s ease; pointer-events: none; }
 .cdv2-plan .cdv2-item.is-open::before { opacity: 1; }
 /* + / − cross-fade and turn */
 .cdv2-toggle { position: relative; }
-.cdv2-toggle img { position: absolute; left: 50%; top: 50%; width: 18px; height: 18px; margin: -9px 0 0 -9px; transition: opacity .25s ease, transform .28s cubic-bezier(.4,0,.2,1); }
+.cdv2-toggle img { position: absolute; left: 50%; top: 50%; width: 18px; height: 18px; margin: -9px 0 0 -9px; transition: opacity .25s ease, transform .4s cubic-bezier(.4,0,.2,1); }
 .cdv2-toggle .ic-plus, .cdv2-toggle .ic-minus { display: block; }
 .cdv2-toggle .ic-minus { opacity: 0; transform: rotate(-90deg); }
 .cdv2-item.is-open .cdv2-toggle .ic-plus { display: block; opacity: 0; transform: rotate(90deg); }
