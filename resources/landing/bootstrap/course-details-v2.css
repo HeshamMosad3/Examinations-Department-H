@@ -416,6 +416,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   .cdv2-share img { width: 14px; height: 14px; }
   .cdv2-card-head { align-items: stretch; gap: 16px; }
   .cdv2-card-title { width: 100%; gap: 3px; }
+  .cdv2-card-title strong:first-child { font-size: min(24px, calc((100vw - 76px) / 12.2)); white-space: nowrap; } /* one line like Figma, also on 360px phones */
   .cdv2-card-title > div { width: 100%; gap: 4px; }
   .cdv2-card-title strong { font-size: 24px; }
   .cdv2-card-bar { width: 55px; }
