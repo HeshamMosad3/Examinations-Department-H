@@ -94,6 +94,13 @@ $(function () {
       fab.classList.toggle('is-visible', show);
       fab.setAttribute('aria-hidden', show ? 'false' : 'true');
       fab.tabIndex = show ? 0 : -1;
+      // phones: at the very bottom the button rests on the footer line (above "all rights reserved") instead of covering the footer
+      var line = document.querySelector('.bs-footer-divider');
+      var base = 16, lift = base;
+      if (line && window.matchMedia('(max-width: 1279.98px)').matches) {
+        lift = Math.max(base, window.innerHeight - line.getBoundingClientRect().top + 12);
+      }
+      fab.style.bottom = lift === base ? '' : lift + 'px';
     };
     $(window).on('scroll resize', checkFab);
     checkFab();
