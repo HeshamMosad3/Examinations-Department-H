@@ -94,11 +94,15 @@ $(function () {
       fab.classList.toggle('is-visible', show);
       fab.setAttribute('aria-hidden', show ? 'false' : 'true');
       fab.tabIndex = show ? 0 : -1;
-      // phones: at the very bottom the button rests on the footer line (above "all rights reserved") instead of covering the footer
-      var line = document.querySelector('.bs-footer-divider');
+      // phones: at the very bottom the button rests on the footer line (above "all rights reserved"); desktop: it stops above the footer
+      var line = document.querySelector('.bs-footer-divider'), footer = document.querySelector('.bs-footer');
       var base = 16, lift = base;
       if (line && window.matchMedia('(max-width: 1279.98px)').matches) {
         lift = Math.max(base, window.innerHeight - line.getBoundingClientRect().top + 12);
+      } else if (footer) {
+        // desktop: the button stops just above the top edge of the whole footer
+        lift = Math.max(24, window.innerHeight - footer.getBoundingClientRect().top + 16);
+        if (lift === 24) lift = base;
       }
       fab.style.bottom = lift === base ? '' : lift + 'px';
     };
