@@ -82,9 +82,9 @@
           <button type="button" class="cdv2-share" id="cdv2-share" aria-label="مشاركة الدورة"><img src="{{ $ic }}/l-BasilShareOutline.svg" alt="" width="18" height="18" /></button>
         </div>
         <div class="cdv2-card-head">
-          <div class="cdv2-card-title">
+          <div class="cdv2-card-title"{!! isset($c['title_k']) ? ' style="--k:'.(float) $c['title_k'].'"' : '' !!}>
             <div><strong>{{ $c['title'] }}</strong><strong>{{ $c['title_en'] }}</strong></div>
-            <span class="cdv2-card-bar" aria-hidden="true"></span>
+            <span class="cdv2-card-bar"{!! ' style="--bar-w:'.(int) ($c['bar_w'] ?? 53).'px;--bar-wm:'.(int) ($c['bar_wm'] ?? 41).'px"' !!} aria-hidden="true"></span>
           </div>
           <div class="cdv2-seats">
             <span class="cdv2-seats-ico"><img src="{{ $ic }}/l-Icon.svg" alt="" width="18" height="18" /></span>
@@ -120,8 +120,12 @@
             <p class="cdv2-tag"><i aria-hidden="true"></i>{{ $h['tag'] }}</p>
             <div class="cdv2-hero-copy">
               <div class="cdv2-hero-titles">
-                <h1 id="cdv2-title" class="cdv2-title">{{ $h['title'] }}</h1>
-                <span class="cdv2-title-en">{{ $h['title_en'] }}</span>
+                @if (! empty($h['title_inline']))
+                <h1 id="cdv2-title" class="cdv2-title cdv2-title--inline">{{ $h['title'] }} <span class="cdv2-title-latin" dir="ltr">{{ $h['title_en'] }}</span></h1>
+                @else
+                  <h1 id="cdv2-title" class="cdv2-title">{{ $h['title'] }}</h1>
+                  <span class="cdv2-title-en">{{ $h['title_en'] }}</span>
+                @endif
               </div>
               <p class="cdv2-lead"><span class="cdv2-only-d">{{ $h['lead'] }}</span><span class="cdv2-only-m">{{ $h['lead_m'] ?? $h['lead'] }}</span></p>
             </div>
@@ -163,7 +167,8 @@
         <section class="cdv2-block" aria-label="{{ $v2['plan']['title'] }}">
           @include('website.bootstrap.partials.course-banner-v2', ['label' => $v2['plan']['label'], 'title' => $v2['plan']['title'], 'num' => '02'])
           <div class="cdv2-acc cdv2-plan">
-            @foreach ($v2['plan']['days'] as $i => [$pTitle, $pText, $pChips])
+            @foreach ($v2['plan']['days'] as $i => $pDay)
+              @php [$pTitle, $pText, $pChips] = $pDay; $pTextM = $pDay[3] ?? null; @endphp
               <div class="cdv2-item {{ $i === 0 ? 'is-open' : '' }}">
                 <button type="button" class="cdv2-item-btn" aria-expanded="{{ $i === 0 ? 'true' : 'false' }}" aria-controls="cdv2-day-{{ $i }}">
                   <span class="cdv2-num">{{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }}</span>
@@ -171,7 +176,7 @@
                     <strong>{{ $pTitle }}</strong>
                     <span class="cdv2-item-body" id="cdv2-day-{{ $i }}">
                       <span class="cdv2-item-inner">
-                        <span class="cdv2-item-text">{{ $pText }}</span>
+                        <span class="cdv2-item-text">@if ($pTextM)<span class="cdv2-only-d">{{ $pText }}</span><span class="cdv2-only-m">{{ $pTextM }}</span>@else{{ $pText }}@endif</span>
                         <span class="cdv2-chips">
                           @foreach ($pChips as $chip)
                             <span class="cdv2-chip"><img src="{{ $ic }}/l-HugeiconsTick01.svg" alt="" width="16" height="16" loading="lazy" decoding="async" />{{ $chip }}</span>
