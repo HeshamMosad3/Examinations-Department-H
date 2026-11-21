@@ -83,7 +83,7 @@
         </div>
         <div class="cdv2-card-head">
           <div class="cdv2-card-title"{!! isset($c['title_k']) ? ' style="--k:'.(float) $c['title_k'].'"' : '' !!}>
-            <div><strong>{{ $c['title'] }}</strong><strong>{{ $c['title_en'] }}</strong></div>
+            <div><strong>{{ $c['title'] }}</strong>@if (($c['title_en'] ?? '') !== '')<strong>{{ $c['title_en'] }}</strong>@endif</div>
             <span class="cdv2-card-bar"{!! ' style="--bar-w:'.(int) ($c['bar_w'] ?? 53).'px;--bar-wm:'.(int) ($c['bar_wm'] ?? 41).'px"' !!} aria-hidden="true"></span>
           </div>
           <div class="cdv2-seats">
@@ -124,10 +124,10 @@
                 <h1 id="cdv2-title" class="cdv2-title cdv2-title--inline">{{ $h['title'] }} <span class="cdv2-title-latin" dir="ltr">{{ $h['title_en'] }}</span></h1>
                 @else
                   <h1 id="cdv2-title" class="cdv2-title">{{ $h['title'] }}</h1>
-                  <span class="cdv2-title-en">{{ $h['title_en'] }}</span>
+                  @if (($h['title_en'] ?? '') !== '')<span class="cdv2-title-en">{{ $h['title_en'] }}</span>@endif
                 @endif
               </div>
-              <p class="cdv2-lead"><span class="cdv2-only-d">{{ $h['lead'] }}</span><span class="cdv2-only-m">{{ $h['lead_m'] ?? $h['lead'] }}</span></p>
+              <p class="cdv2-lead"{!! isset($h['lead_wm']) ? ' style="--lead-wm:'.(int) $h['lead_wm'].'px"' : '' !!}><span class="cdv2-only-d">{{ $h['lead'] }}</span><span class="cdv2-only-m">{{ $h['lead_m'] ?? $h['lead'] }}</span></p>
             </div>
           </div>
           <ul class="cdv2-meta" dir="ltr">
