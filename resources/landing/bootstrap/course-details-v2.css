@@ -457,7 +457,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   .cdv2-metric:not(:first-child) { border-inline-start: .818px solid #E2E8F0; } /* Figma 3931:14307: the divider belongs to the 2nd and 3rd cells (right edge in LTR), none on the outer edge */
   .cdv2-ic--metric { width: 15px; height: 15px; }
   .cdv2-metric strong { padding: 0; font-size: 12px; line-height: 21px; }
-  .cdv2-metric small { font-size: 10px; line-height: 14px; }
+  .cdv2-metric small { font-size: 10px; line-height: 14px; color: #565656; } /* phone labels are #565656 in the latest Figma frames (desktop stays #949494) */
 
   /* ---------- sections ---------- */
   .cdv2-stage > .cdv2-main { order: 6; width: 100%; margin-top: 40px; gap: 40px; }
