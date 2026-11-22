@@ -56,6 +56,11 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 .cdv2-title { width: 556px; height: 81px; margin-bottom: -16px; font-size: 52px; line-height: 68px; font-weight: 700; color: #204A7A; text-align: right; }
 .cdv2-title-en { width: 98px; height: 43.2px; font-size: 43px; line-height: normal; font-weight: 700; color: #204A7A; text-align: center; } /* box is 43.2 high, the glyphs sit in a 'normal' line like Figma */
 .cdv2-title--inline { height: 121px; margin-bottom: 0; } /* one paragraph ("…الحديثة CBP"), Figma box 556 × 121 */
+@media (min-width: 1280px) { /* one-line title without an English line (6 sigma, Figma 4011:13892): title box 58, 56 to the lead, 75 to the details row */
+  .cdv2-hero--plain .cdv2-title { height: 58px; margin-bottom: 0; }
+  .cdv2-hero--plain .cdv2-hero-copy { gap: 56px; }
+  .cdv2-hero--plain .cdv2-hero-head { margin-bottom: 19px; }
+}
 .cdv2-lead { width: 518px; font-size: 17px; line-height: 27px; font-weight: 600; color: #6F6F6F; text-align: right; }
 
 .cdv2-meta { width: 531px; display: flex; align-items: center; gap: 31px; height: 23px; }
@@ -201,6 +206,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 .cdv2-card-title strong { display: block; white-space: nowrap; font-size: 25px; line-height: normal; font-weight: 700; color: #204A7A; text-align: right; }
 .cdv2-card-title strong:first-child { min-height: 30px; line-height: 30px; } /* text centred in the 30px box like Figma; a 2nd line still grows it */
 .cdv2-card-title strong:last-child { min-height: 26px; line-height: 26px; }
+.cdv2-card-title strong:only-child { min-height: 30px; line-height: 30px; } /* no English line: the title keeps its 30px box */
 .cdv2-card-bar { width: var(--bar-w, 53px); height: 4px; border-radius: 10px; background: #5188C7; box-shadow: 0 1px 2px rgba(0,0,0,.05); }
 .cdv2-seats { box-sizing: border-box; width: 384px; height: 66px; display: flex; align-items: center; justify-content: space-between; padding: 0 21.5px; background: #fff; border: 1px solid #C5D3E2; border-radius: 13px; box-shadow: 0 0 0 2px rgba(32,74,122,.12); }
 .cdv2-seats-ico { order: 1; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; border-radius: 10px; background: #E9EDF2; }
