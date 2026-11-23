@@ -76,7 +76,7 @@
         </div>
 
       {{-- enrollment card (left column) --}}
-      <aside class="cdv2-card" aria-label="التسجيل في الدورة">
+      <aside class="cdv2-card" style="--ml:{{ $c['label_color'] ?? '#565656' }}" aria-label="التسجيل في الدورة">
         <div class="cdv2-card-top">
           <span class="cdv2-live"><i aria-hidden="true"></i>{{ $c['status'] }}</span>
           <button type="button" class="cdv2-share" id="cdv2-share" aria-label="مشاركة الدورة"><img src="{{ $ic }}/l-BasilShareOutline.svg" alt="" width="18" height="18" /></button>
@@ -121,7 +121,7 @@
             <div class="cdv2-hero-copy">
               <div class="cdv2-hero-titles">
                 @if (! empty($h['title_inline']))
-                <h1 id="cdv2-title" class="cdv2-title cdv2-title--inline">{{ $h['title'] }} <span class="cdv2-title-latin" dir="ltr">{{ $h['title_en'] }}</span></h1>
+                <h1 id="cdv2-title" class="cdv2-title cdv2-title--inline"><span class="cdv2-only-d">{{ $h['title'] }}</span><span class="cdv2-only-m">{!! nl2br(e($h['title_m'] ?? $h['title'])) !!}</span> <span class="cdv2-title-latin" dir="ltr">{{ $h['title_en'] }}</span></h1>
                 @else
                   <h1 id="cdv2-title" class="cdv2-title">{{ $h['title'] }}</h1>
                   @if (($h['title_en'] ?? '') !== '')<span class="cdv2-title-en">{{ $h['title_en'] }}</span>@endif
