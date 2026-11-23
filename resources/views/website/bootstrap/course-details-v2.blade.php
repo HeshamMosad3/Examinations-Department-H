@@ -114,7 +114,7 @@
       </aside>
       </div>
 
-      <section class="cdv2-hero{{ ! empty($h['plain']) ? ' cdv2-hero--plain' : '' }}" aria-labelledby="cdv2-title">
+      <section class="cdv2-hero{{ ! empty($h['plain']) ? ' cdv2-hero--plain' : '' }}{{ ! empty($h['lead_justify']) ? ' cdv2-hero--justify' : '' }}"{!! isset($h['title_h']) ? ' style="--title-h:'.(float) $h['title_h'].'px"' : '' !!} aria-labelledby="cdv2-title">
         <div class="cdv2-hero-text">
           <div class="cdv2-hero-head">
             <p class="cdv2-tag"><i aria-hidden="true"></i>{{ $h['tag'] }}</p>

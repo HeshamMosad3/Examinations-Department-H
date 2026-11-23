@@ -57,7 +57,8 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 .cdv2-title-en { width: 98px; height: 43.2px; font-size: 43px; line-height: normal; font-weight: 700; color: #204A7A; text-align: center; } /* box is 43.2 high, the glyphs sit in a 'normal' line like Figma */
 .cdv2-title--inline { height: 121px; margin-bottom: 0; } /* one paragraph ("…الحديثة CBP"), Figma box 556 × 121 */
 @media (min-width: 1280px) { /* one-line title without an English line (6 sigma, Figma 4011:13892): title box 58, 56 to the lead, 75 to the details row */
-  .cdv2-hero--plain .cdv2-title { height: 58px; margin-bottom: 0; }
+  .cdv2-hero--plain .cdv2-title { height: var(--title-h, 58px); margin-bottom: 0; white-space: nowrap; } /* title_h: 68 when Figma lets the title take its natural 52 × 1.31 line */
+  .cdv2-hero--justify .cdv2-lead { text-align: justify; }
   .cdv2-hero--plain .cdv2-hero-copy { gap: 56px; }
   .cdv2-hero--plain .cdv2-hero-head { margin-bottom: 19px; }
 }
