@@ -355,7 +355,8 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
    MOBILE — Figma "الدورات" mobile frame 3931:14200 (393 wide, content 361.5)
    Everything below applies ≤ 1279px; the desktop frame above is untouched.
    ========================================================================== */
-@media (max-width: 1279.98px) {
+/* Three layouts:  ≥ 1280 desktop (Figma 1440)  ·  768–1279 tablet (desktop sections in a 726 column, hero / form / card stacked)  ·  ≤ 767 phone (Figma 393, fluid up to 560) */
+@media (max-width: 767.98px) {
   .cdv2-only-d { display: none; }
   .cdv2-only-m { display: inline; }
 
@@ -375,14 +376,11 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   .cdv2-logobar .cdv2-logo-d { display: none; }
   .cdv2-logobar .cdv2-logo-m { display: block; position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: fill; max-width: none; } /* Figma 3931:14239 stretches the square logo to 58 × 45 (size-full, no object-fit) */
 
-  /* ---------- page: one 361.5 column ---------- */
-  .cdv2-page { padding: 0 15.75px 39px; } /* + the footer's own top margin = 64 below the last banner */
-}
-@media (min-width: 768px) and (max-width: 1279.98px) {
-  .cdv2-page { padding-bottom: 13px; } /* tablets: the footer margin is 51px, not 25px */
 }
 @media (max-width: 1279.98px) {
-  .cdv2-wrap { max-width: 361.5px; margin-top: 24px; gap: 0; }
+  /* ---------- page: one column (phone 361.5 at 393 wide, fluid up to 560; tablet block below) ---------- */
+  .cdv2-page { padding: 0 15.75px 39px; } /* + the footer's own top margin = 64 below the last banner */
+  .cdv2-wrap { max-width: 560px; margin-top: 24px; gap: 0; }
   .cdv2-stage { display: flex; flex-direction: column; align-items: stretch; row-gap: 0; }
   .cdv2-side, .cdv2-hero, .cdv2-hero-text, .cdv2-form-rail { display: contents; }
   .cdv2-discover { display: none; }
@@ -456,15 +454,18 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   .cdv2-ic--row-pin { width: 16px; height: 14px; }
   .cdv2-metrics { gap: 12px; padding: 10.818px 0 10px; border-top-width: .818px; }
   .cdv2-metrics { justify-content: center; }
-  .cdv2-metric { box-sizing: border-box; flex: 0 0 95px; height: 55px; padding: 0 3.271px 2.453px; gap: 3px; }
+  .cdv2-metric { box-sizing: border-box; flex: 0 1 95px; min-width: 0; height: 55px; padding: 0 3.271px 2.453px; gap: 3px; }
   .cdv2-metric:first-child { border-inline-start: 0; }
   .cdv2-metric:not(:first-child) { border-inline-start: .818px solid #E2E8F0; } /* Figma 3931:14307: the divider belongs to the 2nd and 3rd cells (right edge in LTR), none on the outer edge */
   .cdv2-ic--metric { width: 15px; height: 15px; }
   .cdv2-metric strong { padding: 0; font-size: 12px; line-height: 21px; }
   .cdv2-metric small { font-size: 10px; line-height: 14px; color: var(--ml, #565656); } /* phone labels: #565656 in most Figma frames, #949494 in some (card.label_color); desktop stays #949494 */
 
-  /* ---------- sections ---------- */
-  .cdv2-stage > .cdv2-main { order: 6; width: 100%; margin-top: 40px; gap: 40px; }
+  .cdv2-stage > .cdv2-main { order: 6; }
+}
+@media (max-width: 767.98px) {
+  /* ---------- sections (phone) ---------- */
+  .cdv2-stage > .cdv2-main { width: 100%; margin-top: 40px; gap: 40px; }
   .cdv2-block { gap: 32px; }
   .cdv2-block:nth-child(5) { margin-top: 31px; } /* steps → reviews is 71, not 40 */
 
@@ -491,7 +492,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   .cdv2-item { min-height: 0; border: .5px solid #CDD5E5; border-radius: 8px; }
   .cdv2-plan .cdv2-item-btn { min-height: 0; padding: 16px; gap: 12px; }
   .cdv2-num { width: 28px; height: 28px; padding-top: 3px; border-radius: 50%; border-width: .5px; }
-  .cdv2-item-main { flex: none; width: 246px; max-width: calc(100% - 64px); justify-content: center; } /* Figma text column = 246, the toggle takes the rest */
+  .cdv2-item-main { flex: 1; min-width: 0; justify-content: center; } /* Figma text column = 246, the toggle takes the rest */
   .cdv2-toggle { margin-inline-start: auto; }
   .cdv2-item-main strong { height: auto; padding: 0; font-size: 12px; line-height: 1.5; }
   .cdv2-toggle { padding: 1.515px; border-radius: 20px; }
@@ -514,7 +515,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   .cdv2-faq-a br { display: none; } /* phone: the answer is one paragraph (the desktop line break is only for the 726 column) */
 
   /* 03 certificates: swipeable cards 315 × 221 */
-  .cdv2-certs { width: calc(100% + 31.5px); margin-inline: -15.75px; padding-inline: calc((100vw - 315px) / 2); box-sizing: border-box; direction: rtl; justify-content: flex-start; align-items: flex-start; gap: 19px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .cdv2-certs { width: calc(100% + 31.5px); margin-inline: -15.75px; padding-inline: max(0px, calc((100% - 315px) / 2 + 15.75px)); box-sizing: border-box; direction: rtl; justify-content: flex-start; align-items: flex-start; gap: 19px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
   .cdv2-certs::-webkit-scrollbar { display: none; }
   .cdv2-cert, .cdv2-cert--local, .cdv2-cert--intl, .cdv2-cert--cbp { order: 0; width: 315px; height: 221px; scroll-snap-align: center; border-width: .5px; }
   .cdv2-cert--cbp { border: 1px solid #204A7A; filter: none; }
@@ -550,7 +551,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 
   /* 05 reviews: swipeable cards */
   .cdv2-slider { gap: 18px; }
-  .cdv2-viewport { width: calc(100% + 31.5px); margin: 0 -15.75px; padding-inline: calc((100vw - 315px) / 2); box-sizing: border-box; height: auto; overflow-x: auto; direction: rtl; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .cdv2-viewport { width: calc(100% + 31.5px); margin: 0 -15.75px; padding-inline: max(0px, calc((100% - 315px) / 2 + 15.75px)); box-sizing: border-box; height: auto; overflow-x: auto; direction: rtl; scroll-snap-type: x mandatory; scrollbar-width: none; }
   .cdv2-viewport::-webkit-scrollbar { display: none; }
   .cdv2-track { transform: none !important; transition: none; gap: 17px; align-items: center; height: 186px; }
   .cdv2-review { width: 315px; height: auto; padding: 20px; scroll-snap-align: center; border-width: .5px; }
@@ -593,6 +594,69 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   /* floating signup button 108 × 45 */
   .cdv2-fab { left: 16px; bottom: 16px; width: auto; height: auto; padding: 11px 16px; gap: 5px; border-radius: 20px; font-size: 12px; }
   .cdv2-fab img { width: 18px; height: 18px; }
+}
+
+/* very small phones (320–359): the top bar and the details row shrink instead of overflowing */
+@media (max-width: 359.98px) {
+  .cdv2-countdown { gap: 8px; padding: 0 6px; }
+  .cdv2-countdown .cdv2-cd { gap: 3px; }
+  .cdv2-countdown .cdv2-cd-box { width: 28px; min-width: 28px; height: 30px; padding-inline: 3px; }
+  .cdv2-countdown .cdv2-cd-text { width: auto; gap: 4px; }
+  .cdv2-countdown .cdv2-cd-label, .cdv2-countdown .cdv2-cd-seats { font-size: 9.5px; }
+  .cdv2-countdown .cdv2-cd-sep { width: 7px; margin: 0 -3px; }
+  .cdv2-meta { flex-wrap: wrap; height: auto; row-gap: 6px; }
+  .cdv2-rows { padding-inline: 10px; }
+  .cdv2-row-label { font-size: 11px; gap: 5px; }
+  .cdv2-row-val { font-size: 10.5px; }
+  .cdv2-row-range { gap: 3px; }
+  .cdv2-step-text h3 { font-size: 25px; } /* the strip is scaled to ~.4 here: keeps the 10 / 8px of the phone frame */
+  .cdv2-step-text p { font-size: 20px; }
+  .cdv2-closing-in { width: calc(100% - 24px); }
+  .cdv2-closing-text p { white-space: normal; }
+}
+
+/* ==========================================================================
+   TABLET 768–1279 — no Figma frame: the desktop sections (726 column, banners, 2 × 2 audience, 3 certificate cards, steps strip,
+   3-card reviews slider, stats, closing banner) stay at their Figma size; hero, booking form and enrollment card are stacked above them
+   ========================================================================== */
+@media (min-width: 768px) and (max-width: 1279.98px) {
+  .cdv2-page { padding-bottom: 13px; } /* the footer margin is 51px, not 25px */
+  .cdv2-wrap { max-width: 726px; margin-top: 48px; }
+
+  /* hero */
+  .cdv2-hero-head { width: 100%; gap: 20px; }
+  .cdv2-tag { gap: 9px; font-size: 17px; font-weight: 700; }
+  .cdv2-tag i { width: 28px; }
+  .cdv2-hero-copy { gap: 20px; }
+  .cdv2-hero-titles { flex-wrap: wrap; row-gap: 0; }
+  .cdv2-title { font-size: 44px; line-height: 1.4; white-space: normal; text-align: center; }
+  .cdv2-title-en { font-size: 40px; }
+  .cdv2-lead { width: min(560px, 100%); margin-inline: auto; font-size: 17px; line-height: 27px; font-weight: 600; color: #6F6F6F; }
+  .cdv2-meta { width: auto; max-width: 100%; margin: 32px auto 0; height: auto; gap: 16px; flex-wrap: wrap; row-gap: 8px; }
+  .cdv2-meta li { gap: 10px; }
+  .cdv2-meta span { font-size: 14px; line-height: 22px; }
+  .cdv2-meta .cdv2-ic--pin20 { width: 20px; height: 18px; }
+  .cdv2-meta .cdv2-ic--clock20, .cdv2-meta li:not(.cdv2-meta-sep) > img { width: 20px; height: 20px; }
+  .cdv2-meta-sep img { width: 23px; margin: 0 -11px; }
+
+  /* booking form + enrollment card: 520 max, centred, desktop type sizes */
+  .cdv2-form { width: 100%; max-width: 520px; margin: 32px auto 0; padding: 24px 40px; gap: 24px; }
+  .cdv2-form-logo { width: 61px; height: 61px; }
+  .cdv2-form-title h2 { font-size: 21px; line-height: 33px; }
+  .cdv2-form-body, .cdv2-form-main, .cdv2-fields { gap: 18px; }
+  .cdv2-field, .cdv2-field--phone { gap: 12px; }
+  .cdv2-cc { width: 104px; }
+  .cdv2-form-note { font-size: 12px; line-height: 19px; }
+  .cdv2-badges { width: 100%; max-width: 520px; margin: 16px auto 0; height: 40px; gap: 12px; justify-content: center; }
+  .cdv2-badges li { height: 40px; padding: 9px 12px; gap: 7px; border-width: .8px; border-radius: 6px; }
+  .cdv2-badges li img { width: 20px; height: 20px; }
+  .cdv2-badges span { font-size: 12px; }
+  .cdv2-side .cdv2-card { width: 100%; max-width: 520px; margin: 24px auto 0; padding: 26px 28px; }
+  .cdv2-ended { max-width: 520px; margin-inline: auto; }
+
+  /* sections */
+  .cdv2-stage > .cdv2-main { width: 726px; max-width: 100%; margin: 64px auto 0; }
+  .cdv2-faq-a br { display: inline; }
 }
 
 /* ---------- booking modals — 339 wide, radius 32 (Figma 3931:13462 / 3931:13431) ---------- */
@@ -722,13 +786,14 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 .cdv2-seats--ended .cdv2-open { width: 100px; background: #EFF6FF; color: #204A7A; }
 .cdv2-seats--ended .cdv2-open i { width: 3px; height: 3px; background: #204A7A; box-shadow: 0 0 0 1.5px rgba(32,74,122,.12); }
 
-@media (max-width: 1279.98px) {
+@media (max-width: 767.98px) {
   .cdv2-ended-bar { gap: 8px; }
   .cdv2-ended-bar-link, .cdv2-ended-bar-state { font-size: 11px; }
   .cdv2-ended-bar-sep { height: 12px; }
   .cdv2-ended-bar-state { margin-right: -2px; }
   .cdv2-ended-bar-ico { width: 16px; height: 16px; }
-
+}
+@media (max-width: 1279.98px) {
   .cdv2-ended { order: 3; width: 100%; height: 400px; margin-top: 20px; border-radius: 14px; box-shadow: 0 4px 2px rgba(23,53,90,.1); }
   .cdv2-ended-glow { left: 50%; margin-left: -136px; top: -201px; width: 272px; }
   .cdv2-ended .cdv2-form-logo { top: 3px; width: 47px; height: 47px; margin-left: -23.5px; }

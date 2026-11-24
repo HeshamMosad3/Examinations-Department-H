@@ -3,7 +3,7 @@ import $ from 'jquery';
 import './course-details-v2.css';
 
 $(function () {
-  var mq = window.matchMedia('(max-width: 1279.98px)'); // phone / tablet layout
+  var mq = window.matchMedia('(max-width: 767.98px)'); // phone layout (tablet 768–1279 and desktop use the 726 column sections)
   var pad = function (n) { return String(n).padStart(2, '0'); };
 
   // ---- countdowns (top bar + closing banner): stop at 00 once the start date has passed ----
@@ -97,7 +97,7 @@ $(function () {
       // phones: at the very bottom the button rests on the footer line (above "all rights reserved"); desktop: it stops above the footer
       var line = document.querySelector('.bs-footer-divider'), footer = document.querySelector('.bs-footer');
       var base = 16, lift = base;
-      if (line && window.matchMedia('(max-width: 1279.98px)').matches) {
+      if (line && mq.matches) {
         lift = Math.max(base, window.innerHeight - line.getBoundingClientRect().top + 12);
       } else if (footer) {
         // desktop: the button stops just above the top edge of the whole footer
@@ -243,4 +243,17 @@ $(function () {
     if (navigator.share) { navigator.share(data).catch(function () {}); }
     else if (navigator.clipboard) { navigator.clipboard.writeText(location.href); }
   });
+});
+
+// ---- phone: the 726 steps strip is scaled to the column width (the CSS zoom .4972 is the 393 px value) ----
+$(function () {
+  var phone = window.matchMedia('(max-width: 767.98px)');
+  var fit = function () {
+    $('.cdv2-steps').each(function () {
+      var w = this.parentElement ? this.parentElement.clientWidth : 0;
+      this.style.zoom = phone.matches && w ? String(w / 726) : '';
+    });
+  };
+  fit();
+  $(window).on('resize orientationchange', fit);
 });
