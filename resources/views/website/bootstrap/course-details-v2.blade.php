@@ -17,7 +17,13 @@
     $f = $v2['form'];
     $tb = $v2['topbar'];
     // ended course (Figma 4067:16755 desktop / 4067:19640 phone): "انتهت الدورة" bar + box instead of the countdown + booking form
-    $ended = ! empty($v2['ended']);
+    // course stage, from the dates (Asia/Riyadh): before the start = countdown, running = "الدورة منعقدة الآن" bar, after the end date = ended.
+    // A course can force a stage with 'stage' => 'upcoming' | 'ongoing' | 'ended'.
+    $now = \Illuminate\Support\Carbon::now('Asia/Riyadh');
+    $courseEnd = \Illuminate\Support\Carbon::parse($c['date_to'].' 23:59:59', 'Asia/Riyadh');
+    $stage = $v2['stage'] ?? ($now->gt($courseEnd) ? 'ended' : ($now->gte(\Illuminate\Support\Carbon::parse($v2['start_at'])) ? 'ongoing' : 'upcoming'));
+    $ended = $stage === 'ended';
+    $ongoing = $stage === 'ongoing';
     $ec = $v2['ended_copy'] ?? [];
 @endphp
 
@@ -33,7 +39,7 @@
       <img src="{{ $ic }}/ended-calendar-check.svg" alt="" width="22" height="22" class="cdv2-ended-bar-ico" />
     </div>
   </div>
-  @elseif (! empty($v2['ongoing']))
+  @elseif ($ongoing)
   <div class="cdv2-countdown cdv2-countdown--ended">
     <div class="cdv2-ended-bar" dir="ltr">
       <span class="cdv2-ended-bar-link">{{ $v2['ongoing']['text'] }}</span>
@@ -385,8 +391,8 @@
           </div>
         </section>
 
-        {{-- closing countdown banner (not drawn for an ended course) --}}
-        @unless ($ended)
+        {{-- closing countdown banner (only before the course starts) --}}
+        @unless ($ended || $ongoing)
         <section class="cdv2-closing" aria-label="{{ $v2['closing']['text'] }}">
           <span class="cdv2-closing-blob" aria-hidden="true"></span>
           <div class="cdv2-closing-in" dir="ltr">

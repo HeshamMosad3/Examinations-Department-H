@@ -11,6 +11,19 @@ $pmp = [
         // countdown bar target (Figma shows 04 days 03 h 41 m 37 s)
         'start_at' => '2026-11-25T09:00:00+03:00',
         'topbar' => ['label' => 'تبدأ الدورة خلال', 'seats' => 'المقاعد محدودة', 'units' => ['يوم', 'ساعة', 'دقيقة', 'ثانية']],
+        // stage copy: the page picks the stage from the dates (before the start = countdown, during = running now, after the end date = ended)
+        'ended_copy' => [
+            'bar' => 'انتهت الدورة',
+            'bar_link' => 'استكشف دوراتنا القادمة',
+            'bar_link_m' => 'استكشف دورتنا القادمة',
+            'title' => 'انتهت هذه الدورة',
+            'text' => 'شكرًا لاهتمامك، انتهت فترة التسجيل في هذه الدورة. يمكنك استكشاف دوراتنا التدريبية القادمة.',
+            'button' => 'استكشف الدورات القادمة',
+            'chip' => 'انتهى التسجيل',
+            'hint' => 'انتهت الدورة',
+            'next' => 'كن مستعدًا للموعد القادم',
+        ],
+        'ongoing' => ['bar' => 'الدورة منعقدة الآن', 'text' => 'لا يزال التسجيل متاحًا'],
 
         'hero' => [
             'tag' => 'دورات تطويرية . سجل مجاناً',
@@ -255,8 +268,6 @@ $cbp = array_merge($pmp, [
 // Same structure as CBP; only the course-specific copy differs.
 $leadership = array_merge($cbp, [
     'start_at' => '2026-11-22T09:00:00+03:00',
-    // in progress (Figma 3996:13993): top bar says registration is still open and the course is running now
-    'ongoing' => ['bar' => 'الدورة منعقدة الآن', 'text' => 'لا يزال التسجيل متاحًا'],
 
     'hero' => [
         'tag' => 'دورات تطويرية . سجل مجاناً',
@@ -948,23 +959,10 @@ $problemSolving = array_merge($cbp, [
 ]);
 
 // ---- process-modeling — Figma desktop 4067:16755, phone 4067:19640 (plan blocks 4067:16996 … 17000, FAQ 4067:17256) ----
-// An ENDED course ('ended' => true): the booking form becomes the "انتهت هذه الدورة" box, the top bar the "انتهت الدورة" bar,
+// An ended course (the stage comes from the dates): the booking form becomes the "انتهت هذه الدورة" box, the top bar the "انتهت الدورة" bar,
 // the enrollment card says registration is closed and the countdown banner / floating button are not drawn.
 $processModeling = array_merge($cbp, [
-    'ended' => true,
     'start_at' => '2026-04-05T09:30:00+03:00',
-
-    'ended_copy' => [
-        'bar' => 'انتهت الدورة',
-        'bar_link' => 'استكشف دوراتنا القادمة',
-        'bar_link_m' => 'استكشف دورتنا القادمة',
-        'title' => 'انتهت هذه الدورة',
-        'text' => 'شكرًا لاهتمامك، انتهت فترة التسجيل في هذه الدورة. يمكنك استكشاف دوراتنا التدريبية القادمة.',
-        'button' => 'استكشف الدورات القادمة',
-        'chip' => 'انتهى التسجيل',
-        'hint' => 'انتهت الدورة',
-        'next' => 'كن مستعدًا للموعد القادم',
-    ],
 
     'hero' => [
         'tag' => 'دورات تطويرية . سجل مجاناً',
