@@ -16,11 +16,24 @@
     $c = $v2['card'];
     $f = $v2['form'];
     $tb = $v2['topbar'];
+    // ended course (Figma 4067:16755 desktop / 4067:19640 phone): "انتهت الدورة" bar + box instead of the countdown + booking form
+    $ended = ! empty($v2['ended']);
+    $ec = $v2['ended_copy'] ?? [];
 @endphp
 
 {{-- ==================== TOP BAR: countdown + logo (Figma 3931:12625, 1440 × 174) ==================== --}}
 @section('before_header')
 <div class="cdv2-top">
+  @if ($ended)
+  <div class="cdv2-countdown cdv2-countdown--ended">
+    <div class="cdv2-ended-bar" dir="ltr">
+      <a href="{{ route('courses.index') }}" class="cdv2-ended-bar-link"><span class="cdv2-only-d">{{ $ec['bar_link'] }}</span><span class="cdv2-only-m">{{ $ec['bar_link_m'] ?? $ec['bar_link'] }}</span></a>
+      <i class="cdv2-ended-bar-sep" aria-hidden="true"></i>
+      <span class="cdv2-ended-bar-state">{{ $ec['bar'] }}</span>
+      <img src="{{ $ic }}/ended-calendar-check.svg" alt="" width="22" height="22" class="cdv2-ended-bar-ico" />
+    </div>
+  </div>
+  @else
   <div class="cdv2-countdown" data-cdv2-countdown="{{ $v2['start_at'] }}" role="timer" aria-label="{{ $tb['label'] }}">
     <div class="cdv2-cd" dir="ltr">
       {{-- Figma order: seconds, minutes, hours, days (left → right) --}}
@@ -35,6 +48,7 @@
       <i class="cdv2-cd-dot" aria-hidden="true"></i>
     </div>
   </div>
+  @endif
   <div class="cdv2-logobar">
     <a href="{{ url('/') }}" aria-label="الصفحة الرئيسية لدار الرؤى"><img src="{{ $im }}/hero-WhatsAppImage.png" alt="شعار دار الرؤى للتدريب" class="cdv2-logo-d" width="86" height="79" /><img src="{{ $im }}/m-logo.png" alt="شعار دار الرؤى للتدريب" class="cdv2-logo-m" width="58" height="45" /></a>
   </div>
@@ -50,6 +64,22 @@
 
       <div class="cdv2-side">
         <div class="cdv2-form-rail">
+        @if ($ended)
+        <section class="cdv2-ended" aria-labelledby="cdv2-ended-t">
+          <span class="cdv2-ended-glow" aria-hidden="true"></span>
+          <span class="cdv2-form-logo"><img src="{{ $im }}/hero-WhatsAppImage.png" alt="" /></span>
+          <div class="cdv2-ended-body">
+            <div class="cdv2-ended-msg">
+              <span class="cdv2-ended-ico"><span><img src="{{ $ic }}/m-success-check.svg" alt="" width="32" height="32" /></span></span>
+              <div class="cdv2-ended-text">
+                <h2 id="cdv2-ended-t">{{ $ec['title'] }}</h2>
+                <p>{{ $ec['text'] }}</p>
+              </div>
+            </div>
+            <a href="{{ route('courses.index') }}" class="cdv2-submit"><span>{{ $ec['button'] }}</span><img src="{{ $ic }}/hero-ArrowLeft.svg" alt="" width="12" height="12" /></a>
+          </div>
+        </section>
+        @else
         <form class="cdv2-form" action="#" method="post" novalidate data-registered="{{ $v2['registered_demo'] ?? '' }}" data-whatsapp="https://wa.me/{{ ltrim($course['help']['phone'], '+') }}" data-start="{{ $v2['start_at'] }}" data-title="{{ trim($course['title'].' '.$course['title_en']) }}">
           <div class="cdv2-form-head">
             <span class="cdv2-form-logo"><img src="{{ $im }}/hero-WhatsAppImage.png" alt="" /></span>
@@ -73,6 +103,7 @@
             <p class="cdv2-form-note">{{ $f['note'] }}</p>
           </div>
         </form>
+        @endif
         </div>
 
       {{-- enrollment card (left column) --}}
@@ -86,10 +117,10 @@
             <div><strong>{{ $c['title'] }}</strong>@if (($c['title_en'] ?? '') !== '')<strong>{{ $c['title_en'] }}</strong>@endif</div>
             <span class="cdv2-card-bar"{!! ' style="--bar-w:'.(int) ($c['bar_w'] ?? 53).'px;--bar-wm:'.(int) ($c['bar_wm'] ?? 41).'px"' !!} aria-hidden="true"></span>
           </div>
-          <div class="cdv2-seats">
+          <div class="cdv2-seats{{ $ended ? ' cdv2-seats--ended' : '' }}">
             <span class="cdv2-seats-ico"><img src="{{ $ic }}/l-Icon.svg" alt="" width="18" height="18" /></span>
-            <span class="cdv2-seats-text"><small>{{ $c['seats_hint'] }}</small><strong>{{ $c['seats'] }}</strong></span>
-            <span class="cdv2-open"><i aria-hidden="true"></i>{{ $c['open'] }}</span>
+            <span class="cdv2-seats-text"><small>{{ $ended ? $ec['hint'] : $c['seats_hint'] }}</small><strong>{{ $ended ? $ec['next'] : $c['seats'] }}</strong></span>
+            <span class="cdv2-open"><i aria-hidden="true"></i>{{ $ended ? $ec['chip'] : $c['open'] }}</span>
           </div>
         </div>
         <div class="cdv2-card-info">
@@ -345,7 +376,8 @@
           </div>
         </section>
 
-        {{-- closing countdown banner --}}
+        {{-- closing countdown banner (not drawn for an ended course) --}}
+        @unless ($ended)
         <section class="cdv2-closing" aria-label="{{ $v2['closing']['text'] }}">
           <span class="cdv2-closing-blob" aria-hidden="true"></span>
           <div class="cdv2-closing-in" dir="ltr">
@@ -360,12 +392,14 @@
             </div>
           </div>
         </section>
+        @endunless
       </div>
 
     </div>
 
   </div>
 </div>
+@unless ($ended)
 {{-- floating signup button: shown when the booking form has scrolled out of view (Figma 3931:13365) --}}
 <button type="button" class="cdv2-fab" id="cdv2-fab" aria-hidden="true" tabindex="-1"><img src="{{ $ic }}/signup-compose.svg" alt="" width="20" height="20" loading="lazy" decoding="async" /><span>سجل الآن</span></button>
 {{-- ==================== MODALS (Figma 3931:13462 success / 3931:13431 already registered) ==================== --}}
@@ -401,4 +435,5 @@
     </div>
   </div>
 </div>
+@endunless
 @endsection
