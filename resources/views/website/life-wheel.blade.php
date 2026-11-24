@@ -58,10 +58,10 @@
     <div class="flex flex-col gap-[48px] lg:gap-[112px]">
 
       <!-- ==================== 1. ما هي عجلة الحياة؟ (#3615:7602 / #3615:7977) ==================== -->
-      <section aria-label="ما هي عجلة الحياة؟" class="flex flex-col items-center gap-[48px] lg:flex-row lg:justify-between lg:gap-[214px]">
+      <section aria-label="ما هي عجلة الحياة؟" class="flex flex-col items-center gap-[48px] lg:flex-row lg:justify-between lg:gap-10 min-[1336px]:gap-[214px]">
 
         <!-- Text + CTA + pills -->
-        <div class="w-full lg:w-[501px] lg:shrink-0 flex flex-col items-center lg:items-start gap-[32px] lg:gap-[48px]">
+        <div class="w-full lg:flex-1 lg:min-w-0 min-[1336px]:flex-none min-[1336px]:w-[501px] flex flex-col items-center lg:items-start gap-[32px] lg:gap-[48px]">
           <div class="w-full flex flex-col items-center lg:items-start gap-[24px] text-center lg:text-right">
             <h1 class="text-[21px] lg:text-[36px] font-bold lg:font-semibold text-[#204a7a] leading-[28px] lg:leading-[1.5] tracking-[-0.5px] lg:tracking-normal">{{ cms('life_wheel.intro.title', 'ما هي عجلة الحياة؟') }}</h1>
             <p class="w-full max-w-[329px] lg:max-w-none text-[14px] lg:text-[25px] font-medium text-[#565656] leading-normal">
@@ -128,10 +128,10 @@
           <p class="text-[14px] lg:text-[25px] font-medium text-[#565656] leading-[22px] lg:leading-[39px]">{{ cms('life_wheel.aspects.subtitle', 'ثمانية جوانب رئيسية تساعدك على رؤية حياتك بشكل متكامل') }}</p>
         </div>
 
-        <ul class="grid grid-cols-2 md:grid-cols-4 gap-x-[17px] gap-y-[24px] md:gap-5 lg:gap-x-[40px] lg:gap-y-[55px] w-full">
+        <ul class="grid grid-cols-2 md:grid-cols-4 gap-x-[17px] gap-y-[24px] md:gap-5 lg:gap-x-5 min-[1336px]:gap-x-[40px] lg:gap-y-[55px] w-full">
           @foreach ($aspects as $aspect)
-            <li class="{{ $aspect['bg'] }} {{ $aspect['border'] }} border-[0.5px] border-solid rounded-[22.828px] lg:rounded-[30px] drop-shadow-[0px_4px_5.3px_rgba(0,0,0,0.1)] lg:drop-shadow-[0px_3px_3.1px_rgba(0,0,0,0.1)] flex flex-col items-center justify-center p-4 h-[190px] lg:w-[280px] lg:h-[290px]">
-              <div class="flex flex-col items-center gap-[16px] lg:gap-[33px] w-full max-w-[142px] lg:max-w-none lg:w-[200px] lg:h-[246px]">
+            <li class="{{ $aspect['bg'] }} {{ $aspect['border'] }} border-[0.5px] border-solid rounded-[22.828px] lg:rounded-[30px] drop-shadow-[0px_4px_5.3px_rgba(0,0,0,0.1)] lg:drop-shadow-[0px_3px_3.1px_rgba(0,0,0,0.1)] flex flex-col items-center justify-center p-4 h-[190px] lg:w-full lg:max-w-[280px] lg:h-[290px]">
+              <div class="flex flex-col items-center gap-[16px] lg:gap-[33px] w-full max-w-[142px] lg:max-w-[200px] lg:w-full lg:h-[246px]">
                 <img src="/assets/website/images/life-wheel-explore/m-icon-{{ $aspect['icon'] }}.svg" alt="" width="56" height="56" class="lg:hidden size-[56px] shrink-0" aria-hidden="true" />
                 <img src="/assets/website/images/life-wheel-explore/icon-{{ $aspect['icon'] }}.svg" alt="" width="86" height="86" class="hidden lg:block size-[86px] shrink-0" aria-hidden="true" />
                 <div class="flex flex-col items-center gap-[8px] lg:gap-[18px] w-full text-center leading-normal lg:leading-[1.5]">

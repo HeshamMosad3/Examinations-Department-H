@@ -8,7 +8,7 @@
   <div class="max-w-[1240px] mx-auto">
 
     <!-- Columns Container: 1 col on mobile, 2 cols on tablet (md), flex on desktop (lg) -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:flex lg:flex-row lg:justify-start items-start gap-10 md:gap-x-12 md:gap-y-10 lg:gap-0 max-w-[361px] md:max-w-[680px] lg:max-w-[1236px] mx-auto lg:mx-0">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:flex lg:flex-row lg:justify-between min-[1336px]:justify-start items-start gap-10 md:gap-x-12 md:gap-y-10 lg:gap-6 min-[1336px]:gap-0 max-w-[361px] md:max-w-[680px] lg:max-w-none min-[1336px]:max-w-[1236px] mx-auto lg:mx-0">
 
       <!-- Col 1: Logo & Social -->
       <div class="order-1 flex flex-col items-start text-right w-full max-w-[247px] lg:w-[247px] lg:shrink-0">
@@ -32,7 +32,7 @@
       </div>
 
       <!-- Col 2: تواصل معنا (آخر عمود على الديسكتوب، وبعد «روابط سريعة» على الموبايل) -->
-      <div class="order-3 md:order-2 w-full max-w-[300px] lg:order-4 lg:w-[270px] lg:max-w-none lg:shrink-0 lg:ms-[161px]">
+      <div class="order-3 md:order-2 w-full max-w-[300px] lg:order-4 lg:w-[270px] lg:max-w-none lg:shrink-0 min-[1336px]:ms-[161px]">
         {!! $heading(cms('global.footer.contact_title', 'تواصل معنا')) !!}
         <ul class="flex flex-col gap-[18px] text-[17px] leading-[27px] text-[#ddd]" style="font-family: 'El Messiri', sans-serif;">
           <li class="flex items-start gap-[14px]">
@@ -55,7 +55,7 @@
       </div>
 
       <!-- Col 3: خدماتنا (مخفي على الموبايل) -->
-      <div class="hidden md:block order-4 md:order-3 lg:order-2 w-full max-w-[300px] lg:w-[131px] lg:max-w-none lg:shrink-0 lg:ms-[91px]">
+      <div class="hidden md:block order-4 md:order-3 lg:order-2 w-full max-w-[300px] lg:w-[131px] lg:max-w-none lg:shrink-0 min-[1336px]:ms-[91px]">
         {!! $heading(cms('global.footer.services_title', 'خدماتنا')) !!}
         <ul class="flex flex-col gap-[18px] text-[17px] leading-[27px] text-[#ddd] whitespace-nowrap" style="font-family: 'El Messiri', sans-serif;">
           <li><a href="{{ cms_url('global.footer.service_1_url', '/courses') }}" class="hover:text-[#E6B844] transition-colors">{{ cms('global.footer.service_1', 'التدريب الفردي') }}</a></li>
@@ -67,7 +67,7 @@
       </div>
 
       <!-- Col 4: روابط سريعة -->
-      <div class="order-2 md:order-4 lg:order-3 w-full max-w-[300px] lg:w-[175px] lg:max-w-none lg:shrink-0 lg:ms-[161px]">
+      <div class="order-2 md:order-4 lg:order-3 w-full max-w-[300px] lg:w-[175px] lg:max-w-none lg:shrink-0 min-[1336px]:ms-[161px]">
         {!! $heading(cms('global.footer.links_title', 'روابط سريعة')) !!}
         <ul class="flex flex-col gap-[18px] text-[17px] leading-[21px] text-[#ddd]" style="font-family: 'El Messiri', sans-serif;">
           <li><a href="{{ cms_url('global.footer.link_1_url', '#home') }}" data-nav="home" class="hover:text-[#E6B844] transition-colors">{{ cms('global.footer.link_1', 'الرئيسية') }}</a></li>
