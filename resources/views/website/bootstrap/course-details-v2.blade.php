@@ -33,6 +33,15 @@
       <img src="{{ $ic }}/ended-calendar-check.svg" alt="" width="22" height="22" class="cdv2-ended-bar-ico" />
     </div>
   </div>
+  @elseif (! empty($v2['ongoing']))
+  <div class="cdv2-countdown cdv2-countdown--ended">
+    <div class="cdv2-ended-bar" dir="ltr">
+      <span class="cdv2-ended-bar-link">{{ $v2['ongoing']['text'] }}</span>
+      <i class="cdv2-ended-bar-sep" aria-hidden="true"></i>
+      <span class="cdv2-ended-bar-state">{{ $v2['ongoing']['bar'] }}</span>
+      <img src="{{ $ic }}/ended-calendar-check.svg" alt="" width="22" height="22" class="cdv2-ended-bar-ico" />
+    </div>
+  </div>
   @else
   <div class="cdv2-countdown" data-cdv2-countdown="{{ $v2['start_at'] }}" role="timer" aria-label="{{ $tb['label'] }}">
     <div class="cdv2-cd" dir="ltr">

@@ -254,7 +254,9 @@ $cbp = array_merge($pmp, [
 // ---- leadership — Figma desktop 3996:13993, phone 3996:17469 ----
 // Same structure as CBP; only the course-specific copy differs.
 $leadership = array_merge($cbp, [
-    'start_at' => '2026-09-13T09:00:00+03:00',
+    'start_at' => '2026-11-22T09:00:00+03:00',
+    // in progress (Figma 3996:13993): top bar says registration is still open and the course is running now
+    'ongoing' => ['bar' => 'الدورة منعقدة الآن', 'text' => 'لا يزال التسجيل متاحًا'],
 
     'hero' => [
         'tag' => 'دورات تطويرية . سجل مجاناً',
@@ -263,7 +265,7 @@ $leadership = array_merge($cbp, [
         'lead' => 'طوّر مهاراتك في القيادة الإدارية، واكتسب القدرة على توجيه فرق العمل وتحفيزها واتخاذ القرارات بفاعلية، بما يسهم في رفع كفاءة الأداء وتحقيق الأهداف المؤسسية.',
         'location' => 'عن بعد (أونلاين)',
         'time' => ' 9:00-4:00  مساءً ',
-        'date' => ' 17-13 سبتمبر 2026',
+        'date' => ' 26-22 نوفمبر 2026',
         'badges' => [
             ['badge-icon1', 'الحضور مجاني (لا يشمل الشهادة)'],
             ['badge-icon', 'دورة معتمدة | رقم الاعتماد: 189369987'],
@@ -274,8 +276,8 @@ $leadership = array_merge($cbp, [
         'label_color' => '#565656',
         'title' => 'دورة القيادة الإدارية',
         'title_en' => '',
-        'date_from' => '2026-09-13',
-        'date_to' => '2026-09-17',
+        'date_from' => '2026-11-22',
+        'date_to' => '2026-11-26',
     ]),
 
     'audience' => [
