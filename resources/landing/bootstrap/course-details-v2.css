@@ -326,6 +326,8 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 .cdv2-closing-in { position: absolute; left: calc(50% - 1px); top: 50%; transform: translate(-50%, -50%); width: 676px; display: flex; align-items: flex-end; justify-content: center; gap: 142px; }
 .cdv2-closing-text { width: 291.337px; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; direction: rtl; }
 .cdv2-closing-pill { display: flex; align-items: center; gap: 4px; height: 30px; padding: 0 10px; border-radius: 25px; background: rgba(255,206,104,.05); }
+.cdv2-closing-pill { gap: 8px; } /* Figma 4070:21122: text + 4px yellow status dot, 8px apart (the fire icon was removed) */
+.cdv2-closing-dot { flex: none; width: 4px; height: 4px; border-radius: 50%; background: #FBBF24; box-shadow: 0 0 8px #FBBF24; }
 .cdv2-closing-pill b { font-size: 12px; line-height: normal; font-weight: 700; color: #E6B844; white-space: nowrap; }
 .cdv2-closing-text p { height: 24px; padding-top: 4px; box-sizing: border-box; font-size: 14px; line-height: normal; font-weight: 500; color: #F6F6F6; white-space: nowrap; }
 

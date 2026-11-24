@@ -402,7 +402,7 @@
               @endforeach
             </div>
             <div class="cdv2-closing-text">
-              <span class="cdv2-closing-pill"><b>{{ $v2['closing']['seats'] }}</b><img src="{{ $ic }}/l-BasilFireOutline.svg" alt="" width="14" height="14" loading="lazy" decoding="async" /></span>
+              <span class="cdv2-closing-pill"><b>{{ $v2['closing']['seats'] }}</b><i class="cdv2-closing-dot" aria-hidden="true"></i></span>
               <p>{{ $v2['closing']['text'] }}<span class="cdv2-only-m">.</span></p>
             </div>
           </div>
