@@ -75,7 +75,7 @@
   <div class="cdv2-wrap">
 
     {{-- ==================== STAGE: hero + sections on the right, sticky booking form + enrollment card on the left ==================== --}}
-    <div class="cdv2-stage" id="cdv2-details">
+    <div class="cdv2-stage{{ $ended ? ' cdv2-stage--ended' : '' }}" id="cdv2-details"{!! isset($v2['end_gap_m']) ? ' style="--end-gap-m:'.(float) $v2['end_gap_m'].'px"' : '' !!}>
 
       <div class="cdv2-side">
         <div class="cdv2-form-rail">
@@ -160,7 +160,7 @@
       </aside>
       </div>
 
-      <section class="cdv2-hero{{ ! empty($h['plain']) ? ' cdv2-hero--plain' : '' }}{{ ! empty($h['lead_justify']) ? ' cdv2-hero--justify' : '' }}"{!! isset($h['title_h']) ? ' style="--title-h:'.(float) $h['title_h'].'px"' : '' !!} aria-labelledby="cdv2-title">
+      <section class="cdv2-hero{{ ! empty($h['plain']) ? ' cdv2-hero--plain' : '' }}{{ ! empty($h['lead_justify']) ? ' cdv2-hero--justify' : '' }}"{!! collect(['title_h' => ['--title-h', 'px'], 'copy_gap' => ['--copy-gap', 'px'], 'copy_gap_m' => ['--copy-gap-m', 'px'], 'title_lh_m' => ['--title-lh-m', '']])->filter(fn ($v, $k) => isset($h[$k]))->map(fn ($v, $k) => $v[0].':'.(float) $h[$k].$v[1])->whenNotEmpty(fn ($c) => ' style="'.$c->implode(';').'"', fn () => '') !!} aria-labelledby="cdv2-title">
         <div class="cdv2-hero-text">
           <div class="cdv2-hero-head">
             <p class="cdv2-tag"><i aria-hidden="true"></i>{{ $h['tag'] }}</p>
@@ -222,10 +222,12 @@
                     <strong>{{ $pTitle }}</strong>
                     <span class="cdv2-item-body" id="cdv2-day-{{ $i }}">
                       <span class="cdv2-item-inner">
-                        <span class="cdv2-item-text">@if ($pTextM)<span class="cdv2-only-d">{{ $pText }}</span><span class="cdv2-only-m">{{ $pTextM }}</span>@else{{ $pText }}@endif</span>
+                        <span class="cdv2-item-text{{ ($pDay[4] ?? false) ? ' cdv2-item-text--sm' : '' }}">@if ($pTextM)<span class="cdv2-only-d">{{ $pText }}</span><span class="cdv2-only-m">{{ $pTextM }}</span>@else{{ $pText }}@endif</span>
                         <span class="cdv2-chips">
                           @foreach ($pChips as $chip)
-                            <span class="cdv2-chip"><img src="{{ $ic }}/l-HugeiconsTick01.svg" alt="" width="16" height="16" loading="lazy" decoding="async" />{{ $chip }}</span>
+                            {{-- a chip is a string (min width 124px) or [text, min width] when Figma draws it at its natural width (0) --}}
+                            @php [$chipText, $chipW] = is_array($chip) ? $chip : [$chip, null]; @endphp
+                            <span class="cdv2-chip"{!! $chipW !== null ? ' style="--chip-w:'.(int) $chipW.'px"' : '' !!}><img src="{{ $ic }}/l-HugeiconsTick01.svg" alt="" width="16" height="16" loading="lazy" decoding="async" />{{ $chipText }}</span>
                           @endforeach
                         </span>
                       </span>

@@ -61,6 +61,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   .cdv2-hero--justify .cdv2-lead { text-align: justify; }
   .cdv2-hero--plain .cdv2-hero-copy { gap: 56px; }
   .cdv2-hero--plain .cdv2-hero-head { margin-bottom: 19px; }
+  .cdv2-hero-copy { gap: var(--copy-gap, 40px); } /* copy_gap: Figma gap between the title and the lead (48 for the 2-line secretary title) */
 }
 .cdv2-lead { width: 518px; font-size: 17px; line-height: 27px; font-weight: 600; color: #6F6F6F; text-align: right; }
 
@@ -146,7 +147,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 .cdv2-item.is-open .cdv2-item-body { grid-template-rows: 1fr; }
 .cdv2-item-text { display: block; margin-top: 6px; height: 18px; padding-top: 3.65px; font-size: 14px; line-height: 21px; font-weight: 400; color: #565656; }
 .cdv2-chips { display: flex; gap: 6.39px; margin-top: 14px; padding-top: 4.56px; }
-.cdv2-chip { box-sizing: border-box; min-width: 124px; height: 25px; display: flex; align-items: center; justify-content: center; gap: 4px; padding: 4.56px 7.3px; border-radius: 18.257px; background: #fff; font-size: 12px; line-height: 1.5; font-weight: 600; color: #565656; white-space: nowrap; }
+.cdv2-chip { box-sizing: border-box; min-width: var(--chip-w, 124px); height: 25px; display: flex; align-items: center; justify-content: center; gap: 4px; padding: 4.56px 7.3px; border-radius: 18.257px; background: #fff; font-size: 12px; line-height: 1.5; font-weight: 600; color: #565656; white-space: nowrap; }
 .cdv2-plan .cdv2-item.is-open { border: 1px solid rgba(32,74,122,.3); background: linear-gradient(169.14deg, #F8FAFC 0%, #F0F7FF 100%); filter: drop-shadow(0 10.954px 13.692px rgba(32,74,122,.08)); }
 .cdv2-plan .cdv2-item.is-open { min-height: 137px; }
 .cdv2-plan .cdv2-item.is-open .cdv2-item-btn { align-items: flex-start; padding: 23px 24px; }
@@ -389,9 +390,9 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   .cdv2-hero-head { order: 1; width: 291px; margin: 0 auto; gap: 12px; align-items: center; }
   .cdv2-tag { justify-content: center; height: auto; gap: 4px; font-size: 14px; line-height: 1.5; font-weight: 600; color: #CFA63D; }
   .cdv2-tag i { width: 15px; background: #CFA63D; }
-  .cdv2-hero-copy { width: 100%; gap: 8px; align-items: center; }
+  .cdv2-hero-copy { width: 100%; gap: var(--copy-gap-m, 8px); align-items: center; }
   .cdv2-hero-titles { flex-direction: row; justify-content: center; align-items: center; gap: 6px; width: 100%; }
-  .cdv2-title { width: auto; height: auto; margin: 0; font-size: 21px; line-height: 1.31; white-space: nowrap; text-align: right; }
+  .cdv2-title { width: auto; height: auto; margin: 0; font-size: 21px; line-height: var(--title-lh-m, 1.31); white-space: nowrap; text-align: right; }
   .cdv2-title-en { width: auto; height: auto; font-size: 21px; line-height: normal; }
   .cdv2-title--inline { text-align: center; }
   .cdv2-lead { width: min(var(--lead-wm, 100%), calc(100vw - 32px)); margin-inline: min(0px, calc((100% - min(var(--lead-wm, 100%), calc(100vw - 32px))) / 2)); font-size: 14px; line-height: normal; font-weight: 500; color: #565656; text-align: center; }
@@ -736,6 +737,13 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   .cdv2-form { height: auto; min-height: 562.6px; }
   .cdv2-form-rail { height: auto; }
   .cdv2-side .cdv2-card { margin-top: 158px; } /* 562.6 form + 64 + 30 divider + 64 = card top at 720.6 */
+  /* ended course (Figma 4067:16755 / 4088:11441): the hero row is 513px (box 503px sits 9.5px down), the hero text starts at the top of the row,
+     so the divider is at 577 and the enrollment card at 671 instead of 626.6 / 720.6 */
+  .cdv2-stage--ended { grid-template-rows: minmax(513px, auto) 30px auto; }
+  .cdv2-stage--ended .cdv2-form-rail { min-height: 513px; }
+  .cdv2-stage--ended .cdv2-ended { margin-top: 9.5px; }
+  .cdv2-stage--ended .cdv2-hero-text { margin-top: 0; }
+  .cdv2-item-text--sm { font-size: 12px; line-height: normal; } /* a few Figma plan descriptions are drawn at 12px (day option 5) */
 }
 
 /* ---------- desktop modals — 746 wide (Figma 3931:13372 / 3931:13399) ---------- */
@@ -792,6 +800,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   .cdv2-ended-bar-sep { height: 12px; }
   .cdv2-ended-bar-state { margin-right: -2px; }
   .cdv2-ended-bar-ico { width: 16px; height: 16px; }
+  .cdv2-stage--ended { margin-bottom: var(--end-gap-m, -7.6px); } /* ended phone page: the accreditation block ends 7.6px short of the usual footer gap (Figma 4088:14085); a course can override it with end_gap_m */
 }
 @media (max-width: 1279.98px) {
   .cdv2-ended { order: 3; width: 100%; height: 400px; margin-top: 20px; border-radius: 14px; box-shadow: 0 4px 2px rgba(23,53,90,.1); }
@@ -802,7 +811,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   .cdv2-ended-ico { width: 60px; height: 60px; box-shadow: 0 0 0 8px rgba(200,219,242,.3); }
   .cdv2-ended-ico > span { width: 44px; height: 44px; }
   .cdv2-ended-text { gap: 16px; }
-  .cdv2-ended-text h2 { font-size: 17px; }
+  .cdv2-ended-text h2 { font-size: 21px; } /* Figma 4088:13489 */
   .cdv2-ended-text p { font-size: 12px; }
 
   .cdv2-seats--ended .cdv2-open { width: 80px; height: 23px; }

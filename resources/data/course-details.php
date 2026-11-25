@@ -1233,4 +1233,25 @@ return [
             ['هل تُقدَّم الدورة باللغة العربية أم الإنجليزية؟', 'تُقدَّم الدورة باللغة العربية، مع عرض المصطلحات التخصصية باللغة الإنجليزية وشرح معانيها بالعربية.'],
         ],
     ],
+    // trainer-skills is drawn only by the v2 template; the old template never renders it (this entry feeds the title, lead and WhatsApp number)
+    'trainer-skills' => [
+        'title' => 'مهارات المدرب',
+        'title_en' => '',
+        'lead' => 'طوّر مهاراتك في تقديم التدريب وإدارة الجلسات بفاعلية، وتعلّم أساليب شرح المحتوى وتحفيز مشاركة المتدربين وإدارة النقاش والتعامل مع المواقف المختلفة، بما يعزز حضورك كمدرب ويحقق أهدافك التدريبية.',
+        'help' => ['phone' => '+966506235130'],
+    ],
+    // modern-secretary is drawn only by the v2 template; the old template never renders it (this entry feeds the title, lead and WhatsApp number)
+    'modern-secretary' => [
+        'title' => 'السكرتارية الحديثة وإدارة المكاتب إلكترونياً',
+        'title_en' => '',
+        'lead' => 'طوّر مهاراتك في أعمال السكرتارية ودعم الإدارة، وتعلّم تنظيم الوقت والمواعيد وإدارة المراسلات والوثائق، واستخدام الأدوات الرقمية لتحسين كفاءة العمل والمتابعة الإدارية.',
+        'help' => ['phone' => '+966506235130'],
+    ],
+    // public-speaking is drawn only by the v2 template; the old template never renders it (this entry feeds the title, lead and WhatsApp number)
+    'public-speaking' => [
+        'title' => 'مهارات الإلقاء',
+        'title_en' => '',
+        'lead' => 'طوّر مهاراتك في التحدث أمام الجمهور وتقديم العروض بثقة واحترافية، وتعلّم كيفية تنظيم أفكارك وإيصال رسالتك بوضوح، مع توظيف نبرة الصوت ولغة الجسد وإدارة التفاعل لترك أثر إيجابي لدى المستمعين.',
+        'help' => ['phone' => '+966506235130'],
+    ],
 ];
