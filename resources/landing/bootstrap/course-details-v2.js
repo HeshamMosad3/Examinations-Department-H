@@ -38,29 +38,50 @@ $(function () {
     var $dots = $slider.find('.cdv2-dots');
     var total = $track.children().length, cur = 0;
     var cfg = function () { return mq.matches ? { pages: total, step: 315 + 17 } : { pages: Math.max(1, total - 2), step: 223 + 28 }; };
+    var mark = function () { // phones: cards before / after the centred one are drawn smaller (Figma)
+      $track.children().each(function (k) { $(this).toggleClass('is-before', mq.matches && k < cur).toggleClass('is-after', mq.matches && k > cur); });
+    };
     var go = function (i) {
       var c = cfg();
       cur = ((i % c.pages) + c.pages) % c.pages;
       if (mq.matches) { vp.scrollTo({ left: -cur * c.step, behavior: 'smooth' }); }
       else { $track.css('transform', 'translateX(' + (cur * c.step) + 'px)'); }
       setActive($dots, cur);
+      mark();
     };
     var init = function () {
       var c = cfg();
       buildDots($dots, c.pages, go);
       $track.css('transform', '');
       vp.scrollLeft = 0;
-      cur = mq.matches ? 0 : 1; // Figma draws the 2nd dot active on desktop
+      cur = 1; // Figma draws the 2nd dot active (phone: 2nd card centred, neighbours peeking on both sides)
       go(cur);
     };
     $(vp).on('scroll', function () {
       if (!mq.matches) return;
       var i = Math.round(Math.abs(vp.scrollLeft) / cfg().step);
-      if (i !== cur) { cur = i; setActive($dots, cur); }
+      if (i !== cur) { cur = i; setActive($dots, cur); mark(); }
     });
     init();
     (mq.addEventListener ? mq.addEventListener('change', init) : mq.addListener(init));
   }
+
+  // ---- plan chips (phones): keep a day's chips on one row by shrinking them a little (down to 72%) instead of wrapping ----
+  var fitChips = function () {
+    $('.cdv2-chips').each(function () {
+      var el = this, kids = $(el).children().css('zoom', '').get();
+      el.style.flexWrap = '';
+      if (!mq.matches || kids.length < 2) return;
+      var gap = parseFloat(getComputedStyle(el).columnGap) || 0, avail = el.clientWidth - gap * (kids.length - 1);
+      var sum = kids.reduce(function (a, k) { return a + k.getBoundingClientRect().width; }, 0);
+      if (!avail || sum <= avail) return;
+      var z = Math.floor(avail / sum * 100) / 100;
+      if (z >= 0.72) { $(kids).css('zoom', z); el.style.flexWrap = 'nowrap'; }
+    });
+  };
+  $(window).on('load resize orientationchange', fitChips);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitChips);
+  fitChips();
 
   // ---- certificates (phones): swipeable cards + dots ----
   var certs = document.querySelector('.cdv2-certs');
