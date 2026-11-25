@@ -805,11 +805,12 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 .cdv2-seats--ended .cdv2-open i { width: 3px; height: 3px; background: #204A7A; box-shadow: 0 0 0 1.5px rgba(32,74,122,.12); }
 
 @media (max-width: 767.98px) {
-  .cdv2-ended-bar { gap: 8px; }
+  .cdv2-ended-bar { gap: 6px; } /* Figma 4067:18992: 114 / 6 / line / 6 / 60 / 4 / icon 14 (top-aligned) */
   .cdv2-ended-bar-link, .cdv2-ended-bar-state { font-size: 11px; }
   .cdv2-ended-bar-sep { height: 12px; }
   .cdv2-ended-bar-state { margin-right: -2px; }
-  .cdv2-ended-bar-ico { width: 16px; height: 16px; }
+  .cdv2-ended-bar-ico { width: 14px; height: 14px; align-self: flex-start; }
+  .cdv2-ended-bar-ico--live { width: 16px; height: 16px; align-self: center; }
   .cdv2-ended-bar--live { gap: 6px; } /* Figma 3996:17480: 99 / 6 / line / 6 / 87 / 4 / icon 16 */
   .cdv2-stage--ended { margin-bottom: var(--end-gap-m, -7.6px); } /* ended phone page: the accreditation block ends 7.6px short of the usual footer gap (Figma 4088:14085); a course can override it with end_gap_m */
 }
