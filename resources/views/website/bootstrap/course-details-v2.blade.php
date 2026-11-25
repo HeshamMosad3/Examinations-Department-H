@@ -41,11 +41,11 @@
   </div>
   @elseif ($ongoing)
   <div class="cdv2-countdown cdv2-countdown--ended">
-    <div class="cdv2-ended-bar" dir="ltr">
+    <div class="cdv2-ended-bar cdv2-ended-bar--live" dir="ltr">
       <span class="cdv2-ended-bar-link">{{ $v2['ongoing']['text'] }}</span>
       <i class="cdv2-ended-bar-sep" aria-hidden="true"></i>
       <span class="cdv2-ended-bar-state">{{ $v2['ongoing']['bar'] }}</span>
-      <img src="{{ $ic }}/ended-calendar-check.svg" alt="" width="22" height="22" class="cdv2-ended-bar-ico" />
+      <img src="{{ $ic }}/ongoing-live.svg" alt="" width="24" height="24" class="cdv2-ended-bar-ico cdv2-ended-bar-ico--live" />
     </div>
   </div>
   @else

@@ -300,7 +300,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 .cdv2-logos-track { display: flex; width: max-content; animation: cdv2Marquee 22s linear infinite; will-change: transform; } /* same speed / direction as the home page partners strip */
 .cdv2-logos:hover .cdv2-logos-track { animation-play-state: paused; }
 .cdv2-logos-set { display: flex; flex: none; gap: 26px; padding-right: 26px; margin: 0; }
-@keyframes cdv2Marquee { 0% { transform: translateX(calc(-100% / 3)); } 100% { transform: translateX(0); } }
+@keyframes cdv2Marquee { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-100% / 3)); } } /* right → left */
 @media (prefers-reduced-motion: reduce) { .cdv2-logos-track { animation: none; } .cdv2-logos-set + .cdv2-logos-set { display: none; } }
 .cdv2-lg { position: relative; flex: none; width: 159.054px; height: 159.054px; }
 .cdv2-lg-ring { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(90deg); }
@@ -558,20 +558,20 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   /* Figma: the centred card is 315 × 176; the side cards are drawn smaller (298 × 154, 11 px in from top/bottom, text 11 px lower, reviewer 16 px higher, darker text) */
   .cdv2-review { width: 315px; height: auto; padding: 20px; scroll-snap-align: center; border: 0; background: none; }
   .cdv2-review::before { content: ''; position: absolute; inset: 0; z-index: 0; box-sizing: border-box; background: #FEFEFE; border: .5px solid #AFCAEA; border-radius: 14px; transition: inset .3s ease; }
-  .cdv2-review-in { z-index: 1; transition: transform .3s ease; }
+  .cdv2-review-in { position: relative; z-index: 1; transition: transform .3s ease; }
   .cdv2-review.is-before::before { inset: 11px 17px 11px 0; }
   .cdv2-review.is-after::before { inset: 11px 0 11px 17px; }
   .cdv2-review.is-before .cdv2-review-in, .cdv2-review.is-after .cdv2-review-in { transform: translateY(11px); }
   .cdv2-review.is-before blockquote, .cdv2-review.is-after blockquote { color: #0B1628; }
   .cdv2-review.is-before figcaption, .cdv2-review.is-after figcaption { margin-top: -16px; }
   .cdv2-review.is-before .cdv2-stars img, .cdv2-review.is-after .cdv2-stars img { width: 16px; height: 16px; }
-  .cdv2-review-in { position: static; width: 100%; gap: 0; align-items: stretch; direction: rtl; }
+  .cdv2-review-in { position: relative; left: auto; top: auto; width: 100%; gap: 0; align-items: stretch; direction: rtl; }
   .cdv2-review-top { gap: 14px; }
   .cdv2-review blockquote { font-size: 14px; line-height: 1.5; }
   .cdv2-stars { height: 39px; gap: 4px; align-items: flex-start; }
   .cdv2-stars img { width: 15px; height: 15px; }
   .cdv2-quote { left: 0; top: 0; font-size: 39px; line-height: 39px; }
-  .cdv2-review figcaption { flex-direction: row-reverse; justify-content: flex-end; gap: 9px; align-items: center; }
+  .cdv2-review figcaption { flex-direction: row; justify-content: flex-start; gap: 9px; align-items: center; }
   .cdv2-review figcaption img { width: 40px; height: 40px; border-width: 1.6px; border-radius: 50%; }
   .cdv2-review figcaption span { width: 171px; }
   .cdv2-review figcaption strong { font-size: 14px; font-weight: 700; line-height: normal; }
@@ -782,9 +782,10 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 .cdv2-ended-bar { display: flex; align-items: center; gap: 13px; }
 .cdv2-ended-bar-link { font-size: 17px; line-height: normal; font-weight: 700; color: #fff; white-space: nowrap; text-decoration: none; transition: color .2s; }
 .cdv2-ended-bar-link:hover { color: #E6B844; }
-.cdv2-ended-bar-sep { width: 1px; height: 16px; background: linear-gradient(0deg, #fff 0%, #CFA63D 100%); }
+.cdv2-ended-bar-sep { width: 1px; height: 16px; margin: 0 -.5px; background: linear-gradient(0deg, #fff 0%, #CFA63D 100%); }
 .cdv2-ended-bar-state { font-size: 17px; line-height: normal; font-weight: 700; color: #E6B844; white-space: nowrap; margin-right: -4px; }
 .cdv2-ended-bar-ico { width: 22px; height: 22px; }
+.cdv2-ended-bar-ico--live { width: 24px; height: 24px; } /* "الدورة منعقدة الآن": Figma 4064:15456 — texts 13 / line / 13, icon 24 after 9 */
 
 .cdv2-ended { position: relative; box-sizing: border-box; width: 458.6px; height: 503px; overflow: hidden; background: #fff; border: .8px solid #E3E8EF; border-radius: 16px; box-shadow: 0 4px 26px rgba(23,53,90,.1); }
 .cdv2-ended-glow { position: absolute; left: 64px; top: -182px; width: 330px; height: 268px; border-radius: 50%; background: #F6FBFF; }
@@ -809,6 +810,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   .cdv2-ended-bar-sep { height: 12px; }
   .cdv2-ended-bar-state { margin-right: -2px; }
   .cdv2-ended-bar-ico { width: 16px; height: 16px; }
+  .cdv2-ended-bar--live { gap: 6px; } /* Figma 3996:17480: 99 / 6 / line / 6 / 87 / 4 / icon 16 */
   .cdv2-stage--ended { margin-bottom: var(--end-gap-m, -7.6px); } /* ended phone page: the accreditation block ends 7.6px short of the usual footer gap (Figma 4088:14085); a course can override it with end_gap_m */
 }
 @media (max-width: 1279.98px) {

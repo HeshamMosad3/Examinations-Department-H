@@ -92,8 +92,8 @@
 
   <style>
     @@keyframes marqueeRight {
-      0% { transform: translateX(calc(-100% / 3)); }
-      100% { transform: translateX(0%); }
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(calc(-100% / 3)); }
     }
     .animate-marquee-right {
       animation: marqueeRight 40s linear infinite;
