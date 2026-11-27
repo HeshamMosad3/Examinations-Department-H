@@ -328,7 +328,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 .cdv2-closing-text { width: 291.337px; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; direction: rtl; }
 .cdv2-closing-pill { display: flex; align-items: center; gap: 4px; height: 30px; padding: 0 10px; border-radius: 25px; background: rgba(255,206,104,.05); }
 .cdv2-closing-pill { gap: 8px; } /* Figma 4070:21122: text + 4px yellow status dot, 8px apart (the fire icon was removed) */
-.cdv2-closing-dot { flex: none; width: 4px; height: 4px; border-radius: 50%; background: #FBBF24; box-shadow: 0 0 8px 2px rgba(251,191,36,.85), 0 0 0 4px rgba(251,191,36,.14); }
+.cdv2-closing-dot { flex: none; width: 4px; height: 4px; border-radius: 50%; background: #FBBF24; box-shadow: 0 0 8px 0 #FBBF24; } /* Figma 4070:21125: dot #FBBF24 with a single 8px glow (no halo ring) */
 .cdv2-closing-pill b { font-size: 12px; line-height: normal; font-weight: 700; color: #E6B844; white-space: nowrap; }
 .cdv2-closing-text p { height: 24px; padding-top: 4px; box-sizing: border-box; font-size: 14px; line-height: normal; font-weight: 500; color: #F6F6F6; white-space: nowrap; }
 
@@ -785,7 +785,9 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 .cdv2-ended-bar-sep { width: 1px; height: 16px; margin: 0 -.5px; background: linear-gradient(0deg, #fff 0%, #CFA63D 100%); }
 .cdv2-ended-bar-state { font-size: 17px; line-height: normal; font-weight: 700; color: #E6B844; white-space: nowrap; margin-right: -4px; }
 .cdv2-ended-bar-ico { width: 22px; height: 22px; }
-.cdv2-ended-bar-ico--live { width: 24px; height: 24px; } /* "الدورة منعقدة الآن": Figma 4064:15456 — texts 13 / line / 13, icon 24 after 9 */
+.cdv2-ended-bar-ico { align-self: flex-start; } /* ended bar (Figma 4088:15336): the calendar icon is top-aligned (y 0), level with the letters */
+.cdv2-ended-bar--live .cdv2-ended-bar-ico, .cdv2-ended-bar--live .cdv2-ended-bar-sep { position: relative; top: -1px; } /* ongoing bar: Arabic ink sits above the line-box centre, lift the icon and the line to the letters' level */
+.cdv2-ended-bar-ico--live { width: 24px; height: 24px; align-self: center; } /* "الدورة منعقدة الآن": Figma 4064:15456 — texts 13 / line / 13, icon 24 after 9 */
 
 .cdv2-ended { position: relative; box-sizing: border-box; width: 458.6px; height: 503px; overflow: hidden; background: #fff; border: .8px solid #E3E8EF; border-radius: 16px; box-shadow: 0 4px 26px rgba(23,53,90,.1); }
 .cdv2-ended-glow { position: absolute; left: 64px; top: -182px; width: 330px; height: 268px; border-radius: 50%; background: #F6FBFF; }
@@ -805,12 +807,13 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 .cdv2-seats--ended .cdv2-open i { width: 3px; height: 3px; background: #204A7A; box-shadow: 0 0 0 1.5px rgba(32,74,122,.12); }
 
 @media (max-width: 767.98px) {
-  .cdv2-ended-bar { gap: 6px; } /* Figma 4067:18992: 114 / 6 / line / 6 / 60 / 4 / icon 14 (top-aligned) */
+  .cdv2-ended-bar { gap: 6px; } /* Figma 4067:18992: 114 / 6 / line / 6 / 60 / 4 / icon 14 */
   .cdv2-ended-bar-link, .cdv2-ended-bar-state { font-size: 11px; }
-  .cdv2-ended-bar-sep { height: 12px; }
+  .cdv2-ended-bar-sep { height: 9px; } /* Figma 4088:16143: line 9 high at y 4 */
   .cdv2-ended-bar-state { margin-right: -2px; }
-  .cdv2-ended-bar-ico { width: 14px; height: 14px; align-self: flex-start; }
+  .cdv2-ended-bar-ico { width: 14px; height: 14px; align-self: flex-start; } /* Figma 4088:16143: icon 14 at y 0 */
   .cdv2-ended-bar-ico--live { width: 16px; height: 16px; align-self: center; }
+  .cdv2-ended-bar--live .cdv2-ended-bar-ico, .cdv2-ended-bar--live .cdv2-ended-bar-sep { top: -.5px; }
   .cdv2-ended-bar--live { gap: 6px; } /* Figma 3996:17480: 99 / 6 / line / 6 / 87 / 4 / icon 16 */
   .cdv2-stage--ended { margin-bottom: var(--end-gap-m, -7.6px); } /* ended phone page: the accreditation block ends 7.6px short of the usual footer gap (Figma 4088:14085); a course can override it with end_gap_m */
 }
