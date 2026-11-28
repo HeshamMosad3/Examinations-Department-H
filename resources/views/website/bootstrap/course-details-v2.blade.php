@@ -122,7 +122,7 @@
         </div>
 
       {{-- enrollment card (left column) --}}
-      <aside class="cdv2-card" style="--ml:{{ $c['label_color'] ?? '#565656' }}" aria-label="التسجيل في الدورة">
+      <aside class="cdv2-card" aria-label="التسجيل في الدورة">
         <div class="cdv2-card-top">
           <span class="cdv2-live"><i aria-hidden="true"></i>{{ $c['status'] }}</span>
           <button type="button" class="cdv2-share" id="cdv2-share" aria-label="مشاركة الدورة"><img src="{{ $ic }}/l-BasilShareOutline.svg" alt="" width="18" height="18" /></button>

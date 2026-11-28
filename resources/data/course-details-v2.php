@@ -54,7 +54,6 @@ $pmp = [
             'status' => 'أونلاين مباشر',
             'title' => 'دورة إدارة المشاريع الإحترافية',
             'title_en' => 'PMP',
-            'label_color' => '#949494',
             'open' => 'التسجيل متاح',
             'seats_hint' => 'سارع بالحجز',
             'seats' => 'مقاعد محدودة متبقية',
@@ -193,7 +192,6 @@ $cbp = array_merge($pmp, [
         'status' => 'أونلاين مباشر',
         'title' => 'دورة إدارة الموارد البشرية الحديثة',
         'title_en' => 'CBP',
-        'label_color' => '#949494',
         'bar_w' => 47,
         'bar_wm' => 38,
         'title_k' => 13.8, // width of the title in em (phones shrink the font so it stays on one line)
@@ -284,7 +282,6 @@ $leadership = array_merge($cbp, [
     ],
 
     'card' => array_merge($cbp['card'], [
-        'label_color' => '#565656',
         'title' => 'دورة القيادة الإدارية',
         'title_en' => '',
         'date_from' => '2026-11-22',
@@ -365,7 +362,6 @@ $kpis = array_merge($cbp, [
     ],
 
     'card' => array_merge($cbp['card'], [
-        'label_color' => '#565656',
         'title' => 'دورة تصميم وإدارة مؤشرات الأداء',
         'title_en' => 'KPIs',
         'title_k' => 13.8,
@@ -451,7 +447,6 @@ $sixSigma = array_merge($cbp, [
     ],
 
     'card' => array_merge($cbp['card'], [
-        'label_color' => '#565656',
         'title' => 'دورة 6 سيجما',
         'title_en' => '',
         'title_k' => 9,
@@ -528,7 +523,6 @@ $cyber = array_merge($sixSigma, [
     ],
 
     'card' => array_merge($cbp['card'], [
-        'label_color' => '#565656',
         'title' => 'دورة مهارات الأمن السيبراني',
         'title_en' => '',
         'title_k' => 12.2,
@@ -597,7 +591,6 @@ $tot = array_merge($sixSigma, [
     ],
 
     'card' => array_merge($cbp['card'], [
-        'label_color' => '#565656',
         'title' => 'دورة تدريب المتدربين TOT',
         'title_en' => '',
         'title_k' => 10.8,
@@ -668,7 +661,6 @@ $strategicMarketing = array_merge($sixSigma, [
     ],
 
     'card' => array_merge($cbp['card'], [
-        'label_color' => '#565656',
         'title' => 'دورة إدارة التسويق الإستراتيجي',
         'title_en' => '',
         'title_k' => 13.6,
@@ -743,7 +735,6 @@ $customerService = array_merge($sixSigma, [
     ],
 
     'card' => array_merge($cbp['card'], [
-        'label_color' => '#565656',
         'title' => 'دورة خدمة العملاء CBP',
         'title_en' => '',
         'title_k' => 9.8,
@@ -824,12 +815,10 @@ $socialMedia = array_merge($cbp, [
     ],
 
     'card' => array_merge($cbp['card'], [
-        'label_color' => '#565656',
         'title' => 'دورة مهارات استخدام وسائل',
         'title_en' => 'التواصل الاجتماعي',
         'bar_wm' => 43,
         'title_k' => 12.3,
-        'label_color' => '#949494',
         'date_from' => '2026-05-17',
         'date_to' => '2026-05-21',
         'rows' => [
@@ -984,7 +973,6 @@ $processModeling = array_merge($cbp, [
     ],
 
     'card' => array_merge($cbp['card'], [
-        'label_color' => '#565656',
         'title' => 'دورة أساسيات تطوير نمذجة',
         'title_en' => 'وإجراءات العمل',
         'bar_wm' => 38,
@@ -1074,7 +1062,6 @@ $financeNonFinance = array_merge($processModeling, [
     ],
 
     'card' => array_merge($cbp['card'], [
-        'label_color' => '#565656',
         'title' => 'دورة المالية لغير الماليين',
         'title_en' => '',
         'bar_wm' => 38,
@@ -1166,7 +1153,6 @@ $communication = array_merge($processModeling, [
     ],
 
     'card' => array_merge($cbp['card'], [
-        'label_color' => '#565656',
         'title' => 'دورة مهارات التواصل',
         'title_en' => '',
         'bar_wm' => 38,
@@ -1256,7 +1242,6 @@ $trainerSkills = array_merge($cbp, [
     ],
 
     'card' => array_merge($cbp['card'], [
-        'label_color' => '#565656',
         'title' => 'دورة مهارات المدرب',
         'title_en' => '',
         'title_k' => 8.3,
@@ -1353,7 +1338,6 @@ $modernSecretary = array_merge($cbp, [
     ],
 
     'card' => array_merge($cbp['card'], [
-        'label_color' => '#565656',
         'title' => 'دورة السكرتارية الحديثة وإدارة',
         'title_en' => 'المكاتب إلكترونياً',
         'title_k' => 12.6,
@@ -1434,7 +1418,6 @@ $publicSpeaking = array_merge($cbp, [
     ],
 
     'card' => array_merge($cbp['card'], [
-        'label_color' => '#565656',
         'title' => 'دورة مهارات الإلقاء',
         'title_en' => '',
         'title_k' => 8.1,

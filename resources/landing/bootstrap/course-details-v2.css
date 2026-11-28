@@ -200,7 +200,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 .cdv2-card { box-sizing: border-box; width: 461px; flex: none; padding: 26px 24px; display: flex; flex-direction: column; gap: 28px; background: #fff; border: 1px solid #DEE4EB; border-radius: 20px; box-shadow: 0 4px 26px rgba(32,74,122,.1); }
 .cdv2-card-top { height: 32px; display: flex; justify-content: space-between; align-items: flex-start; }
 .cdv2-live { box-sizing: border-box; width: 100px; height: 32px; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 8px 12px; border-radius: 30px; background: rgba(235,242,249,.4); font-size: 10px; line-height: normal; font-weight: 700; color: #204A7A; white-space: nowrap; }
-.cdv2-live i { width: 8.185px; height: 8.185px; border-radius: 50%; background: #23AA75; box-shadow: 0 0 0 4.093px rgba(35,170,117,.15); }
+.cdv2-live i { flex: none; width: 8.185px; height: 8.185px; border-radius: 50%; background: #23AA75; box-shadow: 0 0 0 4.093px rgba(35,170,117,.15); }
 .cdv2-share { width: 30px; height: 30px; box-sizing: border-box; padding: 5px 4px 5px 6px; display: flex; align-items: center; justify-content: center; border: 0; border-radius: 15px; background: #EAF0F6; cursor: pointer; }
 .cdv2-card-head { display: flex; flex-direction: column; align-items: center; gap: 24px; }
 .cdv2-card-title { width: 384px; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; } /* flex-start = right edge in RTL */
@@ -229,7 +229,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 .cdv2-metric { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 4.434px; padding: 0 4.434px 3.325px; }
 .cdv2-metric:not(:first-child) { border-inline-start: 1.108px solid #E2E8F0; } /* Figma 3931:12775: divider on the 2nd and 3rd cells (right edge in LTR), none on the outer edge */
 .cdv2-metric strong { padding-bottom: 2.217px; font-size: 16px; line-height: normal; font-weight: 700; color: #262626; white-space: nowrap; }
-.cdv2-metric small { font-size: 13px; line-height: 1.5; font-weight: 500; color: #949494; white-space: nowrap; }
+.cdv2-metric small { font-size: 13px; line-height: 1.5; font-weight: 500; color: #565656; white-space: nowrap; } /* Figma 4043:15446 / 4043:17462: labels are #565656 on desktop and phone */
 
 /* ---------- 04 steps — 726 × 181, every position is Figma left/top (px) ---------- */
 .cdv2-steps { position: relative; width: 726px; height: 181px; direction: ltr; }
@@ -425,7 +425,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   /* ---------- enrollment card ---------- */
   .cdv2-side .cdv2-card { order: 5; position: static; width: 100%; margin-top: 20px; padding: 20px; gap: 32px; }
   .cdv2-card-top { height: 21px; align-items: center; }
-  .cdv2-live { width: 88px; height: 25px; padding: 6px 10px; gap: 6px; background: rgba(255,255,255,.94); }
+  .cdv2-live { width: 88px; height: 25px; padding: 6px 10px; gap: 6px; border-radius: 20px; background: rgba(255,255,255,.94); }
   .cdv2-live i { width: 6.038px; height: 6.038px; box-shadow: 0 0 0 3.019px rgba(35,170,117,.15); }
   .cdv2-share { width: 25px; height: 25px; padding: 5px 6px; }
   .cdv2-share img { width: 14px; height: 14px; }
@@ -460,7 +460,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   .cdv2-metric:not(:first-child) { border-inline-start: .818px solid #E2E8F0; } /* Figma 3931:14307: the divider belongs to the 2nd and 3rd cells (right edge in LTR), none on the outer edge */
   .cdv2-ic--metric { width: 15px; height: 15px; }
   .cdv2-metric strong { padding: 0; font-size: 12px; line-height: 21px; }
-  .cdv2-metric small { font-size: 10px; line-height: 14px; color: var(--ml, #565656); } /* phone labels: #565656 in most Figma frames, #949494 in some (card.label_color); desktop stays #949494 */
+  .cdv2-metric small { font-size: 10px; line-height: 14px; color: #565656; }
 
   .cdv2-stage > .cdv2-main { order: 6; }
 }
